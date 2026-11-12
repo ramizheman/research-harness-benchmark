@@ -28,15 +28,16 @@ def calls(cond, snap):
     return out, agent.system_prompt_v3(tb, 12)
 
 
-fx = {}
-for t in T:
-    snap, _ = ensure_snapshot_v3(load_task(t))
-    for c in "ABC":
-        out, prompt = calls(c, snap)
-        fx[f"{t}|{c}"] = {"calls_sha256": [hashlib.sha256(s.encode()).hexdigest() for s in out],
-                          "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest()}
-fx["_stage"] = {"STAGE1": hashlib.sha256(agent.STAGE1.encode()).hexdigest(), "STAGE2": hashlib.sha256(agent.stage2_text().encode()).hexdigest(),
-                "RETRIEVE_FIRST_V3": hashlib.sha256(agent.RETRIEVE_FIRST_V3.encode()).hexdigest()}
-os.makedirs(os.path.join(HB, "tests", "fixtures"), exist_ok=True)
-json.dump(fx, open(os.path.join(HB, "tests", "fixtures", "study1_abc_tool_outputs.json"), "w", encoding="utf-8"), indent=1)
-print(len(fx) - 1, "task-condition fixtures written")
+if __name__ == "__main__":
+    fx = {}
+    for t in T:
+        snap, _ = ensure_snapshot_v3(load_task(t))
+        for c in "ABC":
+            out, prompt = calls(c, snap)
+            fx[f"{t}|{c}"] = {"calls_sha256": [hashlib.sha256(s.encode()).hexdigest() for s in out],
+                              "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest()}
+    fx["_stage"] = {"STAGE1": hashlib.sha256(agent.STAGE1.encode()).hexdigest(), "STAGE2": hashlib.sha256(agent.stage2_text().encode()).hexdigest(),
+                    "RETRIEVE_FIRST_V3": hashlib.sha256(agent.RETRIEVE_FIRST_V3.encode()).hexdigest()}
+    os.makedirs(os.path.join(HB, "tests", "fixtures"), exist_ok=True)
+    json.dump(fx, open(os.path.join(HB, "tests", "fixtures", "study1_abc_tool_outputs.json"), "w", encoding="utf-8"), indent=1)
+    print(len(fx) - 1, "task-condition fixtures written")
