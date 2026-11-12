@@ -87,15 +87,40 @@ def ensure_snapshot_v3(task, records=None, inv=None):
 
 
 def plan(cfg):
+    """All runs, shuffled by order_seed. A model may list its own conditions. With run_order 'model_then_seed', models
+    run in config order and seeds in ascending order (shuffled within each model and seed), so a budget stop cuts the
+    last-listed model first and the highest seed next."""
     runs = []
     for spec in cfg["models"]:
         for t in cfg["tasks"]:
-            for c in cfg["conditions"]:
+            for c in spec.get("conditions", cfg["conditions"]):
                 for s in cfg["seeds"]:
                     runs.append({"model": spec, "task_id": t, "condition": c, "seed": s,
                                  "run_id": f"{cfg['experiment_id']}|{spec['provider']}:{spec['model']}|{t}|{c}|s{s}"})
     random.Random(cfg.get("order_seed", 0)).shuffle(runs)
+    if cfg.get("run_order") == "model_then_seed":
+        rank = {id(m): i for i, m in enumerate(cfg["models"])}
+        runs.sort(key=lambda r: (rank[id(r["model"])], r["seed"]))
     return runs
+
+
+def spend_cap(cfg):
+    """The cap checked before every run: max_cost_usd, lowered to stop_fraction x budget_usd when a study budget is set."""
+    caps = [c for c in (cfg.get("max_cost_usd"),) if c is not None]
+    if cfg.get("budget_usd") is not None:
+        caps.append(cfg["budget_usd"] * cfg.get("stop_fraction", 0.8))
+    return min(caps) if caps else None
+
+
+def oracle_inputs(cfg):
+    """Frozen gold families and scope annotations for conditions O and OS, with file hashes for the run record."""
+    o = cfg.get("oracle")
+    if not o:
+        return None
+    paths = {k: os.path.join(HB, o[k]) for k in ("gold_file", "annotation_file")}
+    return {"gold": json.load(open(paths["gold_file"], encoding="utf-8"))["tasks"],
+            "annotations": json.load(open(paths["annotation_file"], encoding="utf-8"))["annotations"],
+            "hashes": {k + "_sha256": hashlib.sha256(open(p, "rb").read()).hexdigest() for k, p in paths.items()}}
 
 
 def _fname(run_id):
@@ -110,7 +135,8 @@ def run_all(cfg, limit=None, log=print):
         json.dump({"config": {k: v for k, v in cfg.items() if not k.startswith("_")}, "config_hash": cfg["_config_hash"],
                    "code_hash": code_hash(), "created": _dt.datetime.now().isoformat(timespec="seconds")},
                   open(manifest, "w", encoding="utf-8"), indent=1)
-    done, cap, consecutive_errors = 0, cfg.get("max_cost_usd"), 0
+    done, cap, consecutive_errors = 0, spend_cap(cfg), 0
+    oracle = oracle_inputs(cfg)
     for r in plan(cfg):
         if consecutive_errors >= cfg.get("max_consecutive_errors", 3):
             log(f"stopping: {consecutive_errors} consecutive API errors")
@@ -121,14 +147,23 @@ def run_all(cfg, limit=None, log=print):
         if limit is not None and done >= limit:
             break
         if cap is not None:
-            spent = sum((x.get("usage") or {}).get("cost_usd") or 0.0 for x in raw_runs(cfg))
+            done_runs = raw_runs(cfg)
+            spent = sum((x.get("usage") or {}).get("cost_usd") or 0.0 for x in done_runs)
             if spent >= cap:
                 log(f"stopping: spent {spent:.4f} USD reaches the cap {cap} USD")
+                break
+            if cfg.get("budget_usd") is not None and any((x.get("usage") or {}).get("cost_known") is False for x in done_runs):
+                log("stopping: a finished run has unknown cost, so spend against the study budget cannot be tracked")
                 break
         task = load_task(r["task_id"])
         protocol = cfg.get("protocol", 1)
         chars = cfg["budgets"].get("max_tool_result_chars", 6000)
-        if protocol >= 3:
+        if protocol >= 3 and r["condition"] in tools_v3.ORACLE_CONDITIONS:
+            snap, man = ensure_snapshot_v3(task)
+            if oracle is None:
+                raise ValueError("conditions O and OS need an 'oracle' entry in the config")
+            tb = tools_v3.Toolbox3(r["condition"], snap, chars, gold=oracle["gold"][r["task_id"]], annotations=oracle["annotations"])
+        elif protocol >= 3:
             snap, man = ensure_snapshot_v3(task)
             tb = tools_v3.Toolbox3(r["condition"], snap if r["condition"] != "A" else None, chars)
         else:
@@ -146,10 +181,12 @@ def run_all(cfg, limit=None, log=print):
         rec = {**r, "model_name": client.name, "task_hash": task["task_hash"], "snapshot_fact_hash": man["fact_hash"],
                "config_hash": cfg["_config_hash"], "code_hash": code_hash(), "error": err,
                "finished": _dt.datetime.now().isoformat(timespec="seconds"), **res}
+        if r["condition"] in tools_v3.ORACLE_CONDITIONS:
+            rec["oracle"] = {"gold": oracle["gold"][r["task_id"]], **oracle["hashes"]}
         json.dump(rec, open(path, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
         done += 1
         consecutive_errors = consecutive_errors + 1 if res["stop_reason"] in ("api_error", "error") else 0
-        want = cfg.get("expected_response_model_version")
+        want = r["model"].get("expected_response_model_version", cfg.get("expected_response_model_version"))
         if want and any(v != want for v in res.get("model_versions", [])):
             log(f"stopping: response model version {res.get('model_versions')} differs from the expected {want}")
             break

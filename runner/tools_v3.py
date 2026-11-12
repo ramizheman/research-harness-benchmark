@@ -7,6 +7,12 @@ hypothesis only) and scores families by following relationships from those nodes
 paths that reached it. Selection therefore differs between B and C, while the budget is the same: RETRIEVE_K families
 per call, each shown through the same field selection under the same character budget (family_view), so a family
 retrieved in B and in C shows identical facts. Follow-up tools have the same call and size limits in B and C.
+
+Study 1b oracle conditions. O returns the task's frozen gold families (study1b/gold_families_frozen.json) for every
+retrieve_history request, in frozen order, rendered exactly as B renders a family; read_family is limited to those
+families and returns the same document as B. OS is O plus each family's frozen scope annotation
+(study1b/scope_annotations_frozen.json) as a separate scope_annotation field. A task with no gold families returns an
+empty list, as in A.
 """
 import json
 import math
@@ -36,7 +42,11 @@ TOOL_DOCS = {
 }
 CONDITION_TOOLS = {"A": ["retrieve_history", "glossary", "data_catalog"],
                    "B": ["retrieve_history", "glossary", "data_catalog", "search_documents", "read_family"],
-                   "C": ["retrieve_history", "glossary", "data_catalog", "explore_graph", "read_family"]}
+                   "C": ["retrieve_history", "glossary", "data_catalog", "explore_graph", "read_family"],
+                   "O": ["retrieve_history", "glossary", "data_catalog", "read_family"],
+                   "OS": ["retrieve_history", "glossary", "data_catalog", "read_family"]}
+ORACLE_CONDITIONS = ("O", "OS")
+DOC_CONDITIONS = ("B",) + ORACLE_CONDITIONS
 MEMORY_TOOLS = ("retrieve_history", "search_documents", "explore_graph", "read_family")
 
 
@@ -61,14 +71,17 @@ def family_view(facts, budget=VIEW_CHARS):
 
 
 class Toolbox3:
-    def __init__(self, condition, snapshot_dir=None, max_chars=6000):
+    def __init__(self, condition, snapshot_dir=None, max_chars=6000, gold=None, annotations=None):
         self.condition, self.max_chars, self.protocol = condition, max_chars, 3
         self.allowed = CONDITION_TOOLS[condition]
         self.last_ids, self.last_trace, self.returned = [], {}, []
         self.facts, self.titles = {}, {}
+        if condition in ORACLE_CONDITIONS:
+            self.gold = ["FAM:" + f.removeprefix("FAM:") for f in (gold or [])]
+            self.annotations = {"FAM:" + f.removeprefix("FAM:"): a for f, a in (annotations or {}).items()} if condition == "OS" else {}
         if condition == "A":
             return
-        if condition == "B":
+        if condition in DOC_CONDITIONS:
             facts, titles = memory_v2.facts_from_documents(os.path.join(snapshot_dir, "documents"))
         else:
             nodes = {}
@@ -82,7 +95,13 @@ class Toolbox3:
             self.facts.setdefault(s, []).append((p, o, q))
         self.titles = titles
         self.families = sorted(s for s in self.facts if s.startswith("FAM:"))
-        if condition == "B":
+        if condition in ORACLE_CONDITIONS:
+            missing = [f for f in self.gold if f not in self.facts]
+            if missing:
+                raise ValueError(f"gold families not in the snapshot: {missing}")
+            self.doc_text = {f: open(os.path.join(snapshot_dir, "documents", "families", f[4:] + ".md"), encoding="utf-8").read()
+                             for f in self.gold}
+        elif condition == "B":
             self.doc_text = {f: open(os.path.join(snapshot_dir, "documents", "families", f[4:] + ".md"), encoding="utf-8").read()
                              for f in self.families}
             self.vec = _tfidf()
@@ -140,9 +159,12 @@ class Toolbox3:
     # ------------------------------------------------------------------ rendering
     def _render(self, f, score, trace):
         view = family_view(self.facts[f])
-        if self.condition == "B":
+        if self.condition in DOC_CONDITIONS:
             text = f"# {f} | {self.titles.get(f, '')}\n" + "\n".join(f"- {p}: {o}" for p, o in view)
-            return {"id": f, "score": score, "document": text}
+            out = {"id": f, "score": score, "document": text}
+            if f in getattr(self, "annotations", {}):
+                out["scope_annotation"] = self.annotations[f]
+            return out
         attrs, rels = {}, []
         for p, o in view:
             if memory_v3.ENTITY_RE.match(o):
@@ -161,7 +183,10 @@ class Toolbox3:
         if self.condition == "A" or not q:
             self.last_trace = {"note": "no historical memory in this condition" if self.condition == "A" else "empty request"}
             return {"results": [], "n_results": 0}
-        ranked, trace = (self._doc_rank if self.condition == "B" else self._graph_rank)(q, exclude)
+        if self.condition in ORACLE_CONDITIONS:
+            ranked, trace = [(f, None) for f in self.gold if f not in exclude], {"oracle": True, "paths": {}}
+        else:
+            ranked, trace = (self._doc_rank if self.condition == "B" else self._graph_rank)(q, exclude)
         out = [self._render(f, s, trace) for f, s in ranked]
         while len(json.dumps({"results": out, "n_results": len(out)}, ensure_ascii=False)) > self.max_chars - 20 and \
                 any(len(x.get("reached_via", [])) > 1 for x in out):
@@ -173,10 +198,17 @@ class Toolbox3:
 
     def read_family(self, fid):
         fid = fid if fid.startswith("FAM:") else "FAM:" + fid
+        if self.condition in ORACLE_CONDITIONS and fid not in self.gold:
+            return {"error": f"no study family {fid!r} is available in this setting"}
         if fid not in self.facts:
             return {"error": f"no study family {fid!r}"}
         self.last_ids = [fid]
         self.returned.append(fid)
+        if self.condition in ORACLE_CONDITIONS:
+            out = {"id": fid, "document": self.doc_text[fid]}
+            if fid in self.annotations:
+                out["scope_annotation"] = self.annotations[fid]
+            return out
         if self.condition == "B":
             return {"id": fid, "document": self.doc_text[fid]}
         n = {k: v for k, v in self.nodes[fid].items() if k not in ("type",)}
