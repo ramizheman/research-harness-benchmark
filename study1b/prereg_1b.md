@@ -113,6 +113,7 @@ The 1.4x markup is a guess; the smoke test (Phase 3) replaces it with measured p
 ## Caps and stop conditions
 
 - Study budget $10. The harness stops before any new run once recorded spend reaches 80% of it ($8.00; `budget_usd` 10, `stop_fraction` 0.8, `max_cost_usd` 8). Spend is the sum of `cost_usd` over finished runs: OpenRouter reports the cost of each call; for Gemini it is computed from token counts and the configured list price. The check runs before each run, so total spend can exceed $8 by at most one run (largest Study 1 run: $0.18).
+- Amendment, 2026-11-12, during the full run: Rami raised the stop so all 270 runs could finish the same day. The harness now stops at $25 (`budget_usd` 32, `stop_fraction` 0.8, `max_cost_usd` 25). The process that had loaded the $8 cap was restarted; runs already on disk were kept. Those earlier runs record the previous config hash. The model settings, tasks, conditions and oracle files did not change.
 - The harness also stops if any finished run has unknown cost, after 3 consecutive API errors, or if Gemini reports a model version other than gemini-2.5-flash.
 - Rami sets the provider console cap. It covers OpenRouter (Haiku, gpt-oss-20b, DeepSeek, Sonnet) only; Gemini is billed by Google and is covered only by the harness stop, so before the smoke test Rami also sets a Google Cloud billing budget alert or cap for the Gemini key's project.
 - If a stop triggers, finished runs are kept and reported as an incomplete design; incomplete model-condition cells are not used for the Q1 or Q2 definitions above.
