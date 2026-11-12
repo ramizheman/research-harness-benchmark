@@ -1,0 +1,176 @@
+{
+ "blind_id": "R34d2a71909d4",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE preceding a pick-and-roll (PNR) in the same possession",
+   "PNR points per possession (PPP)",
+   "play-type labeling from play-by-play and derived possession records",
+   "foul-ending contamination of play-type PPP",
+   "advantage creation before a screen"
+  ],
+  "methodological_questions": [
+   "Can a drive and a PNR be identified reliably and in correct order within a possession from play-by-play and the derived play-type records?",
+   "Are PNR PPP and DRIVE labels distorted by outcome-derived labeling or foul endings?",
+   "How can confounding by team, lineup, ball handler, screener and defense be handled when comparing PNRs with and without a prior drive?",
+   "Are there enough drive-then-PNR possessions, with reliable labels, for adequate power?",
+   "How can lookahead leakage in sequence ordering and possession segmentation be avoided?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Verification of backfilled play-type labels ended in an overall FAIL. PNR share was 28.7% (band 20-28%) and PULL_UP 7.9%, both FAIL. 3100 games had team PNR share above 33%, and team identity FAIL. In 2024-25 PULL_UP was about 0-1% for many teams. 82.8% of PNR labels were proxy_calibrated. League PNR PPP of 0.948 PASSED. Sample was 921,514 possessions."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit. 36% of OTHER possessions end in fouls, which inflates OTHER PPP. DRIVE sits 12pp below the foul benchmark (FOUL_LEAK). PNR shows a 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type. Verdict: artifact_found."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "A question built on inferred play-type labels was untestable. Inferred labels could not separate the real effect from execution differences, and near-uniform transition matrices were consistent with label noise. Samples were 523 cells and 440 pairs."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Labeling on-ball coverage from matchup and play-by-play fields reached usable rates only 14.9% and 3.3% of the time. The switches_on field was unpopulated. Samples were n=67 and n=60 possessions. Verdict: failed_gate."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Backfilled play-type labels (PNR, PULL_UP, team identity) as a reliable basis for analysis",
+    "why": "C_artifact / label_or_classification_error: the PNR share was out of band, 2024-25 PULL_UP was near zero, and most PNR labels were proxy-calibrated."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Comparing play-type PPP across labels as if it reflected real efficiency",
+    "why": "Artifact: foul endings inflate or deflate PPP by label (OTHER, DRIVE, PNR 22%), and initiation_type maps only 0.7% of possessions to a real play type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring effects from inferred play-type labels",
+    "why": "A_unanswerable / label error: label noise cannot be separated from real effects."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Labeling on-ball actions from matchup and play-by-play fields",
+    "why": "Low confident label rates and an unpopulated field left too few labeled possessions."
+   }
+  ],
+  "evidence_establishes": [
+   "The derived play-type labels were recorded as failing verification ([prior work][prior work], status inconclusive). The PNR label was over-assigned, and most PNR labels were proxy-calibrated.",
+   "DRIVE and PNR PPP were recorded as distorted by foul-ending leakage ([prior work][prior work], artifact). Initiation_type mapped only 0.7% of possessions to a real play type.",
+   "Related studies built on inferred labels were recorded as untestable or label-error limited ([prior work][prior work], [prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a teammate drive before a PNR raises PNR PPP. No retrieved record tested this.",
+   "Whether drives can be identified directly from raw play-by-play events, independent of the derived labels.",
+   "How often drive-then-PNR sequences occur, or what the effect size is.",
+   "Whether the label problems recorded for earlier seasons or samples apply to all four seasons in the data now."
+  ],
+  "own_inferences": [
+   "The derived play-type records are likely unsuitable as the exposure or outcome definition. A sequence of two labels, DRIVE then PNR, compounds label error, and the PNR label is itself largely proxy-calibrated.",
+   "A raw-event approach would need a drive definition from play-by-play, such as a shot or event type, a drive sub-type, or an inferred path. It may still be too sparse or too noisy, because play-by-play has no tracking coordinates.",
+   "A naive PPP comparison would likely show a spurious difference. The with-drive group is selected for possessions where the defense was already broken or where fouls and shot types differ. Foul endings and the possession-segmentation rule can also mechanically change PPP.",
+   "'Any teammate drive' is a loose exposure. It mixes different drive types and timings, and a drive that ends in a pass is not clearly a different play from the PNR that follows it."
+  ],
+  "uncertainties": [
+   "Whether the data contains a drive event at all, or only labels derived from outcomes. The data catalog was not consulted.",
+   "The count of true drive-then-PNR possessions is unknown.",
+   "Whether the foul and label problems were fixed in later data versions is unknown. [prior work][prior work], which [prior work][prior work] cites, was not available in this setting.",
+   "The 2025-26 regular season and playoffs may be partial. The playoffs complete only after 2026-06-21."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without [prior work], the question looks like a simple PPP comparison. The retrieved records show that the labels needed for it failed verification and that foul endings artificially move PPP by label. I therefore lowered the testability estimate and shifted the decision to proceed_with_changes, with a gate on label validity and a restricted raw-event design instead of the derived labels. [prior work] does not rule out a valid test."
+  },
+  "testability": {
+   "p_testable": 0.25,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Derived PNR and DRIVE labels failed verification ([prior work][prior work]), and the initiation_type mapping covers 0.7% ([prior work][prior work]). The exposure and outcome cannot rest on them without a validated alternative."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Play-type labels appear to be partly derived from outcomes and proxies. Foul endings shift PPP by label, so a label-based PPP comparison can be an artifact."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The count of reliably identified drive-then-PNR sequences is unknown and may be small once validated labels are required."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No retrieved record tested whether a prior drive raises PNR PPP. [prior work] concern label quality, foul leakage and the limits of inferred labels, which directly affect how this question can be tested."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "The PNR label was over-assigned, mostly proxy-calibrated, and failed team identity checks. DRIVE labels carry a foul leak. Sequence order is also uncertain."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If labels depend on outcomes, the PNR PPP comparison is partly circular."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Drive possessions differ by ball handler, screener, lineup, opponent, game state and a possibly already-broken defense. Selection into the drive group is not random."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "True drive-then-PNR sequences may be rare, and the 'any teammate' definition is heterogeneous."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Foul endings, and the rule for how a possession is segmented and which points are credited, can mechanically move PPP between groups."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The label for a PNR or drive may use information from later in the possession, such as the shot result. Ordering must use only information available at the time of each action."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Label quality varies by season (for example 2024-25 PULL_UP near zero), so pooling seasons can create spurious differences."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Subgroup cuts by drive type, timing, season and team multiply the number of tests."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "PPP has high per-possession variance, so a small effect needs several thousand exposed possessions. Validation will shrink the usable sample."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.12,
+   "rejected": 0.08,
+   "untestable": 0.35,
+   "artifact": 0.25,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Difference in PNR PPP between possessions with and without a teammate drive in the same possession before the PNR, conditional on ball handler, screener, lineup, opponent, score margin, period and season. The foul-exclusive version drops foul-ending possessions and also reports free-throw points separately.",
+   "unit": "Possession containing a PNR identified from raw play-by-play, validated against the audit. Drive-before-PNR is defined with a drive event that precedes the PNR in clock order.",
+   "sample": "2022-23 to 2024-25 regular seasons and playoffs, and the 2025-26 regular season only once complete (from 2026-04-13). Do not use the partial 2025-26 playoffs; wait for completion on 2026-06-21 if they are needed. Exposure counts come from a validated subset only.",
+   "power": "Step 1 is a gate: count validated drive-then-PNR and comparison PNR possessions per season. Assume PPP SD about 1.1-1.2 per possession. Detecting a 0.05 PPP difference at 80% power and alpha 0.05 needs about 7,500 possessions per group, and about 1,900 for 0.10. If the validated count is below the threshold for 0.10, stop and declare untestable.",
+   "controls": "Fixed effects for ball handler, screener, offensive team, defensive team and season. Covariates for score margin, period, clock at PNR start and the number of earlier actions in the possession. Cluster standard errors by game. Matching or inverse weighting on pre-PNR context is a robustness check. Label validation: hand-audit a random sample of at least 300 possessions (stratified by season) for drive and PNR precision, and require precision of at least 0.85 for both.",
+   "falsification": "Placebo exposure: a drive that occurs after the PNR, or a non-drive action before the PNR (for example a pass-only action), should show no PPP difference. Also check season-by-season consistency, and rerun excluding foul-ending possessions. Test that PPP difference does not vanish or flip when the label is replaced by an independent definition from raw events.",
+   "multiplicity": "One pre-registered primary test (all-season pooled with season fixed effects). Secondary cuts (drive type, timing, season) are labeled exploratory, with Holm correction across at most 6 secondary tests.",
+   "decision_rule": "Proceed to the effect test only if the label-precision gate and the exposure-count gate both pass. Call the hypothesis supported if the adjusted PPP difference is positive with the 95% CI excluding 0, the effect holds in the foul-exclusive analysis, and the placebo is null. Call it rejected if the 95% CI lies within ±0.03 PPP and power is adequate. Otherwise report it as inconclusive, untestable or artifact, as the gates indicate.",
+   "data_version": "NBA stats API per-game files as available on 2026-06-14, with [source] database possession records at the same date. Freeze the extraction date and the label-generation code version in advance, and record the 2025-26 regular season completeness. 2025-26 playoffs are excluded until complete."
+  }
+ },
+ "redactions": 44
+}

@@ -1,0 +1,174 @@
+{
+ "blind_id": "Rd3b75224a1b8",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP after play type X",
+   "AVOID labels for play types",
+   "own-sequence (own-team) lag effects",
+   "sequential possession dependence / defensive aftershock",
+   "play-type labeling quality and foul-ending leakage",
+   "PT-specific versus generic aftershock"
+  ],
+  "methodological_questions": [
+   "Does the opponent next-possession PPP after X differ by play type enough to change AVOID labels, or is it a uniform effect across play types?",
+   "Do own-team lagged possessions (own-next, own-sequence) add information beyond the opponent next-possession term?",
+   "Is the aftershock produced by possession-ending type, foul endings, dead-ball/score state or label construction rather than by X itself?",
+   "Is there enough per-PT and per-lag exposure for PT-level contrasts?",
+   "How should the AVOID rule be defined so that the test is not outcome-derived or circular?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Opponent 'defensive aftershock' after X succeeds was positive for 8/8 play types in all games and in playoffs (e.g. CUT +0.119 n=21,398; TRANSITION +0.135 n=26,262; all-games range +0.119 to +0.135; opp-next n=458,604). Aftershock = opponent-next baseline (1.206) minus opponent PPP after X (~1.07-1.09), so positive means the opponent scores less. Own-next (A1) was treated as exploratory (~4% of pairs, baseline 0.975, n=18,943). [prior work] notes the uniformly positive aftershock may be a generic dead-ball/score effect rather than PT-specific disruption. Other recorded points: validation was same-pipeline only, members disagreed, the family was limited by small sample, team-level tiny-n cells (n=16, 18) were marked significant at |t|>=2, and the sign convention conflicts with a separate net-swing table."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Labeling audit: OTHER has 36% foul endings, so its PPP is inflated (FOUL_BUCKET). DRIVE is 12pp below the foul benchmark (FOUL_LEAK). PNR shows a 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type. Verdict: artifact_found."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Taking play-type PPP differences at face value, including OTHER and DRIVE, without controlling for foul endings, and relying on initiation_type for play-type mapping.",
+    "why": "C_artifact: apparent effects came from a construction or labelling flaw (foul-ending buckets, foul leakage, 0.7% initiation_type mapping)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Using the aftershock as evidence of PT-specific disruption, and using team-level tables with tiny-n cells at |t|>=2.",
+    "why": "Recorded as limited by small sample. The aftershock is uniformly positive across all 8 PTs, so it may be generic. Validation was same-pipeline only. Tiny-n cells (BKN n=16, CHI n=18) were flagged significant."
+   }
+  ],
+  "evidence_establishes": [
+   "FAM:[prior work] (status supported): the opponent's next possession after a successful X scores less than the opponent-next baseline of 1.206, for all 8 play types, in both all-games and playoff samples. The recorded magnitude is about 0.12-0.135 PPP.",
+   "FAM:[prior work]: the all-games aftershock is nearly uniform across play types (about 0.119-0.135), so it separates play types very little.",
+   "FAM:[prior work]: own-next sequences are rare (~4% of pairs, n=18,943), were only exploratory, and have a different baseline (0.975).",
+   "[prior work][prior work]: play-type labels and PPP are contaminated by foul endings, and initiation_type mapping covers only 0.7% in that check. This is a direct threat to any label-driven (AVOID) analysis."
+  ],
+  "evidence_does_not_establish": [
+   "That opponent next-possession PPP differs by play type enough to drive an AVOID label. The retrieved record shows a roughly uniform effect, not PT-specific variation.",
+   "That the aftershock is caused by X rather than by possession-ending type, dead-ball/score state or conditioning on success.",
+   "That own-sequence lags matter. Only exploratory, thin evidence exists and no test was recorded.",
+   "The AVOID labeling rule or its threshold. Neither record defines it, so 'large enough' has no recorded referent.",
+   "Out-of-sample validity, since validation was same-pipeline only, and results for 2025-26 data.",
+   "Whether the aftershock survives matched controls, because the baseline (1.206) is not defined as matched to the same possession-ending conditions."
+  ],
+  "own_inferences": [
+   "The uniform aftershock (spread ~0.016 across PTs against a ~0.12 level) is much more likely to shift all PTs together than to change relative AVOID rankings. A label based on a relative or within-PT-set threshold would barely move. An absolute threshold could flip many labels, but that would be a baseline artifact.",
+   "The opponent-next baseline of 1.206 is high for PPP. It probably reflects a conditioning set (such as possessions following particular outcomes). The aftershock may therefore be mostly mechanical, depending on how the previous possession ended: after a make the opponent faces a set defense, after a miss or turnover it gets transition chances.",
+   "Conditioning on X 'succeeding' makes the label outcome-derived. Made baskets lead to a set defense, so a lower opponent PPP after successes is expected without any play-type effect.",
+   "Per-PT contrasts versus the pooled aftershock are underpowered for small cells. With per-possession SD ~1.2 and n=5,888 (PUTBACK) the SE is ~0.016 and the 80%-power MDE ~0.045, which is far above the recorded between-PT spread. Own-lag cells are smaller still, probably MDE ≥0.09. These are rough, unclustered figures; game-level clustering makes them worse.",
+   "The most likely competent-test result is that a pooled aftershock exists but is not PT-specific, so it does not drive PT-specific AVOID labels. A residual artifact component from foul and ending-type contamination is also plausible."
+  ],
+  "uncertainties": [
+   "How AVOID labels are defined (threshold, relative versus absolute, which metric) is not given.",
+   "The conditioning behind the 1.206 baseline is unknown and could not be verified from [prior work].",
+   "Whether the 'lags' mean own-next, own-previous, or multi-step sequences is unspecified.",
+   "Whether the sign convention conflict with the 52-series net-swing table (DRIVE/POST_UP negative net swing) reflects different estimands or an error.",
+   "The extent of foul-ending and OTHER-bucket contamination in the current derived records.",
+   "The current Neo4j mapping quality may differ from the 0.7% initiation_type result.",
+   "Retrieval returned only two records. Related families ([prior work][prior work], [prior work][prior work], FAM:[prior work]) are named in the [prior work] record but were not read, so I do not know what they show."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I would have framed this as a simple effect-size test of opponent-next PPP. FAM:[prior work] shows the effect is large but near-uniform across PTs and possibly generic, so I reframed the estimand to PT-specific excess over the pooled aftershock with ending-type matching. [prior work][prior work] added the requirement to handle foul endings and mapping quality. Together they moved the decision toward proceed_with_changes and reduced the predicted chance of a clean 'supported'."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The AVOID label rule and threshold are undefined. A frozen operational definition must be fixed before any test. Without it, 'large enough to drive labels' cannot be evaluated and the test may be unfalsifiable."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Conditioning on X 'succeeding' and on next-possession outcome makes labels depend on outcomes. The test must use ending-type-matched controls and cannot use success-conditioned baselines."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Small PTs (PUTBACK n~5.9k) and own-sequence cells (n~19k total) cannot resolve differences smaller than ~0.045 for PT-versus-pooled contrasts and larger for own-lag cells."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "FAM:[prior work] (supported) shows a pooled opponent aftershock of about 0.12-0.135 PPP for all 8 PTs, replicated in playoffs, but uniform across PTs and possibly generic. Own-next was only exploratory. [prior work][prior work] (artifact) shows foul and mapping artifacts in play-type labeling. The question of whether the effect is PT-specific and large enough to change AVOID labels, and whether own-lags add anything, remains open."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Possession-ending type (make, miss, turnover, foul), score state, period and clock, garbage time, team strength and lineup all affect next-possession PPP regardless of play type X. A uniform aftershock fits a generic dead-ball/score mechanism."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "'After success' conditioning and success-defined play-type labels tie the exposure to the outcome. Opponent PPP after a make is mechanically lower than after a miss."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "[prior work][prior work] found 36% foul endings in OTHER, a 22% foul rate in PNR, DRIVE foul leakage, and only 0.7% initiation_type mapping. Play-type misclassification can create or hide differences between PTs."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Opponent next PPP after a make versus a miss or turnover has mechanically different floors and ceilings because of transition and inbound situations. The 1.206 baseline may embed this."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "PT-versus-pooled contrasts and own-lag cells are underpowered for effects as small as the recorded between-PT spread (~0.016). Team-level cells with n~16-18 were previously flagged significant."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Own-next sequences are about 4% of pairs. Multi-step own lags are sparser still, and PT x lag x ending-type cells will be thin."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "8 PTs x lags x ending types x all-games/playoffs x team splits create many comparisons. FAM:[prior work] used |t|>=2 without correction on tiny-n cells."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If AVOID labels are assigned to extreme PT or team cells and then re-evaluated, regression to the mean will inflate apparent effects."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Pace, spacing and rule or officiating changes across 2022-23 to 2025-26 shift PPP baselines. Pooled baselines (1.206, 0.975) may not hold per season."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo (for example an aftershock after non-play-type events or a shuffled X), a positive aftershock cannot be attributed to X."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using next-possession outcomes to define labels is only valid retrospectively. If labels are meant to guide live or prospective use, they must be built only from earlier seasons."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Sign-convention conflict between the aftershock and net-swing tables, the same-pipeline-only validation and the derived-graph construction are possible sources of coding errors."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.3,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each play type X, (a) the PT-specific aftershock: the opponent's next-possession PPP after a team's X possession minus the opponent's next-possession PPP after matched non-X possessions, matched on possession-ending type, period, clock band, score margin band, season, and offensive and defensive team quality, then expressed as a deviation from the pooled aftershock across all PTs. (b) The own-lag effect: the team's own next-possession PPP after X (opponent possession in between and lag-1/lag-2 own play types), versus matched baseline. (c) The label-relevance effect: the share of AVOID labels that change when the aftershock term is added to the frozen AVOID rule, relative to the rule without it.",
+   "unit": "Possession pair (X possession, immediately following opponent possession) clustered by game; for own lags, the own-possession pair within the same game. Team-season level only as a secondary check with a minimum cell n.",
+   "sample": "Discovery: 2022-23 to 2024-25 regular season and playoffs. Confirmation on frozen data: 2025-26 regular season (complete from 2026-04-13). 2025-26 playoffs are partial before 2026-06-21 and are excluded unless the snapshot is taken after completion. Exclude garbage time, end-of-period and end-of-game possessions, and possessions with fewer than ~3 seconds remaining. Foul-ending possessions are handled by a separate stratum and by a version with free-throw points reconciled to the possession. OTHER is excluded or reported separately.",
+   "power": "Per-PT SD of possession PPP ~1.2 (to be verified). Unclustered SE for n=5.9k is ~0.016 and the 80%-power MDE ~0.045 for PT-versus-pooled contrasts, and ~0.02-0.03 for the larger PTs (n>20k). Own-lag cells (~19k pairs in total) probably need MDE ≥0.09 per PT and will be labelled exploratory. Report design-effect-adjusted (game-clustered) CIs, and publish the MDE next to every contrast. A contrast below the MDE is reported as inconclusive, not null.",
+   "controls": "Ending type of the X possession (make[path]), whether the X possession was successful, score margin and period, clock, pace, home/away, team off/def ratings from prior seasons only, lineup quality proxy, season fixed effects. Mixed model with game and team random effects, plus a matched/stratified version. Check initiation_type and foul-ending mapping on a sample of possessions in each PT before analysis. Recompute the 1.206 and 0.975 baselines within each matching stratum, not pooled.",
+   "falsification": "Placebo exposures: a shuffled-X placebo within game and ending-type, and a non-play-type event placebo. A pre-registered null: PT-specific deviations from the pooled aftershock are indistinguishable from zero within ±0.03 after ending-type matching, in which case the question is answered 'no, generic effect'. Check that the aftershock disappears or shrinks when matched to the same ending type. Replicate on 2025-26 regular season with discovery estimates fixed. Check sign convention against the 52-series net-swing table before analysis.",
+   "multiplicity": "Primary family: 8 PT contrasts for (a), Holm-corrected at 0.05. Own-lag (b) is exploratory, FDR at 0.10 reported separately. Team-level splits are secondary, require n≥300 pairs per cell, and are not used in the decision rule. Playoff versus all-games comparisons are descriptive.",
+   "decision_rule": "Support only if (1) the frozen AVOID rule is written down before any analysis; (2) at least one PT's matched deviation from the pooled aftershock exceeds the pre-set MDE-informed threshold of 0.03 PPP in the same direction in discovery and 2025-26 confirmation, after Holm correction; and (3) including the aftershock term changes at least a pre-stated share of AVOID labels (e.g. ≥10%) in the confirmation sample. If the aftershock is large but uniform across PTs, or vanishes after ending-type matching, conclude 'generic/artifact, does not drive AVOID labels'. If CIs are wider than the MDE, conclude inconclusive. Own-lag effects remain exploratory and do not enter the label decision unless they pass the same replication.",
+   "data_version": "Freeze a dated snapshot of the per-game NBA stats API play-by-play files and the Neo4j play-type possession records, with a hash. Discovery: 2022-23 to 2024-25. Confirmation: 2025-26 regular season as complete from 2026-04-13. 2025-26 playoffs excluded unless the snapshot postdates 2026-06-21. Record the initiation_type and foul-ending mapping version and the analysis date (2026-06-19 or later)."
+  }
+ },
+ "redactions": 32
+}

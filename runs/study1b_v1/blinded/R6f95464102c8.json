@@ -1,0 +1,139 @@
+{
+ "blind_id": "R6f95464102c8",
+ "task_statement": "Research question (as posed on 2026-07-13, in the area of structural roles and influence):\nLineup coverage (>=1 organizer, shaper, terminal) varies within team, is separable from talent/counts, and talent control behaves.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 420,993 possessions; 90 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "Lineup role coverage: at least one Primary Organizer, Shaper and Terminal Scorer among the five on court (roles as defined in the glossary's Structural Influence paper)",
+   "Within-team versus between-team variation in coverage",
+   "Separability of coverage from talent and from role counts or usage",
+   "Behaviour of the talent control (monotone, stable, not collinear with coverage)",
+   "Role labels derived from the play-type classifier and initiation records"
+  ],
+  "methodological_questions": [
+   "Does coverage vary enough within team-seasons to be tested, given 90 team-seasons and about 421k possessions?",
+   "Is coverage statistically distinct from talent and from counts of high-usage or high-influence players, or is it a mechanical function of them?",
+   "Does the talent control behave sensibly: stable across seasons, not collinear with coverage, and unchanged in sign and size under alternative proxies?",
+   "How reliable are player-season role labels, which come from a median split on usage and a residual-influence sign?",
+   "What leakage, regression-to-the-mean (RTM) and confounding risks arise if coverage is later linked to outcomes?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. Retrieval returned no records, so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether coverage varies within teams",
+   "Whether coverage is separable from talent or counts",
+   "Whether a talent control behaves",
+   "Whether the role labels are reliable enough for lineup-level use",
+   "Whether any earlier project study already tested this or failed on it"
+  ],
+  "own_inferences": [
+   "The glossary defines roles by crossing usage (above or below the rotation median) with residual influence (influence beyond what usage predicts). Terminal and Primary Organizer are therefore high-usage, and Shaper and Role Occupant are low-usage. Coverage of the high-usage roles is thus partly mechanical in how many high-usage players are on the floor, so 'separable from counts' is a real risk, not a given.",
+   "Residual influence is orthogonal to usage by construction. This helps separate Shaper from Terminal, but it makes the Organizer-versus-Terminal split depend on a residual sign that is probably noisy for low-minute players.",
+   "Roles are player-season labels. Lineup coverage is therefore a deterministic function of the five players' labels, and within-team variation comes only from rotation choices. Variation could be small for teams with settled rotations.",
+   "The question is a bundle of three claims (within-team variation, separability, talent control behaves). It needs three pre-specified criteria, not one test.",
+   "Talent is not defined in the task. Any proxy (for example BPM, on/off, minutes, or salary) may itself be built from the same outcomes or usage that define the roles, which risks circularity.",
+   "The task names no outcome, so this is a measurement and validity question. Nothing needs to be 'supported' in an outcome sense, and the risk of an artifact arises only if the finding is later read causally."
+  ],
+  "uncertainties": [
+   "How the roles and talent control are operationalised",
+   "Whether role labels are estimated within season or from pooled data, which raises leakage if the same possessions define roles and are then analysed",
+   "How many stints have complete coverage, and whether coverage has enough variance in each team-season",
+   "Role label stability across seasons and between regular season and playoffs, and how the 2025-26 partial data affect this",
+   "The size of the minimum-minutes threshold, which determines how many players receive labels"
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned an empty list, so the decision rests only on the task statement and the glossary. No earlier finding or failed approach changed it."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "Role definitions use a median split on usage, so coverage is partly a function of how many high-usage players are on the floor. Separability from counts has to be shown against a count-only null, not assumed."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Role labels depend on a residual-influence sign for each player-season. Low-minute players will have noisy labels, which propagates into lineup coverage."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "There are only 90 team-seasons for between-team claims and for estimating team-level variance components. Possession-level data are many but heavily clustered within stint, game and team."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved. The glossary only defines the role categories and says that connector rules varied between studies. It reports no results."
+  },
+  "risks": [
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Coverage is a deterministic function of the five players' role labels. Its dependence on the number of high-usage players, on lineup size and on minutes must be benchmarked against a null that holds counts fixed."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Talent, minutes, starter status and game state (score margin, garbage time) all affect who is on the floor and so coverage. Coach rotation choices are not exogenous."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Roles come from initiation records and a usage-residual rule. If the talent proxy is outcome-based (points, PPP), it may share inputs with the role labels and be circular."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If roles are estimated from full-season or pooled data and then used to label lineups within the same season, labels incorporate future games. Labels must be fitted on data excluded from the evaluated possessions."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The play-type classifier and inferrer may mislabel possessions, and the residual-influence sign is unstable near zero. Label reliability must be measured with split-half or cross-season checks."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Players labelled high-residual in one sample will regress in another. Coverage built from extreme labels may shrink on re-estimation."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The 90 team-seasons limit team-level inference and random-effect estimation. Overlapping stints and repeated players create dependence, so naive possession-level p-values would be overconfident."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Lineups with complete coverage, or with no organizer, may be rare in some team-seasons, which leaves little within-team contrast."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Roles and rotations change over a season through trades, injuries and the playoffs. The 2025-26 data are partial in places, and a fixed label per player-season may not hold."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several roles, coverage definitions, talent proxies and subsets (regular season, playoffs, season) can multiply the comparisons made."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Reconstructing the on-court five from substitution intervals and aligning it to the play-type records is error-prone. A mismatch would create spurious coverage variation."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.35,
+   "rejected": 0.1,
+   "untestable": 0.1,
+   "artifact": 0.15,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Three pre-specified quantities. (1) Within-team share of variance in stint-level full-coverage (an indicator: at least one Organizer, Shaper and Terminal on court), as a within-team intraclass fraction from a team-season random-effects model. (2) The association between coverage and talent/count covariates, and the residual coverage variance left after conditioning on role counts and a talent proxy, relative to a count-preserving permutation null. (3) Sign, stability and collinearity of the talent control (variance inflation factor, rank correlation with coverage, consistency across seasons and proxies).",
+   "unit": "Primary unit is the stint (a fixed ten-player interval) weighted by possessions, nested in game and team-season. Possessions are used only for exposure weights, not as independent observations.",
+   "sample": "2022-23 to 2024-25 regular seasons and playoffs, analysed separately (90 team-seasons in total as recorded). 2025-26 is held out as a confirmation set, using only the complete regular season (complete from 2026-04-13) and the complete playoffs (from 2026-06-21). Exclude garbage time and players below a pre-set minutes threshold, as defined before analysis. Report how many players are unlabeled.",
+   "power": "Not computed, since no earlier effect size exists. Before analysis, simulate from the observed role-count distribution to find the minimum detectable within-team variance fraction and coverage difference with 90 team-seasons, using cluster-robust or team-season bootstrap uncertainty. If the minimum detectable effect exceeds a substantively meaningful threshold set beforehand, report the result as inconclusive instead of null.",
+   "controls": "Role labels fitted out-of-sample: estimate each player's role on games not in the evaluated stints (for example the alternate half of the season, or the prior season where available). Talent proxy chosen before analysis, with at least two alternatives, and one proxy that does not use points or PPP. Control for the count of high-usage players, minutes, starter share, game state and season. Include team-season random effects and cluster by team-season.",
+   "falsification": "(a) Count-preserving permutation: shuffle role labels among players within team-season, holding each role's count fixed, and compare the observed coverage variance. (b) Placebo labels from random median splits of usage unrelated to influence. (c) Split-half and cross-season reliability of labels; if reliability is below a pre-set threshold, declare the coverage measure unreliable. (d) Check on-court reconstruction against box-score minutes. (e) Re-run with the alternative talent proxies and require the sign of the control to stay the same.",
+   "multiplicity": "One primary coverage definition (at least one of each of the three roles) and one primary talent proxy. Other definitions, proxies and subsets (regular season, playoffs, each season) are secondary, reported with Holm correction across the pre-specified family. No exploratory subgroup is promoted to a finding.",
+   "decision_rule": "Supported only if all three hold on the development seasons and replicate in direction on 2025-26: (1) within-team variance fraction is above a pre-set floor, with a bootstrap interval excluding zero; (2) residual coverage variance after counts and talent exceeds the permutation null at the corrected threshold; (3) the talent control is stable, with VIF below a pre-set limit and a consistent sign across proxies. Rejected only if the adequately powered interval lies inside a pre-set equivalence margin. If label reliability or power fails the pre-set criteria, report untestable or inconclusive. If the effect vanishes under the count-preserving null, report artifact.",
+   "data_version": "NBA per-game files and the derived play-type possession graph for 2022-23 to 2025-26, as available on 2026-07-13 (420,993 possessions, 90 team-seasons). Record the classifier version, role-labelling rule, minutes threshold and the data snapshot date before analysis. 2025-26 is treated as the complete regular season and playoffs."
+  }
+ },
+ "redactions": 0
+}

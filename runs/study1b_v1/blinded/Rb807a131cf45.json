@@ -1,0 +1,121 @@
+{
+ "blind_id": "Rb807a131cf45",
+ "task_statement": "Research question (as posed on 2026-07-13, in the area of structural roles and influence):\nLineup coverage (>=1 organizer, shaper, terminal) varies within team, is separable from talent/counts, and talent control behaves.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 420,993 possessions; 90 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup coverage (>=1 organizer, shaper, terminal)",
+   "within-team variation in lineup coverage",
+   "separability from talent and player counts",
+   "talent control behaves as expected"
+  ],
+  "methodological_questions": [
+   "How to assign structural roles (organizer, shaper, terminal) to all players in a team-season?",
+   "Can lineup coverage be measured with sufficient within-team variability?",
+   "How to control for talent without introducing collider or leakage bias?",
+   "Is the exposure of coverage condition sparse across lineups?",
+   "How to prevent temporal leakage when assigning roles using full-season data?",
+   "Does the role taxonomy capture structural influence reliably in single stints?",
+   "How to handle multiple testing across coverage thresholds?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No prior work on this exact question was retrieved; the historical record is empty."
+  ],
+  "evidence_does_not_establish": [
+   "Whether lineup coverage varies sufficiently within teams.",
+   "Whether the effect of coverage can be separated from talent.",
+   "Whether structural roles can be assigned reliably at the stunt level.",
+   "Whether talent control estimates are stable and unbiased in this setting."
+  ],
+  "own_inferences": [
+   "Roles (organizer, shaper, terminal) are defined from usage and residual structural influence.  Their within-season stability and reliability when projected onto individual stint are unknown and likely low, because structural influence is a full-season metric.",
+   "Within-team variation in coverage may be limited if most regular lineups already contain all three roles, or if the roles are defined such that most five-man groups automatically have them.",
+   "Controlling for talent with a single numbers (e.g., average offensive rating) risks collinearity with coverage, because players in those roles tend to be higher-usage and higher-value players.",
+   "The data volume (420k possessions, 90 team-seasons) would be sufficient for an overall regression, but the effective sample of stints with clear coverage condition and stable role labels might be small, lowering power."
+  ],
+  "uncertainties": [
+   "The project's rule-based play-type classifier may introduce noise into initiation counts, which propagates into structural influence and role labels.",
+   "The exact rule for assigning structural roles (usage median split, residual influence sign) has not been validated on per-stint data.",
+   "It is not known how often lineups with zero of a role occur in actual NBA rotations.",
+   "Garbage-time exclusion and stint length thresholds could change coverage counts.",
+   "The dimensionality of talent control (box-score metrics, plus-minus, RAPM) and its correlation with coverage is unclear."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No earlier studies on lineup coverage were retrieved, so the decision is based solely on the stated data and conceptual risks."
+  },
+  "testability": {
+   "p_testable": 0.2,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Lineups with at least one organizer, one shaper, and one terminal may be rare within a team, leading to very few stints in the comparison condition and low statistical power."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Role labels derived from full-season structural influence may not accurately reflect a player's role in each specific stint; assignment error can bias estimates."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Coverage condition is likely correlated with overall lineup talent; separating the effect of role mix from average player quality is difficult and may produce collinearity."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior study on lineup coverage or within-team role balance was retrieved; the question is novel in the available records."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "The number of stints where a lineup misses a structural role may be very small, leaving insufficient variation to estimate a coverage effect."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Structural role assignment relies on season-long influence and usage metrics; applying it to individual stints may produce noisy or biased labels, especially for players with shifting roles."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Lineups with all three roles inherently contain a primary ball-handler, a secondary initiator, and a scoring threat; this composition correlates with total talent, making it hard to disentangle role balance from player quality."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If roles are assigned using the full season (including future games), the coverage condition in a given game is contaminated by information not available at the time."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Players may be classified as high-influence partly because of strong performances; subsequent stints may regress to their mean, creating an illusion of a coverage effect if not properly handled."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Even if only the >=1 coverage is tested, variations such as >=2 or different role combinations could be investigated, inflating false positive risk."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-stint offensive rating is noisy due to small possession counts; aggregating many stints may still yield insufficient power to detect a plausibly small coverage effect."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.1,
+   "untestable": 0.6,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The effect of lineup-level structural coverage (binary indicator: lineup has at least one organizer, one shaper, and one terminal) on offensive points per possession, adjusted for talent.",
+   "unit": "Lineup stint (continuous segment with the same ten players, excluding garbage time).",
+   "sample": "All NBA regular-season and playoff games from 2022-23 through 2025-26, excluding stints with fewer than five possessions.",
+   "power": "Unknown; feasible with expected 90 team-seasons and ~420k possessions, but power depends on the within-team prevalence of coverage and the number of uncovered stints, which is likely low.",
+   "controls": "Average player pre-season offensive talent proxy (e.g., offensive RAPM or prior season offensive box plus-minus) for the five offensive players; team fixed effects; home/away indicator; stint length (possessions).",
+   "falsification": "Randomly shuffle the role labels among players within each team-season and re-estimate the effect; expect null result. Also test whether an indicator for 'at least two organizers' or 'at least two terminals' produces a spurious sign.",
+   "multiplicity": "Pre-register the single primary hypothesis on the binary coverage condition; any auxiliary test reported as exploratory.",
+   "decision_rule": "Reject null hypothesis of no coverage effect at alpha = 0.05 using two-sided clustered standard errors at the team level, after confirming talent control coefficients behave as expected (positive correlation with offensive PPP, stable across specifications).",
+   "data_version": "NBA 2022-26 per-game data as described, with role labels computed from each season's full play-by-play using the project's standard structural influence pipeline, but using only prior games within a season for each stint (walk-forward assignment) to prevent leakage."
+  }
+ },
+ "redactions": 0
+}

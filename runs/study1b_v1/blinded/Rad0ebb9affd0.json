@@ -1,0 +1,175 @@
+{
+ "blind_id": "Rad0ebb9affd0",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive reorganization",
+   "structural influence (L)",
+   "points per possession change",
+   "player absence",
+   "absence spell",
+   "reorganization metric relative to L"
+  ],
+  "methodological_questions": [
+   "How to measure reorganization relative to L without lookahead leakage?",
+   "How to isolate the effect of reorganization from confounding factors such as opponent quality and replacement player skill?",
+   "Is the sample of 148 absence spells sufficient to detect a plausible effect size?",
+   "How to handle regression to the mean in team PPP after an absence?",
+   "What is the reliability of the reorganization metric derived from play-type mixes?",
+   "Should absence spells be restricted by minimum length or role filter?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Live trigger timing: Spearman rho -0.2066 between tier and counter PPP (n=557). Early vs late detection mixed; Tier Spearman rho with ROG PPP -0.0457 not significant. Study inconclusive."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Absence validation: V1 confirmed real absences move structure (16/23 above p95, binomial p=2.67e-16; mean D_real +0.142). V2 LOO simulation did not predict displacement magnitude (rho=+0.288, p=0.077; partial rho=+0.253, p=0.115). Limited by small sample."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Player routing V4 vs V5: 8 divergences, 0 scoreable (player missing from Neo4j). Question unanswerable; small sample, drift/nonstationarity risk."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Routing prior vs H2H posterior gate: Mean PPP delta lead-default +1.259 at n>=5 vs +1.129 at n>=15, inflated by small-sample extremes (role players with 2-3 PPP on 5-7 possessions). Gate filters noise but artifact from small n."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Attempt to predict displacement magnitude from pre-absence structural simulation (V2)",
+    "why": "Small sample and inadequate signal; rho=+0.288 p=0.077 (FAIL), partial rho=+0.253 p=0.115 (FAIL)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Direct comparison of player routing V4 vs V5",
+    "why": "Question unanswerable: 0 of 8 divergences scoreable due to missing player data; [prior work], RISK:DRIFT_NONSTATIONARITY."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Comparison of PPP deltas at low possession thresholds",
+    "why": "Artifact from small-sample possession extremes producing inflated leads; low-n leaders are role players with few possessions."
+   }
+  ],
+  "evidence_establishes": [
+   "Real player absences cause measurable shifts in team offensive play-type mix (FAM:[prior work] V1)",
+   "Predicting the magnitude of structural change from pre-absence simulation failed with the available sample (FAM:[prior work] V2)",
+   "Small-sample possession-based PPP measures produce inflated effect sizes (FAM:[prior work])",
+   "Trigger-timing strategies have some predictive value for counter effectiveness but do not address reorganization-PPP link (FAM:[prior work])"
+  ],
+  "evidence_does_not_establish": [
+   "Whether degree of offensive reorganization predicts change in points per possession",
+   "That reorganization relative to L has a reliable correlation with efficiency change",
+   "That the relationship is strong enough to be detected with 148 spells",
+   "That confounders can be adequately controlled in such a design"
+  ],
+  "own_inferences": [
+   "The research question is novel relative to prior project work; no direct test exists.",
+   "The failure of FAM:[prior work] V2 suggests that linking structural measures to absence-related outcomes is challenging even for displacement, raising doubts about predicting PPP change.",
+   "Operationalizing 'reorganization relative to L' requires a two-stage estimation (L and then residual displacement) which adds noise and reduces power.",
+   "Confounders (opponent quality, replacement skill, home/away, regression to mean) are substantial and difficult to fully control with 148 spells.",
+   "Many absence spells may show negligible reorganization, reducing the effective sample for correlation."
+  ],
+  "uncertainties": [
+   "Exact operationalization of 'reorganization (relative to L)' not standardized; could be D_real / L or residual after accounting for L.",
+   "Whether PPP change should be opponent-adjusted and whether it should be per-possession or per-game.",
+   "Minimum absence spell length and role filters that balance sample size versus signal clarity.",
+   "Stability of L estimates from pre-absence games (sensitivity to number of games and opponent mix).",
+   "Potential nonlinear or threshold relationship between reorganization and PPP change."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The failure of FAM:[prior work] V2 to predict displacement magnitude from pre-absence structure shows that linking structural metrics to absence outcomes is already difficult. This evidence reduces confidence that reorganization can predict PPP change with the current sample, supporting a decision not to proceed without a larger or better-measured dataset."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 148 absence spells; power for detecting a plausible correlation (rho ~0.2) is low, especially with covariates."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Reorganization and L metrics rely on play-type classification with known inferrer limitations, and their reliability under absence is not validated."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "PPP change is confounded by opponent quality, game location, replacement player skill, and other factors difficult to fully control."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Absences may select for periods with extreme prior performance, causing regression-to-the-mean in PPP unrelated to reorganization."
+    },
+    {
+     "code": "BASE_RATE",
+     "text": "Meaningful reorganization may be rare; many absence spells may show negligible structural change, reducing effective sample size."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "FAM:[prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior work established that real absences shift structure ([prior work] V1) but failed to predict the magnitude of that shift from simulation ([prior work] V2). No study directly tested reorganization predicting PPP change. [prior work] warns of small-sample PPP artifact. [prior work] studied trigger timing and counters, not reorganization."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "n=148 spells gives limited power for correlation after controls; true effect would need to be large to be detected."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type and structural influence metrics have classification noise that can attenuate true correlations."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Observed PPP change mixes reorganization effect with opponent strength, home/away, replacement quality, and game script."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Absence spells often follow extreme team PPP levels, producing spurious change via regression to the mean."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If reorganization is measured using any data from the absence period itself without careful separation, leakage may inflate correlation."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Some spells may contain very few team possessions, making PPP change estimates unreliable."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Exploring multiple operationalizations of reorganization without pre-registration raises false positive risk."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.5,
+   "artifact": 0.15,
+   "uncertain": 0.25
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Spearman correlation between offensive reorganization magnitude (e.g., residual displacement from pre-absence structure after controlling for L) and change in opponent-adjusted PPP per possession during a player's absence spell (post-absence minus pre-absence).",
+   "unit": "Absence spell (player, team, season) meeting: >=5 consecutive missed games; player had >=10 pre-absence games; L computed from those games; team possessions in spell >=50.",
+   "sample": "Up to 148 spells from NBA 2022-23 through 2025-26 regular seasons and playoffs, filtered as above.",
+   "power": "At true rho=0.20, n=148 yields ~60% power two-tailed alpha=0.05. With 3 covariates, partial correlation power ~40%. Adequate only if true effect rho>0.35.",
+   "controls": "Average opponent defensive rating over the spell; home/away proportion; team pre-absence PPP (to address regression to the mean); replacement player pre-absence PPP or RAPM.",
+   "falsification": "1) Test correlation in placebo stretches of equal length for the same players when not absent (no reorganization expected); correlation should be near zero. 2) Permute reorganization values across spells; correlation should vanish.",
+   "multiplicity": "Pre-register one primary reorganization metric and one Spearman correlation. Any secondary metrics reported with Bonferroni correction.",
+   "decision_rule": "Reject null if two-sided p < 0.05; report confidence interval. Do not interpret marginal significance as evidence.",
+   "data_version": "Fixed NBA stats API snapshot dated 2026-11-01, with play-type classifier version frozen and documented."
+  }
+ },
+ "redactions": 23
+}

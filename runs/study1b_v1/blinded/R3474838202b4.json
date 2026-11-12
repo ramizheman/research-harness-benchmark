@@ -1,0 +1,179 @@
+{
+ "blind_id": "R3474838202b4",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "suppression-conditional recommended mix",
+   "adherence",
+   "winning prediction",
+   "counter strategy"
+  ],
+  "methodological_questions": [
+   "How to define and measure 'adherence to a suppression-conditional recommended mix'?",
+   "How to avoid lookahead leakage when defining the recommended mix?",
+   "What unit of analysis (possession, game, series) and outcome variable for winning?",
+   "How to handle small sample size (54 series) and low base rate of suppression events?",
+   "How to control for team quality, opponent strength, and game context?",
+   "How to validate the recommendation engine prospectively without in-sample contamination?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Full-calibrated headline 69.8% (37/53); DRIVE-modal (banned-PT) comparisons 85.7% (12/14); clean comparisons 64.1% (25/39); high-confidence 64.3% (27/42). CUT recs 13/13; POST_UP 0/4. Uncalibrated archival: 51.7% (31/60), high-conf 42.9%, DRIVE recs 8% (n=25)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Spearman rho=-0.0639, p=0.099717, n=665 (no clear full-rank signal). Kruskal-Wallis H=32.9723, p=2.7e-05. Mann-Whitney BEST 1.257 (n=56) vs AVOID 1.092 (n=160), U=5546.0, p=0.004018. Trigger accuracy rho=0.4525, n=121. Follow rate vs H2 PPP rho=-0.0664, p=0.5486, n=84."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "A R2=0.763 OOS 0.761; C R2=0.902 OOS 0.919; dR2=+0.139. Offensive-control components add +0.005 R2 beyond ORtg. Net~ORtg+leakage R2=0.948. corr(leakage, DRtg)=+0.894. PCI univariate r=+0.863 vs ORtg +0.866."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "C gamma +0.0714 SE 0.0057 p=0.0000; B DiD +0.062 [0.051,0.073]; proxy agrees with production engine 13/79 = 16.5%. Also observed: A +0.047 PPP (p<10^-3); B +0.062 PPP; C +0.0714 PPP, n=16,921 cells, p<10^-4. Coverage: 9,853 RS pairs; 35.7% clear, 33.8% ambiguous, 30.4% no_rec."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Comparing engine-recommended play type to team modal play type in playoff series",
+    "why": "Structural artifact: headline inflated by banned DRIVE and known CUT PPP, with in-sample contamination and lookahead leakage."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Ranked playsheet validation using H1-to-H2 defensive drop triggers",
+    "why": "Full-rank Spearman not significant; pairwise BEST>AVOID significant but based on small counter possessions, low measurement reliability, and potential pipeline leakage across rounds."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Possession Control Index as a defensive proxy incremental to offensive rating",
+    "why": "Artifact: PCI's apparent gain was leakage tracking DRtg (+0.89 correlation), not a genuine independent defensive measure."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Possession-level proxy engine test on all regular-season games",
+    "why": "Inconclusive: proxy fidelity only 16.5%, in-sample contamination of aggregates, and unclear mechanism."
+   }
+  ],
+  "evidence_establishes": [
+   "Prior attempts to validate engine-recommended play type superiority have consistently yielded structural artifacts or inconclusive results, even at possession level.",
+   "Lookahead leakage and in-sample contamination can artifically inflate hit rates and apparent predictive power.",
+   "Measurement of defensive suppression and counter adherance is noisy, especially with small possessions per trigger."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a properly out-of-sample, prospectively designed test can detect a true predictive relationship between adherence and winning.",
+   "How to construct an unbiased suppression-conditional recommended mix using only data available at the moment of decision.",
+   "What unit of analysis and sample size would yield adequate statistical power."
+  ],
+  "own_inferences": [
+   "The question as phrased is highly susceptible to lookahead leakage because the 'recommended mix' likely exploits knowledge of ultimate series outcomes to determine which counters worked.",
+   "Even with rigorous out-of-time validation, the available dataset (54 series) is far too small for a series-level win/loss outcome, and defensive suppression events are sparse per series, making aggregate adherence measures noisy.",
+   "Game-level analysis would increase sample size but still faces strong confounders (team strength, opponent, game flow) and drift in play-type effectiveness across seasons.",
+   "Historical evidence strongly suggests that any positive finding without strict temporal separation of recommendation and evaluation would be an artifact."
+  ],
+  "uncertainties": [
+   "The operational definition of 'suppression-conditional recommended mix' is ambiguous: what triggers a suppression event, how the mix is computed, and within what time window adherence is measured.",
+   "The relationship between game-level adherence and series winning is unclear; teams may strategically deviate from the mix when leading or trailing.",
+   "Stability of play-type counter effectiveness across seasons may be low, threatening transportability of any learned mix."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the historical evidence, the question might have seemed testable with careful design. The retrieved records show a pattern of artifacts and inconclusive results from closely related studies, indicating high risk of lookahead leakage, structural inflation, and insufficient power. This evidence strongly influenced the assessment that proceeding is unlikely to yield a valid answer, shifting the decision to do_not_proceed."
+  },
+  "testability": {
+   "p_testable": 0.1,
+   "blocking_constraints": [
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "The recommended mix would likely be derived from future outcomes (lookahead) unless a strict temporal train/test split is enforced, which is difficult given the limited data."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 54 playoff series available; series-level winning is binary with low base rate, making any test severely underpowered. Even game-level may lack sufficient suppression events."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Detecting defensive suppression events in real time and measuring adherence to a recommended mix from sparse play-type counts is inherently unreliable."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Team quality, opponent strength, in-game score, and other factors confound the relationship between adherence and winning."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior work tested whether engine-recommended play types outperform typical team choices or counter rankings predict success under defensive suppression; all resulted in artifacts or inconclusive findings, with no validated evidence that adherance to a suppression-conditional mix predicts winning."
+  },
+  "risks": [
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using future game or series outcomes to determine the recommended mix will create a spurious predictive relationship."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "54 series provide insufficient power for a series-level outcome; game-level analysis also limited by low frequency of suppression events."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type classification and suppression triggers are noisy; adherence measures from small possessions-per-trigger are unreliable."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Better teams may both adhere more to sound strategies and win more, independently of the mix itself."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Defensive suppression events occur only in a fraction of possessions, so the effective sample for the adherence measure is small."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If the recommended mix is derived from what worked in similar past matchups, it may simply encode outcome knowledge."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "The effectiveness of specific counters may change across seasons, violating stationarity assumptions."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing multiple play types, time windows, or definitions of adherence inflates Type I error without correction."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Teams may increase adherence after poor performance, leading to regression-to-mean artifacts."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.03,
+   "rejected": 0.02,
+   "untestable": 0.3,
+   "artifact": 0.5,
+   "uncertain": 0.15
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The causal effect of a team's per-possession adherence to engine-recommended play-type proportions (based only on data available before each suppression event) on the probability of winning a game, conditional on pre-game team strength and opponent.",
+   "unit": "Game (or possession-sequences within games) where at least one defensive-suppression event is detected, using a strict temporal split across seasons.",
+   "sample": "NBA regular season and playoff games from 2022-23 to 2025-26, with 2022-23/2023-24 used for training the recommendation engine and 2024-25/2025-26 held out for evaluation; exclude any overlap of teams used in training the suppression criterion.",
+   "power": "Minimal: even with 200–300 games with suppression events, power to detect an odds ratio of 1.3 for win probability is below 0.5. For series-level outcome (54 units) power is negligible.",
+   "controls": "Pre-game team rating (e.g., Elo or betting odds), home/away, opponent defensive rating, rest days, and game-to-date scoring margin when suppression occurs.",
+   "falsification": "Show that adherence to a random or naive constant mix does not predict winning, and that the recommended mix does not predict winning in periods where no defensive suppression was flagged.",
+   "multiplicity": "Pre-register a single primary adherence metric (e.g., Hellinger distance between actual and recommended play-type distribution); apply Bonferroni correction if multiple time-windows are tested.",
+   "decision_rule": "Reject null of no association if logistic regression coefficient for adherence has p < 0.01 (two-sided) with bootstrapped confidence interval excluding zero, and both falsification tests pass at p > 0.20.",
+   "data_version": "Per-game play-by-play, substitution, matchup, and derived play-type possession records from [source] database as of 2026-06-16, with strict version-locking for reproducibility."
+  }
+ },
+ "redactions": 22
+}

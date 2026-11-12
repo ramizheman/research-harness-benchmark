@@ -1,0 +1,128 @@
+{
+ "blind_id": "Rb6fd076e6127",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nThe teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=148; 148 spells; 11 cases\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence spells",
+   "offensive reorganization",
+   "pre-absence initiation profile similarity",
+   "play-type redistribution",
+   "absorption of the absent player's primary play types by teammates",
+   "same-position minutes",
+   "largest-gainer identification"
+  ],
+  "methodological_questions": [
+   "Does the teammate with the closest pre-absence initiation profile gain the most in the absent player's primary types more often than chance?",
+   "Does profile similarity add predictive value beyond teammate minutes, initiation volume and same-position minutes?",
+   "How should 'largest gainer' be defined (absolute count, per-100 rate, or share) so that it is not mechanically driven by volume or minutes?",
+   "How should regression to the mean and winner's-curse selection of the maximum gainer be handled?",
+   "What counterfactual baseline or placebo is needed, e.g. matched games with the absent player present?",
+   "How should spells be clustered by player and team, given the recorded 11 cases?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. retrieve_history returned an empty list (n_results = 0), so no historical evidence was available for this question in this setting."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this or a similar hypothesis was tested before, and with what status.",
+   "Which operationalizations of profile similarity, primary types or largest gainer have already failed.",
+   "Any prior estimate of effect size, base rate or variance to use for power."
+  ],
+  "own_inferences": [
+   "The question is a disjunction (closest profile OR most minutes OR most initiations OR most same-position minutes). It must be split into separate pre-registered predictors, otherwise it is unfalsifiable and invites multiple testing.",
+   "The closest-profile teammate is probably often also the highest-volume initiator, so predictors are collinear. A fair test needs the incremental value of similarity over volume.",
+   "The argmax of noisy gains is biased toward high-volume, high-variance players (winner's curse and regression to the mean). Absolute-count gains favor high-minute players mechanically.",
+   "If an absence spell is the unit, spells are clustered within players and teams. The effective sample may be nearer the 11 cases than the 148 spells.",
+   "Hit rate against a uniform 1/k chance level is too weak a null. The relevant null is a volume-proportional allocation, i.e. teammates ranked by pre-absence minutes or initiations.",
+   "Likely finding: the highest-volume teammate is the most frequent largest gainer, and similarity adds little once volume is controlled."
+  ],
+  "uncertainties": [
+   "The meaning of 'n=148; 148 spells; 11 cases' is unclear: 11 distinct absent players, 11 team-seasons, or 11 spells that qualify.",
+   "The definition of an absence (minimum games missed, injury vs. rest vs. trade) and the number of games per spell are not given.",
+   "The definition of 'primary types' of the absent player (top-k by share, or a threshold) is unspecified.",
+   "The reliability of play types derived from play-by-play (initiator and type labeling) is unknown, as is the number of eligible teammates per spell.",
+   "2025-26 data is described as complete only from the stated dates, so version and date freezing matter."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No records were returned, so the decision rests on design reasoning only. The recommendation to proceed with changes would be the same whether or not history existed. There are no recorded failures to avoid, which also means no recorded evidence that the approach is sound."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "The 148 spells may reduce to about 11 independent cases after clustering, which is too few to detect a modest incremental effect of similarity over volume."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Similarity, minutes, initiations and same-position minutes are collinear, so separating their effects needs a within-spell comparative design and likely more cases than exist."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved, so no judgement can be made on whether the question was previously answered."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effective number of independent cases may be about 11. The hit-rate test has wide intervals, and a subgroup or incremental comparison would be underpowered."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Volume, minutes, lineup role, position and coaching changes drive both profile closeness and gains. Absence-period opponent strength, injuries to other teammates and trades also contribute."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "High-minute teammates have more opportunities to gain in absolute counts. Redistribution must sum to the vacated volume, so some teammate always gains most."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "The largest gainer is selected on noisy post-absence outcomes and is biased upward. Teammates with low pre-absence usage may also appear to gain through regression to the mean."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Pre-absence profiles built from few initiations per play type are noisy. The play-type labels derived from play-by-play may be misclassified."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "There are four predictors, several gain definitions, and several choices of primary types and k. All must be fixed in advance, with a correction applied."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "The chance hit rate is 1/k with k eligible teammates, and it varies by spell. A simple hit rate must be compared with volume-proportional and chance baselines."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The pre-absence profile must use only games before the spell. If profiles use full-season data they include absence-period games."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type usage changes across seasons and within a season. Profile windows and baselines must be date-matched."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each absence spell, the within-spell rank agreement between each teammate's pre-absence profile closeness to the absent player and that teammate's gain in the absent player's primary types. The primary outcome is whether the closest-profile teammate is the largest gainer, and its hit rate above a volume-proportional expected hit rate. A secondary outcome is the incremental log-likelihood of similarity over volume in a conditional-logit model of which teammate is the largest gainer.",
+   "unit": "Absence spell (absent player, team, contiguous games missed), with clustering by absent player and team-season. Cluster-level results are reported alongside spell-level ones.",
+   "sample": "Spells in the 2022-23 to 2025-26 regular seasons and playoffs where the absent player played at least 20 games and 15 minutes per game before the spell, the spell lasts at least 5 games, and the team has at least 6 eligible teammates. The absent player's primary types are the top play types that together account for at least 60% of their initiations, fixed in advance. Exclude spells with another rotation player absent for more than half of the games. Report the number of spells and clusters before any outcome analysis.",
+   "power": "Spell-level, a hit rate of 0.25 against a chance level of about 0.125 would give about 90% power if the 148 spells were independent. Because of clustering, the effective n may be near 11, so the cluster-level interval will be wide. Report the design effect and minimum detectable effect on clusters before the analysis. If clusters are fewer than about 20, label the result exploratory.",
+   "controls": "Gain is the per-100-possession rate of initiating the absent player's primary types, in absence games minus matched presence games. Presence games are the same team's games with the absent player, in a window equal in length to the spell and chosen without looking at outcomes. The profile uses only pre-spell games, with a split-half reliability check. Baselines are the most-minutes, most-initiations and most-same-position-minutes teammates and a random teammate. Shrink gains toward the team mean with empirical Bayes. Adjust for minutes change in the conditional-logit model.",
+   "falsification": "Placebo: assign pseudo-absences (games with the absent player present) and check that closest-profile hit rates fall to the chance or volume baseline. Shuffle teammate profiles within a team. Run the test using only post-spell profiles to show that leakage inflates the result. The hypothesis is rejected if similarity gives no incremental gain over volume and the hit rate is no higher than the volume baseline.",
+   "multiplicity": "One primary test: closest-profile hit rate versus the volume-proportional baseline. The other three predictors and the alternative gain definitions are secondary and corrected with Holm over the four predictors. Primary-type threshold and window length are fixed here and varied only as labeled sensitivity analyses.",
+   "decision_rule": "Supported only if the cluster-robust lower bound of the hit-rate excess over the volume baseline exceeds 0, the similarity term improves the conditional-logit fit beyond volume (corrected p<0.05), and the placebo shows no comparable effect. Rejected if the upper bound of the excess is below about 0.10 with adequate clusters. Otherwise report inconclusive, and untestable if fewer than about 20 clusters remain.",
+   "data_version": "Per-game NBA stats API files and the derived play-type graph database for 2022-23 to 2025-26 (2025-26 regular season complete from 2026-04-13, playoffs complete from 2026-06-21). Freeze the data snapshot and derived-label version, with a hash and date, before any outcome analysis."
+  }
+ },
+ "redactions": 0
+}

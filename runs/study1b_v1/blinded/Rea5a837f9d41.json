@@ -1,0 +1,185 @@
+{
+ "blind_id": "Rea5a837f9d41",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "suppression-conditional recommended mix",
+   "counter strategy adherence",
+   "play-type possession efficiency",
+   "matchup defense",
+   "series-level win prediction"
+  ],
+  "methodological_questions": [
+   "Does adherence to a suppression-conditional recommended mix predict series wins, after controlling for team strength?",
+   "Can adherence be measured from pre-series information without using the outcome-period play-by-play?",
+   "Is the number of series (54 units) enough to detect a plausible adherence-to-win association?",
+   "How should recommended-mix adherence be separated from opponent quality, playoff rotation, and the defensive component embedded in net outcomes?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Scored the V4 engine's recommended play type against the team's modal play type in 42 playoff series. Headline hit rate 69.8% (37/53). [prior work] states the rate was inflated: 14 of 53 pairs compared against the banned DRIVE, 13 of 37 hits came from CUT, and the same series were used both to find the DRIVE failure and to tune the exclusion. No holdout result was recorded. Clean comparisons were 64.1% (25/39); uncalibrated archival 51.7% (31/60). No bootstrap CI was computed."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Tested the playsheet counter ranking in 10 completed 2025-26 playoff series (665 counter observations, average 6.9 possessions per counter). Full-rank Spearman was not significant (rho -0.0639, p=0.099717). A pairwise Mann-Whitney comparison of BEST (1.257, n=56) vs AVOID (1.092, n=160) gave p=0.004018. Trigger accuracy rho=0.4525 (n=121). [prior work] flags leakage risk for season_cap_yy=26, which may leak first-round data into second-round series."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Tested whether the Possession Control Index adds to ORtg in explaining Net Rating (120 team-seasons). The reported gain (dR2 +0.139) came from a leakage term that tracks DRtg (corr +0.894). Offensive-control components added +0.005 R2. The baseline omitted defense by construction (Net = ORtg - DRtg)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "A proxy play-type picker on 4,082 regular-season team-games showed positive effects (+0.047 to +0.0714 PPP; n=16,921 cells). The proxy agreed with the production engine on only 13 of 79 playoff pairs (16.5%). The analysis used in-sample season aggregates and iid SEs. [prior work] states it is not a test of the shipped optimizer. Coverage: 35.7% clear, 33.8% ambiguous, 30.4% no_rec."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Evaluating recommendation adherence by hit rate against the team's modal play type, with the same series used for tuning and no holdout.",
+    "why": "Recorded as artifact: tuning on the evaluation series inflated the hit rate, a banned-type comparison dominated the hits, and no CI or holdout was produced."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Validating a ranked playsheet counter-recommendation across 10 playoff series.",
+    "why": "Recorded as inconclusive: full-rank Spearman was null, the pairwise BEST>AVOID result rested on about 7 possessions per counter (low measurement reliability), and the season_cap_yy=26 pipeline may leak first-round data into second-round series."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Adding a defense-correlated index to a Net Rating model to explain the outcome.",
+    "why": "Recorded as artifact: the gain came from a leakage term that tracks DRtg, and the outcome contains defense by construction."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Using a proxy play-type picker as a stand-in for the production recommendation engine.",
+    "why": "Recorded as inconclusive: proxy fidelity was 16.5% (below 70%), RS aggregates were in-sample, and iid standard errors were used. It does not test the shipped optimizer."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier project studies of this engine and its counter rankings found artifacts or null results, not validated adherence effects. This is a caution signal for the present question.",
+   "Several recorded failures came from the same play-by-play used for both the recommendation and the outcome ([prior work][prior work], [prior work][prior work]), and from tuning on evaluation units ([prior work][prior work]).",
+   "Small per-counter possession counts and low measurement reliability were recorded as limits in [prior work][prior work].",
+   "Proxy-to-production fidelity was low in FAM:[prior work], so results from a proxy cannot be attributed to the shipped recommendation."
+  ],
+  "evidence_does_not_establish": [
+   "No retrieved record tests whether adherence to a suppression-conditional mix predicts series or game winning. The closest records concern play-type hit rates, counter ranking, and net-rating models.",
+   "No record reports a holdout-validated adherence effect on series outcomes.",
+   "Nothing in [prior work] establishes the effect size, or a usable adherence measure, for the 54 series in the data."
+  ],
+  "own_inferences": [
+   "The unit mismatch is the main structural problem. Adherence is naturally measured at possession or game level, while the outcome (series win) has only 54 units. A series-level binary test has very little power unless the effect is large.",
+   "The suppression metric and the outcome both come from the same play-by-play, so any adherence-outcome association is at risk of mechanical overlap with defensive efficiency, which is part of the outcome.",
+   "Team strength, opponent quality, and injuries are plausible confounders that a 54-series design cannot adjust for well.",
+   "[prior work] suggest that earlier apparent positives in this project tended to be inflated by tuning or leakage, so a pre-registered holdout is essential."
+  ],
+  "uncertainties": [
+   "Only retrieval summaries were available. Full records (read_family) for [prior work][prior work] and [prior work][prior work] were not read, so some details may be missing.",
+   "The exact definition of 'suppression-conditional recommended mix' and of adherence is not given in the task, so the measure cannot be assessed.",
+   "Whether the 54 series include enough games per series to support a game-level secondary analysis is not stated.",
+   "The 2025-26 playoffs are partial before 2026-06-21, so the outcome window may be incomplete on the stated date.",
+   "Whether a holdout set of series exists, and whether the engine version was frozen before the 2025-26 data, is not recorded."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieved records showed a repeated pattern: recommendation-versus-outcome claims were inflated by tuning on evaluation series, leakage from the same play-by-play, defense-correlated features, and proxy fidelity problems. These findings, together with the 54-series ceiling, lead to do_not_proceed as posed. A conditional, pre-registered redesign is the only path I would consider."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "54 series with a binary win outcome gives very little power to detect a moderate adherence effect, especially after controlling for team strength."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Suppression and adherence metrics are derived from the same play-by-play used to define outcome-related efficiency, so the label and predictor share a construction."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "Recorded leakage risk in [prior work][prior work] (season_cap_yy=26 may leak first-round data into second-round series) and [prior work][prior work] (defense-tracking leakage term)."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Team quality, opponent quality, injuries, and rotation changes can drive both adherence and winning."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Per-counter possession counts are small (about 6.9 per counter in [prior work][prior work]), so adherence and counter-quality measures are noisy."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "No retrieved record tests adherence to a suppression-conditional recommended mix against series winning. The cited records cover play-type hit rates (artifact), counter-ranking validation (inconclusive), a defense-leakage net-rating artifact, and a proxy picker with low fidelity (inconclusive). They are related in method and provide warnings, but do not answer the question."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Only 54 series are available; a binary series-outcome test has low power for a realistic effect size."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Adherence and outcome are built from the same play-by-play and can share mechanical components."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Season-cap and in-sample aggregation may leak information from later rounds or from the outcome window into the predictor."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team strength and opponent quality confound any adherence-to-winning association."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Adherence measures built on few possessions per counter or per series are unreliable."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "The project has several prior engine and counter tests; choosing among variants and reporting the best one would inflate false positives."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo or null-mix comparison, a positive association could reflect generic team quality rather than the recommended mix."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Season-to-season changes in play-type usage and rules across 2022-23 to 2025-26 may shift the adherence-outcome relation."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Pipeline details (season cap, series assignment, banned-type handling) were implicated in earlier artifacts and could recur."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.07,
+   "rejected": 0.25,
+   "untestable": 0.2,
+   "artifact": 0.3,
+   "uncertain": 0.18
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Within-series and across-series association between pre-registered adherence to the suppression-conditional mix and series win, adjusted for team strength (pre-series net rating or prior-season ratings), with a null-mix placebo comparison.",
+   "unit": "Team-series for the primary test; team-game only as a secondary analysis, with series as the clustering unit.",
+   "sample": "Only the 54 series available; 2022-23 through 2024-25 used for freezing any rule and 2025-26 completed series reserved as a locked holdout. No series may be used for both tuning and evaluation.",
+   "power": "Before analysis, compute the detectable effect for 54 series (and for the holdout alone). If the minimum detectable effect is implausibly large, report the test as underpowered and do not claim support.",
+   "controls": "Pre-series team strength, opponent strength, injuries and rotation changes, season fixed effects, and a null or random-mix placebo. Adherence must be computed from pre-series information only, with no outcome-period play-by-play.",
+   "falsification": "A pre-registered placebo mix and a reversed-recommendation mix should show no association with series wins. If either does, the effect is attributed to confounding or artifact.",
+   "multiplicity": "One pre-registered primary test (adherence to series win). All other variants are exploratory and labelled as such, with correction across them.",
+   "decision_rule": "Claim support only if the holdout effect is in the pre-registered direction with a bootstrap CI (by series) excluding zero, the placebo shows no association, and the result survives the team-strength adjustment. Otherwise report inconclusive or rejected.",
+   "data_version": "Data as of 2026-06-16: 2022-23 to 2024-25 full, 2025-26 regular season complete from 2026-04-13, 2025-26 playoffs partial (complete only from 2026-06-21). Freeze the engine version and season-cap rule before analysis, and exclude the partial 2025-26 playoff series from the holdout."
+  }
+ },
+ "redactions": 45
+}

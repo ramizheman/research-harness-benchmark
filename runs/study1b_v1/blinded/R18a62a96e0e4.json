@@ -1,0 +1,171 @@
+{
+ "blind_id": "R18a62a96e0e4",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "defensive strategy mix recommendation",
+   "adherence to recommended mix",
+   "predicting series winning"
+  ],
+  "methodological_questions": [
+   "How is a suppression-conditional recommended mix defined?",
+   "How is adherence to that mix measured?",
+   "What is the sample size (series) and power for a between-series test?",
+   "Can an out-of-sample holdout be preserved for the recommendation model?",
+   "What confounders (team quality, injuries, game state) must be controlled?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The V4 engine's recommended play type outperformed the team's highest-volume play type in 69.8% (37/53) of 42 series, but the effect was inflated: DRIVE-mode comparisons were banned, CUT recommendations were overrepresented, and the same series used to find DRIVE failure and tune the exclusion. No holdout result was recorded; the full-calibrated clean comparison rate was only 64.1%, and POST_UP recommendations were 0/4. Verdict: artifact_found."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "In 10 completed 2025‑26 playoff series (665 counter observations), the playsheet counter ranking (BEST > SECOND > AVOID) showed no full-rank signal (Spearman ρ = -0.064, p ≈ 0.10), though pairwise BEST vs AVOID differed (p = 0.004). Low possession counts (mean 6.9 per counter) and potential leakage from the season cap '26 that may have leaked first-round data into second-round series limit interpretability. Status: inconclusive."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Possession Control Index added +0.139 to R² when explaining Net Rating beyond ORtg, but the gain was driven by a leakage term tracking DRtg (correlation +0.894). Offensive-control components added only +0.005 R², and the baseline omitted defense by construction. The apparent effect is a mechanical artifact."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "A proxy play-type picker tested on 4 082 regular-season team-games showed small positive per-possession effects (+0.047 to +0.0714 PPP), but the proxy agreed with the production engine on only 13 of 79 playoff pairs (16.5%). Analyses used in-sample season aggregates and i.i.d. standard errors; the study is not a test of the shipped optimizer. Interpretability is limited."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Evaluating a recommended play type against the team's modal play type and scoring it as a hit rate.",
+    "why": "Artifact: the hit rate was inflated by using the same series to identify and exclude a 'banned' play type (DRIVE), creating a post-hoc selection bias. No independent holdout series were used, and small sample (53 scoreable comparisons) limited reliability."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Validating a ranked counter ranking (BEST vs AVOID) from defensive adjustment triggers.",
+    "why": "Inconclusive: full-rank Spearman not significant; trigger accuracy modest; low possessions per counter (mean 6.9) led to measurement unreliability; possible leakage from season-cap '26 allowing first-round data to influence second-round series; small sample of 10 series exacerbated drift and non-stationarity."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Testing whether a possession control index explains Net Rating beyond offensive rating.",
+    "why": "Artifact: the index correlated with DRtg by construction (leakage, r = 0.89), so its incremental R² was a mechanical floor effect, not a genuine discovery."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Using a proxy play-type picker to claim possession-level signal for the production engine.",
+    "why": "Inconclusive: the proxy had low agreement with the actual engine (16.5%), in-sample aggregation contaminated the regular-season estimates, and reliance on i.i.d. standard errors weakened inference."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier attempts to validate in-game strategy recommendations (play-type picks, counter rankings, possession control indices) against outcomes have been vulnerable to lookahead leakage, in-sample overfitting, and mechanical artifacts.",
+   "When the same data are used both to define the recommendation and to score its success, inflated hit rates and false positive signals arise.",
+   "Small samples (tens of series, low possession counts per counter) preclude reliable full-rank inference and make effects fragile to drift and non-stationarity.",
+   "No clean out-of-sample holdout test of a suppression-conditional recommended mix on winning has been recorded in these study families."
+  ],
+  "evidence_does_not_establish": [
+   "Whether adherence to a well-defined suppression-conditional mix truly predicts series wins.",
+   "The magnitude or direction of any effect, if it exists, because no adequately powered holdout study has been performed.",
+   "Causality—any association could reflect reverse causality (teams adhere more when already winning) or confounding by team quality."
+  ],
+  "own_inferences": [
+   "Given only 54 playoff series across three completed seasons and 2025-26, a between-series test of adherence predicting wins is severely underpowered for the expected effect sizes found in earlier work (hit rate lifts of a few percentage points).",
+   "The definition of 'suppression-conditional recommended mix' is itself a complex modelling object; if its parameters are learned from the same seasons used to test the prediction, leakage is unavoidable.",
+   "Even with careful temporal holdout (e.g., train on 2022-23, 2023-24, test on 2024-25 and 2025-26), the effective test set would contain at most ~30 series, and likely fewer after exclusions for missing data, yielding wide confidence intervals.",
+   "Confounding by team talent, home-court advantage, and in-series injuries would further erode the signal, requiring many more series to separate the incremental effect of adherence."
+  ],
+  "uncertainties": [
+   "The exact operational definition of 'suppression-conditional recommended mix' (how suppression is detected, how the mix is recommended) is not specified in the question.",
+   "Whether the play-by-play and derived play-type graph database can reliably assign defensive matchups and suppression states at the series level.",
+   "The stability of defensive strategies across the 2022-26 window, especially given potential rule changes and team rebuilds.",
+   "Whether partial 2025-26 regular-season and playoff data (complete only by late June 2026) can be used without lookahead."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without historical evidence, one might have proceeded with a retrospective study, assuming that 54 series and rich play-type data would suffice. The retrieved failures show that similar questions have repeatedly produced artefacts due to leakage and insufficient sample size, and that no clean holdout test has succeeded. This shifts the default from 'proceed' to 'do_not_proceed' because the same risks (leakage, small N, measurement noise) are present and would almost certainly render the result untestable or artefactual."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "At most 54 series total; effective sample after train/holdout split and exclusions likely <30 series, giving very low power for a binary outcome."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "If the recommended mix is defined using data from the same series or season, lookahead leakage inflates the apparent predictive power."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Suppression detection and adherence metrics depend on noisy play-by-play assignments and low-count possessions, mirroring the measurement unreliability seen in [prior work][prior work]."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "No prior study directly tested whether adherence to a suppression-conditional recommended mix predicts winning. Closest work evaluated single play-type recommendations vs modal choices (artefact), counter rankings after defensive drops (inconclusive), and composite indices (artefact). All highlight severe risks of leakage and inadequate sample size."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "54 series total, split by season and conference, provides far fewer than the hundreds of independent units needed for a reliable between-series win prediction."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Building the suppression-conditional recommended mix on the same series or even adjacent rounds risks leaking future outcomes into the training features."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Possession-level classification of play types, defensive matchups, and suppression are inherently noisy; adherence metrics will have low reliability, attenuating any true signal."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team quality, injuries, roster changes, and home-court advantage all influence both the propensity to follow a recommended mix and the probability of winning, creating omitted-variable bias."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "If the recommended mix is constructed from data that already incorporate winning teams’ defensive behaviors, the association could be a mechanical reflection of team strength rather than a causal effect of adherence."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Teams that abandon their typical mix after defensive suppression may be those that were already underperforming, leading to selection bias from regression to the mean."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Unless the exact definition of adherence and the recommendation algorithm are pre-registered, post-hoc exploration of suppression thresholds, mix compositions, and outcome windows will inflate false positive rates."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type frequencies and defensive strategies drift between seasons; a model trained on earlier seasons may not calibrate properly to later ones, undermining out-of-sample validity."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.03,
+   "rejected": 0.07,
+   "untestable": 0.5,
+   "artifact": 0.25,
+   "uncertain": 0.15
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The causal effect of a team's series-level adherence to a pre-specified suppression-conditional recommended play-type mix on the probability of winning that playoff series.",
+   "unit": "NBA playoff series (2022-23 through 2025-26).",
+   "sample": "All 54 completed playoff series in the date range. After splitting by temporal holdout (train on 2022-23 and 2023-24 regular season and playoffs to define the recommendation model; test on 2024-25 and 2025-26 series), approximately 26-30 series would remain for testing.",
+   "power": "With ~30 series in the test set, a logistic regression of series win on adherence (controlling for pre-series team power rating) would have ≈80% power only if the true odds ratio is >3.0, which is far larger than any plausible behavioural adherence effect. Effective power is below 20%.",
+   "controls": "Pre-series Elo or similar team strength rating, net injury impact (e.g., RAPTOR-based wins above replacement lost), and home-court advantage indicator.",
+   "falsification": "Repeat the test using a placebo adherence variable computed from a randomly permuted recommended mix (preserving the temporal sequence of games). The true adherence should not outperform the placebo.",
+   "multiplicity": "Pre-register the exact algorithm for detecting suppression (e.g., half-to-half PPP drop threshold on specific play types), the recommended mix construction, and the adherence metric. Any exploratory subgroup analyses would be labelled as secondary and adjusted with Holm-Bonferroni.",
+   "decision_rule": "Reject null of no effect at α=0.05 (one-sided) when the odds ratio > 1 and the permutation-based p-value (from the falsification test) is < 0.05. In practice, the test would almost certainly be inconclusive due to wide confidence intervals.",
+   "data_version": "Frozen snapshot of play-by-play, rotation, and matchup data as of 2026-06-16, excluding any data after the date of the research question to prevent lookahead. The 2025-26 playoffs would be incomplete at that date, so only completed series through 2024-25 would qualify for a clean test (≈44 series)."
+  }
+ },
+ "redactions": 23
+}

@@ -1,0 +1,126 @@
+{
+ "blind_id": "R4e0363d08957",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR failure (pick-and-roll possessions that end without a successful advantage)",
+   "PULL_UP shot as a defensive counter",
+   "defensive suppression",
+   "counter-strategy lift in percentage points",
+   "unit-level consistency of lift (share of units with positive lift; median lift)"
+  ],
+  "methodological_questions": [
+   "How is a 'PNR fail' possession defined from play-type and play-by-play labels, and is that definition fixed before analysis?",
+   "What is the unit of analysis (team-season, player, or defender-pairing), and how many possessions does each unit contribute?",
+   "What is the baseline for lift: PULL_UP points per possession versus other endings after the same PNR failure, or versus league average?",
+   "Does the observed lift survive matching on shooter quality, shot clock, location, and defensive matchup?",
+   "Is the 70% share and 2pp median threshold justified, and are they tested with an appropriate statistical procedure?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "retrieve_history returned zero records (n_results = 0), so no earlier study from this project on PNR failure, PULL_UP counters, or lift-based counter-strategy tests is available in this setting."
+  ],
+  "evidence_does_not_establish": [
+   "Whether PULL_UP is a counter to PNR failure, whether the 70% and 2pp thresholds are reasonable, or whether any unit-level lift estimator has been validated in this project.",
+   "Whether the question has been answered elsewhere; the absence of records is not evidence that it has not."
+  ],
+  "own_inferences": [
+   "The stated hypothesis is ill-posed as written. 'Units' is undefined, 'PNR fail' has no operational definition, and 'lift' has no stated baseline. Each of these must be fixed before any test.",
+   "Pull-up shooting after a PNR failure is selected by the offense, so raw lift mixes shot-selection and shooter-skill effects with any true defensive counter effect (CONFOUNDING).",
+   "The data (2022-23 to 2025-26 play-by-play, derived play-type graph records) is sufficient to build the outcome and covariates. The main limit is the per-unit sample of PNR-failure PULL_UP possessions, which may be small for many teams or players.",
+   "For 2025-26, the regular season is complete from 2026-04-13, so it is usable as of 2026-05-23. The 2025-26 playoffs are partial on that date (complete only from 2026-06-21) and should be excluded from the primary test."
+  ],
+  "uncertainties": [
+   "Exact fields for PNR-failure labels in the derived graph records and whether they match play-by-play action types (data_catalog not consulted).",
+   "Possession counts per unit under a fixed PNR-failure definition.",
+   "Whether the derived points labels are consistent across seasons.",
+   "Whether the 70% and 2pp thresholds were chosen with any prior basis (none was retrieved).",
+   "Whether rule or tracking changes across 2022-23 to 2025-26 make pooled estimates non-stationary."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical records were returned, so the decision rests only on the task statement and the stated data. The decision below is based on the design problems I identified, not on any prior finding."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Pull-up choice after a PNR failure is endogenous to shooter quality, defender, and game context, so a naive lift confounds the counter effect with selection."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "PNR-failure and points labels come from derived play-type records; label construction errors would propagate into the lift estimate."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Per-unit PNR-failure PULL_UP counts may be too small for a stable unit-level sign test and median lift."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved (retrieve_history returned an empty list), so it cannot be determined whether this question has been answered. No prior work is relied on."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Pull-up selection after a PNR failure depends on shooter, defender, and context. Matching or regression adjustment on these factors is required, and residual confounding remains possible."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "PNR-failure and points come from the derived play-type graph built from play-by-play. Errors in initiator or play-type assignment would bias the lift."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "The operational definition of PNR failure (for example, turnover, no shot, or low-quality shot) is not fixed. Different definitions could change the sign of the result."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Unit-level counts of PNR-failure PULL_UP possessions may be small, so per-unit lift estimates are noisy and the 70% threshold may not be reliably assessed."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Some units (for example, low-usage players) may have very few PNR-failure possessions, which would make their lift undefined or unstable."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Overall PULL_UP frequency and points per possession differ across eras, and a 2pp threshold relative to a low base rate may be hard to interpret without an explicit baseline."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing several counters (PULL_UP and others), several units, and both thresholds invites selective reporting unless the primary test is fixed in advance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Pooling 2022-23 through 2025-26 may mix rule and shot-profile changes. The 2025-26 playoffs are partial on the question date and must be excluded."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "If the effect depends on the chosen placebo or control action, a positive lift could reflect the control rather than a counter effect."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.25,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-unit difference in points per possession between PULL_UP attempts and other terminal actions (non-shot, pass-out, drive-to-rim) following a PNR failure, adjusted for shooter, defender, shot clock, and score context, and summarised as the share of units with positive lift and the median lift in percentage points.",
+   "unit": "Primary: team-season (30 teams x 3 complete seasons plus the complete 2025-26 regular season). Secondary: defender-pairing or defender, with a minimum possession threshold set in advance.",
+   "sample": "Regular seasons 2022-23, 2023-24, 2024-25, and 2025-26 (complete from 2026-04-13). Exclude the 2025-26 playoffs, which are partial on 2026-05-23. Include only possessions with a PNR initiator and a PNR-failure terminal event under a fixed, pre-registered definition.",
+   "power": "Simulate before running: for a planned set of units, estimate the sign-test power for a 70% positive share and the bootstrap power for a median lift of 2pp, using observed per-unit possession counts. Proceed only if simulated power is at least 0.80 at the pre-registered threshold; otherwise report as underpowered.",
+   "controls": "Adjust for shooter identity or shooting-skill proxy, defender, shot distance, shot clock, score margin, and period. Use within-unit matching or regression with unit fixed effects. Use the same PNR-failure definition for all comparisons. Sensitivity analysis on the PNR-failure definition.",
+   "falsification": "Placebo counters: run the same lift test for non-counter actions (for example, spot-up three) and for possessions that are not PNR failures. If the placebo shows comparable positive lift, the PULL_UP result is not specific. Also run the test on the 2022-23 to 2024-25 seasons to check stability of the effect.",
+   "multiplicity": "One primary test (the 70% share and median 2pp rule) is pre-registered. Other counters and secondary definitions are exploratory with Holm correction across the family of tests.",
+   "decision_rule": "Supported only if (a) at least 70% of units have positive adjusted lift, (b) the median adjusted lift exceeds 2pp with a bootstrap 95% CI excluding 2pp at the lower bound, and (c) the placebo counters do not produce comparable lift. Rejected if (a) or (b) fails with adequate power. Otherwise uncertain or artifact.",
+   "data_version": "NBA stats API per-game files, regular seasons 2022-23 to 2024-25 (complete), 2025-26 regular season (complete from 2026-04-13, as of 2026-05-23), derived play-type graph built from the same play-by-play. Exclude the 2025-26 playoffs (partial as of 2026-05-23). Record the data snapshot date and the PNR-failure definition version."
+  }
+ },
+ "redactions": 0
+}

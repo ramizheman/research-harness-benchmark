@@ -1,0 +1,132 @@
+{
+ "blind_id": "Rbedba265bc42",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "Play-type impact",
+   "Lagged effects in basketball",
+   "Points Per Possession (PPP)",
+   "Play classification/labeling",
+   "Defensive outcomes of offensive plays",
+   "Data quality"
+  ],
+  "methodological_questions": [
+   "Measuring sequential effects in play-by-play data",
+   "Defining and operationalizing 'AVOID' play labels",
+   "Controlling for confounding factors in basketball sequence analysis",
+   "Statistical approaches for assessing influence of play types on subsequent game events",
+   "Data granularity and accuracy for possession-level analysis",
+   "Impact of foul calls on PPP metrics"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline, and every PT has a defensive aftershock. A2 aftershock 8/8 PTs replicate all-games and playoffs (CUT +0.119 n=21,398 / PO +0.131 n=1,145 through TRANSITION +0.135 n=26,262 / +0.126 n=1,529). Top pair premiums: PUTBACK->TRANSITION +0.084 n=565; CUT->P. All-games aftershock after success: CUT +0.119 (n=21398), DRIVE +0.123 (57621), PNR +0.127 (51194), POST_UP +0.128 (20619), PULL_UP +0.132 (26060), PUTBACK +0.130 (5888), SPOT_UP +0.128 (43857), TRANSITION +0."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences are real efficiency, not labeling/foul artifacts. OTHER: 36% end in fouls, PPP inflated (FOUL_BUCKET). DRIVE: 12pp below foul benchmark (FOUL_LEAK). PNR shows 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Assuming that play-type PPP differences represent real efficiency without accounting for labeling or foul artifacts.",
+    "why": "C_artifact (apparent effect produced by a construction, selection or labelling flaw)"
+   }
+  ],
+  "evidence_establishes": [
+   "Sequential effects (defensive aftershocks) exist, where the outcome of a prior possession can influence the PPP of a subsequent possession (FAM:[prior work]). This supports the premise that an opponent's next-possession PPP could be affected by the preceding offensive play.",
+   "The calculation and interpretation of play-type PPP are susceptible to artifacts, particularly due to how foul calls are integrated or mislabeled ([prior work][prior work]). PPP can be inflated or deflated by these factors, suggesting that raw PPP may not accurately reflect true efficiency."
+  ],
+  "evidence_does_not_establish": [
+   "Whether 'your team' running play X specifically leads to a large enough increase in 'opponent next-possession PPP' to drive 'AVOID' labels. FAM:[prior work] identified defensive aftershocks but the causal direction (my team's play X -> opponent's next PPP) is not explicitly detailed, nor is the magnitude relative to 'AVOID' labels.",
+   "The specific mechanisms or magnitudes of 'own-sequence lags' and their impact on PPP or 'AVOID' labels.",
+   "A clear definition or methodology for generating 'AVOID' labels, nor how they are currently derived or if they are based on lagged PPP metrics.",
+   "Whether the identified sequential effects are statistically significant and practically meaningful enough to warrant 'AVOID' labels for specific plays."
+  ],
+  "own_inferences": [
+   "The research question implies that 'AVOID' labels are, or should be, derived from lagged PPP metrics. This is an assumption that needs to be verified.",
+   "The 'own-sequence lags' part of the question likely refers to the impact of a team's prior offensive plays on its *subsequent* offensive plays, or the cumulative effect of a sequence of plays within a possession, though this is not explicitly defined.",
+   "The data available (play-by-play, derived play-type possession records) should contain the necessary information to calculate sequential PPP effects, provided play types are reliably identified and linked to possessions."
+  ],
+  "uncertainties": [
+   "The precise definition and current derivation method of 'AVOID' labels are unknown. It is unclear if they already incorporate lagged PPP or if this is a proposed new methodology.",
+   "The exact scope of 'own-sequence lags' is not specified (e.g., within a single possession, across multiple possessions by the same team, impact on the *next* play or cumulative effects).",
+   "The reliability of the 'derived play-type possession records' given the concerns raised in [prior work][prior work] about play-type labeling quality and `initiation_type` mapping. It is not clear if the derived play types used here are subject to the same artifacts."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The historical evidence strongly influenced the decision. FAM:[prior work] confirmed the existence of sequential effects (defensive aftershocks), making the core premise of the research question testable. However, [prior work][prior work] highlighted significant methodological risks related to play-type labeling and PPP calculation artifacts. This shifted the decision from a straightforward 'proceed' to 'proceed_with_changes', mandating a robust data quality check and specific controls for foul effects in PPP calculation, which was not initially explicit in the research question."
+  },
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "The reliability of the 'derived play-type possession records' and the potential for foul-related artifacts in PPP (as identified in [prior work][prior work]) could significantly distort results if not addressed. This directly impacts the 'AVOID' labels if they are based on these potentially flawed PPP metrics."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Many factors influence PPP, such as game state (score, clock), player personnel on court, opponent strength, and random variance. Without proper controls, observed lagged effects could be confounded by these variables."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Specific play type sequences or very rare play types might have insufficient sample sizes to reliably detect an effect, especially for 'top pair premiums' as noted in FAM:[prior work]. This could limit the ability to assign 'AVOID' labels to all relevant plays."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "FAM:[prior work] established the existence of 'defensive aftershocks' where a prior play influences the PPP of a subsequent play, confirming the fundamental premise of lagged effects. However, it did not specifically quantify the effect of 'your team's' play X on 'opponent next-possession PPP' or connect it to 'AVOID' labels. [prior work][prior work] identified critical data quality issues with play-type labeling and PPP calculation due to foul artifacts, directly impacting the reliability of any PPP-based labels."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "The 'derived play-type possession records' might suffer from similar labeling issues as identified in [prior work][prior work], where foul endings inflate PPP for some play types or are misattributed. This could lead to erroneous 'AVOID' labels based on artifactual PPP differences."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The sequential effects could be confounded by factors like game context (score differential, time remaining), substitution patterns, coaching decisions, or inherent player skill. A play might appear to lead to a poor opponent PPP not because of the play itself, but because it frequently occurs in specific, defensively advantageous situations."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Some specific play types, or particular sequences of plays, may occur infrequently, leading to small sample sizes for calculating their lagged PPP effects. This can result in low statistical power to detect meaningful effects or inflated variance in estimates."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The 'AVOID' labels themselves are likely derived from some performance metric (e.g., PPP). If the methodology for deriving these labels is not robust or if the underlying PPP calculations are flawed, the entire premise of the research question (that lagged PPP 'drives' these labels) could be circular or based on unreliable outcomes."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Basketball strategies and play execution can evolve over seasons. Effects observed in 2022-23 might not hold identically in 2025-26, potentially impacting the consistency of 'AVOID' labels if they are based on historical data."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of running specific offensive play type X (by 'your team') on the Points Per Possession (PPP) of the immediate subsequent possession by the opponent, and the causal effect of 'own-sequence lags' (defined as the PPP of the immediately preceding offensive possession by 'your team') on the PPP of the current possession. These effects will be quantified as differences in PPP relative to a baseline or control group, and then assessed for their magnitude and consistency to determine if they are 'large enough to drive AVOID labels'.",
+   "unit": "Possession. Each unit will be an offensive possession, linked to the preceding offensive possession (for own-sequence lags) and the immediately following opponent offensive possession (for opponent next-possession PPP).",
+   "sample": "All offensive possessions from NBA 2022-23, 2023-24, 2024-25 regular seasons and playoffs, and complete 2025-26 regular season. Exclude possessions ending in dead ball turnovers where the opponent does not immediately gain possession or where play-type cannot be reliably identified. Ensure sufficient sample size for each play type X to estimate effects with useful power.",
+   "power": "Aim for 80% power to detect a 0.05 PPP difference (approximately half the smallest historical aftershock) at alpha = 0.05. This will require a minimum number of observations for each play type X. If specific play types or sequences fall below this threshold, their effects will be deemed inconclusive.",
+   "controls": "Statistical controls will be applied using a regression framework (e.g., mixed-effects model or propensity score matching) to account for confounding variables. These include: game state (score differential, time remaining in quarter/game), team strength (e.g., offensive/defensive rating of both teams), player personnel on court (starters vs. bench, specific player combinations), quarter, home/away status, and opponent quality. PPP will be adjusted for foul outcomes, either by using a 'foul-adjusted PPP' metric or by including foul outcome as a covariate, based on the findings of [prior work][prior work].",
+   "falsification": "Implement a rigorous data quality audit for the 'derived play-type possession records', similar to [prior work][prior work], to check for foul leakage, inflated PPP, and accurate play-type mapping. If the audit reveals significant and uncorrectable artifacts in play-type labeling or PPP calculation, the study will be halted. Additionally, test for spurious correlations by analyzing lagged effects using randomized play type assignments or permuting sequences to ensure observed effects are not due to chance or unmodeled confounders.",
+   "multiplicity": "Given multiple play types and two distinct lagged effects (opponent next-possession, own-sequence), apply appropriate multiple testing corrections (e.g., Bonferroni, FDR) to control the family-wise error rate when assessing the significance of each play type's effect. Prioritize a small set of key play types for initial analysis to manage multiplicity.",
+   "decision_rule": "The research question is considered 'supported' if statistically significant (p < alpha after multiplicity correction) and practically meaningful (e.g., >0.05 PPP difference, consistent with driving 'AVOID' labels) lagged effects are robustly identified for a substantial portion of play types, after accounting for confounding and data quality issues. If significant artifacts are found that cannot be mitigated, the question will be deemed 'untestable' or 'artifact'.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs, and complete 2025-26 regular season data available as of 2026-06-19. Use the final, audited versions of the derived play-type possession records."
+  }
+ },
+ "redactions": 29
+}

@@ -1,0 +1,137 @@
+{
+ "blind_id": "Rfa4e8bc7c3a9",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nThe teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=148; 148 spells; 11 cases\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence and offensive reorganization",
+   "initiation profile similarity among teammates",
+   "primary play types of absent player",
+   "largest gainer in absent player's primary types",
+   "pre-absence initiation profile (cosine similarity, Euclidean distance)",
+   "substitute teammate metrics (minutes, initiations, same-position minutes)"
+  ],
+  "methodological_questions": [
+   "How to measure 'closest pre-absence initiation profile' between teammates?",
+   "How to define 'primary types' for an absent player?",
+   "How to identify and measure the 'largest gainer' among teammates?",
+   "How to handle small sample (n=148 spells, only 11 cases)?",
+   "How to control for confounding by position and direct substitution role?",
+   "How to avoid regression-to-mean artifacts when selecting on pre-absence similarity?",
+   "How to ensure no lookahead when splitting pre-absence and during-absence periods?",
+   "What statistical power is achievable with 11 cases?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No prior project evidence on this question was available in retrieval."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the closest-profile teammate is the largest gainer.",
+   "Whether minutes, initiations, or same-position minutes are better predictors.",
+   "The typical magnitude and variance of initiation redistribution during absences.",
+   "Any methodological benchmarks for measuring initiation profile similarity in this context."
+  ],
+  "own_inferences": [
+   "The question is a test of predictive discrimination: which of several pre-absence metrics best identifies the teammate whose initiations in the absent player's primary types increase most.",
+   "With only 11 cases (likely 11 absence spells meeting minimum criteria), any estimator will have extremely wide confidence intervals; useful statistical power is implausible.",
+   "The definition of 'closest pre-absence initiation profile' is ambiguous and requires a distance metric (cosine similarity, Euclidean, Jensen-Shannon) and a choice of feature space (play-type proportions, per-100-possessions rates).",
+   "Defining 'primary types' requires a threshold that will be data-driven; few players have large enough initiation volumes to robustly estimate a play-type profile.",
+   "The teammate who is the largest gainer may simply be the direct positional substitute, making the initiation-profile metric redundant with same-position minutes.",
+   "Regression to the mean is a serious threat: a teammate whose pre-absence profile was slightly below their true mean may appear to gain simply by reverting to their mean, not because they are closest to the absent player's profile."
+  ],
+  "uncertainties": [
+   "What exactly '11 cases' refers to: unique players who missed games, team-absence combinations, or spells of a minimum length.",
+   "The minimum absence length required for initiation profiles to meaningfully shift.",
+   "The typical number of teammates per spell that compete to be the 'largest gainer'.",
+   "The expected effect size (difference in gain between closest-profile teammate and next-closest)."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No [prior work] were retrieved; the decision rests solely on methodological assessment of the research question and the available data."
+  },
+  "testability": {
+   "p_testable": 0.05,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 11 cases (likely team-player-absence spells of qualifying length) are available. Any test of which teammate metric best predicts the largest gainer would be severely underpowered; even a large effect would be indistinguishable from noise."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The number of spells where the absent player has a well-defined primary play type and there is a teammate with a meaningfully similar initiation profile is likely a small fraction of the 11 cases."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Initiation profiles are noisy estimates from limited possessions; play-type classification has known error rates. Measuring similarity between two noisy profile vectors (absent player and teammate) compounds the unreliability."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing multiple proximity metrics (closest profile, most minutes, most initiations, same-position minutes) without pre-specification inflates false-positive risk."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier study-family records were returned by retrieval, so we have no project-internal prior work to build on for this precise question."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "11 cases is far below what would be needed to detect a meaningful difference in predictive accuracy among competing metrics, or even to estimate the gain for a single metric with useful precision."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many absence spells may lack a clear 'primary type' for the absent player, or may lack a teammate with enough pre-absence initiations in those types to measure a gain."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Initiation profiles are derived from play-by-play classification, which has non-trivial error rates. Small-sample profile estimates for individual players add noise that attenuates any true signal."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Selecting the teammate whose pre-absence profile is closest to the absent player's may capture a teammate who happened to be below their own true mean, so their 'gain' partly reflects regression to their mean rather than a causal substitution effect."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Defining the absent player's 'primary types' from the same data used to measure the gain creates a risk of circularity and overfitting."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The teammate who gains the most initiations is likely the direct positional replacement. Same-position minutes may be a confounder rather than an alternative metric; profile similarity may add no independent predictive value once position is controlled."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "The question compares multiple proximity definitions without pre-specification of a primary metric or a correction for multiple comparisons."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If 'pre-absence' is not strictly defined relative to each absence spell's start date, during-absence data could contaminate the profile estimates."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "A teammate who already initiates a large share of a play type may have limited room to increase, biasing gain estimates downward for high-initiating teammates."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.02,
+   "rejected": 0.02,
+   "untestable": 0.92,
+   "artifact": 0.03,
+   "uncertain": 0.01
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "For each qualifying player-absence spell, the difference in the increase (during-absence minus pre-absence) of initiation volume in the absent player's primary play types between (a) the teammate whose pre-absence initiation profile has the highest cosine similarity to the absent player's profile and (b) all other teammates who played both pre- and during-absence. The estimand is the mean of this difference across spells, compared with analogous differences computed using alternative pre-absence teammate metrics (total minutes, total initiations, same-position minutes).",
+   "unit": "One absence spell of a player missing at least 10 consecutive regular-season games, with complete play-by-play data for at least 20 pre-absence and 5 during-absence team games.",
+   "sample": "All such spells from the 2022-23 through 2025-26 NBA seasons that yield at least one teammate with at least 50 pre-absence initiations and at least 20 pre-absence initiations in the absent player's primary types. Given the 11 cases reported, this may be zero after filtering; the minimum viable test would require pooling multiple additional seasons or leagues.",
+   "power": "With 11 cases, even a large effect size (d = 0.8) would have power near 0.3 at alpha = 0.05 in a simple paired test. To reach 0.80 power for a medium effect (d = 0.5) would require approximately 50-60 spells. The available data cannot achieve useful power.",
+   "controls": "Direct positional replacement status (same listed position), pre-absence on-court co-occurrence with the absent player, and pre-absence initiation volume in the primary play types, included as covariates in a hierarchical model.",
+   "falsification": "Apply the same metric-selection procedure to placebo 'absences' of players who actually played (random game gaps), where no systematic gain should be attributed to profile similarity; if the metric still appears predictive, the method is picking up noise.",
+   "multiplicity": "Pre-register a single primary definition of profile similarity (cosine similarity of play-type proportion vectors) as the predictor of interest, and treat the alternative metrics as secondary or exploratory. Use a hierarchical Bayesian model that shares information across spells and incorporates uncertainty in profile estimates.",
+   "decision_rule": "If the posterior probability that the closest-profile teammate's gain exceeds the average gain of other teammates is greater than 0.95, declare the metric predictive. For comparisons between metrics, report Bayes factors without dichotomous decisions given the small n.",
+   "data_version": "NBA play-by-play 2022-23 through 2025-26 seasons as of the 2026-11-01 cutoff, with play-type possessions from the project graph database release current at that date."
+  }
+ },
+ "redactions": 1
+}

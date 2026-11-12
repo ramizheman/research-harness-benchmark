@@ -1,0 +1,171 @@
+{
+ "blind_id": "Re0f9b2722647",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "AVOID label",
+   "opponent next-possession points per possession (PPP)",
+   "own-sequence lag effects",
+   "derived play-type possession records",
+   "play-by-play data quality",
+   "foul-ending possessions and PPP inflation",
+   "sequential play-type pair premium",
+   "defensive aftershock"
+  ],
+  "methodological_questions": [
+   "Is opponent next-possession PPP after play X large enough to drive AVOID labels?",
+   "Do own-sequence lags carry a similar signal?",
+   "Does the play-type label derivation (initiation_type mapping, foul endings) inflate or distort PPP differences before any effect is estimated?",
+   "What sample size and exposure per play type are needed to detect PPP differences?",
+   "Is the AVOID label defined independently of the outcome it is meant to explain?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit (OTHER/DRIVE foul leakage). Recorded: OTHER had 36% of possessions ending in fouls with PPP inflated (FOUL_BUCKET); DRIVE was 12pp below the foul benchmark (FOUL_LEAK); PNR showed a 22% foul rate; only 335 of 50,668 possessions (0.7%) mapped to a real play type via initiation_type. Recorded verdict: artifact_found. Validation status recorded as no_validation_recorded."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Sequential pair premium and defensive aftershock (8/8 PTs). Recorded hypothesis: after the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline, and every PT has a defensive aftershock. Recorded results: aftershock positive across 8/8 play types in all-games (e.g., CUT +0.119, n=21,398; TRANSITION +0.135, n=26,262) and playoffs (CUT +0.131, n=1,145; TRANSITION +0.126, n=1,529). Top recorded pair premium PUTBACK->TRANSITION +0.084, n=565. Recorded limitation: [prior work]. [prior work] text is truncated in the retrieval; full text was not read."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using initiation_type-derived play-type labels and per-play-type PPP comparisons as evidence of real efficiency differences",
+    "why": "Recorded failure mechanism C_artifact: OTHER PPP inflated by foul endings (36%); DRIVE understated by 12pp against the foul benchmark; initiation_type maps only 0.7% of 50,668 possessions to a real play type, so label coverage is far too thin for the comparison."
+   }
+  ],
+  "evidence_establishes": [
+   "The play-type label pipeline built from the play-by-play has a documented artifact risk: foul endings distort PPP by play-type bucket, and the initiation_type mapping covers a very small share of possessions ([prior work][prior work]).",
+   "Earlier work by this project found a positive defensive aftershock and sequential pair premium across play types in all-games and playoff samples (FAM:[prior work]), which is adjacent to, but not the same as, the opponent next-possession PPP question posed here.",
+   "Any AVOID-label analysis that uses PPP outcomes to define labels is at risk of being circular unless the label definition is fixed before the outcome is examined."
+  ],
+  "evidence_does_not_establish": [
+   "Whether opponent next-possession PPP after play X exceeds any threshold for an AVOID label; no record defines AVOID or sets a threshold.",
+   "Whether the FAM:[prior work] positive aftershock survives validation of the labels, since [prior work] itself is flagged [prior work] and its label source is not confirmed as clean.",
+   "Whether own-sequence lag effects carry a signal similar to opponent next-possession effects; no retrieved record tests own-sequence lags directly.",
+   "Whether the foul-leakage artifact has been corrected; [prior work] states no validation was recorded.",
+   "Any estimate for the 2025-26 playoffs, which were partial on the retrieval date."
+  ],
+  "own_inferences": [
+   "The question as posed mixes an outcome (opponent next-possession PPP) with a decision label (AVOID) without stating the rule that links them, so the test cannot be specified yet.",
+   "FAM:[prior work] uses a defensive-aftershock framing that is close to the opponent-effect question but measures offensive play-type Y after opponent play X; it is partial support for the design rather than an answer.",
+   "Given the 0.7% initiation_type coverage in [prior work][prior work], the apparent large play-type differences in [prior work] may partly reflect how labels were built, so the [prior work] magnitudes should not be carried forward without a label audit.",
+   "Foul-ending possessions should be removed or modelled separately before PPP is compared, since they mechanically change points per possession."
+  ],
+  "uncertainties": [
+   "The AVOID label is not defined in the task or data description; its threshold, direction and computation are unknown.",
+   "The full text of FAM:[prior work] and [prior work][prior work] was not read beyond the retrieved document; the retrieved [prior work] text is truncated mid-sentence.",
+   "Whether [source]-database play-type records were rebuilt after the SF-[prior work] audit is not recorded.",
+   "The 2025-26 playoff data is partial before 2026-06-21, and the regular season is complete only from 2026-04-13.",
+   "No record gives the variance or reliability of PPP by play type, so the power calculation is unconfirmed."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieved artifact finding ([prior work][prior work]) moves the decision from a direct test to a conditional one: the label pipeline must be validated before any PPP-based AVOID test. The [prior work] supported result (flagged small_sample) gives partial motivation for the question but is not sufficient to answer it, so the project should not proceed as posed."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "initiation_type maps only 0.7% of possessions to a real play type; foul endings inflate OTHER PPP ([prior work][prior work])."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "AVOID is not defined independently of PPP outcomes; using the outcome to define the label makes the test circular."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Foul endings and possession-level context (score, period, opponent quality) bias PPP by play type unless adjusted."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "[prior work] cells are small in playoffs (n=565 to 1,529) and [prior work] is flagged [prior work]; sparse X-Y pair cells will limit power."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "FAM:[prior work] reports a supported positive defensive aftershock and sequential pair premium across play types, adjacent to the opponent next-possession question but not the same estimand and flagged small_sample. [prior work][prior work] reports an artifact in the play-type labels (foul leakage and 0.7% mapping coverage) that undermines the PPP comparisons these studies rely on. Neither record tests AVOID labels or own-sequence lags directly."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels have documented foul leakage and very low mapping coverage (0.7%), so PPP differences may reflect labelling rather than basketball."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If AVOID is assigned from the same next-possession PPP being tested, the test is circular."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using information from the possession after X (e.g. its foul status or final points) to define the label leaks future information into the feature."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Score state, period, lineup, opponent strength and pace can drive both play choice and next-possession PPP."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-play-type and per-pair cells, especially in playoffs, are small; [prior work] itself is flagged small_sample."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Some play types appear rarely; the 2025-26 playoffs are partial at the retrieval date."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PPP per play type is noisy across seasons; no reliability estimate is recorded."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing every play type X and lag Y across opponent and own-sequence definitions inflates false positives; [prior work] already reports many pair cells."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo (e.g. next-possession PPP after a non-play event), an aftershock could reflect general possession sequencing."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Some play types have low base rates, so their PPP differences are unstable."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Graph-database derivation and join logic were not validated; [prior work] states no validation was recorded for the labels."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type usage and PPP shift across 2022-23 to 2025-26; pooling seasons can mask changes."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.1,
+   "untestable": 0.15,
+   "artifact": 0.4,
+   "uncertain": 0.25
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Difference in opponent next-possession PPP after a play of type X versus the matched baseline of possessions without X, with own-sequence lag difference reported separately; AVOID threshold to be defined in advance and not derived from the tested PPP.",
+   "unit": "Possession pair: an opponent-run play X and the following possession (opponent and own), with the label fixed from pre-outcome information only.",
+   "sample": "Development on complete 2022-23 to 2024-25 regular seasons and playoffs; confirmatory holdout on complete 2025-26 regular season (complete from 2026-04-13). Exclude 2025-26 playoffs until complete (from 2026-06-21). Exclude foul-ending possessions from the primary PPP and analyse them separately.",
+   "power": "Power calculation not yet performed; minimum cell size and minimum detectable PPP difference must be set before analysis, and cells below the threshold must be reported as untestable rather than estimated.",
+   "controls": "Score margin, period, clock, lineup and opponent strength, pace, and home/away; stratify by season to check drift; use foul-ending and mapping-coverage diagnostics as covariates.",
+   "falsification": "A placebo is required: the same PPP contrast computed after non-play events (e.g. substitutions or timeouts) and after shuffled play labels; if the placebo shows a similar contrast, the result is an artifact.",
+   "multiplicity": "Prespecify one primary contrast (opponent next-possession PPP for the AVOID definition) and one primary own-sequence lag; correct all other play-type and pair comparisons with a false-discovery-rate procedure.",
+   "decision_rule": "Only if (1) the label pipeline passes a validation audit (foul-leak diagnostic within a prespecified tolerance, and initiation_type mapping coverage reported and acceptable), (2) the placebo contrast is near zero, and (3) the effect exceeds the prespecified AVOID threshold with its confidence interval in the holdout season, call the AVOID label supported; otherwise report untestable or artifact.",
+   "data_version": "Lock [source]-database play-type records and play-by-play extracts to a fixed version after the label audit; record the version hash; use only complete seasons for the confirmatory test."
+  }
+ },
+ "redactions": 43
+}

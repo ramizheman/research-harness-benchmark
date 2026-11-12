@@ -1,0 +1,150 @@
+{
+ "blind_id": "Rf72382280c62",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive reorganization",
+   "player absence",
+   "points per possession change",
+   "relative to L"
+  ],
+  "methodological_questions": [
+   "how to measure offensive reorganization relative to L",
+   "predicting change in points per possession from reorganization",
+   "confounding by replacement quality and opponent",
+   "adequate sample size of absence spells",
+   "reliability of reorganization metrics"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Live trigger timing study found earlier suppression triggers yield better BEST-counter outcomes, but early-trigger subset (26 triggers) produced only weak evidence (p=0.031, n=57). Best-vs-avoid gap varied with sample size, and overall correlation (rho=-0.2066) rests on larger late-trigger pool."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Absence validation: real player absences moved association structure (V1 confirmed), but the leave-one-out simulation did not predict the magnitude of that movement (V2 rho=+0.288, p=0.077, CI[-0.244,+0.667], n=23 absences). Small sample limited power."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Player routing V4 vs V5 direct scoring attempt produced 0 scoreable divergences out of 8; V5 mostly routed to 'team' because players were missing from Neo4j graph database. Question unanswerable with that data and small sample."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Head-to-head routing prior vs posterior gate diagnostic: apparent PPP [source] of +1.26 at n>=5 and +1.13 at n>=15 was small-sample inflation driven by low-possession role players. Recommends n>=15 gate to filter noisy cells."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Attempt to predict the magnitude of real post-absence PPP change from a simulated structure-change metric (V2: Spearman rho=+0.288, 95% CI [-0.244, +0.667], p=0.077).",
+    "why": "Limited by small sample (23 player-season absences); underpowered to detect the expected correlation, resulting in an inconclusive (FAIL) test."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Direct scoring of player-level PPP from Neo4j graph database to compare routing versions.",
+    "why": "Players missing from graph; 0 of 8 divergences scoreable; data coverage insufficient for player-level analysis."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Using unrestricted cell-level PPP deltas (e.g., n>=5) to assess routing signals.",
+    "why": "Low-n cells produced inflated PPP values (role players at 3.00 PPP) that created an artifact; recommended n>=15 gate."
+   }
+  ],
+  "evidence_establishes": [
+   "Player absences do change the team's association structure ([prior work] V1 confirmed).",
+   "Small samples (23 spells) are underpowered for magnitude prediction ([prior work] V2).",
+   "Player-level PPP data from the Neo4j graph may have missing coverage (SF-[prior work]).",
+   "PPP differences computed from small possession counts are inflated and misleading ([prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a direct observational metric of offensive reorganization predicts PPP change.",
+   "What sample size is sufficient when using 148 possible spells.",
+   "How to measure offensive reorganization relative to 'L' (L not defined).",
+   "Whether the relationship, if any, is free of confounding by opponent or replacement quality."
+  ],
+  "own_inferences": [
+   "The question is similar to [prior work]'s V2 but uses observed reorganization instead of simulated; the [prior work] failure alerts us that power may be a challenge even with 148 spells.",
+   "A reliable reorganization metric must be based on sufficient possessions per spell (e.g., play-type distributions aggregated over at least 10 games each pre and post).",
+   "The 'relative to L' likely refers to a baseline league or team-typical reorganization; an operational definition must be chosen before analysis.",
+   "[prior work]'s n>=15 recommendation can be extended to require a minimum number of team possessions per spell period to avoid small-sample PPP distortion.",
+   "Missing player-level data in [source] database is less concerning if the reorganization metric and PPP change are computed at the team level."
+  ],
+  "uncertainties": [
+   "The exact definition of L (offensive reorganization baseline) is not given in the task statement.",
+   "The number of spells that will survive pre/post game and possession thresholds is unknown; 148 is an upper bound.",
+   "Whether opponent-adjusted PPP change can be reliably computed from per-game data.",
+   "The distribution of reorganization scores and whether it will exhibit the variance needed for a correlation test."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without historical evidence, one might proceed with a naive correlation on all 148 spells. [prior work] shows that a similar magnitude-prediction test was underpowered at n=23, and [prior work] shows that low-possession PPP deltas create artifacts. This changed the design to require pre/post possession thresholds, a spelled-out sample-size justification, and falsification tests, moving the decision from 'proceed' to 'proceed_with_changes'."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "After requiring adequate pre/post games and possessions, the number of spells may drop below the level needed to detect the expected effect, based on [prior work]'s rho=0.288 and 23 spells."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The reorganization metric (e.g., cosine similarity of play-type distributions) requires enough possessions per spell period to be stable; if possession thresholds are too strict, sample size shrinks; if too lax, measurement noise increases."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "No retrieved study tested the specific question. [prior work] attempted a related magnitude-prediction from simulated reorganization but failed due to small N. [prior work] provides quality-control gates for PPP data."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effective sample of absence spells with sufficient possessions may be too small to detect a plausible correlation, similar to [prior work]."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The reorganization metric computed from play-type frequencies may be noisy for short spells, attenuating any true correlation."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Change in PPP is confounded by opponent quality, home/away, pace, and the quality of replacement players; failing to adjust will bias the estimate."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The outcome (PPP change) is derived from the same play-by-play used to compute reorganization, raising mechanical dependence if not carefully separated."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Multiple seasons (2022-2026) may include league-wide style drift; season fixed effects should be included."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.3,
+   "untestable": 0.3,
+   "artifact": 0.05,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Pearson correlation (and linear regression coefficient) between a pre-specified offensive reorganization score (1 minus cosine similarity of play-type usage proportions pre vs post) and the change in opponent-adjusted points per possession (post-absence minus pre-absence) for player absence spells.",
+   "unit": "One player absence spell: a continuous sequence of games missed by the same player within a single season, with defined pre- and post- windows.",
+   "sample": "All spells from 2022-23 through 2025-26 NBA regular seasons and playoffs where: (a) the player misses >=3 consecutive games, (b) the team has >=10 prior games with the player active and >=10 subsequent games without him, (c) each window contains >=200 team offensive possessions with play-type tags, and (d) the player was not a two-way or 10-day contract player during the window. Exclude spells where the team had multiple overlapping major rotation absences.",
+   "power": "Target n ~ 100 spells (from initial pool of 148). With n=100, two-tailed alpha 0.05, power = 0.80 to detect rho >= |0.28|. If final n < 80, report as exploratory.",
+   "controls": "Adjust the PPP change for: average opponent defensive rating in each window (weighted by possessions), home/away game proportion, average pace, a metric of replacement player quality (e.g., per-possession plus-minus of the fill-in lineup), and season fixed effects.",
+   "falsification": "Placebo test: randomly reassign absence start dates within the same team-season to create pseudo-absences; expect no correlation. Negative control: compute reorganization between two consecutive pre-absence windows (no real absence) and test correlation with the actual PPP change; should be null.",
+   "multiplicity": "One primary reorganization metric is pre-registered (cosine similarity of play-type proportions). All other metrics (e.g., Euclidean distance, entropy difference) are secondary and Bonferroni-corrected. The single primary p-value <0.05 constitutes a significant result.",
+   "decision_rule": "Reject null if primary test p < 0.05 (two-tailed) and the estimated correlation is in the hypothesised direction (greater reorganization -> larger PPP decline). Otherwise, treat as inconclusive. Report 95% confidence interval for the correlation.",
+   "data_version": "Data freeze as of 2026-11-01, including 2022-23 through 2025-26 NBA seasons, using play-by-play and play-type possession records from [source] database."
+  }
+ },
+ "redactions": 27
+}

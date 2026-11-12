@@ -1,0 +1,137 @@
+{
+ "blind_id": "R8f827dc90ae8",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offense reorganization",
+   "lineup changes",
+   "points per possession",
+   "player absence",
+   "offensive reorganization metrics",
+   "impact of lineup changes on offensive performance"
+  ],
+  "methodological_questions": [
+   "measurement of offense reorganization",
+   "causal inference of lineup changes on points per possession",
+   "confounding factors (opponent strength, game context)",
+   "exposure sparsity",
+   "selection bias",
+   "measurement reliability"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Real player absences move the association structure (V1) was confirmed; simulation predicts the magnitude (V2) was not (rho +0.288, CI -0.244 to +0.667). V2 failed but a later full‑pool run reversed it."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Player routing V4 vs V5 direct scoring could not be tested; 0 of 8 divergences were scoreable due to missing player data."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Routing prior vs H2H posterior gate diagnostic showed apparent PPP [source] from low‑n cells; n>=15 gate recommended to reduce small‑sample inflation."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Player routing comparison",
+    "why": "Data coverage issue – players missing from Neo4j, no scoreable instances."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Low‑n cell analysis",
+    "why": "Small‑sample distortion inflated PPP differences; artifact."
+   }
+  ],
+  "evidence_establishes": [
+   "Real player absences alter association structure (V1) indicating that lineup changes can shift offensive dynamics.",
+   "Small‑sample analyses can produce artifactual PPP gains, underscoring the need for adequate exposure."
+  ],
+  "evidence_does_not_establish": [
+   "The magnitude of PPP change attributable to offense reorganization relative to a baseline lineup.",
+   "Whether offensive reorganization predicts PPP change under typical game conditions with sufficient power."
+  ],
+  "own_inferences": [
+   "The retrieved studies suggest that while lineup changes do alter structure, quantifying the predictive power of reorganization on PPP requires careful design to avoid small‑sample artifacts and ensure sufficient exposure."
+  ],
+  "uncertainties": [
+   "Exact operational definition of ‘offense reorganizes relative to L’ is not standardized across studies; potential measurement error in reorganization metrics.",
+   "The available data set (n=986 games, 148 spells) may be underpowered to detect modest correlations.",
+   "Confounding by opponent strength, game tempo, and situational factors may bias estimates."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "Historical evidence confirms that lineup changes affect structure but does not provide a reliable estimate of PPP predictive power; therefore it does not compel a change in the decision."
+  },
+  "testability": {
+   "p_testable": 0.35,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 148 spells available, limiting ability to detect small to moderate correlations."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Reorganization events may be infrequent, leading to sparse exposure."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "No standardized metric for offense reorganization; measurement may be noisy."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Opponent strength and game context may confound the relationship."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior work confirms that lineup absences alter association structure but does not quantify PPP predictive power."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Limited number of spells reduces statistical power."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Reorganization events may be rare, leading to sparse data."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Offense reorganization metric may be noisy or inconsistently defined."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Opponent strength, game tempo, and situational factors may confound observed PPP changes."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.15,
+   "untestable": 0.35,
+   "artifact": 0.05,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Effect of offense reorganization (relative to baseline lineup L) on change in points per possession (ΔPPP).",
+   "unit": "Game spell (post‑absence or lineup change event).",
+   "sample": "All spells with at least 15 possessions and available reorganization metric; target n≥300 after filtering for exposure and data quality.",
+   "power": "Aim for 80% power to detect a Spearman rho of 0.25 at alpha=0.05; requires ~300 spells.",
+   "controls": "Opponent team PPP, game tempo, quarter, score differential, and prior game fatigue; include fixed effects for home/away and season.",
+   "falsification": "Test the relationship on a placebo period where no lineup change occurs; expect no association.",
+   "multiplicity": "Adjust for multiple testing by controlling FDR across different reorganization metrics; pre‑register primary metric.",
+   "decision_rule": "Reject null if Spearman rho > 0.20 and p<0.05 after FDR correction; otherwise conclude insufficient evidence.",
+   "data_version": "NBA 2022‑23 through 2025‑26 regular season and playoffs (complete up to 2026‑06‑21)."
+  }
+ },
+ "redactions": 9
+}

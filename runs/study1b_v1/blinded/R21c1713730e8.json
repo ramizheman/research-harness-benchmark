@@ -1,0 +1,141 @@
+{
+ "blind_id": "R21c1713730e8",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "pick-and-roll (PNR) failure",
+   "PULL_UP as a counter to a suppressed PNR",
+   "defensive suppression and counter strategy",
+   "lift relative to a baseline, in percentage points",
+   "consistency of lift across units (share of units with lift>0, median lift)",
+   "play-type possession outcomes"
+  ],
+  "methodological_questions": [
+   "How are 'PNR fail' and 'PULL_UP' defined without using the possession outcome?",
+   "What is the lift baseline (PULL_UP in non-failed contexts, other counters in failed contexts, or the league mean)?",
+   "What is the unit (team-season, player-season, team, ball handler) and is exposure per unit enough?",
+   "Does the >=70% / >2pp rule exceed what sampling noise, a mechanical floor or regression to the mean would produce?",
+   "Are results stable across seasons and regular season vs playoffs, and how is multiplicity handled?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. Retrieval returned zero records, so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether PULL_UP after a failed PNR has been tested before, and with what result.",
+   "Whether any definition of 'PNR fail', 'lift' or 'unit' has been tried, validated or has failed.",
+   "Whether the 70% / 2pp thresholds are calibrated to any prior null distribution."
+  ],
+  "own_inferences": [
+   "The question is ambiguous. 'PNR fail', 'lift' and 'unit' are undefined, and the result will depend heavily on those choices.",
+   "If 'fail' is defined by a bad PNR outcome (no points, turnover, missed shot), the label is outcome-derived. A subsequent PULL_UP is then conditioned on a state that selects for lower baseline efficiency, which can create or mask lift mechanically.",
+   "A pull-up is a shot by definition. Lift measured on points or eFG against a baseline that includes non-shot possessions has a mechanical floor or ceiling that is unrelated to counter value.",
+   "Under a true-zero effect, about half of units show lift>0 by chance. With sparse units, noise inflates dispersion and RTM can push the sign either way. The 70% rule therefore needs a permutation-calibrated null, not a naive reading.",
+   "The 2pp median threshold is small relative to plausible per-unit standard errors unless units are aggregated (for example team-seasons with many hundreds of events).",
+   "Using a design-time-frozen window avoids look-ahead: 2025-26 playoffs are partial on 2026-05-23, so they must be excluded or treated as a holdout."
+  ],
+  "uncertainties": [
+   "How many failed-PNR then PULL_UP events exist per team-season or player-season in the derived play-type records.",
+   "Whether the derived records separate PNR possessions that were suppressed from ones that ended with a different action.",
+   "Whether the 'counter' is a within-possession sequence (the same possession) or a next-possession adaptation.",
+   "Whether the lift is meant as a causal counter effect or only a descriptive pattern."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No records were returned, so history neither changed nor informed the decision. The decision rests on my own reasoning from the task statement and the data description, and it was not checked against prior project work."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "'PNR fail' must be defined from pre-counter information (defender coverage, ball-handler's blocked drive, clock at the action) and not from the possession result. Otherwise lift is circular."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Per-unit counts of failed-PNR then PULL_UP events may be small at player level. Unit-level lift signs would then be noise-dominated, and the 70% rule would be hard to pass or fail meaningfully."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier project work was retrieved, so whether this question was previously studied is unknown. No historical evidence was available."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "A failure label based on the possession outcome makes lift partly tautological."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "PULL_UP is by definition a shot attempt, and the comparator may include turnovers or passes. Differences in lift can reflect action type rather than counter value."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Small per-unit event counts make the share of units with lift>0 noisy and bias it toward 50%."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "A 2pp median shift against unit-level binomial noise needs thousands of events overall. Power must be computed before running."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If units are chosen by extreme prior pull-up efficiency, or failed-PNR states are chosen for bad outcomes, regression to the mean will mimic lift."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Ball-handler skill, defensive coverage, score, clock and lineup affect both the choice of PULL_UP and its efficiency. Selection into PULL_UP is not random."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "The baseline PULL_UP efficiency differs by shot location and clock. The lift reference must be matched to context."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The derived play-type labels (initiator, play type) come from play-by-play heuristics and may misclassify PNR and PULL_UP."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Misclassification of PNR failure or PULL_UP shots adds noise and pulls lift toward zero or creates spurious differences."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Season-level changes in rules, coverage trends and shot profiles can shift lift across 2022-23 to 2025-26."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several definitions, units, seasons and outcome metrics invite forking paths unless one primary specification is fixed."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo (an alternative counter, or a non-failed PNR context) a positive lift cannot be attributed to the failed-PNR context."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using the 2025-26 playoffs, which are partial on 2026-05-23, or a classification that uses future events in the possession, would leak. The data cut must be frozen."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.25,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each unit u, lift_u = E[points per possession (and, secondarily, eFG%) for possessions where PULL_UP is the first shot action after a pre-defined failed PNR] minus E[the same metric for the matched comparator]. The comparator is other terminal actions in failed-PNR states, matched on ball-handler, shot clock, score margin, period and defensive coverage. Primary question: is lift_u>0 in >=70% of eligible units, and is the median lift_u>2pp?",
+   "unit": "Primary: team-season, to ensure exposure. Secondary (exploratory): player-season ball handlers meeting a minimum event count. The minimum eligible count N_min per unit is set from the power calculation before looking at outcomes.",
+   "sample": "Regular seasons 2022-23, 2023-24, 2024-25 and 2025-26 (complete since 2026-04-13) as the primary sample. Playoffs 2022-23 to 2024-25 are a secondary stratum. The 2025-26 playoffs are excluded because the data are partial on 2026-05-23. They can be used as a confirmatory holdout once complete (2026-06-21). Freeze the data snapshot and the label definitions before any outcome inspection.",
+   "power": "Before analysis, compute per-unit event counts from the derived records (counts only, no outcomes). Simulate the pass rule (share>=70% and median>2pp) by bootstrap at plausible true lifts (0, 1, 2, 3pp) and the observed per-unit n. Require >=80% power at a true uniform lift of 3pp and a false-pass rate <=5% at true lift 0. If this fails, restrict to pooled team-season tests or declare the unit-level rule untestable.",
+   "controls": "Define PNR fail from pre-outcome features (e.g., screen defended by a switch or drop that prevents a rim attempt, the ball handler not getting a drive or open look) and not from points. Use a within-state comparator rather than league means. Adjust for shot clock, score, lineup, shot distance and player quality with a hierarchical (mixed) model with unit random effects, and use shrinkage to reduce sampling-noise dispersion. Check label accuracy on a hand-audited sample.",
+   "falsification": "(1) Placebo: apply the same lift calculation to a non-failed PNR context and to a different counter, e.g., a drive or a pass, where no effect is expected. (2) Permutation: shuffle the PULL_UP assignment within state strata to get the null distribution of the share of units with lift>0 and of the median. (3) Split-half stability across odd and even games and across seasons. (4) Sensitivity to the definition of 'fail' and to N_min. (5) Confirm on the held-out 2025-26 playoffs once complete.",
+   "multiplicity": "One primary specification (team-season, points per possession, fixed fail definition) with a pre-specified two-part rule. Secondary and exploratory analyses (player-level, eFG%, playoffs, definition variants) are reported with Holm or Benjamini-Hochberg correction and labelled exploratory.",
+   "decision_rule": "Supported only if, in the primary specification, the share of eligible units with lift>0 is >=70% and the median lift is >2pp, both exceed the permutation null at alpha=0.05, the placebo lifts do not pass, and the result replicates in at least 3 of 4 seasons. Rejected if the adequately powered estimate has the median lift's CI upper bound <2pp or the share's CI upper bound <70%. Otherwise the result is inconclusive, or untestable if the power check fails.",
+   "data_version": "NBA stats API per-game files and the derived play-type records for 2022-23 to 2024-25 regular and playoff seasons and the 2025-26 regular season, snapshot as of 2026-05-23, frozen with a hash. The 2025-26 playoffs are excluded from the primary analysis (partial until 2026-06-21)."
+  }
+ },
+ "redactions": 0
+}

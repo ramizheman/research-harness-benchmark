@@ -1,0 +1,159 @@
+{
+ "blind_id": "R1e3ea079dd1d",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "pick-and-roll points per possession",
+   "teammate drive action",
+   "possession sequence dependence",
+   "play-type labeling quality",
+   "causal effect of preceding action type"
+  ],
+  "methodological_questions": [
+   "Can possession boundaries and play types be linked reliably across consecutive possessions?",
+   "How accurate are DRIVE and PNR labels in the derived possession dataset?",
+   "Does conditioning on a preceding DRIVE introduce differential misclassification bias?",
+   "What confounders drive both the occurrence of a DRIVE and subsequent PNR efficiency?",
+   "Is the sample of DRIVE–PNR sequences large enough to overcome label noise?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Defensive scheme change inferred from opponent play-type PPP produced near-uniform transition matrices consistent with label noise; the labels could not separate real defensive adjustment from the offense executing differently."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Backfilled play-type labels failed verification: PNR share 28.7% (outside league band), 82.8% of PNR labels proxy-calibrated, and many teams showed impossible PULL_UP shares (0–2%)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "NBA matchup and play-by-play fields labeled on-ball coverage (DROP[path]) at only 14.9% and 3.3% confident rates, and the switch field was unpopulated, making scheme labels unusable."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit revealed foul leakage: 36% of OTHER possessions end in fouls, inflating OTHER PPP; DRIVE PPP sits 12 points below the foul benchmark; only 0.7% of possessions map to a play type via initiation_type."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "backfilling play-type labels at scale and verifying them against league distributions",
+    "why": "PNR labels were 82.8% proxy-calibrated, PULL_UP shares near zero for many teams; label error prevented a valid verification ([prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "using play-type PPP to infer defensive scheme changes",
+    "why": "Inferred labels could not distinguish defense from offense behavior; near-uniform transition matrices indicated label noise ([prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "extracting on-ball defensive coverage labels from NBA matchup and play-by-play feeds",
+    "why": "Confident label rates were too low (14.9% and 3.3%), and the switches_on field was empty ([prior work], [prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "treating play-type PPP as a clean efficiency measure without auditing foul outcomes",
+    "why": "Foul leakage inflated OTHER PPP and depressed DRIVE PPP relative to a foul benchmark, and initiation_type mapped only 0.7% of possessions, revealing a labelling artifact."
+   }
+  ],
+  "evidence_establishes": [
+   "Play-type labels, particularly PNR and DRIVE, contain substantial classification error in the project's derived dataset.",
+   "PNR labels are largely proxy-calibrated (82.8%) and fail distributional checks.",
+   "DRIVE PPP is systematically depressed by foul leakage.",
+   "Inferred labels (scheme or play-type) are unreliable for conditional analyses because they mix offensive execution with defensive response.",
+   "Any analysis conditioning on specific play-type sequences inherits these label errors and risks producing artifacts."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a genuine causal effect exists between a preceding teammate DRIVE and PNR PPP.",
+   "The magnitude or direction of bias that label error would introduce into an estimate of that effect.",
+   "Whether filtering to a subset of high-confidence possessions could yield a valid estimate.",
+   "The accuracy of the possession-to-possession linking mechanism in [source] database."
+  ],
+  "own_inferences": [
+   "The independent variable (teammate DRIVE preceding PNR) and the dependent variable (PNR PPP) are both measured with known, potentially non-random error.",
+   "Label misclassification will likely bias any association, possibly creating spurious effects or masking true ones.",
+   "Confounding factors such as game context, defensive alignment, and which teammate drives could affect both the propensity of a DRIVE and subsequent PNR efficiency, requiring extensive controls that may be unavailable at scale.",
+   "Even with a large sample, measurement error of this magnitude often attenuates estimates in unpredictable ways and undermines causal identification.",
+   "The research question in its current form is not testable with the available data without first validating and cleaning the play-type labels, and even then may remain at high risk of artifact."
+  ],
+  "uncertainties": [
+   "We lack direct estimates of DRIVE false-positive and false-negative rates.",
+   "We do not know the accuracy of possession ordering and team-phase linking across play-by-play events.",
+   "We do not know what fraction of DRIVE and PNR possessions would still be retained if we restricted the sample to directly observed, high-confidence labels.",
+   "We do not have data on whether the DRIVE action affected the defense in a way that mechanically raises PNR PPP, vs. a selection effect from which possessions get labeled DRIVE."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the historical evidence, one might plan a simple observational comparison of PNR PPP conditional on a preceding DRIVE, assuming the play-type labels are sufficiently accurate. The retrieval revealed that PNR labels are largely proxy-calibrated and fail verification, DRIVE PPP is distorted by foul leakage, and previous uses of derived play-type labels have collapsed under label noise. This changed the assessment from a potentially testable question to one that is almost certainly untestable with the current data, leading to a do-not-proceed decision."
+  },
+  "testability": {
+   "p_testable": 0.1,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Both DRIVE and PNR labels have documented substantial misclassification; 82.8% of PNR labels are proxy-calibrated, DRIVE PPP is 12 points below foul benchmark, and prior label-based inferences have failed."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The derived possession-level play-type labels are not validated at the individual-observation level; the linking of consecutive possessions may also introduce errors."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Teammate DRIVE immediately preceding a PNR may be rare after excluding garbage time and ambiguous sequences, reducing effective sample size and amplifying the impact of label noise."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No earlier study directly tested whether a preceding teammate DRIVE raises PNR PPP. Related work focused primarily on evaluating the quality of play-type labels and inferred scheme labels, finding pervasive errors that undermine any analysis that conditions on those labels."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "DRIVE and PNR play-type labels are unreliable; PNR labels are largely proxy-calibrated, and DRIVE PPP shows foul leakage, leading to differential misclassification in the exposure and potentially the outcome."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game situation (score margin, period, clock), defensive scheme, and initiator identity could influence both the chance of a preceding DRIVE and subsequent PNR efficiency; without adequate controls, any association could be entirely spurious."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The possession-to-possession linkage and the assignment of play types to those possessions have not been validated against a gold-standard manual annotation, so the sequence variable itself may be measured with error."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "If the analysis must be restricted to possessions with directly observed (non-proxy) labels, the sample may shrink dramatically, and the remaining sample may not be representative, leading to insufficient power or selection bias."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.7,
+   "artifact": 0.15,
+   "uncertain": 0.05
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Causal effect of a possession labeled DRIVE by any teammate immediately preceding a possession labeled PNR on the points per possession of that PNR, relative to PNR possessions not preceded by a teammate DRIVE, within the same team and game context.",
+   "unit": "Individual PNR possession (offensive team's possession ending in a play-type label of PNR) where the immediately preceding possession for that team is unequivocally identified and is either a DRIVE (by any teammate) or a non-DRIVE play type.",
+   "sample": "All such possessions from NBA 2022-23 through 2025-26 regular season and playoffs, excluding garbage time (e.g., final 4 minutes with a lead >15). Subset to possessions where play-type labels are directly observed (not proxy-calibrated) if such a flag exists, or to a period after label pipeline changes that reduce proxy calibration.",
+   "power": "Not calculated; power would be low due to label noise and sparsity. With ~200k total PNR possessions, perhaps 10-20% preceded by DRIVE (20k-40k), but effective sample plummets if only high-confidence labels are used. A preliminary feasibility check using label confidence indicators is required before any power analysis.",
+   "controls": "Score differential, period, game clock, home/away, defensive lineup (via defensive matchup minutes), offensive initiator of the PNR, identity of the teammate who drove, season/season-type fixed effects, and team fixed effects. Additional controls for preceding possession outcome (points, turnover) to reduce carry-over confounding.",
+   "falsification": "1) Placebo test: examine whether a non-DRIVE action (e.g., CUT, SPOT_UP) that should not plausibly affect PNR PPP shows a similar association. 2) Temporal permutation: randomly shuffle the order of possessions within a game and re-estimate; if the association persists, it is not due to the specific sequence. 3) Test for symmetric effects: check whether a preceding PNR affects DRIVE PPP, expecting no mechanism. 4) Sensitivity analysis to labeller decisions: restrict to possessions with unambiguous action-type text in the play-by-play and compare results.",
+   "multiplicity": "If the analysis is stratified by initiator, teammate, or lineup, apply Holm-Bonferroni correction; pre-register the slicing plan to avoid cherry-picking.",
+   "decision_rule": "Pre-specify a regression model (e.g., linear mixed model with possession-level outcomes) with the preceding-DRIVE indicator as the main effect. State that a result will be considered supported only if the estimated coefficient is positive and has a 95% credible/confidence interval entirely above zero after controlling for multiple comparisons, and if falsification tests pass (no effect in placebo test). Incorporate a measurement-error component via a Bayesian model with an informative prior on label sensitivity/specificity if estimates are available; otherwise, declare the analysis exploratory.",
+   "data_version": "Snapshot of [source] database as of 2026-06-14. However, given the severity of label error, this design is provided as a minimum viable plan; the recommended action is not to proceed until a validated play-type labeling system is available."
+  }
+ },
+ "redactions": 31
+}

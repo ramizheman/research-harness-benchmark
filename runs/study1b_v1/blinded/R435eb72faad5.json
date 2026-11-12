@@ -1,0 +1,109 @@
+{
+ "blind_id": "R435eb72faad5",
+ "task_statement": "Research question (as posed on 2026-07-13, in the area of structural roles and influence):\nLineup coverage (>=1 organizer, shaper, terminal) varies within team, is separable from talent/counts, and talent control behaves.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 420,993 possessions; 90 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup coverage defined as simultaneous presence of at least one organizer, one shaper, and one terminal scorer",
+   "structural role categories (Primary Organizer, Shaper, Terminal Scorer) from the Structural Influence framework",
+   "within-team variation in lineup coverage across stints or games",
+   "separability of coverage effect from overall talent proxies (e.g., lineup-level sum of usage, offensive rating, or player-level metrics)",
+   "behavior of talent controls when coverage enters regression"
+  ],
+  "methodological_questions": [
+   "Is within-team variation in lineup coverage sufficient to identify an independent effect?",
+   "Can the coverage effect be separated from collinear talent aggregates?",
+   "Do simple talent controls behave stably (no sign flips, no variance inflation)?",
+   "What are the risks of role labels derived from the same play-by-play data used to measure outcomes?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No prior study-family records were available; this question has not been previously examined within this project."
+  ],
+  "evidence_does_not_establish": [
+   "Whether lineup coverage has any effect on offensive efficiency.",
+   "Whether talent controls can isolate a coverage effect.",
+   "The magnitude of within-team variation in coverage."
+  ],
+  "own_inferences": [
+   "Lineup coverage can be constructed from possession-level initiator and play-type data combined with the structural-role classifier.",
+   "Within-team variation exists because coaches experiment with different lineup combinations, but the share of possessions with full coverage could be high, leaving limited variation for testing.",
+   "Talent controls such as sum of usage, sum of player efficiency ratings, or FiveThirtyEight RAPTOR aggregates are likely collinear with coverage because better rosters have more well-rounded personnel; residual confounding is plausible.",
+   "Role labels must be frozen on a pre-period (e.g., prior season) to avoid lookahead leakage."
+  ],
+  "uncertainties": [
+   "The actual distribution of lineup coverage across teams and within team: unknown.",
+   "Whether there is enough independent variation after controlling for talent to achieve adequate statistical power.",
+   "Stability of role assignments across seasons; using prior-season roles may miss season-specific role changes.",
+   "The appropriate functional form: linear addition of coverage vs. threshold effect."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No earlier study-specific evidence was retrieved, so the decision is based entirely on the stated data, concepts, and methodological reasoning."
+  },
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Lineups without full coverage may be rare, especially on good teams, reducing within-team variation and effective sample size."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Talent aggregates are strongly correlated with coverage; residual talent confounding may not be fully removable with simple linear controls."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier study-family records were returned; the question appears new to this project."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "If full coverage is the default lineup state, the 'treatment' (lack of full coverage) occurs in few possessions, limiting power and potentially producing noisy or unreliable estimates."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Role assignments (organizer, shaper, terminal) rely on usage thresholds and residual structural influence, which are estimated with noise; misclassification dilutes any signal."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If role labels are computed from the same season's play-by-play that is used to measure outcomes, future information leaks into the predictor; must use strictly prior data."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Overall talent drives both lineup composition (more talent means easier to fill roles) and outcomes, so any coverage effect may be attributable to omitted talent variables."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Researcher degrees of freedom in defining coverage thresholds, role taxonomy, and control sets raise false-positive risk unless a single preregistered specification is used."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "If the outcome is offensive rating, its variance across lineups is small relative to the hypothesized coverage effect, requiring very large samples."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.2,
+   "untestable": 0.35,
+   "artifact": 0.15,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average effect on offensive points per possession (PPP) of a lineup possessing at least one Primary Organizer, one Shaper, and one Terminal Scorer, conditional on aggregate talent controls, using within-team stint-level variation.",
+   "unit": "stint (a continuous interval with the same ten players on court) or possession, with the binary coverage indicator defined for the offensive five.",
+   "sample": "All non-garbage-time stints from NBA 2022-23 through 2025-26 regular seasons (playoffs excluded to maintain role stability), approx. 420,993 possessions across 90 team-seasons. Garbage time defined as last 5 minutes of 4th quarter with score margin >= 20.",
+   "power": "Minimum detectable effect of 0.03 PPP (approx. 3 points per 100 possessions) at 80% power; requires at least 15% of stints to be uncovered (lacking full coverage). Power simulation to be run on historical stint data before finalizing.",
+   "controls": "Primary: lineup-level sum of prior-season Box Plus-Minus (BPM) or equivalent talent proxy; sum of individual usage rates from prior season; indicator for home/away; opponent defensive rating (prior season). Robustness: replace prior-season BPM with current-season but from games before the observed stint (rolling window).",
+   "falsification": "1) Replace coverage indicator with a placebo indicator that randomly assigns roles to players, preserving the marginal distribution of coverage, and confirm null. 2) Lagged coverage (next stint) should not predict current stint outcome. 3) The coefficient on coverage should be stable (not amplify or flip) when incrementally adding talent controls; if it collapses, the effect is not separable.",
+   "multiplicity": "Bonferroni correction for two specifications: with and without opponent fixed effects. All other sensitivity checks are labeled exploratory.",
+   "decision_rule": "Coverage effect is supported if the coefficient on coverage in the fully controlled within-team fixed-effect regression is positive with p < 0.025 (two-sided after correction) and passes all three falsification tests.",
+   "data_version": "Roles fixed using NBA 2021-22 season for 2022-23 stints, 2022-23 for 2023-24, 2023-24 for 2024-25, 2024-25 for 2025-26. Possession-level data from the project's derived play-type graph database as of 2026-07-13 snapshot."
+  }
+ },
+ "redactions": 0
+}

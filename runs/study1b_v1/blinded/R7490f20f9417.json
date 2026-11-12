@@ -1,0 +1,124 @@
+{
+ "blind_id": "R7490f20f9417",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "PNR PPP",
+   "teammate drive",
+   "temporal precedence",
+   "NBA play-by-play data"
+  ],
+  "methodological_questions": [
+   "temporal ordering of drives and PNRs",
+   "label reliability for DRIVE and PNR",
+   "foul leakage bias in PPP",
+   "confounding by defensive and offensive context",
+   "sample size and power"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Play‑type label backfill verification showed PNR PPP 0.948 PASS, temporal PASS, but PNR label FAIL (band 20‑28%) and team identity FAIL; indicates some label noise for PNR but PPP calculation appears robust."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Drive PPP 12pp below foul benchmark, indicating foul‑leakage bias; only 0.7% of possessions mapped to a real play type via initiation_type, showing low reliability of DRIVE labeling."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using DRIVE as identified by play‑by‑play labels for PPP analysis",
+    "why": "C_artifact due to foul leakage bias and low mapping rate to real play type"
+   }
+  ],
+  "evidence_establishes": [
+   "PNR PPP calculation is relatively reliable, but PNR labeling itself may have some noise.",
+   "DRIVE labeling is prone to foul‑leakage bias and low identification rate, compromising measurement reliability."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a teammate DRIVE preceding a PNR causally increases PNR PPP, given current label reliability issues.",
+   "The extent to which confounding factors (defensive match‑up, ball movement patterns) are controlled."
+  ],
+  "own_inferences": [
+   "Labeling errors in DRIVE are likely to produce spurious associations; any observed effect may be an artifact of misclassification. The temporal ordering of drives relative to PNRs is not reliably captured by the existing play‑by‑play labels."
+  ],
+  "uncertainties": [
+   "Exact proportion of DRIVE possessions that are correctly labeled; the impact of defensive adjustments on PPP; the feasibility of alternative drive identification methods."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Historical evidence demonstrates significant label reliability problems for DRIVE, undermining the ability to test the causal claim with the current data."
+  },
+  "testability": {
+   "p_testable": 0.2,
+   "blocking_constraints": [
+    {
+     "code": "RISK:LABEL_ERROR",
+     "text": "DRIVE play‑type labels are unreliable due to foul leakage bias and low mapping rates."
+    },
+    {
+     "code": "RISK:MEASURE_RELIABILITY",
+     "text": "PNR PPP may be affected by labeling noise."
+    },
+    {
+     "code": "RISK:CONFOUNDING",
+     "text": "Potential confounding by defensive schemes, ball movement, and player roles."
+    },
+    {
+     "code": "RISK:SAMPLE_SIZE_POWER",
+     "text": "Even with large data, reliable DRIVE identification may be too sparse to achieve adequate power."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior studies have verified PPP reliability for PNR but uncovered serious labeling artifacts for DRIVE, leaving the causal question unresolved."
+  },
+  "risks": [
+   {
+    "code": "RISK:LABEL_ERROR",
+    "text": "Inaccurate play‑type labels for DRIVE."
+   },
+   {
+    "code": "RISK:MEASURE_RELIABILITY",
+    "text": "PNR PPP measurement may be compromised by label noise."
+   },
+   {
+    "code": "RISK:CONFOUNDING",
+    "text": "Uncontrolled defensive and offensive context could bias results."
+   },
+   {
+    "code": "RISK:SAMPLE_SIZE_POWER",
+    "text": "Sparse reliable DRIVE instances limit statistical power."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.2,
+   "untestable": 0.4,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Difference in PNR PPP when a teammate DRIVE precedes the PNR versus when no preceding DRIVE.",
+   "unit": "PNR possession",
+   "sample": "All PNR possessions with a reliably identified preceding DRIVE (which is currently infeasible).",
+   "power": "80% at alpha=0.05 (not attainable with current labeling).",
+   "controls": "Ball possession context, defender assignment, team matchup, possession length.",
+   "falsification": "Test the same model on non‑PNR possessions to check for systematic bias.",
+   "multiplicity": "Apply Holm–Bonferroni correction for multiple play‑type comparisons.",
+   "decision_rule": "Reject null if p<0.05 after correction.",
+   "data_version": "2026-06-14"
+  }
+ },
+ "redactions": 10
+}

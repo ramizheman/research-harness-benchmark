@@ -1,0 +1,117 @@
+{
+ "blind_id": "Rccb4b4c51057",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP",
+   "play-type labeling",
+   "avoid labels",
+   "own-sequence lags"
+  ],
+  "methodological_questions": [
+   "effect of next-possession PPP on labeling",
+   "measurement of PPP",
+   "confounding by own sequence",
+   "data quality issues in labeling"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Sequential pair premium and defensive aftershock observed for all 8 play types; opponent play type X increases next offensive play type Y points above baseline, with measurable aftershocks across all games and playoffs."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences for OTHER and DRIVE are inflated or deflated due to foul leakage; only 0.7% of possessions map to a real play type via initiation_type, indicating labeling errors."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Assumption that PPP differences reflect true efficiency",
+    "why": "C_artifact – labeling leakage and foul bias produced apparent PPP differences"
+   }
+  ],
+  "evidence_establishes": [
+   "Sequential pair premium shows that opponent next-possession PPP has a measurable impact on subsequent play outcome, suggesting a potential mechanism for AVOID labeling.",
+   "Labeling audit reveals significant PPP estimation bias for certain play types (OTHER, DRIVE) due to foul leakage and sparse initiation_type mapping."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the magnitude of opponent next-possession PPP is sufficient to drive AVOID labels in practice.",
+   "The role of own-sequence lags on PPP and labeling beyond the audited play types.",
+   "Causal directionality or absence of confounding from other variables such as defensive matchups or game state."
+  ],
+  "own_inferences": [
+   "The question as posed extends beyond the evidence: while next-possession PPP influences subsequent play outcomes, it is unclear if this effect is large enough to influence AVOID labeling, and whether labeling accuracy is adequate for all play types."
+  ],
+  "uncertainties": [
+   "Extent of labeling error across all play types beyond OTHER and DRIVE.",
+   "Impact of own-sequence lags on PPP estimates.",
+   "Whether the sample size for specific play-type transitions is sufficient after controlling for covariates."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Historical evidence demonstrates feasibility of testing next-possession effects but also highlights significant labeling artifacts that must be addressed, prompting a modified design."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Label leakage and foul bias in play-type PPP estimates."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Inaccurate mapping of possessions to play types, especially for OTHER and DRIVE."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Potential confounding by own-sequence lags and other game-state variables."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Sequential pair premium confirms opponent next-possession PPP affects subsequent play outcomes, but labeling artifacts for certain play types remain unaddressed."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Inaccurate PPP due to foul leakage and sparse initialization mapping."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Possible mislabeling of play types, especially OTHER and DRIVE."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Own-sequence lags and other situational factors may confound PPP effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Effect of opponent next-possession PPP on the probability of an AVOID label on the subsequent possession.",
+   "unit": "Individual possession",
+   "sample": "All possessions with a valid play-type label and a defined next possession in the same game.",
+   "power": "80% power to detect a 0.10 PPP difference (p<0.05) after Bonferroni correction for 8 play types.",
+   "controls": "Own-sequence lag (prior play type), team fixed effects, period and clock, defensive matchup minutes, and game-state variables.",
+   "falsification": "Test the effect using a randomly permuted play-type sequence to confirm no spurious association.",
+   "multiplicity": "Adjust alpha via Holm-Bonferroni across the 8 play-type comparisons.",
+   "decision_rule": "Reject null if two-sided p<0.05/8 after correction; otherwise fail to reject.",
+   "data_version": "NBA 2022-23 to 2025-26 (partial 2025-26 playoffs) – data available as of 2026-06-19."
+  }
+ },
+ "redactions": 8
+}

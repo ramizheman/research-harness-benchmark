@@ -1,0 +1,158 @@
+{
+ "blind_id": "R7c9fc80e8ec5",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "shot mix",
+   "offensive five changes",
+   "personnel effects",
+   "lineup composition",
+   "shot distribution"
+  ],
+  "methodological_questions": [
+   "How to quantify shot mix?",
+   "How to isolate offensive five effects from opponent defense?",
+   "What is the sample size of lineup stints?",
+   "Can we detect small changes in shot mix?",
+   "What are confounding variables?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "PULL_UP exposure-effect diagnostics. With lineup FE: slope holding shot fixed -0.0255 (0.0061); shooter's earlier scored -0.1044 vs not scored +0.0693. No lineup FE: -0.0063 (0.0036); placebo other play types -0.0075 (0.0017). Effect shrinks from -0.0255 to -0.0063 without lineup FE and same-shooter placebo is similar, consistent with shooter-level confound."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Tail/null-model audit of published suppression excess. Reproduced excess 0.4080 CI [0.378,0.438]; within-unit perm null at 0.25: obs 0.3798 null 0.3744 resid +0.0054 z 0.40; asym neg-pos 0.0176 p 0.258; drift-centered tail mass ratio 1.007. Showed that when drift, sparsity, and mechanical floor are accounted for, the excess vanishes."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Double-suppression stacking (POST_UP then PUTBACK). Baseline 1.210 n=960,764. After PUTBACK only 1.097 d=-0.113 n=15,898. After POST_UP only 1.091 d=-0.119 n=76,329. Stacked 1.138 d=-0.071 n=1,047 vs additive prediction -0.232. Inconclusive due to small sample and implementation bugs."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Penalty-state adaptation (Pilot A). any_fta 3->4 -0.151 vs placebos -5.556/-9.655; rim_pct +0.015 vs +1.666/+2.077; pts +0.020. The penalty contrast was not distinct from placebo contrasts, leaving mechanism unclear."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "naive comparison without lineup fixed effects",
+    "why": "confounding by shooter-level tendencies"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "comparison of tail asymmetries ignoring drift, exposure sparsity, and mechanical floor",
+    "why": "effect disappears when drift and null models are corrected"
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "test of additive stacking",
+    "why": "small sample and implementation bugs"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "penalty-state contrast without strong placebos",
+    "why": "placebo dependence made the result indistinguishable from random variation"
+   }
+  ],
+  "evidence_establishes": [
+   "Confounding from shooter identity and lineup context can substantially bias naive estimates, requiring lineup fixed effects ([prior work][prior work]).",
+   "Drift, exposure sparsity, and mechanical floors can create spurious effects that vanish under proper null models ([prior work][prior work]).",
+   "Placebo tests are essential to rule out non‑causal variation ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether changing the offensive five actually moves shot mix.",
+   "The size or direction of any such effect.",
+   "What specific shot‑type metrics are most sensitive to personnel.",
+   "The statistical power attainable with three seasons of data."
+  ],
+  "own_inferences": [
+   "A within‑game, within‑offense design that holds the opponent constant during a lineup change can isolate the effect of offensive personnel on shot mix.",
+   "Three seasons of play‑by‑play provide enough event‑level data to achieve reasonable power, provided shot‑mix categories are aggregated into a few broad types (e.g., rim, mid‑range, three‑point).",
+   "The historical failures highlight that controls must include game state, score, period, and potentially play type, and that placebo (no‑change) stints are necessary.",
+   "The question as posed (\"showing the design can detect personnel effects\") leaves the exact definition of \"shot mix\" open; pre‑registration must specify the metrics and threshold for success."
+  ],
+  "uncertainties": [
+   "Natural variability in shot mix across stints, even without a true lineup effect, is unknown and must be estimated.",
+   "How many lineup‑change stints have the defense unchanged for a sufficient number of possessions is unclear.",
+   "Whether the effect is large enough to be detected after multiplicity correction is uncertain."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "No directly relevant study was found, so the fundamental decision to proceed is not based on historical evidence. However, the retrieved work informed the design by underscoring the need for lineup fixed effects, placebo tests, and drift‑aware null models."
+  },
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The number of possessions following a lineup change with the defense held constant may be small for some teams or lineup combinations, limiting power."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Opponent defensive strategy and remaining game context may still confound the pure offensive‑five effect."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Shot‑type classification from play‑by‑play may contain noise, especially for mid‑range vs. long two distinctions."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior project study directly addressed whether changing the offensive five alters shot mix. The returned families examined suppression effects and penalty‑state behaviour, not lineup‑driven shot distribution."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The test may be underpowered if the per‑lineup sample of stints is small or the effect is subtle."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many lineup changes co‑occur with defensive changes, restricting the usable comparison window."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game situation (score, time, period) and opponent tactical adjustments may bias the comparison."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing multiple shot‑type outcomes simultaneously increases the risk of false positives."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot‑type labels derived from play‑by‑play may misclassify some attempts, diluting the signal."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Some shot‑type rates (e.g., mid‑range) may be close to zero for certain players, causing floor effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.25,
+   "rejected": 0.15,
+   "untestable": 0.1,
+   "artifact": 0.0,
+   "uncertain": 0.5
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing the offensive five (while the defensive five and the other four offensive players remain constant) on the shot‑type distribution (rim, mid‑range, three) of the offensive team’s possessions immediately following the change.",
+   "unit": "A lineup‑change stint (the sequence of offensive possessions beginning at the substitution and ending when the defensive five changes, the period ends, or a further offensive substitution occurs, capped at 10 possessions).",
+   "sample": "All regular‑season and playoff games from the 2022‑23, 2023‑24, and 2024‑25 NBA seasons, excluding possessions in the final two minutes of blowouts (score differential ≥ 20) and possessions immediately after timeouts.",
+   "power": "Power will be assessed by simulation using the observed within‑game variance of shot‑type proportions. The target is 80% power to detect a 2‑percentage‑point shift in three‑point rate at a Bonferroni‑corrected α = 0.05/3.",
+   "controls": "Fixed effects for game × offense × defensive‑quintet, period, score differential (binned), and time remaining (binned). Additional robustness check: include play‑type (e.g., transition, half‑court) as a covariate.",
+   "falsification": "1) Placebo test: select stints where the lineup change is reported but no actual substitution occurred (false events). 2) Impose a placebo change by randomly reassigning lineup‑change timestamps to other game intervals and testing for an effect. 3) Examine whether any detected shift persists when the opposing defense also changes.",
+   "multiplicity": "The three shot‑type outcomes (rim frequency, mid‑range frequency, three‑point frequency) will be tested jointly using a multivariate linear model (MANOVA). Univariate follow‑ups will use Benjamini‑Hochberg correction. A global significance level of 0.05 will be maintained.",
+   "decision_rule": "The design is deemed to detect a personnel effect if the global MANOVA rejects the null (p < 0.05) and at least one univariate contrast shows a significant difference in the expected direction, while the placebo tests fail to produce a significant effect. All analyses will be conducted in a blinded fashion on a split‑sample (first two seasons for exploration, third for confirmatory testing).",
+   "data_version": "NBA stats API per‑game files as available on 2026‑11‑02."
+  }
+ },
+ "redactions": 20
+}

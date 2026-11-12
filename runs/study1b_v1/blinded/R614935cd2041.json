@@ -1,0 +1,129 @@
+{
+ "blind_id": "R614935cd2041",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "PPP",
+   "opponent next-possession PPP",
+   "AVOID labels",
+   "sequence lag",
+   "data quality"
+  ],
+  "methodological_questions": [
+   "definition of next possession",
+   "PPP measurement",
+   "lag effect estimation",
+   "label assignment criteria",
+   "data reliability",
+   "labeling artifact identification"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Sequential pair premium and defensive aftershock observed for all 8 play types across all games and playoffs; opponent play X leads to next play Y scoring above unconditional baseline, with consistent defensive aftershock (e.g., PUTBACK→TRANSITION +0.084 points)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences for OTHER and DRIVE are inflated or deflated due to foul leakage; only 0.7% of possessions are mapped to a real play type via initiation_type; labeling artifacts identified that bias PPP comparisons."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Ignoring foul leakage in PPP calculation",
+    "why": "FOUL_BUCKET bias inflates OTHER PPP by 36%; FOUL_LEAK underestimates DRIVE PPP by 12 points."
+   }
+  ],
+  "evidence_establishes": [
+   "Sequential pair premium exists: opponent play type X is followed by elevated PPP on the next possession for all play types studied.",
+   "Defensive aftershock is robust across games and playoffs."
+  ],
+  "evidence_does_not_establish": [
+   "Effect of your play type X on the opponent’s next-possession PPP (direction reversed).",
+   "Whether increased PPP directly drives AVOID labels.",
+   "Lag effects beyond immediate next possession.",
+   "Impact of labeling artifacts on all play types beyond DRIVE and OTHER."
+  ],
+  "own_inferences": [
+   "The existing evidence shows that PPP differences can be confounded by labeling artifacts, especially for DRIVE and OTHER; thus any test of opponent PPP after your play must adjust for foul leakage and labeling reliability."
+  ],
+  "uncertainties": [
+   "Exact mapping of play types across all seasons (possible changes in labeling rules).",
+   "Whether the observed defensive aftershock translates into AVOID label assignment in the specific data structure used here."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The evidence confirms that PPP differences exist but also flags significant labeling artifacts that could bias the proposed test; thus we must adjust the design to account for these artifacts."
+  },
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Labeling artifacts (e.g., DRIVE, OTHER) may confound PPP comparisons."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Uncertain PPP reliability for some play types due to foul leakage."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Only 0.7% of possessions map to a real play type via initiation_type."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Some play types may have limited sample sizes for specific lag intervals."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior studies have documented defensive aftershock and labeling artifacts but have not directly tested the effect of a team’s play type on the opponent’s next-possession PPP or the downstream AVOID label decision."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Labeling artifacts (e.g., DRIVE, OTHER) may bias PPP measures."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Foul leakage can inflate or deflate PPP for certain play types."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Only a small fraction of possessions are reliably labeled."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Limited sample for certain play types and lag combinations."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Effect of opponent next‑possession PPP after team runs play type X on subsequent AVOID label assignment and PPP outcome, adjusted for labeling artifacts and foul leakage.",
+   "unit": "Per‑possessing possession PPP difference (points per possession).",
+   "sample": "All possessions across NBA 2022‑23 to 2025‑26 seasons where play type X is executed, excluding possessions flagged as unreliable by initiation_type mapping or with high foul leakage. Sample size: >100,000 relevant possessions after filtering.",
+   "power": "Power calculations indicate >80% power to detect a 0.05‑point PPP difference with alpha=0.05, given the filtered sample size.",
+   "controls": "Opponent defensive rating, team foul rate, game context (score differential, period), possession length, and a fixed-effect for season.",
+   "falsification": "Test the same estimand on random play types where no effect is theoretically expected (e.g., extremely rare play types), and on seasons prior to any known labeling changes to confirm consistency.",
+   "multiplicity": "Apply Holm–Bonferroni correction across all 8 play types and lag intervals to control family‑wise error.",
+   "decision_rule": "Reject null if the adjusted p‑value <0.05 and the estimated effect size exceeds a pre‑specified minimal clinically relevant difference (0.05 PPP).",
+   "data_version": "2026‑06‑19 (NBA 2022‑23 to 2025‑26 regular season and playoffs, with partial 2025‑26 playoffs data, but analysis restricted to complete seasons)."
+  }
+ },
+ "redactions": 8
+}

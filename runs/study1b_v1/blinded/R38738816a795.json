@@ -1,0 +1,135 @@
+{
+ "blind_id": "R38738816a795",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nThe teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=148; 148 spells; 11 cases\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence",
+   "offensive reorganization",
+   "pre-absence initiation profile similarity",
+   "play-type redistribution",
+   "teammate absorption of the absent player's primary play types",
+   "largest gainer",
+   "minutes, initiation volume and same-position minutes as competing predictors"
+  ],
+  "methodological_questions": [
+   "Does the teammate with the closest pre-absence initiation profile gain the most in the absent player's primary play types more often than chance (1/k eligible teammates)?",
+   "Does profile similarity predict the largest gainer beyond minutes, initiation volume and same-position minutes?",
+   "How should 'largest gainer' be defined given regression to the mean, the mechanical minutes floor and the winner's curse of picking a maximum?",
+   "What is the effective sample size when 148 spells come from only 11 cases, and how should clustering be handled?",
+   "What placebo or baseline comparison separates absence-driven reorganization from ordinary game-to-game variation?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. The retrieval returned no records, so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this or a similar question was studied before, and whether it was supported, rejected or found to be an artifact.",
+   "Which operationalizations of 'closest profile' or 'largest gainer' were tried, and which failed.",
+   "Any empirical base rate for top-1 hit rates, effect sizes or variance of play-type gains across absences."
+  ],
+  "own_inferences": [
+   "The recorded units are ambiguous. If the 11 cases are the independent absent-player cases and the 148 spells are nested in them, the effective sample size is closer to 11 than 148. Spells within one case share the same roster, coach and absent player.",
+   "With about 8-9 eligible teammates per spell, chance top-1 accuracy is about 11-13%. Showing that similarity beats chance and beats the competing predictors needs a large effect with only 11 clusters.",
+   "The four candidate predictors (similarity, minutes, initiations, same-position minutes) are likely correlated. Similar-profile players are often the same-position, high-initiation, high-minutes players. This makes attribution to similarity alone fragile.",
+   "The 'largest gainer' is the maximum of noisy gains. Low-volume teammates have high variance and so are over-represented among extreme gains, while high-minutes teammates get a mechanical advantage. Both create artifacts.",
+   "Defining 'primary types' and 'profile' from the same pre-absence data that sets the baseline invites regression to the mean. Teammates with unusually low pre-absence rates in those types will appear to gain.",
+   "A rank-based, within-spell design (conditional logit or permutation test over teammates) is more robust than raw gain comparisons."
+  ],
+  "uncertainties": [
+   "What the 11 cases and 148 spells denote, and how many spells have a clear primary-type loss.",
+   "The number of possessions per teammate per spell in the absent player's primary types. Short spells may leave the gains mostly noise.",
+   "Whether the absent player's absence is exogenous (injury, rest) or tied to game context such as blowouts, back-to-backs or trades.",
+   "Whether play-type labels derived from play-by-play are accurate enough to give reliable initiator and type assignments.",
+   "Whether the 2025-26 data are complete at the time of analysis. The stated data cutoff is 2026-11-01, but the question was posed with no retrieved prior work."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No [prior work] were returned, so history did not change the decision. It rests only on the task statement and general methodological reasoning. The absence of records does not show the question is novel, only that nothing was available here."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "If only 11 independent cases exist, power to detect a modest top-1 hit-rate advantage over about 12% chance, or over competing predictors, is low. The 148 spells are clustered and not independent."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Similarity, minutes, same-position minutes and initiation volume are collinear, so the separate contribution of similarity is hard to identify."
+    },
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "Teammates who take on the absent player's minutes mechanically gain possessions in every type. Gains must be rate-based and minute-adjusted."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved, so whether the question has been answered is unknown. No prior study is cited or assumed."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effective n may be about 11 clusters. Report cluster-level results and use a cluster bootstrap or permutation test. Do not treat 148 spells as independent."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Choosing the largest gainer selects noisy maxima. Teammates with low pre-absence rates regress upward. Use a pre-period split or shrinkage-based baselines, and a placebo."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Added minutes alone raise counts of initiations. Use per-possession or per-minute rates and a minutes-matched null."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Position, role, lineup composition, coach changes, opponent and game context may drive both similarity and gains. Include them as covariates or stratify."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Short spells and rare play types give few possessions per teammate, so the gain estimates are noisy and ties are common."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The pre-absence profile, the primary types and the competing predictors must use only games before the spell begins. Using full-season profiles leaks absence-period behaviour."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The profile-similarity metric, the primary-type threshold and the play-type derivation from play-by-play are all reliability-sensitive. Fix them before analysis and test sensitivity."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "There are four predictors, several similarity metrics, several primary-type definitions and possibly several subsets. Pre-register one primary metric and correct the secondary ones."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo, such as pseudo-absences in games where the player played, the results cannot be separated from ordinary variation."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Four-plus seasons of rules, roster and tactical drift, plus in-season trades, affect pre-absence profiles. Use season-specific baselines."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.15,
+   "untestable": 0.2,
+   "artifact": 0.15,
+   "uncertain": 0.35
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within each eligible absence spell, the probability that the teammate with the highest pre-absence similarity to the absent player's initiation profile is also the teammate with the largest minute-adjusted gain in the absent player's primary play types. Compare it with chance (1/k) and with the same top-1 hit rate for the minutes, initiations and same-position-minutes predictors. Also estimate a conditional-logit coefficient of similarity on the gainer indicator, controlling for the competing predictors.",
+   "unit": "Absence spell (teammate-within-spell for the conditional logit), nested within absent-player case. The case is the cluster for inference.",
+   "sample": "2022-23 to 2025-26 regular season and playoffs, using only spells where the absent player was a pre-registered high-initiator and had at least a pre-set number of games and primary-type possessions before the spell, with a minimum spell length. Define primary types before analysis, for example the types accounting for at least a set share of the player's initiations. Exclude teammates with fewer than a minimum number of minutes. Fix the data snapshot and spell and case inclusion criteria before any outcome is inspected. Resolve first what the 11 cases and 148 spells mean.",
+   "power": "Run a simulation-based power analysis using empirical teammate counts per spell and cluster-level variance before looking at outcomes. Assume chance is about 12% and test the smallest hit-rate advantage of interest, for example 30% against 12%. If power with about 11 clusters is under about 0.7, record the question as exploratory and report estimates with intervals and no confirmatory claim.",
+   "controls": "Use rates per initiation possession or per minute rather than counts. Estimate the teammate's expected rate from a pre-period baseline with shrinkage to address regression to the mean. Control for teammate minutes change, position, starter status, lineup composition, opponent strength, back-to-back and score context. Use season fixed effects. Compare against placebo pseudo-absences, which are matched games where the player played, to estimate the null distribution of 'largest gainer' under ordinary variation.",
+   "falsification": "The hypothesis fails if the similarity top-1 hit rate is not above chance and not above the best competing predictor on the cluster-level test, or if it vanishes in the placebo-matched comparison. Additional checks: use a permutation test that shuffles gainer labels within spell, run a split-half check on spells, and test whether similarity predicts gains in non-primary types (it should not, if the mechanism is specific).",
+   "multiplicity": "Pre-register one primary test: the similarity top-1 hit rate against chance under a single similarity metric and a single primary-type definition. Treat the three competing predictors, alternative metrics and subgroup analyses as secondary with Holm or FDR correction. Label unregistered analyses exploratory.",
+   "decision_rule": "Call the hypothesis supported only if the cluster-level 95% interval for the similarity hit rate excludes chance, similarity beats each competing predictor, the placebo comparison shows no comparable hit rate, and the result holds under the alternative similarity metric. Call it rejected if the interval is adequately narrow (powered) and includes chance or the effect is no better than competing predictors. Otherwise call it inconclusive, and call it untestable if effective clusters or possessions fall below the pre-set power threshold.",
+   "data_version": "NBA per-game files and derived play-type possession graph for 2022-23 to 2025-26 regular season and playoffs, with a single frozen snapshot after the stated completion dates (regular season 2026-04-13, playoffs 2026-06-21). Record the snapshot date and the play-type derivation code version. Do not mix snapshots."
+  }
+ },
+ "redactions": 1
+}

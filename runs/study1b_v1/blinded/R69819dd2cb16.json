@@ -1,0 +1,159 @@
+{
+ "blind_id": "R69819dd2cb16",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup change",
+   "offensive five",
+   "shot mix",
+   "personnel effects",
+   "design validation"
+  ],
+  "methodological_questions": [
+   "Can a design based on changes in the offensive five detect personnel-driven changes in shot mix?",
+   "How to isolate the effect of the new five from confounding by game state and coach strategy?",
+   "What shot mix metrics are most sensitive to personnel?",
+   "What placebo tests are needed to validate the design?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Pull-up exposure-effect diagnostics: with lineup FE, slope holding shot fixed was -0.0255 (0.0061); shooter's earlier scored vs not scored interacted; without lineup FE, slope dropped to -0.0063 (0.0036); same-shooter placebo on other play types was -0.0075 (0.0017). Effect shrank without lineup FE, indicating shooter-level confound."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Tail/null-model audit of suppression excess: reproduced excess 0.4080; within-unit permutation gave residual +0.0054 (z=0.40); asymmetry test p=0.258; drift-centered tail mass ratio 1.007. Original excess disappeared under appropriate null models, indicating artifact from drift, selection, or regression to the mean."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Double-suppression stacking (POST_UP then PUTBACK): stacked effect was -0.071 vs additive prediction -0.232; sample sizes small (stacked n=1,047); implementation bug suspected; no clear failure mechanism recorded."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Penalty-state adaptation: 3->4 team fouls effect on any FTA was -0.151, but placebos (2->3 and 4->5+) were -5.556 and -9.655, making the penalty contrast not distinct from placebos; SEs not printed; mechanism unclear."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Pull-up exposure-effect estimation without lineup fixed effects",
+    "why": "Confounding artifact (C_artifact, [prior work]); effect vanished when lineup FE was omitted."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Tail null-model audit of suppression excess",
+    "why": "Excess was an artifact of drift, insufficient exposure, and selection/regression to the mean ([prior work], [prior work], [prior work])."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Double-suppression stacking analysis",
+    "why": "Small sample, suspected implementation bug ([prior work], [prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Penalty-state adaptation test",
+    "why": "Placebo dependence, unclear mechanism (RISK:PLACEBO_DEPENDENCE, E_unclear)."
+   }
+  ],
+  "evidence_establishes": [
+   "Without controlling for lineup or shooter identity, apparent play-type frequency effects can be wholly confounded ([prior work]).",
+   "Apparent suppression or adaptation effects may be artifacts of drift, regression to the mean, or insufficient exposure ([prior work]).",
+   "Small samples and implementation bugs can produce unreliable or inconclusive results ([prior work], [prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "The four retrieved studies do not test whether a design based on offensive-five changes can detect personnel-driven changes in shot mix.",
+   "No study provides a validated causal design for isolating the effect of a full five-man change on shot distribution."
+  ],
+  "own_inferences": [
+   "The question can be made testable by framing it as a validation exercise: check whether within-game substitution events shift shot mix in the direction predicted by the incoming/outgoing players' historical shot profiles.",
+   "Such a design must include lineup fixed effects or absorb team-game effects, plus controls for game state (score, time, period), to avoid the confounding seen in [prior work].",
+   "Placebo checks (defensive lineup changes, pre-change trends, random shuffling) are necessary to guard against the drift and RTM artifacts documented in [prior work]."
+  ],
+  "uncertainties": [
+   "The exact shot mix metrics (pull-up, spot-up, three-point rate, etc.) and the expected magnitude of personnel-driven changes are unspecified, affecting power calculations.",
+   "The number of ‘full five’ changes (entire unit replaced) may be limited; a design using any substitution and the net change in player shot propensities could be more practical.",
+   "Coach strategy (e.g., inserting shooters when trailing) could still confound the correlation even after controlling for score and time; instrumental variable approaches (e.g., foul trouble) may be needed but are not validated in the data."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieved evidence of confounding artifacts ([prior work]) and drift/spurious excess ([prior work]) in related play-type studies raises serious concerns that a naive pre-post comparison of shot mix around lineup changes would produce artefacts. Consequently, the decision moved from a simple observational test to a demand for a design with fixed effects, placebo tests, and multivariate controls; without these changes the risk of a false positive would be unacceptably high."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Lineup changes are endogenous: coaches substitute based on game situation (fouls, score, fatigue) which also affects shot selection. Simple before-after comparisons risk capturing spurious association."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "If the design requires a complete replacement of the five offensive players (as the phrase 'changing the offensive five itself' suggests), such events may be infrequent, limiting sample size for a clean within-game test."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Shot mix has many dimensions (pull-up, catch-and-shoot, three-point frequency, restricted area, etc.); testing all without adjustment inflates false positive risk."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No prior study directly tested whether a design based on offensive-five changes can detect personnel effects on shot mix. However, earlier work on play-type frequency ([prior work]) demonstrates that omitting lineup fixed effects leads to confounding artifacts, and null-model audits ([prior work]) show that apparent effects can be produced by drift and regression to the mean. These lessons are incorporated into the recommended design."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Coach substitution decisions correlate with game state (score, time, fouls), which also influences shot mix. Even with controls, unobserved strategic factors could bias the estimated effect."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Multiple shot mix categories (e.g., pull-up, spot-up, transition, post-up) and the need to test both increases and decreases inflate the risk of false discoveries unless corrected."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Data processing from play-by-play to lineup composition and shot type classification is complex; errors in alignment (as seen in [prior work]) could produce spurious results."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without placebo tests (e.g., using defensive line-up changes or random shuffles), a significant finding may merely reflect structural noise rather than a genuine personnel effect."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Shot mix trends over the course of a game (e.g., fatigue effects) could mimic a post-change shift if not controlled, as highlighted in [prior work]."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-by-play action type and sub-type classification (e.g., pull-up vs. catch-and-shoot) may contain noise that attenuates or biases the shot mix metrics."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.35,
+   "rejected": 0.1,
+   "untestable": 0.05,
+   "artifact": 0.25,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The within-game change in a team’s possession-level shot mix (primary: pull-up attempt rate) per unit change in the net incoming player pull-up propensity (career or 22‑23 rate), after a substitution that alters the offensive five. Secondary estimands: three-point attempt rate, restricted-area attempt rate.",
+   "unit": "A possession. Each possession is classified by the identity of the five offensive players on the floor and whether it falls in a pre‑ or post‑substitution window. The treatment variable is the net change in the sum of incoming minus outgoing player-specific pull-up frequencies.",
+   "sample": "All NBA regular-season and playoff possessions from the 2022‑23, 2023‑24, and 2024‑25 seasons, excluding: (a) the fourth quarter when the score margin exceeds 20 points, (b) the final two minutes of any period, (c) possessions that begin with an offensive rebound or deadball (to maintain clean possession starts). Substitutions that replace fewer than one player are dropped; the analysis uses only lineup changes that involve at least one player change, but the interaction with net propensity is estimated across all such changes.",
+   "power": "With approximately 1.2 million possessions across three seasons and over 50,000 substitution events, the design can detect a standardized effect size (Cohen’s d) of 0.02 at 80% power for the primary interaction (two-sided alpha = 0.05). Prior knowledge suggests that the difference in pull-up attempt rates between a star ball-handler and a replacement-level guard can be 0.05‑0.08, yielding >90% power for the intended validation.",
+   "controls": "Game × offensive team fixed effects (absorbing all between-game variation). Possession-level covariates: period indicators, score margin (natural spline with 3 df), time remaining in period (spline), possession start type (made field goal, defensive rebound, turnover, etc.), and a linear trend in the possession counter within the period to capture secular shot-mix drift. Additionally, a categorical variable for the offensive team’s pre‑substitution shot mix (binned average pull-up rate) to mitigate regression to the mean.",
+   "falsification": "1) Placebo treatment: use defensive lineup changes (substitution on defense) instead of offensive changes; the interaction with net defensive propensity should not significantly predict offensive shot mix beyond chance. 2) Pre‑trend test: examine the five possessions immediately before the substitution; the interaction with future (post‑change) net propensity should be zero. 3) Randomisation inference: permute the net propensity values across substitution events within each game and compute the distribution of the interaction coefficient; the observed coefficient should lie outside the 95th percentile of this null distribution. 4) Temporal mis-specification: shift the treatment window forward by 10 possessions and verify no effect.",
+   "multiplicity": "The primary test is the interaction between the post‑substitution indicator and net pull-up propensity on pull-up attempt indicator (one‑sided test, p < 0.05). Secondary metrics (three‑point rate, restricted area rate) are tested with Bonferroni‑Holm correction across the two additional endpoints. All placebo tests are evaluated with family‑wise error control (Holm) across the four falsification checks.",
+   "decision_rule": "Reject the null of no design validity if (a) the primary interaction coefficient is positive and significant at p < 0.05 (one‑sided) and (b) all placebo tests fail to reject their respective nulls (p > 0.05, two‑sided). If the primary interaction is non‑significant but the placebo tests pass, conclude that the design lacks sensitivity. If any placebo test fails, treat the primary result as artifactual regardless of its p‑value.",
+   "data_version": "NBA stats API play‑by‑play, substitution, and box‑score data as extracted on 2026‑11‑02 for the 2022‑23 through 2024‑25 seasons. Derived play‑type possession records from [source] database will be used to compute player‑level shot propensities from the 2022‑23 season only, to ensure temporal separation between the propensity estimation and the validation sample."
+  }
+ },
+ "redactions": 40
+}

@@ -1,0 +1,100 @@
+{
+ "blind_id": "R3dc6994ad127",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "primary defensive strategy failure (PNR fail)",
+   "pull-up shot counter strategy",
+   "league-wide lift effect",
+   "unit-level lift statistics"
+  ],
+  "methodological_questions": [
+   "How to define and measure lift per unit?",
+   "What constitutes a unit (team, matchup, player, defensive scheme)?",
+   "How to ensure sufficient exposure of pull-up shots within units?",
+   "How to control for confounding factors such as player ability and game context?",
+   "What statistical power is required to detect a median lift >2pp across ≥70% of units?",
+   "How to handle multiple testing across many units?",
+   "How to avoid selection bias when conditioning on PNR failure?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [],
+  "own_inferences": [
+   "The data set contains over 10,000 possessions per season and many pull-up events, but the distribution across potential units (team‑matchup combinations) is highly uneven, leading to exposure sparsity for many units. Hierarchical or mixed‑effects models can borrow strength across units, but simple per‑unit lift calculations will be unreliable for units with very few pull‑ups. A robust design must therefore aggregate units or employ Bayesian shrinkage. Confounding is unavoidable because pull‑up shots are typically taken by better shooters and in favorable defensive contexts; controlling for player, shot distance, and defensive matchup is essential. Multiple testing across thousands of units inflates false positives unless a false discovery rate or hierarchical adjustment is used. The question is statistically testable with the available data, but the design must address these risks."
+  ],
+  "uncertainties": [
+   "Exact definition of “unit” that maximizes statistical power while preserving interpretability is unclear.  The balance between aggregation (to avoid sparsity) and granularity (to capture meaningful differences) is not yet settled."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No prior studies were retrieved, so the decision is based solely on data and methodological reasoning."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Many potential units will have very few pull‑up shots, limiting reliable lift estimation."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Player skill and game context differ systematically between pull‑up and other shot types."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing lift across thousands of units inflates type‑I error without correction."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Focusing only on possessions where the primary defensive strategy fails may introduce selection bias."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior evidence was retrieved; the literature on pull‑up counter‑strategy in relation to defensive suppression remains unconfirmed."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Sparse pull‑up events within many units."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Player and context confounders."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "High number of hypothesis tests."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Conditional analysis on PNR failure may bias results."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.3,
+   "untestable": 0.2,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average lift in points per possession (PPV) for pull‑up shots relative to other shot types when the primary defensive strategy fails, estimated across units.",
+   "unit": "Team‑matchup‑player triplets aggregated into hierarchical units (e.g., team‑matchup) to ensure ≥20 pull‑up events per unit.",
+   "sample": "All possessions in the 2022‑23 through 2025‑26 NBA regular seasons and playoffs where a pull‑up shot was attempted, filtered to those where the PNR failed.",
+   "power": "Target 80% power to detect a median lift of 2pp across ≥70% of units, achieved by aggregating units and employing a Bayesian hierarchical model that shrinks estimates towards the grand mean.",
+   "controls": "Fixed effects for player, shot distance, defensive matchup, game context (score differential, period). Random intercepts for units. Propensity‑score weighting to balance covariates between pull‑up and control shots.",
+   "falsification": "Test lift for a control action (e.g., off‑balance jump shots) where no counter‑strategy is expected, to confirm that any observed lift is specific to pull‑ups.",
+   "multiplicity": "Apply Benjamini‑Hochberg FDR correction on unit‑level p‑values, or equivalently use a hierarchical Bayesian model that naturally controls for multiplicity.",
+   "decision_rule": "Reject the null if the posterior probability that lift > 0 exceeds 0.95 for ≥70% of units and the median lift across those units is >2pp. Otherwise, fail to reject.",
+   "data_version": "NBA 2022‑23 through 2025‑26 regular season and playoffs, per‑game play‑by‑play and possession‑level derived data"
+  }
+ },
+ "redactions": 0
+}

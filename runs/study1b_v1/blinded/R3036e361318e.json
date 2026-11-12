@@ -1,0 +1,161 @@
+{
+ "blind_id": "R3036e361318e",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup effects",
+   "offensive five-man unit composition",
+   "shot mix",
+   "personnel change (substitution)",
+   "positive-control detectability",
+   "substitution rotation intervals"
+  ],
+  "methodological_questions": [
+   "Can a design detect shot-mix changes when the offensive five changes, used as a positive control?",
+   "How can a lineup-composition effect be separated from shooter identity, opponent, game state and drift?",
+   "Is exposure per five-man unit sufficient, given sparse five-man lineups?",
+   "How should shot mix be defined reliably from play-by-play shot distance and result?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "In a PULL_UP exposure-effect diagnostic, the slope was -0.0255 (0.0061) with lineup fixed effects and -0.0063 (0.0036) without them. The placebo slope on other play types was -0.0075 (0.0017). [prior work] reads this as consistent with a shooter-level confound. Limited by confounding; risks recorded: CONFOUNDING and PLACEBO_DEPENDENCE. Verdict: artifact_found."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "A null-model audit of a published suppression excess reproduced the excess (0.4080, CI [0.378, 0.438]). A within-unit permutation null gave 0.3744 against an observed 0.3798 (residual +0.0054, z 0.40). Limited by drift, insufficient exposure and selection/regression to the mean; risks recorded: DRIFT_NONSTATIONARITY, EXPOSURE_SPARSITY, MECHANICAL_FLOOR and PLACEBO_DEPENDENCE."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "A double-suppression stacking study (POST_UP then PUTBACK) is recorded as limited by an implementation bug and a small sample, with the risk IMPLEMENTATION_BUG. It concerns play-type sequences, not personnel changes."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "A penalty-state pilot used game x offense x period fixed effects with placebo contrasts. The real contrast was not distinct from the placebos, and standard errors were not printed. Failure mechanism: E_unclear. Risk recorded: PLACEBO_DEPENDENCE."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Reading an exposure-related decline as a real effect without separating shooter/lineup composition.",
+    "why": "The apparent effect was produced by a construction or selection flaw (C_artifact) and changed a lot depending on whether lineup fixed effects were used. The same-shooter placebo was non-null. Limited by confounding."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Comparing a trigger-vs-control excess without an adequate null model.",
+    "why": "The excess was reproduced but sat at its within-unit permutation null (C_artifact). Limited by drift, insufficient exposure and regression to the mean."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "A contrast that was not distinguishable from its placebos.",
+    "why": "Mechanism unclear (E_unclear). Risk recorded: PLACEBO_DEPENDENCE."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier project work shows that shooter and lineup composition can generate apparent effects ([prior work][prior work], recorded as artifact).",
+   "Earlier project work shows that null-model, permutation and placebo checks are needed before an effect is believed ([prior work][prior work], [prior work][prior work]).",
+   "Drift and exposure sparsity have been recorded as limits in this data family ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "No retrieved record tests whether substituting players changes shot mix, or whether a design can detect such an effect.",
+   "No retrieved record gives a power calculation or exposure counts for stints or five-man units (observed_sample_and_power is NOT_RECORDED where listed).",
+   "No retrieved record says how well shot mix is measured from play-by-play shot distance."
+  ],
+  "own_inferences": [
+   "Changing the five almost mechanically changes shot mix, because different players have different shot profiles. As posed, the claim is close to a tautology and only works as a positive control if the expected direction and size of the change are predicted in advance.",
+   "A meaningful positive control is a dose-response test: the observed change in team shot mix across a substitution should track the swapped players' own out-of-sample shot profiles. Pseudo-substitution and profile-matched swaps should show no change.",
+   "The lesson from [prior work][prior work] is that shooter identity is the main confound, so the test should be built around shooter identity (predicted shot mix from player profiles) and not hide it.",
+   "Per-stint shot counts are small, so stint-level shot-mix shares are noisy. Shot-level modelling or aggregation across many substitutions is needed.",
+   "Success on this control shows only that the pipeline can detect large, composition-driven shifts. It does not show it can detect subtler effects such as defensive adaptation."
+  ],
+  "uncertainties": [
+   "Exact counts of single-player substitution transitions and shots per stint have not been checked.",
+   "Whether player shot profiles are stable enough across seasons to serve as out-of-sample predictors.",
+   "Whether the rotation-interval files align cleanly with play-by-play clock and period.",
+   "No shot coordinates are listed, only shot distance, so zone definitions such as corner three cannot be built."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have proceeded with a simple before/after comparison. The retrieved artifact and placebo-dependence records moved the decision to proceed_with_changes: predict the change from player profiles, include pseudo-substitution and profile-matched placebos, control for game state, and run a permutation null."
+  },
+  "testability": {
+   "p_testable": 0.85,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No retrieved record tests personnel change against shot mix. The retrieved records supply only methodological cautions: confounding by shooter/lineup, placebo dependence, drift, sparse exposure and mechanical floors."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Shot-mix changes may reflect game state, opponent, fatigue, clock or the timing of substitutions, not the personnel change alone. Shooter identity is the main confound ([prior work][prior work])."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Different players necessarily take different shots, so a positive result can be near-tautological unless the test uses predicted dose-response and placebos."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If player shot profiles are estimated from the same stints being evaluated, the prediction is circular. Use leave-game-out or prior-period profiles."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Few shots per stint make per-stint shot-mix shares noisy."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Full five-man units recur rarely. Analysing by single-player swaps and pooling across units is needed ([prior work][prior work])."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Substitutions are not random. Coaches may sub after unusual shot-mix runs, so regression to the mean could create or mask shifts."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Shot-mix league trends and within-game drift can mimic effects ([prior work][prior work])."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "The interpretation depends on placebo contrasts being clean, and earlier placebos were non-null ([prior work][prior work], [prior work][prior work])."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot zones from shot distance only, and possible alignment error between substitution intervals and play-by-play."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several shot-mix outcomes (rim, mid, three, free-throw rate) need a single pre-specified primary outcome."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.7,
+   "rejected": 0.03,
+   "untestable": 0.03,
+   "artifact": 0.14,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-team, within-game change in shot mix (primary: share of FGA at 0-4 ft; secondary: share of three-point attempts) between the stint before and the stint after a single-player substitution. The estimand is the slope of the observed change on the change predicted from the swapped players' out-of-sample shot profiles. It is a positive control, not a causal lineup effect.",
+   "unit": "Substitution event (one player out, one player in, other four unchanged), with the immediately preceding and following stints, nested in team-games.",
+   "sample": "All regular-season and playoff games 2022-23 to 2024-25. Include single-swap transitions where both adjacent stints have at least a pre-set minimum number of FGA (for example 5). Exclude garbage time (pre-set score margin and clock rule), end-of-period stints, and transitions with injury or ejection flags.",
+   "power": "Not yet computed because transition counts are unchecked. Before analysis, count eligible transitions and simulate power from observed shot counts using a binomial shot-level model. Proceed only if the minimum detectable slope is no more than about 0.5 of the plausible true slope of 1 (the pre-specified power criterion).",
+   "controls": "Player profiles come from other games only (leave-game-out) or from the prior period. Include team-game fixed effects, game state (score margin, period, time), opponent, and swapped-in versus swapped-out player minutes. Cluster standard errors by team-game. Residualise league-wide drift by period.",
+   "falsification": "(1) Pseudo-substitutions: random cut points inside stints with no personnel change, expected slope near zero. (2) Profile-matched swaps, where the two swapped players have near-identical profiles, expected change near zero. (3) Permuted player profiles across substitutions within team-season, expected slope near zero. (4) Compare results with and without lineup/shooter fixed effects, in light of the shrinkage seen in [prior work][prior work]. Report all placebo results alongside the primary result.",
+   "multiplicity": "One primary outcome (rim share slope). The secondary outcome (three-point share) is reported with Holm correction. Other zones are exploratory and labelled as such.",
+   "decision_rule": "Detection is claimed if the primary slope is positive with a 95% CI excluding 0 and the three placebos are each non-significant, with placebo slopes less than 20% of the primary slope. If the primary effect is present but any placebo is non-null, label it artifact/confounded. If the CI is wide enough to include both 0 and the pre-specified minimal slope, label it inconclusive. A failure to detect would show the pipeline is unsuitable for subtler personnel-effect tests.",
+   "data_version": "NBA stats API per-game play-by-play, rotation intervals, starters and box-score files for 2022-23, 2023-24 and 2024-25 (regular season and playoffs) as available on 2026-11-02. Freeze the extraction hash and code before analysis. The derived graph-database possession records are not needed for the primary test."
+  }
+ },
+ "redactions": 42
+}

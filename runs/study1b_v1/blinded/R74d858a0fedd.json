@@ -1,0 +1,130 @@
+{
+ "blind_id": "R74d858a0fedd",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "opponent next-possession points per possession (PPP)",
+   "own-sequence lags",
+   "AVOID labels",
+   "data quality"
+  ],
+  "methodological_questions": [
+   "measurement reliability of PPP",
+   "label derivation from play type",
+   "confounding due to game context",
+   "exposure sparsity",
+   "lag specification"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline; defensive aftershock observed for all 8 play types (e.g., PUTBACK->TRANSITION +0.084 PPP)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences are inflated or deflated by foul endings (e.g., OTHER 36% foul rate inflating PPP); only 0.7% of possessions map to a real play type via initiation_type, indicating labeling artifacts."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "play-type labeling audit",
+    "why": "artifact due to foul leakage; labeling flaw"
+   }
+  ],
+  "evidence_establishes": [
+   "Opponent next-possession PPP after playing type X has a measurable defensive aftershock effect; large sample confirms consistent PPP differences across play types."
+  ],
+  "evidence_does_not_establish": [
+   "Whether AVOID labels are driven solely by PPP; whether own-sequence lags produce significant effects; complete reliability of play-type labeling across seasons."
+  ],
+  "own_inferences": [
+   "The defensive aftershock effect is robust in the available data, but labeling quality for certain play types (especially OTHER) is questionable; sample size is large enough for most play types but rare types may still suffer sparsity."
+  ],
+  "uncertainties": [
+   "Consistency of play-type labeling across seasons; adequacy of adjusting for foul leakage; magnitude of confounding from game state variables; exact lag specification for own-sequence effects."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The identified labeling artifact in [prior work][prior work] indicates that without adjustment the study could be biased, prompting a design change to account for fouls and labeling quality."
+  },
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "PPP may be biased by foul leakage, requiring adjustment."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play-type labeling artifacts could distort exposure classification."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Game context (score differential, quarter, possession count) may confound PPP effects."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Some play types are rare, limiting power for specific pairings."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Many play-type pairs and lag orders increase multiplicity."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "[prior work] demonstrates defensive aftershock (opponent next-possession PPP effect), while SF-[prior work] shows labeling artifacts that can bias PPP estimates."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PPP measurement may be inflated/deflated by foul outcomes."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels may not reflect true play initiation due to leakage."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game state variables could confound the observed PPP effects."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Rare play types reduce effective sample size for certain pairings."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many play-type pairs and lag structures increases false positive risk."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.1,
+   "untestable": 0.05,
+   "artifact": 0.35,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average PPP difference for the next possession conditioned on opponent play type X and own-sequence lag, compared to unconditional PPP baseline.",
+   "unit": "possession",
+   "sample": "All possessions from 2022‑23 to 2025‑26 seasons (including playoffs) with full play-by-play and labeling data.",
+   "power": "Target 80% power to detect a 0.05 PPP effect (≈1.5% of average points) at alpha=0.05 after multiplicity adjustment.",
+   "controls": "Game context (score differential, quarter, possession count), defensive matchups, player minutes, foul rates; additionally regress on foul leakage indicator for each play type.",
+   "falsification": "Randomly permute play-type labels for a subset of possessions and test whether the estimated effect disappears; compare to the main specification.",
+   "multiplicity": "Control false discovery rate across all play-type pairings and lag orders using Benjamini–Hochberg; report both unadjusted and adjusted p-values.",
+   "decision_rule": "Reject the null hypothesis of no PPP effect if the adjusted p-value <0.05 for a given play-type pair and lag; otherwise retain null.",
+   "data_version": "2026‑06‑19 dataset (2022‑23 to 2025‑26 seasons, including full playoffs)."
+  }
+ },
+ "redactions": 12
+}

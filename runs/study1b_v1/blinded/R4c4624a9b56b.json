@@ -1,0 +1,154 @@
+{
+ "blind_id": "R4c4624a9b56b",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "counter strategy",
+   "winning",
+   "suppression-conditional recommended mix"
+  ],
+  "methodological_questions": [
+   "measurement reliability of counter identification",
+   "sample size and power",
+   "leakage of future data into counter selection",
+   "generalizability across seasons",
+   "confounding by team strength"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Spearman rho=-0.0639, p=0.0997 for full-rank counter ranking; BEST vs AVOID significant (p=0.0040) across 10 series (665 counter observations)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Engine top play type vs team modal hit rate inflated by leakage and model tuning; 69.8% hit rate not held out."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "PCI incremental R^2 over ORtg driven by leakage tracking DRtg; no genuine defensive signal."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Proxy engine agreement with production engine only 13/79; in-sample contamination and small sample noted."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Engine recommendation vs team modal comparison",
+    "why": "Leakage lookahead and small sample bias inflated hit rate."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Counter ranking predictive model",
+    "why": "Small sample (10 series), low measurement reliability, leakage, drift nonstationarity."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "PCI as defensive metric",
+    "why": "Leakage tracking defense, mechanical floor."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Proxy engine validation",
+    "why": "In-sample contamination, low fidelity to production engine."
+   }
+  ],
+  "evidence_establishes": [
+   "There is limited evidence that a suppression-conditional counter ranking (BEST > AVOID) can predict which counter plays better, but overall predictive power is weak.",
+   "Existing studies have methodological flaws (leakage, small samples, measurement reliability) that undermine causal inference."
+  ],
+  "evidence_does_not_establish": [
+   "No robust, adequately powered evidence that adherence to a suppression-conditional recommended mix improves team win probability.",
+   "No generalizable effect across multiple seasons or series types."
+  ],
+  "own_inferences": [
+   "With only 54 series the study will be underpowered to detect moderate effects on winning; measurement of counter events is noisy; leakage risk is high if future data are used to construct counters."
+  ],
+  "uncertainties": [
+   "True strength of counter effect across seasons; extent of leakage in current data; accuracy of counter identification at the possession level."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Historical evidence indicates methodological weaknesses that would likely bias results, so the decision to proceed requires design changes to mitigate leakage, increase sample, and improve counter measurement."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 54 series may not provide sufficient power for moderate win effects."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "Potential use of future data in counter selection could bias results."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Counter identification from play‑by‑play may be noisy."
+    },
+    {
+     "code": "DRIFT_NONSTATIONARITY",
+     "text": "Play‑type usage and defensive strategies may shift across seasons."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Previous work partially examined suppression‑conditional counter predictions but suffered from leakage, small samples, and measurement issues, leaving the question of whether adherence improves winning unresolved."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Limited series count reduces power."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Future data may influence counter selection."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Counter identification may be inaccurate."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Seasonal shifts in play‑type usage."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team strength and coaching strategies could confound the relationship."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.3,
+   "untestable": 0.2,
+   "artifact": 0.1,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Effect of adherence to a suppression‑conditional recommended mix on team win probability (difference in win rate between series where teams followed the recommendation vs did not).",
+   "unit": "game series",
+   "sample": "54 series from 2022‑23 through 2025‑26 playoffs (exclude series used in model tuning).",
+   "power": "Simulate 1000 bootstrap samples; target 80% power to detect a 3% absolute win‑rate improvement at alpha=0.05 (two‑sided).",
+   "controls": "Include prior season win percentage, offensive rating, defensive rating, and pace as covariates; use series‑level fixed effects for opponent strength.",
+   "falsification": "Test the same model on series where no suppression occurred (i.e., no play‑type drop ≥0.25 PPP) to check for spurious associations.",
+   "multiplicity": "Apply Holm‑Bonferroni correction across the 4 counter categories (BEST, SECOND, AVOID, UNK).",
+   "decision_rule": "Reject null of no effect if corrected p<0.05; otherwise conclude insufficient evidence.",
+   "data_version": "2026‑06‑16 (includes full 2025‑26 playoffs and 2026‑04‑13 regular season)."
+  }
+ },
+ "redactions": 21
+}

@@ -1,0 +1,145 @@
+{
+ "blind_id": "R9fbdf99f2852",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "opponent next-possession PPP",
+   "own-sequence lag effects",
+   "carryover effects",
+   "AVOID labels",
+   "data quality"
+  ],
+  "methodological_questions": [
+   "Can we reliably estimate the effect of a specific play type on the opponent's next possession points per possession (PPP) using per-game play-by-play data?",
+   "Is there sufficient exposure per play type to detect differences large enough to drive AVOID labels?",
+   "How reliable is play-type identification, and what is the risk of measurement error?",
+   "What are the main confounding factors (game state, opponent strength, player lineup) when assessing carryover effects of play types?",
+   "Does the use of next-possession outcomes to label plays risk lookahead bias or overfitting?",
+   "What is the appropriate unit of analysis and how to handle dependencies (clustering) within games?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline (defensive aftershock), replicated for all 8 play types in all games and playoffs. Effect sizes: CUT +0.119 (n=21,398), DRIVE +0.123 (57,621), PNR +0.127 (51,194), POST_UP +0.128 (20,619), PULL_UP +0.132 (26,060), PUTBACK +0.130 (5,888), SPOT_UP +0.128 (43,857), TRANSITION +0.135 (26,262). Top pair premiums: PUTBACK->TRANSITION +0.084 (n=565), CUT->PULL_UP +0.065 (n=2,620). Own-next A1 treated as exploratory (~4% of pairs). Large-n aftershock uniformly positive, possibly a generic dead-ball/score effect rather than PT-specific."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit: OTHER/DRIVE foul leakage. OTHER: 36% of possessions end in fouls, PPP inflated. DRIVE: 12pp below foul benchmark. PNR: 22% foul rate. Only 0.7% of possessions (335 of 50,668) map to a play type via initiation_type."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Interpreting raw play-type PPP differences as real efficiency differences",
+    "why": "OTHER PPP inflated by 36% foul endings; DRIVE 12pp below foul benchmark; initiation_type maps only 0.7% of possessions, indicating substantial labeling error and foul misassignment."
+   }
+  ],
+  "evidence_establishes": [
+   "A consistent defensive aftershock exists: opponent next-possession PPP is lower after every play type, with effect sizes ~0.12-0.135 PPP, replicated in all games and playoffs.",
+   "Play-type label quality is poor for certain categories (OTHER, DRIVE) due to foul misassignment, and the initiation_type field is unreliable."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the opponent-next PPP differences are large or variable enough to differentiate play types for AVOID labeling.",
+   "Whether own-sequence lags matter in a way that can drive labeling.",
+   "The effect of PT-specific carryover beyond a generic dead-ball/score effect.",
+   "Whether AVOID labels derived from next-possession outcomes are stable, out-of-sample predictive, or free from circularity."
+  ],
+  "own_inferences": [
+   "The uniform aftershock suggests that a simple ranking of play types by opponent-next PPP would likely reflect a common, non-specific effect rather than actionable play-type quality, limiting the practical utility of AVOID labels.",
+   "Any AVOID label built from opponent-next PPP risks being contaminated by the foul leakage artifacts documented in [prior work][prior work].",
+   "The exploratory own-sequence findings imply that own-lag effects may be small or confounded, making them unlikely to independently drive labeling."
+  ],
+  "uncertainties": [
+   "The extent to which PT-specific carryover effects exist after controlling for game state, score, and lineup.",
+   "Whether the available sample sizes per team–play-type combination are sufficient to estimate differential effects with acceptable precision.",
+   "The robustness of play-type identification in the full graph database beyond the audit that only examined initiation_type.",
+   "The appropriate threshold for an AVOID label and the cost of misclassification."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the retrieval, the question might have been approached with a naive comparison of raw opponent-next PPP by play type. The historical evidence shows a uniform defensive aftershock that could mimic PT-specific effects and reveals foul leakage artifacts that would corrupt the analysis. This shifts the proposal from a simple test to a more rigorous design that controls for generic effects and label quality, and raises the possibility that the question may ultimately be untestable with the current data."
+  },
+  "testability": {
+   "p_testable": 0.45,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Per-team, per-PT cells likely have insufficient n for reliable AVOID labelling, especially for low-frequency play types like PUTBACK."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Play-type labels suffer from foul-leakage artifacts; initiation_type mapping covers only 0.7% of possessions, so the derived PT field may have systematic errors."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "The defensive aftershock may be a generic dead-ball or score-margin effect rather than PT-specific carryover, confounding the interpretation of next-possession PPP."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Defining AVOID labels based on the very outcome being predicted creates circularity and risks overfitting to noise."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "FAM:[prior work] establishes a robust but uniform defensive aftershock across all 8 PTs; [prior work][prior work] documents severe foul-related label contamination. Together they show that opponent-next PPP is influenced by a common effect and measurement error, but neither study addressed PT-specific AVOID thresholds or own-sequence lags in any depth."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Team-level or play-type-specific estimates, especially for low-frequency types, will be underpowered to detect the small differentials required for AVOID labeling."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Rare play types (e.g., PUTBACK) and rare pairings may produce unstable and noisy estimates."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Misclassification of play types, particularly foul-related inflation of OTHER and misassignment of DRIVE, will bias per-PT opponent-next PPP."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Score, period, opponent strength, and dead-ball context likely drive both play-type selection and next-possession outcomes, confounding the carryover estimate."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using future opponent possessions to label current plays introduces lookahead bias if the label is then used in any predictive or causal framework."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "AVOID labels defined by next-possession PPP are outcome-derived, making the notion of 'testing' whether they matter tautological."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Searching across 8 PTs and numerous team-season combinations for AVOID thresholds inflates family-wise error."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.1,
+   "untestable": 0.3,
+   "artifact": 0.3,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The PT-specific differential in opponent next-possession PPP, defined as E[PPP_opp_next | play_type = X, success, S] - E[PPP_opp_baseline | S], where S is a stratum of game-state/lineup covariates, with the differential evaluated as a deviation from the grand mean aftershock to isolate PT-specific carryover.",
+   "unit": "One opponent possession immediately following an offensive possession with a recorded play type and possession outcome (success/fail).",
+   "sample": "All regular season and playoff games 2022-23 through 2025-26 (complete through 2026-06-21). Exclude possessions with missing play type or clock anomalies; flag possessions overlapping with the OTHER category for sensitivity analysis.",
+   "power": "Simulate power to detect a PT-specific deviation of 0.05 PPP from the grand mean aftershock at 80% power. The analysis will be halted if the minimum detectable effect exceeds 0.07 PPP for any PT at the team-season level.",
+   "controls": "Include fixed effects for score margin (binned), period, seconds remaining, home/away, rest days, opponent defensive rating, and a random effect for offensive team-season. Additionally, control for the foul context by excluding possessions ending in shooting fouls or assigning them to a separate category.",
+   "falsification": "1) Test own-sequence lags: replacing opponent-next with own-next PPP should yield no PT-specific differential beyond a generic positive effect (validation of no PT-specific carryover). 2) Shuffle play-type labels within the same game and period; the PT-specific differences should shrink to noise. 3) Split by half (pre/post) to ensure no structural break.",
+   "multiplicity": "Apply Benjamini-Hochberg FDR correction across the 8 play types when assessing PT-specific deviations. AVOID label will only be considered if the adjusted p-value < 0.05 in both the discovery and holdout seasons.",
+   "decision_rule": "A play type is tagged as AVOID only if the 95% CI of its PT-specific differential is entirely above +0.03 PPP (i.e., opponent scores at least 0.03 PPP less than the global aftershock), the effect replicates in a holdout season, and the result survives the foul-context sensitivity analysis. Label is provisional and flagged for revalidation each season.",
+   "data_version": "Frozen per-game files and derived possession graph as of 2026-06-21. Pre-register the exact play-type mapping and the exclusion/inclusion rules before any outcome examination."
+  }
+ },
+ "redactions": 13
+}

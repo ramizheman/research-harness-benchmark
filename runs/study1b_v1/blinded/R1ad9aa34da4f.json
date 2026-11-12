@@ -1,0 +1,114 @@
+{
+ "blind_id": "R1ad9aa34da4f",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "DRIVE",
+   "PNR",
+   "PPP"
+  ],
+  "methodological_questions": [
+   "effect_of_preceding_play_type_on_next_play_points",
+   "play_type_sequencing_in_possessions"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Backfilled play-type labels failed for 28.7% of PNR possessions, indicating high label error and potential bias for PNR PPP estimates."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "DRIVE PPP is 12 points below the foul benchmark, and 36% of OTHER possessions end in fouls inflating PPP; only 0.7% of possessions mapped to a real play type via initiation_type, highlighting labeling and foul leakage artifacts."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Inferred defensive scheme labels derived from PPP were near-uniform, suggesting label noise and inability to separate defensive changes from offensive execution, making this approach untestable with the current data."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "backfilled play-type labeling",
+    "why": "label error ([prior work])"
+   }
+  ],
+  "evidence_establishes": [
+   "Labeling of PNR and DRIVE play types in the dataset is unreliable and potentially biased; PPP estimates for these play types may be distorted by foul leakage and labeling errors."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a preceding DRIVE actually raises PNR PPP; no prior study has directly tested this sequencing effect with reliable labels."
+  ],
+  "own_inferences": [
+   "The high labeling error for PNR and the foul leakage bias for DRIVE suggest that any observed effect of preceding DRIVE on PNR PPP could be an artifact unless labeling is improved or corrected."
+  ],
+  "uncertainties": [
+   "Exact magnitude of the labeling error for DRIVE in the current dataset; the prevalence of preceding DRIVE possessions in the dataset; how to best correct for foul leakage in PPP calculations."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Evidence of substantial label error and foul leakage bias necessitates a change in design rather than a straight‑forward test."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "High labeling error for DRIVE and PNR play types"
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Foul leakage inflates PPP for OTHER and depresses PPP for DRIVE"
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Preceding DRIVE may correlate with offensive strategy and defensive matchups"
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work identified labeling errors for PNR and foul leakage artifacts for DRIVE, but did not address the specific question of whether a preceding DRIVE increases PNR PPP."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Inaccurate play-type labeling for DRIVE and PNR"
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Foul leakage bias affecting PPP estimates"
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Potential correlation between preceding DRIVE and offensive/defensive context"
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.1,
+   "untestable": 0.1,
+   "artifact": 0.5,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Difference in PNR PPP when the preceding possession is a DRIVE versus when it is not, adjusted for team, opponent, defensive scheme, period, and score margin.",
+   "unit": "possession",
+   "sample": "All PNR possessions with a preceding possession that can be reliably labeled as DRIVE or non‑DRIVE (expected N≈300,000+ after filtering for label confidence).",
+   "power": "80% power to detect a 0.2 PPP difference at alpha=0.05 requires ≈3,000 qualifying possessions per group; the dataset exceeds this after filtering.",
+   "controls": "Fixed effects for team, opponent, defensive scheme; interaction with period; score margin and possession number; include a variable for foul leakage propensity.",
+   "falsification": "Test the same difference for PNR possessions preceded by a non‑DRIVE high‑efficiency play type (e.g., pull‑up) to see if the effect is specific to DRIVE.",
+   "multiplicity": "Apply Holm–Bonferroni correction for the 3 primary tests (DRIVE vs. other, pull‑up vs. other, and combined).",
+   "decision_rule": "Reject the null of no difference if p<0.05 after correction.",
+   "data_version": "NBA 2022‑23 through 2025‑26 regular season and playoffs, with play‑by‑play and possession‑level PPP derived from [source] database."
+  }
+ },
+ "redactions": 14
+}

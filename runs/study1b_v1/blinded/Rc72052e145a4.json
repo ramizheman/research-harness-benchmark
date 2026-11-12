@@ -1,0 +1,175 @@
+{
+ "blind_id": "Rc72052e145a4",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "suppression-conditional recommended play-type mix (best/avoid)",
+   "adherence to recommended mix",
+   "play-type possession mix",
+   "series and game outcome prediction"
+  ],
+  "methodological_questions": [
+   "Is the recommended mix derived only from information available before the outcome it is meant to predict?",
+   "Is adherence associated with winning after controlling for team quality, game state and opponent?",
+   "Is 54 series enough power at series level, and how much does a game-level analysis add given clustering?",
+   "Are play-type labels and matchup-conditioned recommendations reliable enough to define adherence?",
+   "Does any effect replicate on a frozen holdout (the 2025-26 playoffs once complete)?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The engine's top recommended play type beat the team's modal play type in 69.8% (37/53) of playoff series with the fully calibrated engine. Comparisons against a banned-PT DRIVE-modal team were 85.7% (12/14). Clean comparisons were 64.1% (25/39). The uncalibrated archival figure was 51.7% (31/60). Recorded failure mechanism: C_artifact. Recorded risks: LEAKAGE_LOOKAHEAD and SAMPLE_SIZE_POWER. No bootstrap CI was computed."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "In a 10-series playsheet validation, the full-rank Spearman showed no clear signal (rho=-0.064, p=0.0997, n=665). Pairwise, BEST scored higher than AVOID (1.257 vs 1.092 PPP, Mann-Whitney p=0.004). Recorded limits: leakage, low measurement reliability and small sample; recorded risks also include drift/nonstationarity."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "A proxy matchup-conditioned play-type picker showed a positive possession-level gain (about +0.05 to +0.07 PPP, n=16,921 cells). [prior work] notes that proxy fidelity to the production engine was 16.5%, that regular-season aggregates were contaminated in-sample, and that standard errors assumed independence."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The Possession Control Index gain over ORtg came from leakage components tracking DRtg (corr +0.894), and the baseline omitted defense by construction. This is not a play-type adherence test; it is relevant only as a warning about mechanical construction effects."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Headline 'engine recommendation beats modal play type' hit rate, used as evidence that following the recommendation pays",
+    "why": "Recorded as an artifact (C_artifact) with LEAKAGE_LOOKAHEAD and SAMPLE_SIZE_POWER risks and small sample. The uncalibrated figure (51.7%) was far below the calibrated one (69.8%), and the banned-PT comparisons inflated the headline."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Ranked playsheet (BEST>SECOND>AVOID) validation",
+    "why": "Recorded limits: leakage, low measurement reliability and small sample. The full-rank test was null and only the pairwise BEST>AVOID contrast was significant."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Proxy matchup-conditioned engine tested at possession level",
+    "why": "Recorded proxy fidelity of 16.5%, in-sample contamination of regular-season aggregates, and iid standard errors."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier project work tested whether recommendations beat modal play types or whether BEST outscored AVOID on points per possession. It did not test whether adherence to a recommended mix predicts winning.",
+   "The headline positive results in this area were recorded as artifact ([prior work][prior work]) or inconclusive ([prior work][prior work], FAM:[prior work]), and each carried leakage or contamination limits.",
+   "Small samples and measurement reliability have repeatedly limited this line of work."
+  ],
+  "evidence_does_not_establish": [
+   "Whether adherence to the mix, measured without lookahead, predicts game or series wins.",
+   "Whether any effect survives control for team quality and game state.",
+   "Whether the effect exists at all: the retrieved records neither support nor reject it in an adequately powered, leak-free test.",
+   "Details cut from [prior work] texts (marked [cut]) were not read; I did not call read_family."
+  ],
+  "own_inferences": [
+   "Play-type PPP is part of scoring, and scoring drives winning. If the recommendation or adherence is built from outcome-bearing PPP in the same games, a positive association is close to mechanical (OUTCOME_DERIVED_LABEL, MECHANICAL_FLOOR).",
+   "Teams that are leading or trailing change their play-type mix (late-game fouling, three-point heavy trailing, clock-killing), so adherence may follow the score rather than cause it.",
+   "Stronger teams may adhere more simply because they have the personnel to run the recommended types, which is team-quality confounding.",
+   "With about 54 series, the study can only detect a large incremental effect over team quality. A null result would not be informative."
+  ],
+  "uncertainties": [
+   "The exact definition of the 'suppression-conditional recommended mix' and of adherence is not given in the task.",
+   "The 54 series appear to include partial 2025-26 playoffs, which are complete only from 2026-06-21, after the question date. The series composition is therefore unclear and not yet final.",
+   "Whether recommendations can be built strictly from information before each game or series is unknown.",
+   "Play-type label accuracy, and the fidelity of the production engine versus proxies, are unknown."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have proceeded with a plain adherence-versus-win regression. [prior work] showed that earlier positive results were artifacts or inconclusive due to leakage, contamination and small samples, so I raised the artifact probability, required a prospective, lookahead-free recommendation definition, and demoted the question from a headline test to a small, carefully controlled confirmatory test."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "54 series (partly incomplete at the question date) gives low power for an increment over team quality; only large effects are detectable."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "The recommendation must be frozen from pre-outcome data (prior games or regular season only). If it cannot be, the test is not valid."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If best/avoid labels come from points per possession in the games being predicted, adherence will mechanically track winning."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Earlier work tested adjacent questions (recommendation versus modal play type, BEST versus AVOID points per possession, possession-level proxy picker). The results were artifact or inconclusive and cut by leakage. None tested adherence versus winning with lookahead-free recommendations and controls for team quality."
+  },
+  "risks": [
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Recommendations calibrated on the same series or games used for evaluation (as recorded in [prior work][prior work], [prior work][prior work] and FAM:[prior work])."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Best/avoid labels derived from PPP, which is part of the outcome."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Adherence to high-PPP types mechanically correlates with scoring margin and wins."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team quality, home court, injuries, opponent defense and game state (score effects, garbage time) affect both play-type mix and winning."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "54 series with few games each; game-level observations are clustered within series."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type labels, suppression triggers and engine fidelity are noisy (low reliability recorded in [prior work][prior work], proxy fidelity 16.5% in FAM:[prior work])."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Suppression triggers are selected on extreme half-to-half drops, which invites regression to the mean."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type effectiveness and league style differ across seasons (flagged in [prior work][prior work])."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many possible adherence definitions, play types and thresholds, which allows a garden of forking paths."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without shuffled or placebo recommendations the effect cannot be distinguished from generic good play-type usage."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.12,
+   "rejected": 0.1,
+   "untestable": 0.2,
+   "artifact": 0.25,
+   "uncertain": 0.33
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-series, game-level association between a team's pre-registered adherence score and winning that game (log-odds), conditional on pre-series team strength, home court and opponent. Secondary: series win and game point margin.",
+   "unit": "Team-game within a playoff series (primary). Series-level (n about 54) is secondary and descriptive.",
+   "sample": "Playoff series from 2022-23 to 2024-25 as development and confirmation data, with series lists frozen before analysis. The 2025-26 playoffs are used as a sealed holdout only after they are complete (from 2026-06-21); any series analysed before then is excluded from the confirmatory sample. Exclude garbage-time possessions, and exclude game 1 if the recommendation needs in-series history.",
+   "power": "With 54 series, series-level power is low; a series-level detection needs a large effect (roughly r above 0.38 at 80% power, and much less detectable after adjustment for team strength). Report the minimum detectable effect from a cluster-aware simulation (series as cluster) rather than iid game counts. If the MDE is implausibly large, label the result inconclusive rather than null.",
+   "controls": "Recommendation frozen from data before the game (prior games or the regular season only; never the evaluated game). Adherence is defined by a pre-registered distance between the observed and recommended mix. Covariates: pre-series net rating or Elo, home court, opponent defensive rating, rest and injury or availability if recorded, and game state (score differential, time) for possessions. Mixed-effects logistic regression with series random effects and clustered SEs; bootstrap CIs by series.",
+   "falsification": "Placebo adherence using recommendations shuffled across series or from other opponents; adherence to the team's own modal mix; adherence computed against a recommendation derived from future games (should show an inflated effect if leakage drives results); a negative-control outcome (for example the prior game's result). A real effect should vanish under shuffled recommendations and not appear in placebo.",
+   "multiplicity": "One primary adherence definition and one primary outcome (game win), fixed in advance. Secondary outcomes and play-type-specific analyses are labelled exploratory and corrected by Holm-Bonferroni or FDR.",
+   "decision_rule": "Supported if the primary adherence coefficient has a one-sided p<0.05 and a positive 95% series-bootstrap CI in the 2022-25 confirmation data, replicates in sign and approximately in size in the sealed 2025-26 playoff holdout, and beats the placebo adherence. Rejected only if the CI excludes the smallest effect of interest and the MDE is adequate. Otherwise inconclusive. Declare an artifact if the effect disappears when recommendations are made lookahead-free.",
+   "data_version": "Per-game NBA stats API files and play-type graph records for 2022-23 to 2025-26 as available on 2026-06-16, with series lists and the code version hash frozen before analysis; the 2025-26 playoffs are to be reloaded as complete data after 2026-06-21 and treated as a sealed holdout."
+  }
+ },
+ "redactions": 37
+}

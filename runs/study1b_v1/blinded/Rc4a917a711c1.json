@@ -1,0 +1,146 @@
+{
+ "blind_id": "Rc4a917a711c1",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR failure as a trigger",
+   "PULL_UP as a counter play type",
+   "defensive suppression (H1-to-H2 PPP drop) and counter strategy",
+   "lift in percentage points relative to a baseline",
+   "league-wide consistency across units (share of units with lift>0, median lift)",
+   "BEST/AVOID counter tiers"
+  ],
+  "methodological_questions": [
+   "How is 'PNR fail' defined without using outcomes that mechanically depend on the later PULL_UP result (e.g. a suppression trigger from H1-to-H2 PPP drop)?",
+   "What is lift (PPP, or probability of a scoring outcome, on PULL_UP after a PNR fail vs. what baseline) and what is the unit (team, team-season, team-game, player)?",
+   "Is lift>0 in >=70% of units with median >2pp reachable given per-unit trigger counts and PULL_UP possession counts?",
+   "Does selecting on a PNR PPP drop produce regression to the mean in the following half, and does PULL_UP lift just reflect it?",
+   "How to separate PULL_UP's mechanical efficiency level (it is a low-PPP shot type) from a counter effect?",
+   "How to handle confounding by personnel, opponent, score and game state, and multiple units, seasons and play-type comparisons?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No historical evidence was available: retrieve_history returned an empty list. The glossary only defines terms (trigger, counter, BEST/AVOID, PPP) and reports no results."
+  ],
+  "evidence_does_not_establish": [
+   "Whether PULL_UP has ever been tested as a counter after PNR failure in this project",
+   "Typical effect size, noise, or number of triggers per unit",
+   "Whether the 70% / 2pp thresholds are achievable or were calibrated on any prior data",
+   "Whether earlier approaches failed through artifacts such as regression to the mean or mechanical floors"
+  ],
+  "own_inferences": [
+   "Under the glossary, a trigger is selected on a sharp H1-to-H2 PPP drop. Conditioning on an extreme low half-to-half change invites regression to the mean in the PNR, and any other play type's PPP. This makes a non-PNR alternative look better even without any real counter effect (RTM_SELECTION).",
+   "If PNR failure is defined by a PPP drop, and PULL_UP lift is measured as a PPP difference, the lift could be partly mechanical: after a PNR drop, the comparison group is by construction a depressed sample. Needs a comparison to untriggered team-halves and to other play types (placebo).",
+   "The 70%-of-units criterion is a sign-consistency criterion. With noisy small units, even a true positive lift of 2pp would give far fewer than 70% positive units; and with zero true effect about 50% would be positive by chance. The joint rule (>=70% positive and median>2pp) therefore depends strongly on the unit definition and per-unit sample size.",
+   "Per-team triggers in a single season under 'fixed minimum-attempt rules' are probably few (a handful of games with both a PNR trigger and PULL_UP possessions). Team-season units pooled over 2022-23 to 2025-26 are more plausible than team-game units. Play-by-play PULL_UP PPP per unit has SD likely several pp even with 50+ possessions.",
+   "Lift relative to which baseline is undefined in the question. The result will depend heavily on the choice (team's own PULL_UP PPP in H1, league PULL_UP PPP, or other counters like DRIVE/SPOT_UP).",
+   "A 'league-wide counter' is not the same as a team-specific BEST ranked counter; a league-wide rule may be contradicted by matchup heterogeneity, so a pooled test should be paired with a heterogeneity analysis.",
+   "Possession-level classifier labels (rule-based inferrer of PNR from text) may contain label error, with PNR inferred partly from outcomes (e.g. a pull-up shot after a screen), which could create an outcome-derived PNR/PULL_UP overlap."
+  ],
+  "uncertainties": [
+   "Exact definition of 'PNR fail' and 'unit' (team, team-game, team-season, matchup) is not stated",
+   "Baseline for lift not stated",
+   "Number of triggers and PULL_UP possessions per unit unknown, so power cannot be computed",
+   "Classifier accuracy for PNR and PULL_UP labels unknown",
+   "2025-26 data is partial/complete status as of the question date: regular season complete, playoffs partial on 2026-05-23, so playoffs should not be used as confirmatory",
+   "No prior-result record exists to calibrate expectations"
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so no prior findings or failed approaches could inform the decision. The decision rests on the task statement, the glossary definitions, and general methodological reasoning, and the recommendation is correspondingly more cautious about unknowns (unit size, baseline, label quality)."
+  },
+  "testability": {
+   "p_testable": 0.45,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Triggered PNR-failure events with enough subsequent PULL_UP possessions per team-unit may be too few for a stable per-unit lift, so the 70% sign-consistency criterion would be dominated by noise unless units are pooled across seasons."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "If PNR failure is defined by a sharp H1-to-H2 PPP drop, regression to the mean in the following sample will bias lift for any alternative play type; this has to be removed by design (pre-specified definition independent of the outcome, and a matched non-trigger control)."
+    },
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "Lift>0 for PULL_UP may only reflect that PULL_UP PPP is compared with a depressed post-trigger baseline, with no counter-specific effect; the 2pp threshold needs a mechanical-floor/placebo calibration."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved, so nothing can be said about whether this question, or a related PNR-suppression/counter study, has been run in this project."
+  },
+  "risks": [
+   {
+    "code": "RTM_SELECTION",
+    "text": "Conditioning on a PNR PPP decline selects extreme low draws; subsequent play types appear to improve by regression alone."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "PNR 'failure' defined from the possession's points, and PNR/PULL_UP play-type labels inferred by a rule-based classifier from the same play-by-play events, may share events and produce built-in dependence."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "PULL_UP has an intrinsic level (low-PPP shot type); the lift relative to a post-failure baseline cannot be interpreted without comparison against non-trigger and other-play-type baselines."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-unit PPP noise and a small number of triggers make the >=70% positive share and 2pp median fragile: a true effect near 2pp yields <70% positive per-unit signs under realistic noise."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Few team-games with both a trigger and enough PULL_UP possessions; many units will be excluded by minimum-attempt rules, creating selection on who is observable."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Chance level for a positive-sign unit is ~50%; 70% must be judged against the null distribution under the same unit sizes, not against 50% by eye."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Personnel (who is on court for PULL_UP), opponent defensive scheme, score state, garbage time, fatigue, and period effects all change PULL_UP efficiency independent of the PNR failure."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Classifier misassignments of PNR vs. PULL_UP vs. DRIVE could contaminate both trigger and counter definitions."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "The conclusion depends on the placebo selection: a lift for PULL_UP is only meaningful relative to equally defined lifts for DRIVE, SPOT_UP, and other play types after the same trigger, and to fake triggers (random team-halves)."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several play types, seasons, RS/PO splits, unit definitions and thresholds could be tried; a single confirmatory specification should be fixed in advance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "League style changed across 2022-23 to 2025-26 (shot selection, pull-up three share), so pooled effects may differ between seasons."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the trigger is defined using full-game or full-half PPP, it includes information from possessions after the counter decision; the trigger must use only events before the counter window."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.12,
+   "rejected": 0.33,
+   "untestable": 0.15,
+   "artifact": 0.2,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each unit, the difference in PPP (and, secondarily, in eFG/scoring rate) on PULL_UP possessions in the counter window after a pre-specified PNR failure, minus the same unit's PULL_UP PPP in a matched control window without a PNR failure (same team, same period type, similar score state), and then minus the same difference computed for placebo play types (SPOT_UP, DRIVE, CUT). The 'counter lift' is the PULL_UP difference-in-differences. League-wide claim: share of units with lift>0 >=70% AND median lift >2pp, both exceeding what a permutation null produces.",
+   "unit": "Team-season (30 teams x 4 seasons = up to 120 units) as the primary unit, with team-seasons below a pre-set minimum number of triggers (e.g. >=20 PNR-failure episodes and >=30 PULL_UP possessions in counter windows and in controls) excluded and counted. Secondary: team-games pooled by team via a mixed model.",
+   "sample": "Regular seasons 2022-23, 2023-24, 2024-25 and 2025-26 (complete from 2026-04-13) as exploration/confirmation split: 2022-23 to 2023-24 for fixing definitions and thresholds (frozen before touching the rest), 2024-25 and 2025-26 RS as confirmatory. Playoffs (2025-26 partial as of 2026-05-23, complete only from 2026-06-21) excluded from the confirmatory test and reported separately. Exclude garbage time.",
+   "power": "Not computable from the description: no per-unit trigger counts or PPP variance are known. Step 1: before any outcome analysis, count triggers and PULL_UP possessions per unit (outcome-blind), and simulate the joint criterion. For a per-unit SE of s pp, true lift d pp, the expected share positive is Phi(d/s); to get 70% positive, d/s >= ~0.52, so with d=2pp, s must be <=~3.8pp, which requires hundreds of PULL_UP possessions per unit. If the simulation shows the criterion cannot be met under a true 2-3pp lift for a majority of units, switch to a pooled hierarchical estimate (mean lift and heterogeneity tau) and report that the 70% criterion is not testable.",
+   "controls": "Trigger defined only from information available before the counter window (e.g. PNR PPP, or PNR possession failure such as no points and no foul in the preceding N PNR possessions, using a rule specified before analysis and not based on PULL_UP results), not on the H1-to-H2 drop used to compute lift. Matched controls on opponent, period, score margin band, home/away, and rest; adjust for on-court personnel/lineup quality (e.g. player-level pull-up ability, shooter fixed effects) and shot distance; exclude possessions with classifier ambiguity or audit a hand-labeled sample for PNR/PULL_UP accuracy. Control for regression to the mean by using fake-trigger windows with the same selection rule applied to randomly chosen team-halves (and to non-PNR play types).",
+   "falsification": "(1) Placebo play types: the same lift computed for SPOT_UP, DRIVE, CUT, POST_UP; the PULL_UP lift must exceed these. (2) Pseudo-triggers: apply the selection rule to a play type not related to PNR, or to shuffled game labels, and show the 70%/2pp rule fails under the null. (3) Permutation: shuffle trigger flags within team-season to get the null distribution of share-positive and median lift. (4) Reverse test: lift following successful PNRs should be smaller (dose response). (5) Predeclared negative result: if lift is not above the null or placebo lift, reject.",
+   "multiplicity": "One primary confirmatory test: the joint criterion on team-season PULL_UP counter lift in the confirmatory seasons. Secondary analyses (other play types, RS vs PO, BEST/AVOID tiers, player-level) are labeled exploratory, with Holm or BH correction across any family reported.",
+   "decision_rule": "Supported only if in the confirmatory seasons (a) >=70% of eligible units have lift>0 and the lower bound of a bootstrap 95% CI for that share exceeds the permutation-null 95th percentile, (b) median lift >2pp with CI above 2pp (or above the placebo/null median plus 2pp), (c) PULL_UP lift exceeds every placebo play type's lift, and (d) the result survives the RTM fake-trigger control. Rejected if the adequately powered estimate has CI for median lift below 2pp or share positive below 70%. Untestable if the outcome-blind power simulation shows the criterion cannot be achieved with the available per-unit counts. Otherwise uncertain. If it is met only before RTM/placebo adjustment, classify as artifact.",
+   "data_version": "Per-game NBA stats API files and derived play-type possession records in [source] database as available on 2026-05-23; freeze the classifier version, trigger rule and exclusion rules and record a data snapshot hash. 2025-26 regular season is complete from 2026-04-13; 2025-26 playoffs are partial before 2026-06-21 and should be excluded from the confirmatory test until complete."
+  }
+ },
+ "redactions": 1
+}

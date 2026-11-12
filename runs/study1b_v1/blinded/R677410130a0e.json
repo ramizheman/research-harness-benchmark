@@ -1,0 +1,99 @@
+{
+ "blind_id": "R677410130a0e",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive lineups",
+   "shot mix",
+   "shot distribution",
+   "personnel effects",
+   "lineup effects on shot selection"
+  ],
+  "methodological_questions": [
+   "How to define and measure 'shot mix'?",
+   "How to attribute changes in shot mix to 'offensive five' personnel?",
+   "How to isolate lineup effects from confounding factors (e.g., opponent, game state)?",
+   "What statistical methods are appropriate for analyzing lineup effects on shot mix?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The PULL_UP-specific decline with exposure was found to be an artifact, with the effect shrinking significantly without lineup Fixed Effects (FE) and a similar pattern observed with a placebo on other play types, consistent with a shooter-level confound. This suggests that controlling for lineup composition is crucial."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Attempting to isolate PULL_UP exposure effects without adequate control for shooter-level confounding.",
+    "why": "C_artifact (apparent effect produced by a construction, selection or labelling flaw) due to confounding ([prior work]) as the effect was largely explained by shooter-level characteristics when lineup fixed effects were not included."
+   }
+  ],
+  "evidence_establishes": [
+   "The historical evidence from [prior work][prior work] establishes that when analyzing shot-related outcomes, it is critical to account for lineup composition, likely through the use of fixed effects, to avoid confounding by individual shooter characteristics. Failure to do so can lead to spurious 'personnel effects' that are actually artifacts of shooter-level confounding."
+  ],
+  "evidence_does_not_establish": [
+   "The historical evidence does not establish whether changing the offensive five actually moves shot mix. It only highlights a methodological pitfall in detecting such effects by demonstrating the importance of controlling for lineup-specific factors. It does not provide specific guidance on how to define 'shot mix', the expected effect sizes, or the statistical power needed for this specific research question."
+  ],
+  "own_inferences": [
+   "The research question implies a causal relationship between offensive personnel changes and shot mix. The available data on play-by-play, substitutions, and box scores is sufficient to construct offensive lineup possessions and analyze shot characteristics within those possessions. The primary challenge will be isolating the effect of the 'offensive five' from other confounding factors such as opponent defense, game state, and individual player tendencies. The finding from [prior work][prior work] strongly suggests that lineup fixed effects will be a necessary component of the model to avoid misattributing shooter-level effects to lineup changes."
+  ],
+  "uncertainties": [
+   "The specific definition and granularity of 'shot mix' (e.g., broad categories like 3pt[path], or more granular distance bins).",
+   "The operational definition of 'changing the offensive five' (e.g., any substitution, or specific player changes).",
+   "The magnitude of the expected effect, which will influence the required sample size and power.",
+   "The best way to model game state and opponent effects to prevent confounding."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The historical evidence, specifically [prior work][prior work], significantly influenced the design by highlighting the critical risk of CONCAT (shooter-level confounding) when assessing personnel effects on shot outcomes. This evidence mandates the inclusion of lineup fixed effects in the model to avoid misinterpreting individual player tendencies as lineup-driven changes in shot mix. Without this evidence, the design might have overlooked this crucial control, potentially leading to an artifactual finding."
+  },
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior work directly answers whether changing the offensive five moves shot mix. [prior work][prior work] provides methodological guidance on how to avoid confounding when studying personnel effects on shot outcomes, but does not address the specific hypothesis of this research question."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Confounding by individual player tendencies or skills within a lineup. Players have inherent preferences for certain shots, and simply changing personnel will change the aggregate shot mix based on those preferences, which is not necessarily a 'lineup effect' but rather a 'personnel composition effect'. This needs careful distinction and control (e.g., player-level baselines or fixed effects)."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many specific five-man lineups play a limited number of possessions together across seasons, especially when considering game state and opponent. This could lead to sparse data for certain lineup configurations, making it difficult to detect statistically significant effects or to apply fixed effects reliably."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The 'shot mix' metric needs to be robust and reliably measurable across different lineups and game contexts. If the chosen metric is too noisy or sensitive to small variations, it might obscure true effects or produce spurious ones."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Lineup changes might not be random; they often occur in response to game situations (e.g., falling behind, opponent's run, player fatigue). This non-random selection could lead to regression to the mean or selection bias if not properly controlled for using game state, score differential, and time remaining."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing the offensive five-man lineup (specific player composition) on the distribution of shot types (shot mix) within subsequent offensive possessions, holding constant opponent, game state, and individual player propensities.",
+   "unit": "Offensive possession, defined from the start of an offensive possession (e.g., defensive rebound, made basket, turnover) until a scoring event, turnover, or defensive rebound.",
+   "sample": "All offensive possessions from NBA 2022-23, 2023-24, and 2024-25 regular seasons and playoffs. Possessions will be filtered to include only those where a consistent five-man offensive lineup is on the court for a defined minimum duration (e.g., 5 consecutive possessions or 2 minutes) to ensure stable lineup exposure. Data will be aggregated at the lineup-possession level.",
+   "power": "Power analysis will be conducted based on anticipated effect sizes for changes in shot mix (e.g., 2-3 percentage point shift in 3-point attempt rate). Minimum lineup exposure thresholds will be set to ensure sufficient observations per lineup to support fixed effects models. Assuming a detectable effect size of 2 percentage points change in 3P%, a sample of hundreds of thousands of possessions across thousands of unique lineup-game combinations should provide adequate power.",
+   "controls": "The primary model will be a mixed-effects regression. The dependent variable will be a vector representing shot mix (e.g., proportion of shots from different zones: rim, mid-range, 3-point; or average shot distance). Independent variables will include fixed effects for the specific five-man offensive lineup (as indicated by [prior work][prior work]), fixed effects for the opponent defensive lineup, game ID fixed effects to control for game-specific context, and continuous covariates for game state (score differential, time remaining in quarter/game). Player-level fixed effects or baseline shot profiles for each player on the court will be used to disentangle individual player tendencies from emergent lineup effects. Season fixed effects will also be included.",
+   "falsification": "A falsification test will involve analyzing 'shot mix' changes for the *defensive* five-man lineup. If changes in the defensive five significantly impact the *offensive* team's shot mix (after controlling for the offensive lineup), it would suggest confounding or an issue with the model's ability to isolate offensive personnel effects. Another falsification test could involve permuting player identities within a lineup change, or using a placebo outcome (e.g., a randomly generated shot mix metric that should not be affected by lineup changes).",
+   "multiplicity": "Multiple tests will be performed if different definitions of 'shot mix' are explored (e.g., 3-point rate, rim rate, mid-range rate, average shot distance). A Bonferroni correction or False Discovery Rate (FDR) adjustment will be applied to p-values if multiple dependent variables are tested simultaneously. The primary analysis will focus on a single, pre-defined 'shot mix' metric (e.g., 3-point attempt rate) with others as secondary analyses.",
+   "decision_rule": "The hypothesis will be considered supported if the estimated coefficients for offensive lineup changes show a statistically significant (p < 0.05 after multiplicity correction if applicable) and substantively meaningful impact on the chosen shot mix metric, after controlling for all specified confounders and passing falsification tests. 'Substantively meaningful' will be defined as a change of at least 2 percentage points in 3-point attempt rate (or equivalent for other metrics) or a 0.5-foot change in average shot distance.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs per-game files from the NBA stats API (play-by-play, substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary) and derived play-type possession records."
+  }
+ },
+ "redactions": 16
+}

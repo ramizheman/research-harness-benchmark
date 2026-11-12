@@ -1,0 +1,148 @@
+{
+ "blind_id": "R973faab753a3",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive lineup change effect on shot distribution",
+   "shot mix shift as a sensitivity check for personnel effects",
+   "lineup composition",
+   "substitution-induced variation in play-type frequencies",
+   "individual vs. synergy effects on shot selection"
+  ],
+  "methodological_questions": [
+   "How to isolate the effect of changing the offensive five from confounding by game situation and opponent?",
+   "What within-player, across-lineup comparisons can separate individual tendencies from unit synergy?",
+   "How many substitution events are needed to detect a shift in multinomial shot-type proportions?",
+   "How to construct placebo tests that distinguish true lineup effects from regression to the mean?",
+   "What statistical model (e.g., multinomial with player and opponent fixed effects) can reliably detect personnel effects?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Pull-up exposure-effect: with lineup FE the slope was -0.0255 (0.0061); without lineup FE it shrank to -0.0063 (0.0036); same-shooter placebo on other play types was -0.0075, consistent with shooter-level confound rather than defensive adaptation."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Tail/null-model audit of published suppression excess: reproduced excess 0.408; within-unit permutation residual +0.0054 z=0.40; drift-centered tail mass ratio 1.007, indicating the excess is an artifact of drift and selection."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Double-suppression stacking: stacked effect -0.071 vs additive prediction -0.232, but with small samples and implementation bugs, leaving the existence and magnitude of stacking unclear."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Penalty-state adaptation: any_fta contrast -0.151 not distinguishable from placebos -5.556/-9.655, and SEs not printed (sqrt warning), so no clear behavioral change detected."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Lineup fixed-effects model to identify pull-up decline as defensive adaptation",
+    "why": "Artifact caused by shooter selection confounding; the decline disappeared when player identity was not controlled via lineup FE, indicating that the apparent effect was driven by which shooters were on the floor rather than any true adaptation."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Tail-model audit relying on published suppression excess",
+    "why": "Drift and non-stationarity produced a spurious excess; within-unit permutation and drift-centered metrics reduced the signal to near zero."
+   }
+  ],
+  "evidence_establishes": [
+   "Lineup-level analyses of shot-type or play-type frequencies are highly susceptible to confounding by individual player tendencies and game context.",
+   "Without player-level fixed effects or careful within-shooter comparisons, apparent changes attributable to lineups can be artifacts.",
+   "Placebo tests (e.g., using unrelated play types or same-shooter other actions) are crucial to rule out selection bias.",
+   "Time-series drift in team strategies can produce spurious results if not accounted for."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a design that controls for individual player identity and game situation can cleanly detect a causal effect of changing the offensive five on shot mix.",
+   "The required sample size (number of substitution events) to achieve adequate power for a multinomial shot-distribution shift.",
+   "The magnitude and nature of any true synergistic effects of five-man units beyond the sum of individual shot tendencies.",
+   "Which shot-mix categorization is most sensitive and least ambiguous for detecting personnel effects."
+  ],
+  "own_inferences": [
+   "The question, as phrased, is a positive-control validation: if substituting a player changes the shot mix, the analytical design is sensitive to who is on the floor.",
+   "A rigorous test requires within-player comparisons (e.g., how a shooter's shot mix changes when a specific teammate is on vs. off the floor) to separate individual from unit-level effects.",
+   "The available data (NBA play-by-play with substitution intervals and matchup minutes for three seasons) can, in principle, support such a test, but only with a carefully pre-registered design.",
+   "Without player fixed effects and placebo tests, the study will likely replicate [prior work][prior work]’s trajectory and produce an artifact."
+  ],
+  "uncertainties": [
+   "The exact operational definition of 'shot mix' (e.g., rim, mid-range, three-point; or play-type categories from [source] database) is not specified in the question.",
+   "It is unclear whether 'design' refers to a particular econometric specification or a general analytical framework; the question may be a pilot validation for a larger project.",
+   "The number of usable substitution events where the offensive five changes but game situation is comparable enough for a clean comparison is unknown without exploratory data analysis.",
+   "Potential non-stationarity over seasons (e.g., rule changes, league-wide tactical trends) could confound multi-season pooling."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Historical evidence ([prior work][prior work]) demonstrates that without controlling for individual player identity, lineup-level effects on shot-type frequency are artifacts. This forces the design to include within-player, across-lineup comparisons and placebo tests, shifting the decision from a simple pre/post comparison to a more demanding but testable framework."
+  },
+  "testability": {
+   "p_testable": 0.35,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Substitutions are correlated with game situation, opponent strength, and coaching strategy; shot mix changes may reflect those confounders rather than the five-man unit."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Many specific five-man combinations have few possessions; detecting a multinomial shift with adequate power may require aggregating over many heterogeneous substitution events, reducing precision."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Substitutions often occur after extreme performance, so post-sub shot mix may regress to the mean, mimicking a personnel effect."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]"
+   ],
+   "summary": "Earlier work attempted to attribute pull-up shot frequency decline to defensive adaptation but found the effect disappeared without lineup fixed effects, revealing shooter selection as the confound. No prior study has directly tested whether a controlled design can detect that changing the offensive five moves shot mix."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Omitted variables: game score, quarter, time remaining, opponent defensive alignment, and rest days all influence both substitution decisions and shot selection."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effective sample size is the number of independent substitution events with comparable context; power may be low for detecting small distributional shifts."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If substitutions are triggered by poor shooting or defensive breakdowns, the post-substitution shot mix will naturally revert to the mean, creating a spurious effect."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Shot mix is a multinomial; testing each shot category separately inflates false positives unless corrected."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Team tactics and lineup roles can evolve within a season; pooling three seasons may mask or create apparent effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.3,
+   "artifact": 0.3,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing one player in the offensive five (substitution event) on the multinomial distribution of shot types (rim, mid-range, three-point) in the immediately following possessions, controlling for individual player fixed effects and game-state covariates.",
+   "unit": "A single offensive possession.",
+   "sample": "All regular-season games from NBA 2022-23, 2023-24, and 2024-25 seasons. Inclusion: possessions that occur within a fixed window (e.g., ±8 possessions) around a substitution that changes exactly one offensive player, after excluding the last two minutes of close games (score margin ≤5) to reduce strategic noise. Only possessions where the same home and away teams and the same period are observed.",
+   "power": "Simulation-based: using pilot data, estimate the variability of shot-mix differences across comparable substitution events. Target 80% power to detect a 3-percentage-point shift in the rim-attempt proportion (from a baseline of ~35%) at α=0.01 after multiple-testing correction. Sample size will be reported as total qualifying substitution events and possessions.",
+   "controls": "Individual player fixed effects (both the incoming and outgoing player, plus the four constant players), opponent-team fixed effects, score margin (linear and quadratic), period, possession-of-game index (to capture within-game drift), and an indicator for the offensive team’s rest advantage.",
+   "falsification": "Two placebos: (1) use substitutions that occur during stoppages where the offensive five does not change (e.g., defensive substitutions only or timeout returns with same five) and test for a shot-mix shift; (2) permute the timing of actual substitutions within the same game to generate a null distribution for the multinomial likelihood-ratio statistic.",
+   "multiplicity": "The primary test is a mixed-effects multinomial logistic regression. The global null (no effect of the substitution indicator) is tested with a single likelihood-ratio test. Category-specific contrasts are reported with Bonferroni-Holm adjusted p-values.",
+   "decision_rule": "Reject the null of no lineup-change effect if the likelihood-ratio test yields p < 0.01 and both placebo tests are non-significant (p > 0.05). Effect sizes and confidence intervals for each shot category must be reported.",
+   "data_version": "NBA stats API per-game play-by-play and substitution files frozen as of 2026-11-02; derived play-type possessions from [source] database built on the same play-by-play."
+  }
+ },
+ "redactions": 19
+}

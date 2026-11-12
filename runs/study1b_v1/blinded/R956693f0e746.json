@@ -1,0 +1,180 @@
+{
+ "blind_id": "R956693f0e746",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "suppression-conditional recommended mix",
+   "counter strategy (BEST/AVOID)",
+   "adherence to recommended play mix",
+   "series win outcome",
+   "play-type possession records derived from play-by-play"
+  ],
+  "methodological_questions": [
+   "Does adherence to a suppression-conditional recommended mix predict series winning, after accounting for pre-series team strength?",
+   "Is 54 series enough power to detect an adherence-outcome association of plausible size?",
+   "How should adherence be defined and measured without using the outcome or the same series used to build the recommendation?",
+   "Which leakage, derived-label, confounding and base-rate risks threaten the test?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Scored the V4 engine's recommended play type against the team's modal play type in 42 playoff series. Headline hit rate 69.8% (37/53) was inflated: 14 of 53 pairs compared against banned DRIVE, 13 of 37 hits came from CUT, and the same series were used to find the DRIVE failure and tune the exclusion. No holdout result recorded. n=53, no bootstrap CI. Clean comparisons 64.1% (25/39); uncalibrated archival 51.7% (31/60)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Playsheet counter ranking tested in 10 completed 2025-26 playoff series (665 counter observations, average 6.9 possessions per counter). Full-rank Spearman not significant (rho -0.0639, p=0.099717); BEST vs AVOID differed (Mann-Whitney p=0.004018, BEST 1.257 n=56 vs AVOID 1.092 n=160). Record notes pipelines with season_cap_yy=26 may leak first-round data into second-round series."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Possession Control Index incremental R2 over ORtg for Net Rating (n=120 team-seasons). Headline dR2=+0.139 came from a leakage term tracking DRtg (corr +0.894); offensive-control components added +0.005. Baseline omitted defense by construction."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Proxy play-type picker tested on regular-season team-games (n=16,921 cells) showed positive effects (+0.047 to +0.0714 PPP, p<10^-3 to 10^-4). Proxy agreed with the production engine on only 13 of 79 playoff pairs (16.5%); used in-sample season aggregates and iid SEs. Record states it is not a test of the shipped optimizer."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Scoring the engine's top recommended play type against the team's modal play type on playoff series used for tuning, with no holdout.",
+    "why": "Recorded as artifact: tuning and evaluation used the same series, the banned DRIVE comparisons inflated the hit rate, and small n without CI ([prior work], LEAKAGE_LOOKAHEAD)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Validating ranked playsheet counters (BEST > SECOND > AVOID) on 10 series with few possessions per counter.",
+    "why": "Recorded as inconclusive: full-rank Spearman null; pairwise BEST>AVOID signal sensitive to leakage across rounds, low measurement reliability (about 6.9 possessions per counter) and small sample."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Adding a possession-control feature to explain Net Rating beyond ORtg.",
+    "why": "Recorded as artifact: the gain came from a term that tracks defense (DRtg), which the outcome contains by construction; mechanical floor and leakage."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Proxy play-type picker evaluated on regular-season aggregates.",
+    "why": "Recorded as inconclusive: proxy fidelity to the production engine only 16.5% (<70%), in-sample season aggregates, iid standard errors; the test did not address the shipped optimizer."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier project evaluations of the same engine family (recommended play type, counter rankings) produced either artifacts from leakage, tuning on evaluation data, or inconclusive results, so no retrieved record supports a validated link between recommendation adherence and outcomes.",
+   "Leakage across rounds, use of outcome-correlated terms, and in-sample aggregates have each already compromised project tests in this area.",
+   "Small-sample evaluations with few possessions per counter yielded unreliable signals (SF-[prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "No retrieved record tests whether adherence to the recommended mix predicts series winning; all records test hit rates, counter ranks or regular-season proxies.",
+   "No retrieved record gives an adherence-outcome effect size, CI, or holdout result for playoff series.",
+   "Whether the suppression-conditional mix is a valid recommendation at all is not established.",
+   "[prior work] do not show whether the 54-series unit contains enough independent variation in adherence."
+  ],
+  "own_inferences": [
+   "Series-level adherence is probably highly correlated with team quality and opponent strength, so a raw association would be mostly confounded.",
+   "With about 54 series and a binary win outcome, the minimum detectable difference in win probability between high- and low-adherence groups is likely around 0.25 to 0.30, which is large relative to plausible effects of a play-mix recommendation.",
+   "Adherence must be defined from the recommendation and the team's actual mix; if the recommendation is built from the same series, the measure leaks the outcome."
+  ],
+  "uncertainties": [
+   "The exact definition of 'suppression-conditional' and 'adherence' is not given in the task; [prior work] do not define it.",
+   "Whether 2025-26 playoff series are complete as of 2026-06-16 is unclear; the data description says the playoffs are complete only from 2026-06-21.",
+   "The count of 54 series may include partial or mixed-round units; per-series eligibility is not stated.",
+   "Whether win labels or play-type labels are derived from the same play-by-play is not stated, so label error and derived-label risk cannot be fully assessed.",
+   "Retrieval returned four records with null scores; the set is not exhaustive."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Retrieved records show repeated artifacts and inconclusive results in closely related engine validations, including tuning on evaluation series, leakage across rounds, and an outcome-correlated feature. This shifted the decision from proceeding to a plan that requires a frozen pre-registered adherence measure, a holdout of series, and strength adjustment built from pre-series data. As posed, with no holdout and 54 series, the test is not ready to run."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "About 54 series give low power for a modest adherence effect; the minimum detectable difference is likely about 0.25 to 0.30 in win probability."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Adherence is entangled with team quality, opponent strength and series seeding; without pre-series strength adjustment, any association is uninterpretable."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "Records show prior leakage from tuning on evaluation series and cross-round carryover in 2025-26 pipelines."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If the recommended mix or adherence label is derived from the same play-by-play as the outcome (points, possessions), the measure is partly outcome-determined."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Retrieved work addresses related engine validations (hit rate against modal play type, counter ranking, PCI-to-Net-Rating incremental fit, a regular-season proxy picker). None tests whether adherence to a suppression-conditional mix predicts series winning. The closest records were artifacts or inconclusive, which is informative about the design risks but does not answer the question."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "54 series give low power; the study is likely to be uninformative unless the effect is very large."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team strength, seeding, injuries and opponent quality may drive both adherence and winning."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Recommendation or adherence built from the same series or from later rounds (season_cap_yy=26 pattern) would leak outcomes."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Play-type labels derived from points or possessions may be correlated with the win outcome."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Adherence per series rests on few possessions per play type, giving noisy measures (SF-[prior work])."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Playoff series favorites win at high base rates; the test must be stratified or adjusted for seeding/strength."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many play types, thresholds and high/low confidence cuts (as in SF-[prior work]) create garden-of-forking-paths risk."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type tendencies and defensive schemes shift across 2022-23 to 2025-26 seasons."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Series-level win/loss and playoff round assignment errors in the derived data would bias the outcome."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.08,
+   "rejected": 0.12,
+   "untestable": 0.1,
+   "artifact": 0.35,
+   "uncertain": 0.35
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Difference in series win probability between high-adherence and low-adherence team-series, conditional on pre-series team strength; reported as an adjusted odds ratio with CI.",
+   "unit": "Team-series (each side of a completed playoff series, 2022-23 to 2025-26), with adherence measured on that team's pre-series regular-season and earlier-round possessions only.",
+   "sample": "Only completed series with a frozen data cut; exclude 2025-26 series not complete by the cutoff; no tuning on any series used in the primary test. Minimum viable: all 54 available series, with a pre-registered holdout of the most recent season if the recommendation is fit on earlier seasons.",
+   "power": "Compute before running. With 54 series, the study detects only large effects (roughly 0.25 to 0.30 difference in win probability at 80% power); report the minimum detectable effect and do not interpret nulls as evidence of no effect.",
+   "controls": "Adjust for pre-series team net rating from games before the series, seed or home-court, opponent strength, and roster availability; cluster standard errors by team; use leave-one-season-out validation; use a precomputed adherence definition frozen before outcome access.",
+   "falsification": "Negative-control outcome (regular-season game win for the same adherence measure), placebo adherence to a non-recommended or banned play type, and a random-mix baseline; the primary effect should disappear under the placebo.",
+   "multiplicity": "One pre-registered primary test (adjusted adherence-win association); all play-type breakdowns, thresholds and confidence cuts are exploratory and labelled as such.",
+   "decision_rule": "Support requires a positive adjusted association with a 95% CI excluding zero, surviving the negative-control and placebo checks, and holding in the held-out season. Otherwise report inconclusive or null; any association that disappears under the placebo is an artifact.",
+   "data_version": "NBA stats API per-game files for 2022-23 to 2025-26, frozen at a stated cut date (2026-06-16 for this study); 2025-26 playoff series included only if complete by that cut; derived play-type records version-locked."
+  }
+ },
+ "redactions": 27
+}

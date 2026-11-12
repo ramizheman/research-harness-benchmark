@@ -1,0 +1,152 @@
+{
+ "blind_id": "R5b44f259cecc",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence spell",
+   "offensive reorganization (displacement D_real of play-type mix)",
+   "structural influence load L (L_pre / L_pred)",
+   "points per possession change (ΔPPP)",
+   "dose-response of reorganization on efficiency"
+  ],
+  "methodological_questions": [
+   "What does 'reorganization relative to L' mean: raw D_real, D_real minus the L-predicted or null displacement, or the residual of D_real on L?",
+   "Is the association with ΔPPP independent of the absent player's quality and usage, which drive both L and ΔPPP?",
+   "Is ΔPPP measured reliably enough over a spell, given the baseline window, opponent mix and regression to the mean?",
+   "Does 148 spells nested in about 30 franchises give adequate power once clustering is accounted for?",
+   "Is the play-type mix mechanically related to points, since both come from the same play-by-play and classifier?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Absence validation on 23 player-seasons from 18 franchises (2022-25). V1 (real absences move the play-type association structure beyond a noise null) was confirmed: 16/23 above p95, mean D_real minus null +0.142 with CI [+0.103,+0.187]. V2 (L predicts the magnitude of D_real) was not confirmed: Spearman +0.288, p=0.077, CI [-0.244,+0.667]; partial +0.253, p=0.115. It was flagged UNDERPOWERED because 18 franchises fell below the registered ~20 floor. Dropping 2 absorption bigs gave rho +0.444. L_pred vs recomputed leave-one-out rho was +0.93 (measurement faithful). The family notes say a later full-pool run reversed V2, without giving the result in the retrieved text. [prior work]'s failure type is A_unanswerable; member verdicts were supported, failed_gate, inconclusive and null; members disagree."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "In routing diagnostics, a large PPP [source] at low possession counts (+1.13 to +1.26 PPP delta) was small-sample inflation, for example 1-shot 3.00-PPP role players. This concerns PPP from few possessions, not absences."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Dose-response test of whether L predicts the magnitude of absence-driven displacement, run on 23 player-seasons from 18 franchises",
+    "why": "A_unanswerable / [prior work]. The preregistration itself defined <20 franchises as underpowered, the CI was about 0.9 wide, and a substantive absorption/cascade failure mode (replaceable centers over-predicted) was noted."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Reading PPP differences built on a handful of possessions",
+    "why": "C_artifact: small-sample inflation, in a different study."
+   }
+  ],
+  "evidence_establishes": [
+   "FAM:[prior work]: real absences displace the play-type mix beyond a noise null (V1 confirmed at n=23).",
+   "FAM:[prior work]: the L_pred measurement is faithful to a recomputed leave-one-out quantity (rho +0.93).",
+   "FAM:[prior work]: a registered test of L predicting D_real magnitude at n=23 / 18 franchises was inconclusive and underpowered, with a positive but non-significant point estimate."
+  ],
+  "evidence_does_not_establish": [
+   "Whether reorganization magnitude predicts ΔPPP: no retrieved record tests an efficiency outcome.",
+   "What the later full-pool V2 reversal showed; the retrieved text only mentions it.",
+   "Whether any D_real-to-ΔPPP association survives control for absent-player quality.",
+   "Whether 148 spells is enough once franchise clustering is included."
+  ],
+  "own_inferences": [
+   "Reorganization is likely to correlate with the absent player's importance, so any raw D_real-ΔPPP correlation is confounded by quality lost; a negative correlation (more reorganization, bigger PPP drop) could simply reflect lost talent rather than adaptation.",
+   "The informative target is the part of reorganization not explained by L (excess or residual displacement), which asks whether adapting more than predicted helps or hurts.",
+   "With roughly 30 franchises and 148 spells, the effective sample is below 148 and the minimum detectable rho is likely above about 0.23.",
+   "ΔPPP over a ≥15-game spell is noisy; the opponent mix, injuries to others, trades, and selection of absence on team form (regression to the mean) all add variance or bias.",
+   "Using spells from different eras may add drift, since league play-type mix and PPP changed across 2022-26.",
+   "Because both D_real and PPP derive from the same play-by-play and classifier, shared classifier errors could create a spurious link."
+  ],
+  "uncertainties": [
+   "'Relative to L' is ambiguous; the exact definition must be fixed before analysis.",
+   "How n=986 relates to the 148 spells is unknown (possibly the full pool of candidate absences versus spells passing filters).",
+   "The number of franchises and spell overlap among the 148 spells is unknown.",
+   "The result of the full-pool V2 run is not in the retrieved text.",
+   "The retrieved evidence is from one family, with medium confidence and member disagreement."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have proceeded as a plain correlation test. FAM:[prior work] shows that absence studies of this kind at under ~20 franchises were underpowered and that the L-to-displacement link is weak and confounded by absorption, so I require franchise-clustered inference, a stated MDE, a quality-controlled residual estimand and a conservative reading of nulls. No [prior work] tests PPP, so the question remains open."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "148 spells nested in ~30 franchises gives a clustered MDE above ~0.23 Spearman; a true effect of 0.1-0.2 would not be detected."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Absent-player quality drives both L and ΔPPP; without controls the estimate is not interpretable."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]"
+   ],
+   "summary": "Earlier work confirmed that absences move the play-type structure and failed (underpowered) to show L predicts its size, but did not relate reorganization to PPP. The efficiency question is new."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "148 spells, clustered by franchise and with overlapping spells, gives a high MDE; a null cannot be called adequately powered unless the interval excludes the plausible effect."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Quality and usage of the absent player, replacement quality, opponent strength, schedule, other injuries, trades and role absorption affect both reorganization and PPP."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Absences cluster when a team's baseline PPP is unusually high or low; baseline noise creates a mean-reverting ΔPPP unrelated to reorganization."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "D_real needs enough possessions in both windows to exceed its noise floor; ΔPPP is noisy; the spell-level reliability of both is unknown."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Play-type labels and PPP both come from the same play-by-play and rule-based classifier; shared errors or play-type-dependent points could produce mechanical coupling."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Cosine displacement is bounded and grows with fewer possessions or with the removal of a high-usage player, so D_real has a size-dependent floor related to L."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The baseline, L_pre and the null must use only pre-spell games; the spell definition must not use post-spell outcomes."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "League play-type mix and PPP shifted across 2022-26; include season effects and use within-season baselines."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Alternative definitions of 'relative to L' and subsets invite forking paths; fix one primary and label the rest exploratory."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.15,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.45
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Primary: partial Spearman association, within franchise-clustered inference, between excess reorganization E = D_real minus the size-matched null median displacement (equivalently the residual of D_real on L_pre) and ΔPPP = spell PPP minus matched pre-spell baseline PPP, adjusting for the absent player's usage and baseline on-court production. Secondary (labelled exploratory): raw D_real, and the interaction of E with L_pre.",
+   "unit": "Absence spell: a run of consecutive games a player misses (main-study rule, at least 15), verified by on-court data.",
+   "sample": "All qualifying spells (target 148) across 2022-23 to 2025-26 regular seasons, with playoffs excluded from the primary analysis. Garbage time excluded. Spells need a minimum possession count in both the baseline and spell windows (set before analysis from the D_real noise floor). Baseline L_pre computed only from pre-spell games. Report franchise count and spell overlap.",
+   "power": "Compute the MDE by franchise-clustered simulation before looking at outcomes. Naive MDE for n=148 is about rho 0.23 at 80% power, and the clustered MDE will be larger. Report the 95% CI; call the result a null only if the CI excludes |rho| >= the clustered MDE, otherwise inconclusive (no inference of absence of effect).",
+   "controls": "Absent player's usage, L_pre, on-court PPP or on/off before the spell, spell length, baseline team PPP (against RTM), opponent defensive strength, season fixed effects, games with other key absences, and replacement-player quality. Use franchise-clustered permutation and bootstrap.",
+   "falsification": "(1) Placebo: assign matched non-absence windows (same team, same length) and test E vs ΔPPP; the association should vanish. (2) Shuffle the E-ΔPPP pairing within season. (3) Test whether E predicts ΔPPP in the pre-spell period (lookahead check). (4) Repeat with an independently derived efficiency measure (box-score eFG or rating) to probe classifier coupling. (5) Drop absorption/cascade cases and check that results are not driven by two or three spells.",
+   "multiplicity": "One primary test (partial Spearman of E vs ΔPPP) at alpha 0.05 two-sided. Raw D_real, the interaction, playoffs and subgroups by role category are exploratory with Holm correction across the set and no confirmatory claims.",
+   "decision_rule": "Supported if the clustered CI for the primary partial rho excludes 0, its sign is stable across falsification checks, and the placebo shows no association. Rejected only if the CI lies within ±MDE and excludes effects of practical size. Otherwise report inconclusive. Treat as an artifact if the effect disappears after quality and baseline controls or appears in the placebo.",
+   "data_version": "Frozen NBA stats API per-game files and [source]-database play-type records for 2022-23 through 2025-26 (all complete as of 2026-06-21 playoffs; analysis on the 2026-11-01 snapshot), with classifier version and absence-spell list hashed and registered before outcome computation."
+  }
+ },
+ "redactions": 14
+}

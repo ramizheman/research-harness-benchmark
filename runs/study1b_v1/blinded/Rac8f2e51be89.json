@@ -1,0 +1,136 @@
+{
+ "blind_id": "Rac8f2e51be89",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nThe teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=148; 148 spells; 11 cases\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence",
+   "offensive reorganization",
+   "initiation profile",
+   "teammate similarity",
+   "primary play types",
+   "usage redistribution"
+  ],
+  "methodological_questions": [
+   "How to reliably measure initiation profile similarity with sparse pre-absence data?",
+   "How to define and identify primary play types for the absent player?",
+   "How to isolate similarity-driven gain from opportunity-driven gain (minutes, initiations)?",
+   "How to handle overlapping absences and multiple absent players on the same team?",
+   "Is the sample of relevant absence spells sufficient to power a within-spell comparison?",
+   "How to avoid look-ahead bias in defining profiles and primary types?",
+   "How to account for regression to the mean when selecting on pre-absence similarity?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No prior project research on this exact question was retrieved."
+  ],
+  "evidence_does_not_establish": [
+   "No earlier findings, positive or negative, were available to inform design or power."
+  ],
+  "own_inferences": [
+   "The question can be framed as a within-spell test: for each qualifying absence, rank teammates by pre-absence initiation-profile similarity to the absent player and test whether the top-ranked teammate shows the largest gain in the absent player's primary play types.",
+   "Even with 148 spells, the effective sample is likely far smaller because only a subset of absences involve players with clearly defined primary play types and measurable redistribution; the 11 cases likely represent the number of spells with sufficient data, making statistical power very low.",
+   "The measure of “gain” is ambiguous: absolute increase in usage, relative increase, or share of the vacated volume. Defining primary types from limited pre-absence games introduces instability.",
+   "The mechanical need to fill minutes creates a confound: the most similar teammate often gets the largest increase in playing time, so opportunity and similarity are collinear. Disentangling them requires careful modeling that may be infeasible with few cases.",
+   "Overlapping absences, mid-season trades, and coaching changes further reduce the number of clean spells."
+  ],
+  "uncertainties": [
+   "The precise meaning of “11 cases” is unclear (could be distinct absent players, teams, or qualifying spells).",
+   "Play-type classification reliability is unknown for the derived graph database.",
+   "The minimum number of pre-absence games required for a stable initiation profile is not established.",
+   "Whether “most minutes” or “most initiations” serves as a valid comparison to similarity is not operationally defined."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "No historical evidence was retrieved, so the decision rests entirely on assessment of the data and methodological risks."
+  },
+  "testability": {
+   "p_testable": 0.1,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 11 usable absence spells recorded (cases), leading to extremely low power for a within-spell ranking test. Even with 148 spells, many will lack clean definitions of primary types and similarity."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Absent players often lack well-defined primary play types, and teammates may have too few pre-absence initiations to compute reliable profiles."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "Defining primary types and similarity requires strict temporal windows to avoid using information from after the absence; unclear if the data version supports this filtering without look-ahead."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior project work was found on this specific question."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Effective sample of qualifying absence spells (11 cases) is too small for a robust within-spell comparison, leading to high risk of inconclusive results."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many absence spells cannot contribute because the absent player lacks a distinct primary play type or teammates lack stable initiation profiles."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type classification from play-by-play is imperfect; initiation profiles aggregated over few games are noisy, undermining similarity metrics."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Selecting spells where the absent player had high usage of certain play types may induce regression to the mean in teammates' subsequent usage, biasing gain estimates."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Defining primary play types of the absent player from the data (e.g., by threshold) is arbitrary and can change labels with small sample variations."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Risk of using future games to define pre-absence profiles or identify primary types if temporal slicing is not meticulously enforced."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Teammate gains are mechanically driven by increased minutes and possessions during an absence; the most similar teammate often receives the largest opportunity bump, confounding similarity with opportunity."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Under the null, the probability that the most similar teammate is the largest gainer depends on the number of eligible teammates; with small squads this base rate can be high, making small true effects hard to detect."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Changes in opponent defensive strategy, coaching adjustments, and simultaneous injuries confound the relationship between similarity and gain."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing multiple definitions of similarity (profile, minutes, initiations, same-position) and multiple primary type thresholds inflates false positive risk."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Complex pipeline from raw play-by-play to derived possession records, profile construction, and absence spell dating increases coding error risk."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.1,
+   "untestable": 0.75,
+   "artifact": 0.05,
+   "uncertain": 0.05
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "For each qualifying absence spell, the probability that the teammate with the highest pre-absence initiation-profile similarity to the absent player records the largest increase in usage of the absent player's primary play types, relative to a chance model conditioned on opportunity changes.",
+   "unit": "A qualifying absence spell: a contiguous set of games missed by exactly one rotation player (≥15 min/g in prior 10 games) whose pre-absence initiation profile is based on ≥8 games and includes at least two play types above 15% frequency.",
+   "sample": "Spells drawn from 2022-23 through 2025-26 seasons, excluding those with overlapping teammate absences or mid-spell lineup changes (e.g., trades). Target ≥80 spells, requiring at least 10 to achieve 80% power for a moderate effect (binomial test against base rate).",
+   "power": "With 80 spells and an average of 4 eligible teammates (base rate 0.25), a true effect of 0.40 would require ~50 spells for 80% power (one-sided alpha 0.05). Feasibility with only 11 cases yields power <20%.",
+   "controls": "Linear regression of gain on similarity rank, while controlling for change in minutes and possessions per game. Include team fixed effects and opponent defensive rating during absence.",
+   "falsification": "Test whether the most-similar teammate has a disproportionate chance of being the largest gainer when the absent player's primary types are replaced with randomly selected play types not belonging to that player. Also test whether the same relationship holds for a different window where no absence occurred (placebo spell).",
+   "multiplicity": "Pre-specify a single primary similarity metric (e.g., cosine similarity on play-type proportion vectors) and a single primary type definition (top-2 play types by pre-absence frequency). Alternative definitions serve as robustness checks but do not confirm the hypothesis.",
+   "decision_rule": "One-sided binomial test comparing observed hit rate to expected base rate, with a significance threshold of p<0.05. Report sensitivity to exclusion of spells with ambiguous largest gainer (tie ≤5%).",
+   "data_version": "NBA 2022-23 through 2025-26 as specified, with play-by-play frozen as of the retrieval date and derived possessions built from the same version."
+  }
+ },
+ "redactions": 0
+}
