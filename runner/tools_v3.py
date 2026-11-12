@@ -11,8 +11,9 @@ retrieved in B and in C shows identical facts. Follow-up tools have the same cal
 Study 1b oracle conditions. O returns the task's frozen gold families (study1b/gold_families_frozen.json) for every
 retrieve_history request, in frozen order, rendered exactly as B renders a family; read_family is limited to those
 families and returns the same document as B. OS is O plus each family's frozen scope annotation
-(study1b/scope_annotations_frozen.json) as a separate scope_annotation field. A task with no gold families returns an
-empty list, as in A.
+(study1b/scope_annotations_frozen.json) as a separate scope_annotation field placed before the document. Annotation
+characters do not count against the tool-result cap, so an OS result is the O result, cut at the same place, plus the
+annotations. A task with no gold families returns an empty list, as in A.
 """
 import json
 import math
@@ -161,9 +162,10 @@ class Toolbox3:
         view = family_view(self.facts[f])
         if self.condition in DOC_CONDITIONS:
             text = f"# {f} | {self.titles.get(f, '')}\n" + "\n".join(f"- {p}: {o}" for p, o in view)
-            out = {"id": f, "score": score, "document": text}
+            out = {"id": f, "score": score}
             if f in getattr(self, "annotations", {}):
                 out["scope_annotation"] = self.annotations[f]
+            out["document"] = text
             return out
         attrs, rels = {}, []
         for p, o in view:
@@ -205,9 +207,10 @@ class Toolbox3:
         self.last_ids = [fid]
         self.returned.append(fid)
         if self.condition in ORACLE_CONDITIONS:
-            out = {"id": fid, "document": self.doc_text[fid]}
+            out = {"id": fid}
             if fid in self.annotations:
                 out["scope_annotation"] = self.annotations[fid]
+            out["document"] = self.doc_text[fid]
             return out
         if self.condition == "B":
             return {"id": fid, "document": self.doc_text[fid]}
@@ -251,4 +254,16 @@ class Toolbox3:
         except (TypeError, ValueError) as e:
             out = {"error": f"bad arguments: {e}"}
         s = out if isinstance(out, str) else json.dumps(out, ensure_ascii=False)
-        return s[:self.max_chars] + (" ...[truncated]" if len(s) > self.max_chars else "")
+        cap = self.max_chars
+        if self.condition == "OS" and isinstance(out, dict):
+            cap += len(s) - len(json.dumps(_without_annotations(out), ensure_ascii=False))
+        return s[:cap] + (" ...[truncated]" if len(s) > cap else "")
+
+
+def _without_annotations(out):
+    """The same result as condition O would return it."""
+    strip = lambda d: {k: v for k, v in d.items() if k != "scope_annotation"} if isinstance(d, dict) else d  # noqa: E731
+    o = strip(out)
+    if isinstance(o.get("results"), list):
+        o["results"] = [strip(x) for x in o["results"]]
+    return o

@@ -35,6 +35,12 @@ def fresh(cond, t, max_chars=10 ** 6):
     return tools_v3.Toolbox3(cond, snap, max_chars, gold=GOLD[t], annotations=ANN)
 
 
+def without_annotation_fields(s, t):
+    for f in GOLD[t]:
+        s = s.replace('"scope_annotation": ' + json.dumps(ANN[f], ensure_ascii=False) + ", ", "")
+    return s
+
+
 class Oracle(unittest.TestCase):
     def test_tool_lists(self):
         for c in ("O", "OS"):
@@ -83,13 +89,26 @@ class Oracle(unittest.TestCase):
             self.assertEqual(len(texts), 1, f)
 
     def test_first_retrieval_within_tool_result_limit(self):
+        """Fix 1: O's first retrieval fits the 6,000-character cap; OS is never cut because annotation characters do
+        not count; OS with its annotation fields removed equals O byte for byte, for the first retrieval and for every
+        read_family (including SF20, where O and OS are both cut at the same place)."""
         over = []
         for t in T:
-            for c in ("O", "OS"):
-                n = len(fresh(c, t).call("retrieve_history", REQ))
-                if n > 6000 or fresh(c, t, 6000).call("retrieve_history", REQ).endswith("...[truncated]"):
-                    over.append((t, c, n))
-        self.assertEqual(over, [], "first retrieval longer than the 6,000-character tool-result limit (task, condition, chars)")
+            o, s = fresh("O", t, 6000), fresh("OS", t, 6000)
+            first_o, first_s = o.call("retrieve_history", REQ), s.call("retrieve_history", REQ)
+            if len(first_o) > 6000 or first_o.endswith("...[truncated]") or first_s.endswith("...[truncated]"):
+                over.append((t, len(first_o), len(first_s)))
+            self.assertEqual(without_annotation_fields(first_s, t), first_o, t)
+            for f in GOLD[t]:
+                self.assertEqual(without_annotation_fields(s.call("read_family", {"id": f}), t), o.call("read_family", {"id": f}), (t, f))
+        self.assertEqual(over, [], "first retrieval cut at the 6,000-character tool-result limit (task, O chars, OS chars)")
+
+    def test_o_outputs_unchanged_by_fix_1(self):
+        fx = json.load(open(os.path.join(HB, "tests", "fixtures", "study1b_o_tool_outputs.json"), encoding="utf-8"))
+        sys.path.insert(0, os.path.join(HB, "study1b"))
+        import make_o_fixture as m  # noqa: E402
+        for t in T:
+            self.assertEqual([hashlib.sha256(x.encode()).hexdigest() for x in m.o_calls(t)], fx[t], t)
 
     def test_read_family_limited_to_gold(self):
         tb = fresh("O", "RT-012")
