@@ -81,15 +81,19 @@ Notes for the preregistration (Phase 2), recorded 2026-11-12:
 
 ### Rami's prediction
 
-[TO BE WRITTEN BY RAMI BEFORE APPROVAL]
+Predictions made on 2026-11-12 after reviewing Study 1's per-task results, before any Study 1b run.
+
+O moves RT-012 and RT-179 toward the answer key and RT-147 away from it, as memory did in Study 1. The scope notes do not clearly change any of the three.
+
+Basis. O versus A follows the direction of Study 1's B versus A on the same task, since O uses B's document format. Study 1 share of runs correct, 15 runs per cell over five models and three seeds, A then B: RT-012 0.33 then 0.67, RT-147 0.80 then 0.47, RT-179 0.20 then 0.73. OS versus O: on RT-012 and RT-147 the annotations come from the same family (SF-CHT-025) and cannot separate the two tasks; on RT-179 the sentence that bore directly on the task was removed from SF-APPS-085 before freezing.
 
 ### Per-task predictions
 
 | Task | Rami: O vs A | Rami: OS vs O |
 |---|---|---|
-| RT-012 | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| RT-147 | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| RT-179 | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
+| RT-012 | Gold families help | No clear difference from O |
+| RT-147 | Gold families hurt | No clear difference from O |
+| RT-179 | Gold families help | No clear difference from O |
 
 ## Cost estimate
 
@@ -116,3 +120,12 @@ The 1.4x markup is a guess; the smoke test (Phase 3) replaces it with measured p
 ## Approval
 
 Nothing runs, including the smoke test, until Rami approves this document in writing.
+
+Approved by Rami on 2026-11-12 ("I approve").
+
+Frozen input hashes (SHA-256) at approval:
+
+- `study1b/gold_families_frozen.json`: `5543597b6fa7243d3aa71988ec4bcf31ca147162f42ce71ae3418e63c5747d70`
+- `study1b/scope_annotations_frozen.json`: `540c7663b015978efa876cd0b91f69ee36ff88f89dcfac6227ecc50011c71a45`
+
+No Google Cloud billing cap is set for Gemini at approval. The smoke test does not call Gemini. Before the full run, Gemini spend is covered only by the harness stop at $8.
