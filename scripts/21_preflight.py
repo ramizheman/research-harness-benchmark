@@ -12,7 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from runner import experiment, llm, tools  # noqa: E402
+from runner import experiment, llm, tools, tools_v3  # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("config")
@@ -29,15 +29,44 @@ def check(name, cond, detail=""):
     print(("PASS " if cond else "FAIL ") + name + (f": {detail}" if detail else ""))
 
 
+# Study 1b: conditions O and OS, per-model condition lists, frozen gold families and scope annotations
+oracle = experiment.oracle_inputs(cfg)
+
+
+def toolbox3(cond, task):
+    snap3 = None if cond == "A" else experiment.ensure_snapshot_v3(task)[0]
+    extra = {"gold": oracle["gold"][task["task_id"]], "annotations": oracle["annotations"]} if cond in tools_v3.ORACLE_CONDITIONS else {}
+    return tools_v3.Toolbox3(cond, snap3, cfg["budgets"]["max_tool_result_chars"], **extra)
+
+
 # ------------------------------------------------------------------ design
 runs = experiment.plan(cfg)
-n_expected = len(cfg["models"]) * len(cfg["tasks"]) * len(cfg["conditions"]) * len(cfg["seeds"])
-check("run count", len(runs) == n_expected,
-      f"{len(runs)} runs = {len(cfg['models'])} model(s) x {len(cfg['tasks'])} tasks x {len(cfg['conditions'])} conditions x {len(cfg['seeds'])} seed(s)")
-check("conditions", sorted(cfg["conditions"]) == ["A", "B", "C"], ", ".join(cfg["conditions"]))
+if oracle:
+    conds_of = {m["model"]: m.get("conditions", cfg["conditions"]) for m in cfg["models"]}
+    n_expected = sum(len(cfg["tasks"]) * len(c) * len(cfg["seeds"]) for c in conds_of.values())
+    check("run count", len(runs) == n_expected,
+          f"{len(runs)} runs = {len(cfg['tasks'])} tasks x {len(cfg['seeds'])} seed(s) x conditions per model "
+          + ", ".join(f"{m} {'/'.join(c)}" for m, c in conds_of.items()))
+    check("conditions", sorted(cfg["conditions"]) == ["O", "OS"] and all(set(c) <= {"O", "OS"} for c in conds_of.values()),
+          ", ".join(cfg["conditions"]))
+    check("every model runs exactly its listed conditions",
+          all({r["condition"] for r in runs if r["model"]["model"] == m} == set(c) for m, c in conds_of.items()))
+    check("gold families and scope annotations loaded for every task, every gold family annotated",
+          set(oracle["gold"]) == set(cfg["tasks"]) and all(f in oracle["annotations"] for g in oracle["gold"].values() for f in g),
+          ", ".join(f"{k} {v[:12]}" for k, v in oracle["hashes"].items()))
+    check("study budget stop", experiment.spend_cap(cfg) is not None and cfg.get("budget_usd") is not None
+          and experiment.spend_cap(cfg) <= cfg["budget_usd"] * cfg.get("stop_fraction", 0.8),
+          f"runs stop once recorded spend reaches {experiment.spend_cap(cfg)} USD (budget {cfg.get('budget_usd')} USD)")
+else:
+    n_expected = len(cfg["models"]) * len(cfg["tasks"]) * len(cfg["conditions"]) * len(cfg["seeds"])
+    check("run count", len(runs) == n_expected,
+          f"{len(runs)} runs = {len(cfg['models'])} model(s) x {len(cfg['tasks'])} tasks x {len(cfg['conditions'])} conditions x {len(cfg['seeds'])} seed(s)")
+    check("conditions", sorted(cfg["conditions"]) == ["A", "B", "C"], ", ".join(cfg["conditions"]))
 specs = {json.dumps(r["model"], sort_keys=True) for r in runs}
 by_cond = {c: {json.dumps(r["model"], sort_keys=True) for r in runs if r["condition"] == c} for c in cfg["conditions"]}
-if len(cfg["models"]) == 1:
+if oracle:
+    pass  # per-model condition lists, checked above
+elif len(cfg["models"]) == 1:
     check("one model, identical settings in every condition", len(specs) == 1 and all(v == specs for v in by_cond.values()),
           next(iter(specs)) if len(specs) == 1 else f"{len(specs)} distinct model specs")
 else:
@@ -104,15 +133,27 @@ stage1_probe = []
 if protocol >= 3:
     from runner import agent, tools_v3  # noqa: E402
     n_models = len(cfg["models"])
-    expected_p3 = 10 * 3 * 3 * n_models
-    check(f"run count ({n_models} model(s) x 10 tasks x 3 conditions x seeds 1, 2, 3)",
-          len(runs) == expected_p3 and cfg["seeds"] == [1, 2, 3],
+    expected_p3 = n_expected if oracle else 10 * 3 * 3 * n_models
+    check(f"run count ({n_models} model(s) x 10 tasks x {'conditions per model' if oracle else '3 conditions'} x seeds 1, 2, 3)",
+          len(runs) == expected_p3 and len(cfg["tasks"]) == 10 and cfg["seeds"] == [1, 2, 3],
           f"{len(runs)} runs (expected {expected_p3})")
+    comp_models = {}
     for comp_id in cfg.get("comparator_experiment_ids", []):
         try:
             cm = json.load(open(os.path.join(experiment.HB, "runs", comp_id, "manifest.json"), encoding="utf-8"))["config"]
         except FileNotFoundError:
             check(f"comparator {comp_id} manifest exists", False, f"runs/{comp_id}/manifest.json not found"); continue
+        if oracle:
+            # Study 1b runs new conditions (O, OS) in a new order; it shares tasks and budgets with the comparators,
+            # and each of its models must have the comparator's generation settings and response version.
+            same = {k: cm.get(k) == cfg.get(k) for k in ("tasks", "budgets")}
+            check(f"identical to {comp_id} in tasks and budgets; {comp_id} ran A, B and C", all(same.values()) and sorted(cm.get("conditions", [])) == ["A", "B", "C"],
+                  ", ".join(k for k, v in same.items() if not v) or f"all equal; {comp_id} conditions {', '.join(cm.get('conditions', []))}")
+            comp_raw = experiment.raw_runs({"_out": os.path.join(experiment.HB, "runs", comp_id)})
+            for s in cm["models"]:
+                comp_models[s["model"]] = (comp_id, s, cm.get("expected_response_model_version"),
+                                           sorted({v for r in comp_raw if r["model"]["model"] == s["model"] for v in r.get("model_versions", [])}))
+            continue
         # cross-model and reasoning-model experiments may differ in 'models' and in 'max_cost_usd'
         # (reasoning models legitimately need a higher cap); compare only the core scientific design.
         design_keys = ("tasks", "conditions", "order_seed", "budgets", "equivalence_margin")
@@ -122,14 +163,26 @@ if protocol >= 3:
         if cfg.get("expected_response_model_version"):
             cv = sorted({v for r in experiment.raw_runs({"_out": os.path.join(experiment.HB, "runs", comp_id)}) for v in r.get("model_versions", [])})
             check(f"{comp_id} responses report the expected model version", cv == [cfg.get("expected_response_model_version")], ", ".join(cv))
+    if oracle:
+        added = ("conditions", "expected_response_model_version", "price_per_million")
+        for m in cfg["models"]:
+            comp_id, s, comp_ver, cv = comp_models.get(m["model"], (None, {}, None, []))
+            check(f"{m['model']} generation settings and price identical to its Study 1 run ({comp_id})",
+                  comp_id is not None and {k: v for k, v in m.items() if k not in added} == {k: v for k, v in s.items() if k not in added}
+                  and {k: m["price_per_million"][k] for k in ("input", "output")} == {k: s.get("price_per_million", {}).get(k) for k in ("input", "output")})
+            exp = m.get("expected_response_model_version")
+            if exp:
+                check(f"{m['model']}: {comp_id} responses report the expected model version {exp}", cv == [exp] and comp_ver in (None, exp), ", ".join(cv))
     budget = cfg["budgets"]["max_tool_result_chars"]
     prompts, stage1 = {}, set()
-    for c in cfg["conditions"]:
-        tb = tools_v3.Toolbox3(c, None if c == "A" else experiment.ensure_snapshot_v3(experiment.load_task(cfg["tasks"][0]))[0], budget)
+    task0 = experiment.load_task(cfg["tasks"][0])
+    for c in (["A"] if oracle else []) + cfg["conditions"]:
+        tb = toolbox3(c, task0)
         p = agent.system_prompt_v3(tb, cfg["budgets"]["max_tool_calls"])
         prompts[c] = p.replace(tb.describe(), "<TOOLS>")
         check(f"{c} prompt lists retrieve_history first with the shared description", tb.describe().startswith("- " + tools_v3.TOOL_DOCS["retrieve_history"]))
-    check("protocol-3 system instructions identical in every condition apart from the tool list", len(set(prompts.values())) == 1)
+    check("protocol-3 system instructions identical in every condition apart from the tool list"
+          + (" (O and OS compared with Study 1's A)" if oracle else ""), len(set(prompts.values())) == 1)
     sp = next(iter(prompts.values()))
     check("output schema is not shown before retrieval (system prompt and stage-1 message)",
           not any(k in sp + agent.STAGE1 for k in ('"predicted_outcome"', '"historical_evidence"', '"p_testable"', "Output schema")))
@@ -156,6 +209,20 @@ if protocol >= 3:
                   and any("; FAM:" in p or p.startswith("FAM:") for x in rc for p in x["reached_via"]),
                   f"B {len(sb)} chars, C {len(sc)} chars, {tr['edges_traversed']} edges traversed, "
                   f"{len({x['id'] for x in rb} & {x['id'] for x in rc})} of {tools_v3.RETRIEVE_K} families shared")
+            if oracle:
+                gold = oracle["gold"][t]
+                so, ss = toolbox3("O", task).call("retrieve_history", q), toolbox3("OS", task).call("retrieve_history", q)
+                ro, rs = json.loads(so)["results"], json.loads(ss)["results"]
+                doc_b = {x["id"]: x["document"] for x in rb}
+                check(f"{t} oracle: O and OS return the {len(gold)} frozen gold families in order, uncut; O documents are B's; "
+                      "OS adds the frozen annotation to each family",
+                      [x["id"] for x in ro] == [x["id"] for x in rs] == ["FAM:" + f for f in gold]
+                      and "truncated" not in so + ss and len(so) <= budget
+                      and all(x["document"] == doc_b[x["id"]] for x in ro if x["id"] in doc_b)
+                      and [x["document"] for x in ro] == [x["document"] for x in rs]
+                      and [x.get("scope_annotation") for x in rs] == [oracle["annotations"][f] for f in gold]
+                      and not any("scope_annotation" in x for x in ro),
+                      f"O {len(so)} chars, OS {len(ss)} chars in total")
         except Exception as e:  # noqa: BLE001
             check(f"{t} protocol 3", False, repr(e)[:300])
     stage1_probe = [(c, experiment.load_task(t)) for c, t in zip(cfg["conditions"], cfg["tasks"][:3])]
@@ -165,6 +232,7 @@ import requests  # noqa: E402
 
 for m in cfg["models"]:
     if m["provider"] == "gemini":
+        exp_ver = m.get("expected_response_model_version", cfg.get("expected_response_model_version"))
         try:
             key = llm.load_key(llm.GEMINI_KEY_NAMES, env)
             r = requests.get("https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000", headers={"x-goog-api-key": key}, timeout=30)
@@ -181,21 +249,20 @@ for m in cfg["models"]:
                 good = json.loads(text or "{}").get("ok") is True
                 check("smoke request (generation, JSON mode, seed, thinking budget)", good,
                       f"modelVersion={u.get('model_version')}, tokens {u['input_tokens']}+{u['output_tokens']}, cost {u['cost_usd']:.6f} USD")
-                if cfg.get("expected_response_model_version"):
-                    check("response model version matches the comparator pilot", u.get("model_version") == cfg["expected_response_model_version"],
+                if exp_ver:
+                    check("response model version matches the comparator pilot", u.get("model_version") == exp_ver,
                           f"{u.get('model_version')}")
             if a.smoke and info and stage1_probe:
                 c = llm.make(m, env)
                 for cond, task in stage1_probe:
-                    snap3 = None if cond == "A" else experiment.ensure_snapshot_v3(task)[0]
-                    tb = tools_v3.Toolbox3(cond, snap3, cfg["budgets"]["max_tool_result_chars"])
+                    tb = toolbox3(cond, task)
                     text, u = c.chat(agent.system_prompt_v3(tb, cfg["budgets"]["max_tool_calls"]),
                                      [{"role": "user", "content": task["statement"] + agent.STAGE1}], seed=1)
                     act, err, _ = agent.parse_action_lenient(text)
                     good = act is not None and act["action"] == "tool" and act.get("tool") == "retrieve_history" and not agent.has_assessment(act.get("args"))
                     check(f"stage-1 smoke {task['task_id']} condition {cond}: real model replies with the retrieval call only, no preliminary answer", good,
                           f"modelVersion={u.get('model_version')}, arg keys {sorted((act or {}).get('args', {}))}, cost {u['cost_usd']:.6f} USD" if act else err[:200])
-                    check(f"stage-1 smoke {task['task_id']} response model version", u.get("model_version") == cfg.get("expected_response_model_version"),
+                    check(f"stage-1 smoke {task['task_id']} response model version", u.get("model_version") == exp_ver,
                           f"{u.get('model_version')}")
         except Exception as e:  # noqa: BLE001
             check("Gemini key accepted", False, repr(e)[:300])
@@ -230,11 +297,10 @@ for m in cfg["models"]:
                       f"model_version={u.get('model_version')} tokens {u['input_tokens']}+{u['output_tokens']} cost {u.get('cost_usd'):.6f} USD"
                       if good else f"bad reply: {text[:200]}")
             if a.smoke and info and stage1_probe:
-                from runner import agent as _agent, tools_v3 as _tv3  # noqa: E402
+                from runner import agent as _agent  # noqa: E402
                 client = llm.make(m, env)
                 for cond, task in stage1_probe[:1]:  # one stage-1 call per model
-                    snap3 = None if cond == "A" else experiment.ensure_snapshot_v3(task)[0]
-                    tb = _tv3.Toolbox3(cond, snap3, cfg["budgets"]["max_tool_result_chars"])
+                    tb = toolbox3(cond, task)
                     text, u = client.chat(_agent.system_prompt_v3(tb, cfg["budgets"]["max_tool_calls"]),
                                          [{"role": "user", "content": task["statement"] + _agent.STAGE1}], seed=1)
                     act, err, _ = _agent.parse_action_lenient(text)
