@@ -1,0 +1,72 @@
+% DRAFT, not part of the paper build. Corrected Study 1b section and edits.
+% Every number is from study1b/analysis/results.json and report.md (saved runs, primary scoring rule unless stated).
+% Checked against study1b/prereg_1b.md, study1b/decisions.md and the paper text. Items for the author are marked TODO.
+
+% ======================================================================
+% NEW SECTION: insert after "Extended thinking", before "Discussion"
+% ======================================================================
+\section{Study 1b: oracle retrieval}
+\label{sec:study1b}
+
+Study 1 could not say whether retrieval or applicability limited accuracy. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
+
+\subsection{Design}
+
+Two conditions were added to the Study 1 conditions A, B and C, which were not rerun. In condition O (oracle), each run received a frozen list of gold relevant families for its task through the same retrieval tool, protocol, prompts and settings as Study 1; the model could also read any of those families in full. Each list held up to four families: the first two question-tier and the first two lesson-tier families under the corrected audit of Appendix~\ref{app:retrieval}, by a rule committed before the list was computed. One declared manual addition was made: FAM:SF-CHT-025 was added to the lists for RT-012 (where it replaced FAM:SF02) and RT-147, because the automated rule cannot select it (Appendix~\ref{app:retrieval}). The lists were not changed after any run. Seven tasks have gold families (two to four each). The three tasks with none (RT-065, RT-101, RT-146) serve as a noise reference, because O and A are the same condition there apart from the extra read tool. Documents in O use the condition B format, so O$-$C mixes the effect of which families are retrieved with the effect of format.
+
+In condition OS, each gold family also carried a short scope annotation stating which data, estimands and effect sizes its recorded defect does and does not threaten. There are 23 annotations, written only from each family's own record, with identical text wherever a family appears. They were checked mechanically for shared phrases with the answer key and with the task-own records. The annotator knew the answer key and the Study 1 results, and the ``applies to'' sentences are the annotator's inference from the records, so OS is exploratory. OS also carries 729 to 1,784 more characters in the first retrieval than O, so OS$-$O measures annotation plus extra length. OS was run for four models; Sonnet 5.5 was run on O only to limit cost. Each condition used three seeds per task and model (270 runs). Total cost was \$4.19.
+
+\subsection{Results}
+
+\begin{table}[ht]
+\centering
+\caption{Balanced flag accuracy with oracle retrieval, primary scoring rule. A, B and C are the Study 1 runs.}
+\label{tab:study1b}
+\small
+\begin{tabular}{lrrrrrl}
+\toprule
+Model & A & B & C & O & OS & O $-$ A [95\% CI] \\
+\midrule
+Gemini 2.5 Flash & 0.639 & 0.681 & 0.583 & 0.861 & 0.847 & $+0.222$ $[-0.056, +0.597]$ \\
+Claude Haiku 5.5 & 0.625 & 0.583 & 0.639 & 0.639 & 0.667 & $+0.014$ $[-0.250, +0.347]$ \\
+gpt-oss-20b & 0.542 & 0.528 & 0.528 & 0.625 & 0.750 & $+0.083$ $[-0.208, +0.431]$ \\
+DeepSeek V4 Pro & 0.514 & 0.681 & 0.722 & 0.778 & 0.806 & $+0.264$ $[0.000, +0.556]$ \\
+Claude Sonnet 5.5 & 0.736 & 0.653 & 0.722 & 0.722 & n/a & $-0.014$ $[-0.125, +0.083]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Accuracy under oracle retrieval was higher than with no memory for four of five models (by 0.014 to 0.264), most for DeepSeek and Gemini; Haiku was essentially unchanged and Sonnet slightly lower. No interval excluded zero; the lower bound is 0.000 for DeepSeek. The Holm-adjusted $p$-values for O$-$A were 0.94 or higher. By the preregistered definition (a positive difference whose interval lies above zero), the oracle did not help for any model, meaning no effect was detected. It does not show that there is none.
+
+Against Study 1's own search the direction is more uniform. O exceeded B for all five models ($+0.056$ to $+0.181$) and was at or above C for all five ($0.000$ to $+0.278$). All of these intervals include zero, and three lower bounds sit at $0.000$ (O$-$B for Haiku, O$-$C for Gemini, and under the valid-only rule O$-$A for Gemini).
+
+On the three tasks named in the preregistered predictions, correct rates pooled over the five models under A, B, C and O were: RT-012, 0.33, 0.67, 0.60, 1.00; RT-147, 0.80, 0.47, 0.60, 0.67; RT-179, 0.20, 0.73, 0.53, 0.80. The predictions, written after reviewing Study 1's per-task results, were that O would move RT-012 and RT-179 toward the answer key and RT-147 away from it, and that annotations would not clearly change any of the three. The direction of O against A held on all three tasks. On the four models that ran OS, the change from O to OS was $0.00$ for RT-012, $0.00$ for RT-179 and $+0.17$ for RT-147; the preregistration set no numeric threshold for these calls, so they are directional. RT-012 shows the largest gain, with all 15 O runs and all 12 OS runs correct, but the experiment cannot say which of its four families produced it. On RT-179, where Study 1's search already surfaced relevant families, the oracle added little over B (0.80 against 0.73).
+
+Scope annotations did not change decisions by any preregistered criterion. OS$-$O ranged from $-0.014$ to $+0.125$ with every interval including zero, and no model shifted its flag rate by two thirds or more on two or more tasks. On the three tasks without gold families, where O and OS are identical, flag shares changed by up to 0.67 for gpt-oss and 0.33 for each other model. On annotated tasks the largest changes were 1.0 (gpt-oss, RT-112) and 0.67 (Haiku, RT-147). The one task where annotations moved the pooled rate is RT-147 (O 0.58, OS 0.75 on the four OS models), which is within the range that run-to-run noise produces here. Because the annotation for FAM:SF-CHT-025 is the same text for RT-012 and RT-147 and holds no information about effect size, this experiment does not test the scope-condition idea in the form Study 1 suggested.
+
+\subsection{Limits and deviations}
+
+Fifteen of 270 runs were invalid and two had no scorable flag; the conclusions are unchanged under the strict and valid-only rules. On the three no-gold tasks, O and A differ by up to 0.67 in a single cell (for example DeepSeek on RT-146), a reminder of how noisy cells of three runs are. The preregistered spend stop was raised from \$8 to \$25 during the run; total spend was \$4.19, so it did not bind, and the change is recorded in the preregistration. All analyses were computed from saved runs by a script that uses the same methods as Study 1, and the Study 1 columns reproduce the published table.
+% TODO (author): the preregistered predictions were revised once, before any Study 1b run. The earlier version was removed from the repository history at the author's request. Decide whether to say so here.
+
+% ======================================================================
+% EDIT 1: Discussion, "Two points of failure, described": replace the last paragraph
+% ("A cleaner test would add an oracle-retrieval condition ...") with:
+% ======================================================================
+Study 1b (Section~\ref{sec:study1b}) ran that oracle condition on the same ten tasks. Accuracy with gold families handed over was above no memory for four of five models and above Study 1's search for all five, but no interval excluded zero. One reading is that retrieval limited Gemini and DeepSeek, which gained most, while applicability judgment, or a high starting accuracy as for Sonnet, limited Haiku and Sonnet, which did not. That reading is a hypothesis from a pattern across five models on ten tasks, not a tested decomposition. A run-level comparison within model and task would need more seeds than this design has.
+
+% ======================================================================
+% EDIT 2: Discussion, "Model choice": replace the paragraph with:
+% ======================================================================
+Sonnet with an empty retrieval (0.736) scored higher than gpt-oss-20b with the graph (0.528). With the gold families handed over, Gemini 2.5 Flash reached 0.861, above Sonnet without memory (0.736). On these ten tasks, then, model choice moved accuracy about as much as attaching this archive with retrieval removed as a variable (a gain of $+0.222$ for Gemini, against a gap of 0.208 between Sonnet without memory and gpt-oss with the graph), and more than attaching it through search did. Whether that holds on a larger task set, or with a retrieval method that approaches the oracle, is not something these experiments can show.
+
+% ======================================================================
+% ONE-SENTENCE UPDATES
+% ======================================================================
+% Abstract: add "A follow-up that handed the agent the relevant prior families directly gave higher accuracy for four of five models (by 0.014 to 0.264), but no difference was detectable on ten tasks."
+%   Also make clear that "no difference survives correction" refers to the Study 1 contrasts.
+% Abstract, paper line 20 ("An oracle-retrieval condition would be needed to separate the two failure points."): replace with a pointer to Study 1b.
+% Study 1 text (paper line 420): "Memory did not reliably improve the decision ... for any of the five models" -> add "retrieved through search" after "Memory".
+% Conclusion (paper line 503): replace "is the question for the next experiment" with: Study 1b found a consistent direction for oracle retrieval and no detectable effect of scope annotations; a larger task set is the next step.
+% Limitations, "What would change the conclusion" (paper line 476): drop the oracle-retrieval item. Paper line 494 also lists oracle retrieval as a future condition.
+% Limitations, "Post-hoc analyses" (paper line 468): add the Study 1b analyses, and state that the Study 1b gold families, annotations and predictions were frozen before the runs, with the predictions written after reviewing Study 1's per-task results.
