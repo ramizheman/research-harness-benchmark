@@ -1,0 +1,173 @@
+{
+ "blind_id": "R28a519446308",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP after offensive play type",
+   "own-sequence lag outcomes after play",
+   "AVOID label based on subsequent outcomes",
+   "play-type labeling from play-by-play",
+   "possession-level outcome regression",
+   "defensive matchup data quality"
+  ],
+  "methodological_questions": [
+   "How to reliably identify opponent's next possession after a specific play in play-by-play data, handling transitions, end-of-quarter, and substitutions?",
+   "What are the statistical risks in using subsequent PPP to label plays as avoid, considering sample size, sparsity, and multiple testing across play types?",
+   "How to define own-sequence lags (next possession points) and handle censoring at end-of-game?",
+   "Can derived play-type labels be trusted given error in action-to-play mapping, and how does label noise affect outcome analysis?",
+   "What confounding factors (score differential, time remaining, opponent strength, lineup changes) must be addressed when linking plays to subsequent defensive outcomes?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Defensive scheme change within game and across games (inferred labels). Within-game change 319/523, cross-game 298/440, but near-uniform transition matrices consistent with label noise made the question untestable; limited by label/classification error."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Superstar sequential suppression: opponent play before the star. PUTBACK appeared as top suppressor for several stars (e.g., D. Mitchell d=-0.294, n_after=95), but no multiplicity correction, small n_after for many cells, and risk of drift nonstationarity; not a formal hypothesis test."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "LLM / ex-ante usefulness of suppression context (leakage audit). Suppression label was mostly an RTM artifact due to selection on the outcome; remaining LLM [source] not statistically retrievable after leakage correction. Label/classification error and RTM selection noted."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Gravity persistence: elite creator -> teammate PPP at lags 1-3. All 8 creators showed no lift at horizon=0; Jokic lag-1 ATT=+0.0282 CI[-0.043,+0.099] p=0.3779 with n=1880. Adequately powered null for own-sequence teammate PPP."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using inferred labels from play-by-play to detect defensive scheme change within/across games.",
+    "why": "Label/classification error produced near-uniform transition matrices that masked any real adjustment, making the question untestable."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Building a suppression-prediction label from outcome (PPP) and evaluating LLM usefulness.",
+    "why": "Label was an RTM artifact because it was selected on the outcome; the apparent signal vanished after accounting for leakage."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Attempting to quantify opponent play-type suppression on star PPP without formal testing.",
+    "why": "Small effective sample sizes (n_after 32-95) for many cells and absence of multiplicity correction prevented a valid hypothesis test."
+   }
+  ],
+  "evidence_establishes": [
+   "Outcome-derived labels (e.g., AVOID based on next-possession PPP) are susceptible to regression-to-the-mean artifacts and label noise, making them untrustworthy ([prior work][prior work], [prior work][prior work]).",
+   "Own-sequence lag PPP after a specific action (elite creator) is essentially null even with large samples, suggesting any signal for own-sequence points after a play type is very small or absent ([prior work][prior work]).",
+   "Studies that examine opponent next possession after a specific play type, without proper multiplicity correction, yield noisy results that cannot support rigorous inference ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether opponent next-possession PPP after offensive play types (as distinct from opponent prior possession play types) shows meaningful variation that could drive an AVOID label.",
+   "That own-sequence PPP after an entire offensive play type (rather than a star's action) is null; the prior null was for teammate PPP after a star's signature action, which may not generalise to all play types."
+  ],
+  "own_inferences": [
+   "Defining an AVOID label by the observed opponent next-possession PPP inherently selects extreme values; regression to the mean will cause those labels to be unreliable on new data, creating a self-fulfilling artifact similar to [prior work][prior work].",
+   "Play-type labels derived from the play-by-play are imperfect; misclassification will attenuate any true differences and can generate spurious patterns, as seen in [prior work][prior work].",
+   "Most offensive play types, especially those that might be candidates for AVOID, occur relatively infrequently, so the per-type sample of opponent next possessions will be too small to overcome noise from the highly variable single-possession PPP metric.",
+   "The null findings on own-sequence lags ([prior work][prior work]) suggest that even if opponent next-possession effects exist, their magnitude is likely modest and could be easily obscured by confounding from game state, opponent strength, and lineup changes."
+  ],
+  "uncertainties": [
+   "The exact misclassification rate of the derived play-type possession records is not documented for this specific graph database; some play types may be more reliably identified than others.",
+   "The optimal way to isolate the causal effect of a play on the next defensive possession is unresolved, particularly for possessions that end quarters or are followed by timeouts/substitutions.",
+   "No prior study has directly tested whether opponent next-possession PPP differs by offensive play type after adjustment for contextual factors, so the true effect size is unknown."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieval showed that outcome-based labeling (AVOID from PPP) reliably produces regression-to-the-mean artifacts ([prior work][prior work]) and that label noise from play-by-play inference can render studies untestable ([prior work][prior work]). Without this evidence, one might have underestimated the magnitude of the RTM problem and attempted a naïve AVOID-label analysis. [prior work] directly warns against the label-first approach implied by the question."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "RTM_SELECTION",
+     "text": "Defining AVOID labels based on the opponent's next-possession PPP selects extreme outcomes; those labels will not replicate on new data, making any apparent pattern an artifact."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play-type labels derived from play-by-play are imperfect; misclassification reduces signal-to-noise and can create spurious deficits or surpluses that mimic genuine play-type differences."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Many play types occur too rarely to produce reliable per-type opponent next-possession PPP estimates; the wide confidence intervals will preclude any confident AVOID designation."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work shows that outcome-derived suppression/avoid labels are artifacts (RTM, label noise), and that own-sequence PPP lags after a star's action are null. It does not directly test whether opponent next-possession PPP after offensive play types is large enough to drive AVOID labels, but it strongly suggests the AVOID-label approach is unsound."
+  },
+  "risks": [
+   {
+    "code": "RTM_SELECTION",
+    "text": "AVOID labels selected on opponent next-possession PPP will regress to the mean; extreme labels are unlikely to generalise."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Misclassification of play types from the play-by-play adds noise and may invert or exaggerate differences."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Rare play types will have very few opponent next-possessions, producing high-variance PPP estimates."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Score differential, time remaining, opponent strength, lineup, and home/away all influence both play selection and subsequent defensive outcomes; failure to fully adjust will produce spurious associations."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Detecting a practically meaningful difference (e.g., 0.05 PPP) requires hundreds of observations per play type; many play types will fall below this threshold."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing tens of play types inflates the false discovery rate; unadjusted p-values will label some plays as AVOID purely by chance."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Single-possession PPP is a very noisy metric; true effects are easily lost in the within-possession variance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type effectiveness and defensive adjustments may change over the season and across playoff rounds, undermining a static analysis."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the AVOID label is constructed using future data in the same game or season, the model could inadvertently incorporate information not available at the moment of the play."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "The expected opponent PPP is near league average (~1.1); even a real effect will be a fraction of this, making it hard to separate from noise."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.6,
+   "uncertain": 0.05
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Causal effect of running offensive play type X (versus a reference set of plays) on the opponent's points per possession on the immediately following defensive possession, adjust for game context.",
+   "unit": "Possession",
+   "sample": "All possessions from the 2022-23 through 2025-26 NBA regular seasons and playoffs for which (a) a single offensive play type can be assigned from the play-by-play, (b) the possession does not end a quarter (so an opponent next possession is observed), (c) garbage time (defined by win probability >0.95 or <0.05 in the fourth) is excluded, and (d) the defensive possession is not interrupted by a timeout or deliberate foul before the shot.",
+   "power": "Power calculation: to detect a 0.05 PPP difference with 80% power and α=0.05 (two-sided), approximately 500 observations per play type are needed assuming a possession-level PPP standard deviation of ~1.1. Only play types meeting n≥500 in the training set will be tested; a separate holdout season (e.g., 2025-26) will be used for confirmatory analysis.",
+   "controls": "Fixed effects for season, team (offense and defense), whether the previous possession was a made basket, turnover, or defensive rebound; current score margin (binned into -30 to +30 in 5-point increments); time remaining (period number and seconds remaining in period); defensive lineup strength (rolling net rating of the five players on the floor); offensive lineup strength; home/away; back-to-back indicator; starting or bench unit indicator.",
+   "falsification": "1. Test that play type does not predict own previous possession PPP (should be unrelated). 2. Permutation test: shuffle the play type labels within the same game segment and re-estimate the effects; the true effect size distribution should be centred at zero. 3. Placebo test: use opponent next-possession PPP lagged by two possessions (i.e., the possession after the next) as outcome; no effect should appear.",
+   "multiplicity": "Adjust p-values across all tested play types using the Benjamini-Hochberg procedure to control the false discovery rate at 0.05.",
+   "decision_rule": "A play type is flagged as a potential AVOID candidate only if (a) its adjusted p-value < 0.05, (b) the estimated opponent-next-PPP difference is positive and >0.05 PPP in the training set, and (c) the effect replicates in the holdout season with nominal p<0.05 (one-sided). The label 'AVOID' would then be assigned in future analysis based on these criteria, never on the raw outcome in the same sample.",
+   "data_version": "NBA per-game play-by-play API data and derived play-type possession records as of 2026-06-19."
+  }
+ },
+ "redactions": 42
+}

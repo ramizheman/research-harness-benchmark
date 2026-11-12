@@ -1,0 +1,31 @@
+# EXP:APPA-006 | Absence validation V1: real absence restructures offense beyond noise
+- date: 2026-07-12
+- date_basis: doc
+- date_reliable: yes
+- design: Pre-registered; 23 player-seasons, 18 franchises, ON_COURT-verified absences, 2022-25; balanced size-m null (Amendment A1); franchise-clustered permutation and bootstrap.
+- hypothesis: Real present-vs-absent structural displacement D_real exceeds a size-matched subsampling null.
+- knowable_in_advance: no
+- member_of: FAM:SF20 {record=APPA-006; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: One pre-run amendment (balanced null) because draft null was infeasible when absent>present.
+- prespecified: yes
+- produced: RES:APPA-006 {record=APPA-006; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPA-007
+- related_to: EXP:APPA-007 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-006; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPA-006; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ABSENCE_VALIDATION_PREREGISTRATION.md
+- title: Absence validation V1: real absence restructures offense beyond noise
+- uses_dataset: DS:Player_absence_spells {record=APPA-006; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPA-006; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-006; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPA-006; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-006 | Result of APPA-006
+- failure_evidence: CI excludes 0; binomial p=2.67e-16.
+- failure_type: D_positive
+- power_info: 23 player-seasons, 18 franchises (below ~20 floor, flagged UNDERPOWERED)
+- primary_result: Gate G2 21/23 (91%) above null median; V1(a) 16/23 above own-null p95, binomial p=2.67e-16; V1(b) mean(D_real - median_null)=+0.142, CI [+0.103, +0.187].
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

@@ -1,0 +1,35 @@
+# EXP:APPS-083 | Fragility confirmatory: structural hubs distinct from usage
+- date: 2026-07-12
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Gate PASS R2=0.399, rho=+0.829 n_players=112. Full team_seasons=120, season_players=1969.
+- hypothesis: Offenses have identifiable structural hubs (F1a usage-decoupled; F1b load correlates with fragility) at full scale.
+- knowable_in_advance: no
+- measures: VAR:play_type_share_mix {record=APPS-083; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:structural_influence_load_L {record=APPS-083; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF18 {record=APPS-083; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- prespecified: yes
+- produced: RES:APPS-083 {record=APPS-083; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-080
+- related_to: EXP:APPA-039 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF18; record=APPS-083; rule=date-ordered record link}
+- related_to: EXP:APPS-080 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-083; rule=date-ordered record link}
+- related_to: EXP:PAP-004 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF18; record=APPS-083; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-083; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\fragility_full_result.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\fragility_gate_result.txt
+- title: Fragility confirmatory: structural hubs distinct from usage
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-083; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-083; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPS-083; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-083 | Result of APPS-083
+- failure_evidence: Both F1a and F1b confirmed at 120 team-seasons; hubs distinct from usage.
+- failure_type: D_positive
+- power_info: n=120 team-seasons; 1969 season-players
+- primary_result: F1a cosine R2=0.099 share=0.901 CI[0.778,0.954]; frobenius R2=0.084 share=0.916. F1b pooled rho=+0.670 p=0.0000 CI[+0.636,+0.705]; partial rho=+0.560 CI[+0.496,+0.616]. F1a=CONFIRMED F1b=CONFIRMED.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

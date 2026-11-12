@@ -1,0 +1,33 @@
+# EXP:APPM-032 | Player routing regret
+- date: 2026-06-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: RS holdout; shrinkage-blended H2H oracle (prior weight 50), rotation-filtered, n>=10 H2H.
+- hypothesis: Routing counters to the oracle initiator adds PPP beyond play selection.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-032; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-032 {record=APPM-032; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Oracle regret is non-negative by construction-like design; unconstrained oracle +0.549/+0.691.
+- prespecified: no
+- produced: RES:APPM-032 {record=APPM-032; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: Routing prior vs H2H diagnostic
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPM-032; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_oracle_sensitivity.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_routing_constrained_oracle.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_routing_regret.py
+- title: Player routing regret
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-032; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-032; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-032 | Result of APPM-032
+- failure_evidence: Positive regret under conservative oracle.
+- failure_type: D_positive
+- primary_result: Routing regret +0.094 PPP (stale) / +0.124 RS (corrected); SPOT_UP +0.183 (n=385), CUT +0.129 (n=295), DRIVE +0.081 (n=280).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

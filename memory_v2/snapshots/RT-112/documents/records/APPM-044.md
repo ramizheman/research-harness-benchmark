@@ -1,0 +1,37 @@
+# EXP:APPM-044 | Live-blog game replays: LP BEST/AVOID tier accuracy
+- date: 2026-05-28
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Replay of 6 playoff games with LP built on RS + prior series games; post-game tier accuracy on BEST/AVOID cells.
+- hypothesis: Pre-game LP BEST/AVOID tiers predict in-game play-type PPP (scored only on BEST/AVOID, not OK).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-044; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPM-044; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-044 {record=APPM-044; rule=audit/study_family_review.csv or singleton}
+- n_runs: 6
+- notes: Updated copy of APPM-040 after opening REPLAY_0042500101/111/114/311. 0101 final DET 96-ORL 108 in replay vs RETRO 112-101; score source differs.
+- prespecified: no
+- produced: RES:APPM-044 {record=APPM-044; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-040; Counter-tier validation Test 1
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500101.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500104.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500111.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500114.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500173.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500311.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_replay_blog.py
+- title: Live-blog game replays: LP BEST/AVOID tier accuracy
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-044; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-044; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-044; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-044 | Result of APPM-044
+- failure_evidence: Two of six replays had no classified possessions; remaining games mixed 50-75% tier accuracy with frequent AVOID live-overrides (model wrong, engine caught it).
+- failure_type: E_unclear
+- power_info: n=6 games; scored cells 3-6 BEST/AVOID per team
+- primary_result: 0042500104 and 0042500173: Final 0-0, no classified possessions. 0042500101 DET 96-ORL 108: DET 2/3 (67%), ORL 2/4 (50%); ORL AVOID share 50/79 (63%). 0042500111 BOS 123-PHI 90: BOS 3/4 (75%), PHI 2/3 (67%). 0042500114 BOS 127-PHI 94: both 3/4 (75%). 0042500311 SAS 122-OKC 115: SAS 3/6 (50%), OKC 4/6 (67%).
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

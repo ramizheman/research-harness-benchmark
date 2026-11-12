@@ -1,0 +1,36 @@
+# EXP:APPS-071 | Memoryless Monte Carlo possession simulation (generative check)
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 10000 games x 200 possessions. Constraint state_{t+1} indep play_type_t | state_t. Not a validation of empirical findings used as anchors.
+- hypothesis: A memoryless state-driven process calibrated to NBA micro-stats can match uncalibrated distributional targets (esp. lag-1 scoring autocorr).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-071; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-071; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-071 {record=APPS-071; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Status line in the report: GENERATIVE / ILLUSTRATIVE, not validation.
+- prespecified: no
+- produced: RES:APPS-071 {record=APPS-071; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-072
+- related_to: EXP:APPS-072 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-071; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\mc_simulation.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\mc_simulation.md
+- title: Memoryless Monte Carlo possession simulation (generative check)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-071; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-071; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPS-071; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-071; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPS-071; rule=keyword rule METHOD_RULES}
+- uses_method: METH:simulation {record=APPS-071; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-071 | Result of APPS-071
+- failure_evidence: Generative existence proof, not independent evidence. Sequence R2~0 by construction of the constraint.
+- failure_type: E_unclear
+- power_info: 10,000 games x 200 possessions
+- primary_result: Uncalibrated: PPP std 1.149 vs sim 1.152; lag-1 scoring autocorr real -0.0022 vs sim +0.0029; share 0 pts 0.475 vs 0.484. Sequence-only R2=0.00000; state-only 0.00002.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

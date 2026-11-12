@@ -1,0 +1,25 @@
+# FAM:SF-PAP-096 | Study family SF-PAP-096: Play-type classifier assisted-flag leak (SPOT_UP 100% makes)
+- observed_research_question: Play-type classifier assisted-flag leak (SPOT_UP 100% makes)
+- auto_outcome_status: artifact
+- observed_hypothesis: Possession-level play types from PBP contain unbiased predictive structure.
+- observed_result: SPOT_UP 2.83 PPP (100% makes) and TRANSITION 0.62 PPP because assisted flag exists only on makes; after rewrite SPOT_UP ~1.16, TRANSITION ~1.20
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: assisted flag on makes only produced SPOT_UP 2.83 PPP
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Sequence-level PPP by inferred play type before rewriting play_type_inferrer.py.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Engineering discovery that poisoned simulation. May overlap APP slices.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: PAP-096: 2026-04-18 (transcript)
+- observed_member_records: PAP-096
+- observed_sources: PAP-096: C:\Users\lisas\Downloads\cursor_basketball_strategy_app_simulati.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-163 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

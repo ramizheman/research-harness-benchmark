@@ -1,0 +1,32 @@
+# EXP:APPM-013 | Playoff within-game three-thirds adaptation (A1 playoffs)
+- also_recorded_as: APPS-052
+- date: 2026-05-16
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 586 (game,team) rows, 529 with inferred scheme; adapters 229 vs non-adapters 300; one-sided Mann-Whitney.
+- hypothesis: Playoff teams that shift toward scheme counters in mid+late thirds see PPP rise more than non-adapters.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-013; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:three_point_attempts_or_luck {record=APPM-013; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF13 {record=APPM-013; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Scheme is inferred from the same early-third PPP that defines the baseline, so regression to the mean may contribute; not addressed in doc.
+- prespecified: no
+- produced: RES:APPM-013 {record=APPM-013; rule=record fields}
+- project: Strategy app
+- related_as_recorded: A1_FALSIFICATION_findings.md (A-L); DID_ADAPT_NYK_vs_PHI_2526.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PLAYOFF_A1_THIRDS_data.csv
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PLAYOFF_A1_THIRDS_findings.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_playoff_a1_thirds.py
+- title: Playoff within-game three-thirds adaptation (A1 playoffs)
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-013; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-013 | Result of APPM-013
+- failure_evidence: p=0.0199 one-sided.
+- failure_type: D_positive
+- power_info: n=529
+- primary_result: Adapter dPPP +0.0613 vs +0.0131; advantage +0.0482 PPP, p=0.0199. SWITCH subgroup reversed (-0.0160).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

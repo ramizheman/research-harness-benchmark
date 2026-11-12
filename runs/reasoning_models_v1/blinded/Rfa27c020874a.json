@@ -1,0 +1,112 @@
+{
+ "blind_id": "Rfa27c020874a",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nThe teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=148; 148 spells; 11 cases\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence",
+   "offensive reorganization",
+   "teammate replacement",
+   "initiation profile",
+   "play-type usage"
+  ],
+  "methodological_questions": [
+   "How to measure initiation profile similarity (cosine, Euclidean, minutes-based)?",
+   "How to define the absent player's 'primary types'?",
+   "How to quantify 'gain' in those types for teammates?",
+   "How to handle nested data (spells within players within teams)?",
+   "What sample size is adequate given 148 spells and 11 cases?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No historical evidence was available from this project's prior studies; nothing is established."
+  ],
+  "evidence_does_not_establish": [
+   "No prior findings; the question is novel within this project's records."
+  ],
+  "own_inferences": [
+   "The question proposes a testable hypothesis: among teammates, the one with the most similar pre-absence play-type initiation profile (or with the most shared minutes) will see the largest increase in the absent player's primary play types.",
+   "The data (play-by-play derived initiations, rotation/matchup files) can support measurement of play-type shares and similarity metrics.",
+   "The main threats to a valid test are: (1) small effective sample (11 distinct cases suggests limited independent variation, even with 148 spells); (2) confounding by positional substitution patterns—coaches often replace an absent player with a same-position player who already shares similar play types, mechanically creating the pattern; (3) floor/ceiling effects when a teammate already has high usage in those types; (4) regression to the mean if similarity is measured with noise.",
+   "A design that pre-specifies a single similarity metric, accounts for clustering with mixed models, and uses falsification tests (e.g., shuffling similarity across spells) could mitigate some risks, but evidence of a causal replacement mechanism—as opposed to a trivial positional artifact—may remain elusive.",
+   "If the 11 cases correspond to only 11 unique absent players, the generalizability and statistical power are severely limited; a larger sample or a different study design (e.g., within-player permutations) would be required."
+  ],
+  "uncertainties": [
+   "The exact definition of 'n=148; 148 spells; 11 cases'—whether the spells belong to 11 different players or 11 team-seasons; this directly affects effective sample size.",
+   "The optimal similarity metric is not theoretically grounded; multiple plausible metrics could yield conflicting conclusions.",
+   "The degree to which pre-absence play-type profiles are measured reliably from available game samples (especially for rarely used play types)."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No prior historical evidence was retrieved; the decision is based entirely on methodological assessment of the research question, data, and potential risks."
+  },
+  "testability": {
+   "p_testable": 0.45,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 11 distinct cases may be available, even though there are 148 spells; effective N could be too small for adequate power after accounting for clustering."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "The effect may be entirely driven by coaches substituting a same-position player, making the similarity-metric finding tautological rather than a discovery."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior project studies examined this specific replacement hypothesis."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "148 spells but only 11 cases implies strong within-case correlation; effective sample size for between-case inference may be too small to detect a realistic effect."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Position-based substitutions may perfectly confound the similarity metric: the teammate who plays the absent player's position will both have the most similar profile (by virtue of position) and will receive the absent player's minutes and play types."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If 'closest profile' is defined using noisy pre-absence estimates, the teammate with the most extreme similarity may regress to the mean in the post-absence period, producing spurious 'gain' attenuation."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Teammates already with high shares of the absent player's primary play types have limited room to increase, biasing the relationship."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Multiple similarity definitions (minutes[path] minutes and profile similarity) may lead to cherry-picking unless a single primary metric is pre-registered."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Offensive play-type usage can drift over a season due to strategy changes unrelated to the absence, confounding the pre/post comparison."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Complex derivation of play-type initiations from play-by-play text may contain misclassifications that affect both similarity and gain measures."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.15,
+   "untestable": 0.25,
+   "artifact": 0.3,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For an absence spell, the difference in the within-spell rank of gain (increase in share of the absent player's primary play types) between the teammate with the highest pre-absence play-type profile similarity and the median teammate, tested across spells.",
+   "unit": "An absence spell (a consecutive-game player absence) as the unit of analysis; teammate-level observations nested within spells and spells nested within absent players.",
+   "sample": "All spells from NBA 2022-23 through 2025-26 where: (a) the absent player missed at least 5 consecutive games and had at least 100 pre-absence initiation possessions to estimate play-type mix reliably; (b) the teammate with the most similar profile is defined using a single pre-specified metric: the cosine similarity of play-type initiation proportion vectors over the prior 20 games; (c) the absent player has at least two 'primary types' (play types with ≥10% of his initiations).",
+   "power": "Assuming 148 spells with moderate within-player correlation (ICC ≈ 0.2) yields ~89 effective independent spells; power to detect a medium effect (rank-biserial r = 0.3) at α = 0.05 (two-sided) is approximately 0.75. If the 11 cases imply a much smaller effective sample, the study will be underpowered; a preliminary power simulation based on the actual clustering structure is mandatory before committing to analysis.",
+   "controls": "Control for the teammate's own pre-absence share of those play types (to separate initial level from gain), the teammate's total minutes in the absence games, the average net rating of the opposing defenses faced, and an indicator for whether the teammate and absent player share the same listed position.",
+   "falsification": "1) Shuffle the 'most similar' teammate label within each spell and re-run the analysis; the true effect should exceed the 95th percentile of the null distribution. 2) Repeat the analysis using the teammate with the most shared minutes instead of profile similarity, expecting a similar or stronger effect if the pattern is driven by positional substitution; if similarity provides additional explanatory power, it suggests a non-trivial replacement mechanism.",
+   "multiplicity": "One primary similarity metric (cosine similarity on 8-play-type proportion vector). One primary outcome (gain rank of the most similar teammate). All other metrics and secondary play-type subsets are exploratory and clearly labelled.",
+   "decision_rule": "Bayesian multilevel ordinal model for gain ranks with random intercepts for absent player and team; conclusion of 'supported' if the posterior probability that the most similar teammate's gain rank is higher than the median rank exceeds 0.95. Frequentist robustness check via clustered bootstrap.",
+   "data_version": "All data as available on 2026-11-01, using the final regular-season and playoff files for the 2022-23 through 2025-26 seasons."
+  }
+ },
+ "redactions": 1
+}

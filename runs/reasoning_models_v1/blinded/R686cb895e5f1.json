@@ -1,0 +1,161 @@
+{
+ "blind_id": "R686cb895e5f1",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR fail",
+   "PULL_UP counter",
+   "league-wide counter",
+   "lift (points per possession delta)",
+   "defensive units",
+   "possession counter"
+  ],
+  "methodological_questions": [
+   "How to define PNR fail from play-by-play data (e.g., no score, turnover, missed shot)?",
+   "How to identify a subsequent pull-up shot as a counter (same possession offensive rebound, next possession)?",
+   "How to measure lift: baseline pull-up PPP against the same defense?",
+   "How to define defensive units (team, team-season, lineup) for the >=70% and median lift>2pp test?",
+   "What sample sizes are needed for unit-level median lift with adequate power?",
+   "How to avoid regression-to-the-mean artifacts when selecting on failed PNR possessions?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Within-game adapter PPP improvement of +0.058 was later deemed an artifact driven by selection on extreme early-third PPP causing mean reversion (no_signal baseline +0.126 outperformed adapters)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Within-scheme re-test: DROP gap +0.083 (p=0.0046), HELP gap +0.054 (p=0.0493), but SWITCH reverse, quintile-matched gaps mostly near zero, carryover null; early-PPP imbalance. Overall inconclusive."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Descriptive PNR shot-level rates: team shot-level PNR share of half-court shots ranges from 7.6% to 13.8% in 2024-25, used as calibration for PBPProxyPNR (possessions ~17.9-19.6%)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Falsification test: adapter vs no-signal gap negative for higher confidence schemes, wrong-way teams not worse, no carryover. The apparent adapter lift was produced by label/classification and selection-for-RTM flaws."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Within-game did_adapt PPP improvement using scheme inference and early-third PPP baseline.",
+    "why": "C_artifact: selection on early-third PPP caused mean reversion; no-signal teams outperformed adapters, invalidating the counter adaptation effect."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Within-scheme re-test controlling early-third PPP quintiles.",
+    "why": "Inconclusive: positive signals in DROP/HELP but SWITCH reversed; carryover null; early-PPP imbalance persisted; implementation bug flagged."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "A1 adaptation falsification (asymmetry, confidence, carryover).",
+    "why": "C_artifact: label/classification error and selection bias; adapter vs no-signal comparison failed; confidence-vote gap shrank; RTM artifact confirmed."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier within-game counter/adaptation studies ([prior work], [prior work], SF-[prior work]) using PPP deltas and play-type share shifts consistently suffered from regression-to-the-mean artifacts and were either artifacts or inconclusive.",
+   "The project has PBP-derived data that can identify PNR plays and pull-up shot types (and is calibrated for PNR possession rates, see SF-[prior work]).",
+   "No direct test of the specific PNR-fail → pull-up counter claim has been performed."
+  ],
+  "evidence_does_not_establish": [
+   "Whether pull-up shots after a failed PNR show a league-wide lift of >0 in ≥70% of defensive units with median >2pp.",
+   "The appropriate baseline for measuring lift on such counter possessions.",
+   "The sample size available per defensive unit for this rare event sequence.",
+   "The stability of unit-level median lift estimates with realistic event counts."
+  ],
+  "own_inferences": [
+   "The question can be operationally defined using PBP action types and possession data, but the rare nature of PNR-fail → pull-up sequences will severely limit per-unit sample size.",
+   "If 'defensive unit' is team-season (30 teams), each unit may have 50–150 such possessions across a season, making a 2pp median difference potentially detectable but with wide uncertainty.",
+   "The primary inferential threat is regression to the mean, because a PNR-fail is defined by a negative offensive outcome; subsequent possessions may naturally regress upward, mimicking a counter lift.",
+   "Without a carefully defined baseline (e.g., pull-up PPP against the same defense in other situations, matched on game state), any positive lift could be an artifact.",
+   "A falsification test using non-pull-up shot types after PNR-fail or pull-ups after non-fail PNR would strengthen causal interpretation."
+  ],
+  "uncertainties": [
+   "Exact count of PNR-fail → pull-up possessions per defensive unit across the available seasons.",
+   "Whether the bulk of PNR-fail events result in a change of possession before the pull-up, affecting the counter timing.",
+   "The true effect size, if any, and whether it exceeds the noise floor of 2pp.",
+   "Optimal unit definition (team, team-season, defensive lineup) given the trade-off between sample size and relevance to the league-wide claim."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the historical evidence, the approach might have directly used early-game PPP baselines or adaptive-play-type share methods similar to [prior work]. The artifact outcomes in [prior work] and SF-[prior work] demonstrate that selection-on-outcome designs create spurious lift, forcing a redesign that avoids RTM by using an independent baseline and asymmetrical falsification tests."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Expected number of PNR-fail followed by pull-up possessions per defensive unit is likely moderate, making the 2pp lift requirement underpowered for many units."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "PNR fails are a small fraction of all possessions; subsequent pull-up shots are rarer; many units may have zero or very few events, compromising the >=70% test and median."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "A PNR-fail is defined by a bad offensive outcome; any comparison with a broader possession or shot-type baseline risks inflating lift via regression to the mean, as seen in [prior work] and SF-[prior work]."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Previous counter-adaptation studies ([prior work], [prior work], SF-[prior work]) found either artifacts or inconclusive results due to regression to the mean and selection flaws. No direct test of the PNR-fail → pull-up counter has been conducted, but the methodological pitfalls are well-characterized."
+  },
+  "risks": [
+   {
+    "code": "RTM_SELECTION",
+    "text": "Lift computed on PNR-fail pull-up possessions vs a stable baseline may over-estimate from mean reversion because the PNR-fail sample is selected on a negative outcome."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-unit counts of PNR-fail-pull-up events could be too small to reliably test median >2pp and 70% sign criterion."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many defensive units may have zero or very few relevant possessions, making the proportion of units with positive lift unstable."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game situation (score, clock, period) and player skill influence both the decision to pull-up and the shot outcome, potentially creating a spurious correlation with the preceding PNR-fail."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Uncertainty in reliably identifying PNR failure from PBP action types and linking to a subsequent pull-up as an intentional counter (versus a forced shot)."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If multiple unit definitions are explored, the proportion-of-units test inflates false positive rate unless pre-specified."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.2,
+   "untestable": 0.3,
+   "artifact": 0.25,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each defensive unit (team-season), the difference between points per possession on possessions where the offense attempts a pull-up field goal after a failed pick-and-roll against that unit and the same offense's pull-up PPP against that unit in other possessions matched on score margin, period, and shot-clock quartile.",
+   "unit": "Defensive team-season (e.g., the Boston Celtics' regular season 2022-23). Sensitivity: also consider team across all seasons.",
+   "sample": "All regular season and playoff games from NBA 2022-23 through 2025-26, excluding the partial 2025-26 data flagged as incomplete. PNR-fail events defined from PBP: the possession ends with no points (turnover, defensive rebound, shot clock violation) after a pick-and-roll action. The next offensive possession (or an immediate offensive rebound that leads to a pull-up) is the counter observation.",
+   "power": "Power analysis to be performed before extraction: estimate per-team-season event count from pilot 2024-25 data. Provide 80% power for a one-sided rank test that the median lift >2pp and for the sign test that >70% of units show positive lift, assuming true effect of 4pp and expected per-unit sample ~80 events. If pilot shows inadequate counts, pool multiple seasons per team.",
+   "controls": "Baseline pull-up PPP matched on: score margin (leading[path]), period, and shot-clock remaining (bin by 24-18, 17-10, 9-4, <4 seconds). Exclude garbage time (score margin >20 in 4th quarter). Remove possessions where the pull-up follows a PNR-fail but with an intervening dead ball or full change of possession (e.g., defensive rebound and then offensive possession at other end).",
+   "falsification": "1) Compute lift for non-pull-up shot types (catch-and-shoot, drives) after a PNR-fail; the pull-up lift should be larger. 2) Compute lift on pull-ups after successful PNR (scored or drew foul); this should not show systematic positive lift relative to baseline. 3) Permute the PNR outcome labels within each unit and recompute the unit-level median; the observed median should be in the upper tail of the null distribution.",
+   "multiplicity": "Pre-specify the primary unit as defensive team-season. Only one aggregate test: proportion of units with lift>0 and median lift>2pp. No subgroup or multiple unit definitions without Bonferroni correction. Report all pre-registered falsification tests without multiplicity adjustment.",
+   "decision_rule": "The counter hypothesis is supported if: (a) ≥70% of defensive team-season units have estimated lift > 0, (b) the median of the unit lifts is > 2 pp, and (c) the falsification checks show the pull-up lift exceeds non-pull-up lift and pull-ups after successful PNR, and the permutation test results in p < 0.05 (one-sided).",
+   "data_version": "NBA play-by-play and derived possession records from 2022-23 through 2025-26 seasons, as of 2026-05-23 data catalog snapshot, using PBPProxyPNR for possession-level PNR identification (calibrated per [prior work][prior work])."
+  }
+ },
+ "redactions": 29
+}

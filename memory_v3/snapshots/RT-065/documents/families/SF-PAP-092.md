@@ -1,0 +1,28 @@
+# FAM:SF-PAP-092 | Study family SF-PAP-092: KenPom AdjO/AdjD features vs Massey POM/TRK ranks
+- observed_research_question: KenPom AdjO/AdjD features vs Massey POM/TRK ranks
+- auto_outcome_status: untestable
+- observed_hypothesis: KenPom preseason/final AdjO/AdjD and momentum beat or replace pom_rank/trk_rank.
+- observed_result: baseline 0.17405; A 0.17453 (delta +0.00048); B 0.17525 (+0.00120); coverage 753/1449 (52.0%)
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: both versions worse; 52% coverage
+- observed_sample_and_power: coverage 52%
+- observed_method: Full LOSO 2003-2025; Version A add 6 KP features; Version B drop pom/trk ranks and add 6; coverage 2014-2025 only.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: PAP-092: 'full loso 2003-2025; version a add 6 kp features; version b drop pom/'
+- observed_notes: KenPom Excel is 2014-2025 only.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: March Madness
+- observed_dates: PAP-092: 2026-03-10 (mtime)
+- observed_member_records: PAP-092
+- observed_sources: PAP-092: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- observed_sources: PAP-092: C:\Users\lisas\OneDrive\Documents\March Madness\kenpom_validation.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:data_scarcity_text_pattern {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-087 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-161 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}

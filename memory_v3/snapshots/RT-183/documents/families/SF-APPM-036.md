@@ -1,0 +1,23 @@
+# FAM:SF-APPM-036 | Study family SF-APPM-036: Paper numbers audit (Same Menu, Different Wiring)
+- observed_research_question: Paper numbers audit (Same Menu, Different Wiring)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Every numeric result in paper.tex reproduces from cached artifacts.
+- observed_result: 160/160 PASS, 0 FAIL.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: 160/160 PASS.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Recompute 160 claims from paper2_output artifacts with tolerances.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Caveats: organizer +2.24 not persisted in CSV; Fig1 cosines not re-verified offline; 186 vs 187 positive delta discrepancy.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: APPM-036: 2026-07-14 (doc)
+- observed_member_records: APPM-036
+- observed_sources: APPM-036: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PAPER_NUMBERS_SHEET.md
+- observed_sources: APPM-036: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_paper_numbers_audit.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-086 {basis=TF-IDF question clustering}

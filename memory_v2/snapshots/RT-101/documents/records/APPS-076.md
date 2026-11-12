@@ -1,0 +1,34 @@
+# EXP:APPS-076 | Trigger attribution: variance of H1->H2 PPP collapse
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 40963 team-game-PT rows (>=5 both halves), 5234 games. Nested OLS on ppp_change. Triggers 12617 (30.8%), mean collapse -0.612.
+- hypothesis: Observable in-game process/usage/shot-selection/lineup/context changes explain suppression triggers beyond RTM.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-076; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-076 {record=APPS-076; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Consistent with distribution-shift null: collapses are mostly hot first halves cooling off.
+- prespecified: no
+- produced: RES:APPS-076 {record=APPS-076; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-022; APPS-070
+- related_to: EXP:APPS-070 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-076; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\trigger_attribution_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\trigger_attribution.py
+- title: Trigger attribution: variance of H1->H2 PPP collapse
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-076; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-076; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-076; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Shot_level_data_with_expected_FG {record=APPS-076; rule=keyword rule DATASET_RULES}
+- uses_method: METH:regression {record=APPS-076; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-076 | Result of APPS-076
+- failure_evidence: Process/usage/lineup/context add ~1.7 pp; residual 65.4% is idiosyncratic noise from small per-half n.
+- failure_type: B_powered_null
+- power_info: n=40963 cells; 12617 triggers
+- primary_result: RTM (ppp_h1 alone) 32.9% of variance. Usage +0.0%; process+shot-zone +1.7%; lineup +0.0%; context +0.0%. Unexplained 65.4%. Total explained 34.6% (RTM=95% of explained).
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

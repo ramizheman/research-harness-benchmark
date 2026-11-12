@@ -1,0 +1,36 @@
+# EXP:APPA-039 | Fragility F1: usage-residual structural load exists and is split-half stable
+- date: 2026-07-12
+- date_basis: doc
+- date_reliable: yes
+- design: 120 team-seasons, 30 franchises; fragility_full_study.py --n-null 500 --n-perm 5000 seed 17 N_BOOT=2000; franchise-clustered permutation and bootstrap. Amendment 1 (post-gate, pre-full-run) made usage-partial Spearman co-primary for F1b.
+- hypothesis: On the full sample, usage explains <90% of structural load with residual share CI lower bound >0.10 (F1a), and usage-residual load is split-half stable (F1b pooled and usage-partial).
+- knowable_in_advance: no
+- measures: VAR:play_type_share_mix {record=APPA-039; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:structural_influence_load_L {record=APPA-039; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF18 {record=APPA-039; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: One allowed mid-course correction: usage-partial F1b co-primary because usage itself is split-half stable. Load is registered as not a value/points measure.
+- prespecified: yes
+- produced: RES:APPA-039 {record=APPA-039; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPA-038; APPA-007
+- related_to: EXP:APPA-007 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-039; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPA-039; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FRAGILITY_PREREGISTRATION.md
+- title: Fragility F1: usage-residual structural load exists and is split-half stable
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPA-039; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NCAA_tournament_and_ratings_data {record=APPA-039; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPA-039; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPA-039; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPA-039; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-039; rule=keyword rule METHOD_RULES}
+- uses_method: METH:split_half_reliability {record=APPA-039; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-039 | Result of APPA-039
+- failure_evidence: Residual-share CI lower bound 0.768 > registered 0.10; both F1b CIs exclude 0 and p<0.01; 30 franchises above the ~20 floor.
+- failure_type: D_positive
+- power_info: 120 team-seasons, 30 franchises; 1962 season-level players; 1965 paired players
+- primary_result: F1a cosine R2=0.094, residual-share=0.906, CI [0.768, 0.962] PASS; Frobenius R2=0.073 share=0.927 CI [0.828, 0.965]. F1b pooled-residual rho=+0.685 p=0.0000 CI [+0.649, +0.721]; usage-partial rho=+0.557 p=0.0000 CI [+0.491, +0.618].
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

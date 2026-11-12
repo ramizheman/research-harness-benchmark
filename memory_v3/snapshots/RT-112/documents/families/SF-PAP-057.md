@@ -1,0 +1,34 @@
+# FAM:SF-PAP-057 | Study family SF-PAP-057: Pre-registered case forecasts (11 absences)
+- observed_research_question: Pre-registered case forecasts (11 absences)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: High L_pre (>=0.10) forecasts large, pattern-matching reorganization; low L_pre forecasts little change.
+- observed_result: 2/6 high-load clean hits (Brunson dir 0.75 [p95 0.49]; Davis 0.88 [0.37]); Booker pattern right magnitude smaller (0.87); Wembanyama magnitude right pattern wrong (0.29 [0.38]); Poeltl and Maxey confounded (co-abs 0.52/0.41); 4/5 low-load accurate; Langford non-specific; descriptive Spearman L vs excess +0.79 (11) / +0.71 (8)
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: only 2 of 6 high-load cases clean on both magnitude and pattern; n=8 high-load in pool
+- observed_sample_and_power: 11 cases; 8 high-load spells in pool
+- observed_method: Selection hashed before stage 2: 3 highest L plus 90/75/50/25/10th percentiles, distinct players, plus 3 supplementary high-load outside July core.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Stratified cases are descriptive, not a test. Pool statistic is PAP-047. n_runs counts the 11 forecasts.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-057: 2026-11-01 (doc)
+- observed_member_records: PAP-057
+- observed_sources: PAP-057: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\CASE_STUDY_REPORT.md
+- observed_sources: PAP-057: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\case_results.json
+- observed_sources: PAP-057: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\selected_cases.csv
+- observed_sources: PAP-057: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-056 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-163 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

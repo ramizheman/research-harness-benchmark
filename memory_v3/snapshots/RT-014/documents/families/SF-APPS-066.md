@@ -1,0 +1,29 @@
+# FAM:SF-APPS-066 | Study family SF-APPS-066: Brown DRIVE -> Tatum PNR sequential-premium placebo
+- observed_research_question: Brown DRIVE -> Tatum PNR sequential-premium placebo
+- auto_outcome_status: artifact
+- observed_hypothesis: The reported +0.326 Brown->Tatum PNR premium is Brown-specific, not any-teammate DRIVE->Tatum PNR.
+- observed_result: Reproduced premium +0.3262 n=43 vs Tatum PNR baseline 1.0459. Brown-other gap +0.3185, MW p=0.1702. Placebo 95% [-0.1389,+0.4192], observed inside, p=0.1136; perm p=0.2034. League teammate-DRIVE->PNR controlled beta=+0.0220 p=0.0044 n_t=20658 (tiny). Tatum any-teammate +0.1524 p=0.2546, perm inside.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Brown-specific +0.326 does not survive placebo; any teammate's DRIVE produces a comparable number. League effect is +0.02 PPP.
+- observed_sample_and_power: n=43 Brown chains; league n_t=20658
+- observed_method: 99 BOS DRIVE->Tatum-PNR chains (Brown 43 / other 56). Placebo 5000 relabels; also league-wide teammate-DRIVE->PNR.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: APPS-066: '99 bos drive->tatum-pnr chains (brown 43 / other 56). placebo 5000 relabels; also league-wide teammate-drive->pnr. reprod'
+- observed_notes: Knowable: original n=43, t=+1.7 was already below |t|=2.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-066: 2026-06-14 (mtime)
+- observed_member_records: APPS-066
+- observed_sources: APPS-066: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\brown_tatum_chain_placebo.txt
+- observed_sources: APPS-066: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\teammate_drive_pnr.txt
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF40 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-028 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

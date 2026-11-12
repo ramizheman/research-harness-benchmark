@@ -1,0 +1,32 @@
+# EXP:APPA-062 | L5 baseline comparison: V0/V2/V4/V5 team-aggregate regret
+- date: 2026-05-07
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Same 40 (slug, side) pairs from l5_ablation_results.parquet; observed_ppp is series-level weighted-mean PPP, not per-recommendation.
+- hypothesis: Scheme fingerprint (V2), optimizer (V4), and agents (V5) beat a scheme-neutral team PPP baseline on |projected-observed| regret.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-062; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-062 {record=APPA-062; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Conflicts with APPA-061 'AGENTS DEGRADE' headline: here V5 median/mean regret is lower than V4. Target is team-aggregate PPP, not the recommended play type.
+- prespecified: no
+- produced: RES:APPA-062 {record=APPA-062; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-061
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\L5_BASELINE_COMPARISON.md
+- title: L5 baseline comparison: V0/V2/V4/V5 team-aggregate regret
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPA-062; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-062; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-062; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPA-062; rule=keyword rule METHOD_RULES}
+- uses_method: METH:ablation {record=APPA-062; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-062 | Result of APPA-062
+- failure_evidence: n=40; V2 and full stack vs neutral p>0.05; V4 trends worse than neutral. Only V5 vs V4 on 15 differing pairs is p=0.031.
+- failure_type: A_unanswerable
+- power_info: n=40 pairs
+- primary_result: Mean regret: V0_NEUTRAL 0.1072, V0_TEAM 0.1053, V2_TEAM 0.1003, V4 0.1148, V5 0.0979. V2 vs V0_NEUTRAL mean_diff -0.0069 p=0.190. V4 vs V0_NEUTRAL +0.0075 p=0.563 (V4 worse). V5 vs V4 n_diff=15 beat_rate 0.275 / cond 0.733 mean_diff -0.0169 p=0.0309. V5 vs V0_NEUTRAL -0.0093 p=0.2589.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

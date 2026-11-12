@@ -1,0 +1,25 @@
+# FAM:SF-CHT-026 | Study family SF-CHT-026: League-wide PNR-fail to PULL_UP sequence branches
+- observed_research_question: League-wide PNR-fail to PULL_UP sequence branches
+- auto_outcome_status: inconclusive
+- observed_hypothesis: If PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.
+- observed_result: Zero branches passed. The BOS-MIA PNR to PULL_UP dyad was matchup-specific.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Zero branches passed the >=70% units / median lift>2pp rule.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Branch search across teams/series for the BOS-MIA PNR to PULL_UP dyad.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Chat-only summary of the branch search; no separate path quoted beyond the conversation.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-026: 2026-05-23 (transcript)
+- observed_member_records: CHT-026
+- observed_sources: CHT-026: d2a94a1e-b21a-4a3a-b2cf-3eb526e3f49a
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-102 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

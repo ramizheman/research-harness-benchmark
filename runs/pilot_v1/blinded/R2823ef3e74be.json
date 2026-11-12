@@ -1,0 +1,58 @@
+{
+ "blind_id": "R2823ef3e74be",
+ "task_statement": "Research question (as posed on 2026-10-06, in the area of defensive suppression and counter strategy (best/avoid)):\nA defense's effect on opponents' H2-H1 change is a reliable team trait.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 120 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The research question does not specify what 'H2-H1 change' refers to (e.g., points per possession, play-type frequency, efficiency on specific play types). This lack of specificity makes the estimand ambiguous. Additionally, isolating the 'defense's effect' from other factors contributing to H2-H1 changes (e.g., offensive adjustments, fatigue, game state) is a significant challenge, potentially leading to an unreliable measure of the defensive trait."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "The glossary defines 'Suppression trigger' as a team/play type/game where PPP falls sharply from H1 to H2, which is related to the concept of H2-H1 change. However, the glossary does not provide any results from prior work, nor does it confirm whether the specific question of this 'effect' being a 'reliable team trait' has been answered or studied."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "H2-H1 changes in opponent's performance can be influenced by numerous factors beyond the specific defensive team's trait, including the offensive team's own half-time adjustments, player fatigue, game flow, score differential, coaching decisions, and random variance. Isolating the unique contribution of the defense as a 'reliable team trait' will be difficult without robust controls."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "As noted in blocking constraints, the exact 'H2-H1 change' metric is undefined. Even if defined, the reliability of this metric as a consistent 'team trait' across different opponents and game contexts needs careful validation. A single game's H2-H1 change might be highly noisy and not representative of an underlying team trait."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "While 120 team-seasons are available, if the 'effect' is subtle or highly contextual (e.g., only against certain play types or offensive schemes), the effective sample size for detecting a statistically significant and reliable team trait might be insufficient after accounting for variability and controlling for confounding factors."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Team rosters, coaching staffs, and league-wide offensive/defensive strategies evolve season to season. A 'reliable team trait' measured over multiple seasons might be subject to drift, making it challenging to assess long-term reliability or requiring a more nuanced definition of reliability (e.g., within-season vs. across-season)."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.3,
+   "artifact": 0.1,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The estimand is the inter-season correlation of a defensive team's average opponent-adjusted H2-H1 change in points per possession (PPP) on initiated plays. Specifically, for each defensive team-season, calculate the average (across all games played) of (opponent's H2 PPP - opponent's H1 PPP). This average is then adjusted for opponent strength and game context. The reliability will be assessed by correlating these adjusted averages for the same team across consecutive seasons.",
+   "unit": "Defensive team-season.",
+   "sample": "NBA 2022-23, 2023-24, 2024-25 seasons for full team-season data. The 2025-26 regular season data will be used to calculate H2-H1 changes for teams, but not for full team-season reliability due to incompleteness. Teams with fewer than 30 games in a season will be excluded from that season's calculation. Focus on teams playing in at least two consecutive full seasons to assess inter-season reliability. Data from playoffs will be excluded due to different game contexts and smaller sample sizes.",
+   "power": "The study will aim for a minimum of 60 team-season pairs (30 teams across two consecutive seasons) for correlation analysis. A Monte Carlo simulation will be run to estimate the power to detect a correlation coefficient of 0.4 or higher, assuming varying levels of within-season and between-season variance. If power is below 0.8 for a meaningful effect size, the study will be deemed underpowered.",
+   "controls": "Control for opponent strength by using an ELO-like rating for offensive teams. Control for game context factors such as initial score differential at halftime, pace, and whether the game was a back-to-back for either team. Exclude 'garbage time' possessions (e.g., using a threshold like score differential > 20 points in the last 5 minutes). Implement fixed minimum possession rules for calculating H1 and H2 PPP to ensure sufficient sample per game.",
+   "falsification": "A falsification test will examine the H2-H1 change for randomly shuffled opponent-defense pairings (within the same season and game context controls) to ensure that any observed reliability is not merely an artifact of general game-level H2-H1 variance. Additionally, examine the H2-H1 change for a 'placebo' metric (e.g., H1-H2 change) to ensure the directionality is meaningful.",
+   "multiplicity": "Only one primary estimand (inter-season correlation of opponent-adjusted H2-H1 PPP change) will be tested. No adjustments for multiplicity are required for this single primary test.",
+   "decision_rule": "The hypothesis will be considered 'supported' if the inter-season correlation coefficient of the defensive trait (adjusted H2-H1 PPP change) is statistically significant (p < 0.05) and demonstrates a moderate effect size (e.g., Pearson r > 0.4). Otherwise, it will be 'rejected' (if adequately powered) or 'uncertain'.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25, 2025-26 regular season data as available on 2026-10-06. Derived play-type possession records will be used. The latest available version of the play-by-play and derived data will be used."
+  }
+ },
+ "redactions": 0
+}

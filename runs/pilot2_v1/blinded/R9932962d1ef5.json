@@ -1,0 +1,61 @@
+{
+ "blind_id": "R9932962d1ef5",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does the opponent's points per possession (PPP) in the possession immediately following a specific play type (X), or the outcome of subsequent possessions within the same team's sequence, influence the assignment of 'AVOID' labels to play types?",
+  "retrieval_summary": {
+   "prior_findings": [],
+   "failed_experiments": [],
+   "limitations": [],
+   "unresolved": []
+  },
+  "evidence_use": "No prior research records were retrieved. This indicates that the specific question regarding whether opponent next-possession PPP or own-sequence lags drive 'AVOID' labels has not been addressed in previous project work, or at least no relevant records were found. Therefore, there are no existing findings to build upon, no failed experiments to learn from, and no identified methodological limitations or unresolved questions from prior internal work. The project approaches this question without direct historical context within the provided records.",
+  "testability": {
+   "p_testable": 0.9,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior work was found that addresses whether opponent next-possession PPP or own-sequence lags influence the assignment of 'AVOID' labels for play types."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The 'AVOID' labels are derived. If the derivation process explicitly or implicitly incorporates information about subsequent possessions (like opponent next-possession PPP or outcomes of own-sequence lags), then observing a correlation would not indicate a causal influence but rather confirm the label's definition. This is the core hypothesis being tested, so it's a feature of the investigation rather than a traditional risk of bias, but it means the 'outcome' is not independent of the 'predictors' if the hypothesis holds."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If 'AVOID' labels are intended to be based solely on the characteristics of the play type itself and preceding events, then the inclusion of future outcomes (opponent next-possession PPP, own-sequence lags) in their derivation would constitute leakage. The research question directly investigates this potential leakage, making it the central focus of the study rather than an external risk to be mitigated."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Other factors might independently influence both the decision to assign an 'AVOID' label to a play type and the subsequent possession outcomes. For example, specific game situations (e.g., critical moments, blowouts) or personnel matchups could affect both play calling/labeling and the efficiency of subsequent possessions. Without proper controls, observed correlations might be confounded."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The reliability and consistency of 'play type' identification, 'AVOID' label assignment, and 'points per possession' calculation are crucial. Inaccuracies or inconsistencies in these measures could lead to spurious findings or mask true relationships."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.6,
+   "rejected": 0.1,
+   "untestable": 0.05,
+   "artifact": 0.15,
+   "uncertain": 0.1
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "The statistical relationship (e.g., correlation, difference in means) between a play type being assigned an 'AVOID' label and the opponent's points per possession (PPP) in the immediately subsequent possession, as well as the outcomes of subsequent possessions within the same team's sequence. Specifically, we will estimate the difference in mean subsequent PPP and other lag outcomes between play types labeled 'AVOID' and those not labeled 'AVOID', controlling for contemporaneous factors.",
+   "unit": "Individual play type instances (possessions where a specific play type is initiated).",
+   "sample": "All play type instances from NBA 2022-23 to NBA 2025-26 regular seasons and playoffs for which 'AVOID' labels are assigned. A representative, comparably sized sample of non-'AVOID' labeled play types will be selected for comparison. Data from the 2025-26 season will include complete regular season data (up to 2026-04-13) and complete playoff data (up to 2026-06-21).",
+   "power": "We will conduct a power analysis to ensure an 80% chance of detecting a medium effect size (e.g., Cohen's d = 0.5 for mean differences or an R-squared of 0.05 for regression models) at an alpha level of 0.05. Given the extensive volume of NBA play-by-play data across multiple seasons, we anticipate sufficient sample size for common play types. If power is insufficient for rare play types, these will be noted as untestable.",
+   "controls": "Statistical controls will be implemented to account for confounding variables, including: game state (e.g., score differential, quarter/period, time remaining), team and opponent strength (e.g., offensive/defensive ratings, net rating), player personnel on court (e.g., specific lineups, star player presence), play initiator, and previous possession outcome (if applicable to sequence lags). We will use fixed effects for teams and seasons to address unobserved heterogeneity.",
+   "falsification": "The hypothesis that opponent next-possession PPP or own-sequence lags drive 'AVOID' labels would be falsified if, after controlling for confounding factors, there is no statistically significant and substantively meaningful relationship between 'AVOID' labels and these subsequent possession outcomes. Specifically, if the observed effect size is negligible or indistinguishable from zero.",
+   "multiplicity": "If testing relationships across multiple distinct play types or examining several different 'lag' outcomes, we will account for multiple comparisons. This will involve applying a Bonferroni correction or a False Discovery Rate (FDR) adjustment to p-values, or employing a hierarchical modeling approach if appropriate.",
+   "decision_rule": "We will conclude that opponent next-possession PPP or own-sequence lags 'drive' AVOID labels if a statistically significant (p < 0.05 after multiplicity adjustment) and substantively meaningful relationship (e.g., an effect size demonstrating a difference of at least 0.05 PPP for 'AVOID' vs. non-'AVOID' plays) is consistently observed after appropriate controls, and if this relationship aligns with a potential definitional or causal role in the labeling process.",
+   "data_version": "NBA 2022-23 regular season and playoffs, NBA 2023-24 regular season and playoffs, NBA 2024-25 regular season and playoffs, NBA 2025-26 regular season (complete from 2026-04-13), NBA 2025-26 playoffs (complete from 2026-06-21). Data will be sourced from per-game files from the NBA stats API (play-by-play, substitution rotation, starters, defensive matchup, box-score) and the derived play-type possession records from [source] database."
+  }
+ },
+ "redactions": 1
+}

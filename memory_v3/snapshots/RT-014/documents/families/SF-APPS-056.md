@@ -1,0 +1,33 @@
+# FAM:SF-APPS-056 | Study family SF-APPS-056: Historical series_analysis backtest: winner and PT-rank Spearman
+- observed_research_question: Historical series_analysis backtest: winner and PT-rank Spearman
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Pregame predicted series winner and predicted PT-PPP ranks match realized playoff series outcomes.
+- observed_result: Winner: 27 CONFIRMED / 18 CONTRADICTED of 45 (60%). Canonical-10 team-side Spearman median ~0.536 (20 sides); series-mean median ~0.554. Example phi_bos_2526: predicted BOS (85.2% conf, PHI baseline 7.4%) CONTRADICTED (PHI 4-3); scheme-adjusted Spearman PHI 0.714, BOS 0.452. Chat 6 also cites RS holdout methodology rho=0.54, n=454, MAE 0.0922 PPP from pipeline_report_metadata.json.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Winner hit 27/45 with no CI; per-series Spearmans range from PHI_BKN -0.024 to MIN_DEN 0.905; RS 0.54 is a hand-maintained headline file.
+- observed_sample_and_power: 45 series with series_analysis.md; canonical 10 for tabulated rho
+- observed_method: 45 series_analysis.md reports (51 slug folders). Winner from predictions.json vs actual. Spearman of pregame PT PPP ranks vs observed series PPP-by-PT. Canonical-10 Spearmans tabulated in Chat 6.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPS-056: 'djusted spearman phi 0.714, bos 0.452. chat 6 also cites rs holdout methodology rho=0.54, n=454, mae 0.0922 ppp from pipeline_r'
+- observed_notes: Family of repeated series backtests. Individual TEAM_vs_TEAM generated reports in reports/ and demo_reports/ were not scored as experiments. Remaining 6 series_analysis folders lack series_analysis.md.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-056: 2026-04-30 (mtime)
+- observed_member_records: APPS-056
+- observed_sources: APPS-056: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\Chats\6. cursor_spearman_correlation_for_basketb.md
+- observed_sources: APPS-056: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\series_analysis\phi_bos_2526\series_analysis.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-003 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-008 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-085 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

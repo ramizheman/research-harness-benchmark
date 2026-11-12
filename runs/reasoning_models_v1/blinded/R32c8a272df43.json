@@ -1,0 +1,144 @@
+{
+ "blind_id": "R32c8a272df43",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE preceding a PNR",
+   "sequential possession sequence",
+   "points per possession (PPP)",
+   "play-type labeling",
+   "DRIVE->PNR transition"
+  ],
+  "methodological_questions": [
+   "measurement reliability of play-type labels for DRIVE and PNR",
+   "temporal sequence definition for same-team offensive possessions",
+   "confounding by game state, lineup, and opponent response",
+   "sample size for DRIVE->PNR sequences with different initiators",
+   "placebo dependence and multiplicity in sequential premium analysis"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline, and every PT has a defensive aftershock. A2 aftershock 8/8 PTs replicate all-games and playoffs (CUT +0.119 n=21,398 / PO +0.131 n=1,145 through TRANSITION +0.135 n=26,262 / +0.126 n=1,529). Top pair premiums: PUTBACK->TRANSITION +0.084 n=565; CUT->PULL_UP +0.065 n=2,620."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Specific same-player and teammate X->Y sequences carry PPP premiums above Y's baseline. Top same-player: P. George DRIVE->SPOT_UP +0.560 n=31 t=+2.2; L. Doncic DRIVE->PNR +0.309 n=53. Top teammate: J. Brown->J. Tatum DRIVE->PNR +0.326 n=43. Bottom: D. Bane DRIVE->PNR -0.324 n=70 t=-2.7. Most cells DIRECTIONAL (n<50). Later Brown->Tatum +0.326 was shown to be a placebo artifact ([prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences are real efficiency, not labeling/foul artifacts. OTHER: 36% end in fouls, PPP inflated (FOUL_BUCKET). DRIVE: 12pp below foul benchmark (FOUL_LEAK). PNR shows 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "PBP-derived shot-level PNR rates sit in a realistic band and vary by team. 2024-25 shot-level PNR share of half-court shots ranges from OKC 7.567% to IND 13.824%. Rates are a calibration input for PBPProxyPNR (later logs show calibrated PNR ~17.9-19.6% of possessions)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Descriptive exploration of player and teammate sequential premiums, including DRIVE->PNR",
+    "why": "small sample (many cells n<50), no multiplicity correction, mixed signs, and later a prominent teammate DRIVE->PNR case (Brown->Tatum +0.326) was identified as a placebo artifact"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Audit of play-type labeling for DRIVE and PNR",
+    "why": "DRIVE PPP is 12pp below a foul benchmark due to foul leakage; initiation_type maps only 0.7% of possessions, indicating severe classification errors that would bias any DRIVE->PNR PPP analysis"
+   }
+  ],
+  "evidence_establishes": [
+   "[prior work] directly investigated teammate DRIVE->PNR sequences and found no consistent PPP premium; some positive cases were later artifacts and small samples preclude reliable inference.",
+   "SF-[prior work] demonstrates that play-type labels for DRIVE and PNR suffer from systematic errors (foul leakage, low initiation_type mapping) that would distort PPP comparisons.",
+   "[prior work] shows that sequential premiums exist on opponent-offense pairs, but the defensive aftershock pattern does not directly address teammate-offense sequences."
+  ],
+  "evidence_does_not_establish": [
+   "whether a real causal effect of a preceding teammate DRIVE on PNR PPP exists after correcting for labeling bias and confounding",
+   "the true sample size of DRIVE->PNR sequences with distinct initiators across multiple seasons",
+   "the magnitude of confounding from game context, lineup, and opponent adjustments that could mimic a premium"
+  ],
+  "own_inferences": [
+   "The combination of small expected sample sizes (especially requiring different initiators), known labeling artifacts for DRIVE and PNR, and the previous failure to find robust premiums in a closely related analysis strongly suggests that a simple hypothesis test of the broad question will be underpowered and highly susceptible to artifacts.",
+   "Even a well-designed study would first require substantial improvements in play-type classification reliability and an explicit strategy to handle confounding, neither of which is part of the posed question."
+  ],
+  "uncertainties": [
+   "exact number of same-team DRIVE->PNR transitions in the available data",
+   "whether improved labels could rescue the analysis",
+   "whether a consistent effect exists for some subset of teams or players but is averaged out in the full sample"
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the historical evidence, the question might have appeared testable by simply comparing PPP of PNR possessions preceded or not preceded by a teammate DRIVE. The evidence shows that a nearly identical analysis ([prior work]) was attempted and produced fragile, small-sample results that were later partly attributed to a placebo artifact, and a concurrent labeling audit (SF-[prior work]) reveals systematic errors in DRIVE and PNR labels that would invalidate a PPP comparison. These findings convert an initially plausible question into one with a high risk of producing a spurious artifact."
+  },
+  "testability": {
+   "p_testable": 0.12,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play-type labels for DRIVE and PNR are known to suffer from foul leakage and low initiation_type mapping (SF-[prior work]), biasing PPP measurements."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Teammate DRIVE->PNR sequences with different initiators are likely rare; [prior work] found most cells had n<50 even when pooling multiple seasons, and the generic question would still require enough observations to detect a plausible premium."
+    },
+    {
+     "code": "PLACEBO_DEPENDENCE",
+     "text": "[prior work] found that a prominent positive case (Brown->Tatum DRIVE->PNR) was later identified as a placebo artifact, indicating that uncorrected sequential premiums can reflect noise rather than signal."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "[prior work] explored teammate DRIVE->PNR PPP premiums descriptively and found mixed, small-sample results, later partly retracted as placebo artifacts. SF-[prior work] exposed fundamental labeling problems that would bias any DRIVE->PNR test. The core empirical question has therefore been informally examined with discouraging outcomes, but no formal, adequately corrected hypothesis test has been performed."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "DRIVE and PNR play-type labels are error-prone (foul leakage, low initiation_type mapping) leading to misclassification of the exposure and outcome."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The number of qualifying sequences (teammate DRIVE immediately preceding PNR with a different initiator) is likely small, reducing power and inflating the risk of false positives."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game state (score margin, clock), lineup quality, opponent defensive disruption, and pace may correlate with both a DRIVE occurrence and subsequent PNR success."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Sequential premiums found in exploratory analyses can be artifacts of noise, as shown by the Brown->Tatum DRIVE->PNR retraction."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Although the question appears singular, any exploratory search across players or subsets would introduce multiplicity."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.2,
+   "artifact": 0.5,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The difference in points per possession (PPP) for PNR possessions that are immediately preceded (on the next same-team offensive trip) by a DRIVE possession initiated by a different teammate, compared to PNR possessions not so preceded, controlling for game and possession covariates.",
+   "unit": "A same-team offensive possession pair (t, t+1 in same-team sequence), where possession t is DRIVE and possession t+1 is PNR with a different initiator.",
+   "sample": "All such possession pairs from NBA regular season and playoff games in 2022-23 through 2025-26, excluding garbage time (Q4/OT with margin ≥ 20 pts) and possessions with ambiguous play-type labels (e.g., those failing high-confidence classification thresholds).",
+   "power": "Using a two-sample t-test with unequal variances, with alpha = 0.05 (one-sided), a sample of ~1,500 DRIVE→PNR pairs would provide 80% power to detect a PPP difference of ~0.08, which is plausible based on [prior work]’s scattered observations. The actual sample size is unknown but expected to be borderline, making the test underpowered for small effects.",
+   "controls": "Linear regression adjustment for: score margin at start of the DRIVE possession, period, seconds remaining in period, home/away, rest days, five-man lineup strength (SRS or net rating), indicator for whether the DRIVE resulted in a made basket or defensive rebound vs. other end-of-possession events, and opponent defensive rating in the prior 10 games.",
+   "falsification": "1) Test the same premium for DRIVE→play-type pairs other than PNR (e.g., DRIVE→SPOT_UP, DRIVE→ISO) to see if any outperformance is generic. 2) Use a pseudo-predecessor placebo: compare PNR PPP when the preceding same-team possession was two possessions ago and the intervening possession was not a DRIVE, expecting no premium. 3) Check symmetry by examining whether a preceding PNR raises DRIVE PPP.",
+   "multiplicity": "The analysis tests a single pre-registered contrast (DRIVE→PNR vs. no-DRIVE). No multiplicity correction is required, but all checks listed under falsification are reported with unadjusted p-values and interpreted qualitatively.",
+   "decision_rule": "Reject the null (no premium) if the one-sided p-value from the regression-adjusted model is < 0.05 and the point estimate is positive with a magnitude ≥ 0.03 PPP, with cluster-robust standard errors at the team×season level. A finding is considered spurious if any falsification test is significant in the same direction or if sensitivity analyses removing low-confidence labels halve the estimate.",
+   "data_version": "Graph database of play-type possession records built from NBA stats API play-by-play, as of 2026-06-14."
+  }
+ },
+ "redactions": 24
+}

@@ -1,0 +1,133 @@
+{
+ "blind_id": "Rc33e3ced77fb",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "AVOID labels",
+   "next-possession opponent PPP",
+   "carryover effects after offensive play type",
+   "own-sequence lags"
+  ],
+  "methodological_questions": [
+   "Reliability of derived play-type classification from play-by-play",
+   "Sample size and sparsity for infrequent play types",
+   "Confounding by game state, lineup quality, and score differential",
+   "Appropriate possession-level PPP definition (handle end-of-quarter heaves, transition starts)",
+   "Multiple testing across many play types",
+   "Risk of regression-to-the-mean selection bias",
+   "Causal identification of carryover effect versus pre-existing differences",
+   "Threshold and statistical power for AVOID label decisions"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [],
+  "own_inferences": [
+   "The availability of multiple seasons and possession-level play-type records makes a broad correlational analysis feasible.",
+   "Causal interpretation of differences in opponent next-possession PPP will be severely limited without controlling for lineup quality, score, and time remaining.",
+   "Play-type sparsity will likely make inference unreliable for less common types, requiring either aggregation or exclusion.",
+   "AVOID labeling based solely on observed PPP differences risks overfitting to noise and ignoring confounding.",
+   "Own-sequence lags add a further layer of complexity and potential confound (e.g., past success may affect play-calling)."
+  ],
+  "uncertainties": [
+   "Exact size of opponent next-possession PPP differences for each play type under an adequately controlled model.",
+   "True false-positive rate when deciding AVOID labels after multiplicity adjustments.",
+   "Data quality of derived play-type fields, especially for ambiguous transition or broken-play sequences.",
+   "Whether own-sequence lags provide independent signal or merely reflect the same confounding structure as opponent carryover.",
+   "Stability of carryover effects across seasons and playoff versus regular-season settings."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No prior studies were retrieved; the decision relies entirely on methodological assessment of the question and data."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Many play types have insufficient sample sizes for reliable opponent next-possession PPP estimation."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Game state, lineup strength, and score differential are strong confounders of both play-type choice and next-possession outcomes."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing dozens of play types inflates false positives unless stringent multiplicity correction is applied, reducing power."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Plays called after sequences of unsuccessful possessions may show spurious next-possession improvement due to regression to the mean."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Play-type derivation from play-by-play may misclassify broken or transition plays, adding noise."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No historical studies were retrieved from the project's records relevant to this specific question."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Infrequent play types (e.g., post-ups, hand-offs) may have fewer than 100 occurrences per season, leading to unstable PPP estimates and low power."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Without controlling for offensive/defensive lineup net rating, score differential, and game clock, any apparent carryover effect may be entirely spurious."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Evaluating many play types without pre-registration of hypothesis families and multiplicity correction will produce false AVOID labels."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If play type X is more frequently called after a poor offensive sequence, the next possession is likely to regress upward, creating a false signal of a beneficial carryover (or masking a harmful one)."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The accuracy of derived play-type labels in the available graph database is unknown; misclassification dilutes effect sizes and introduces bias."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If AVOID labels are defined using future data (e.g., a season average PPP), using the same data to test the effect creates circularity. A strict temporal split is required."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The decision to label a play as AVOID based on the observed next-possession PPP needs a pre-specified, out-of-sample threshold to avoid overfitting."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "If the baseline opponent next-possession PPP varies little across contexts, even a small raw difference could be statistically significant but practically meaningless."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Carryover effects may change across seasons or between regular season and playoffs, limiting the applicability of labels derived from historical data."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.15,
+   "untestable": 0.25,
+   "artifact": 0.3,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Conditional average opponent next-possession PPP (points per 100 possessions) for each offensive play type, adjusted for game state, lineup strength, and season, estimated separately for each play type versus a robust overall baseline.",
+   "unit": "One offensive possession ending in a classified play type (excluding end-of-quarter heaves, clear garbage time, and possessions with missing defensive matchup data).",
+   "sample": "NBA 2022-23, 2023-24, and 2024-25 full regular seasons (pooled) for training; NBA 2025-26 regular season (post-May 2026 data) held out for validation. Exclude possessions where next possession is not clearly defined (quarter ends, overtime).",
+   "power": "Calculated pre-registration: detect a ≥ 2.0 PPP difference (Cohen's d ~ 0.1) with 80% power at α = 0.05/30 (Bonferroni) requiring about 25,000 possessions per play type. Only play types with at least 5,000 observed possessions across the training sample will be evaluated; others aggregated into 'other' or excluded.",
+   "controls": "Score differential (binned: -10+, -5 to -10, within 5, +5 to +10, +10+), period (1-4, OT), seconds remaining in period, offensive lineup net rating (rolling 10-game), defensive lineup net rating, home/away, result of preceding offensive possession (made/missed shot, turnover), clustered standard errors at team-season level.",
+   "falsification": "1) Placebo test: opponent PPP on the second next possession after the index play should show no systematic difference by play type under the null. 2) Random shuffling of play-type labels within possession windows to establish empirical null distribution. 3) Test that effect remains when restricting to possessions following made baskets to reduce RTM.",
+   "multiplicity": "Pre-register the set of play types to test (max 25 common types). Use Benjamini-Hochberg FDR control at 0.05 across all play types. For AVOID label classification, require effect size ≥ +1.5 opponent PPP and FDR-adjusted p < 0.05, and confirm sign stability in the 2025-26 holdout season.",
+   "decision_rule": "A play type is flagged for AVOID label if the adjusted 95% confidence interval for opponent next-possession PPP exceeds the league baseline by > 1.5 points per 100 possessions (a pre-registered practical threshold) and replicates in the holdout season with same direction and p < 0.10 (one-sided). No AVOID label assigned if the holdout fails or placebo tests are violated.",
+   "data_version": "NBA stats API per-game files frozen as of 2026-06-19 for training seasons; 2025-26 data version as of 2026-06-19 for validation. Play-type records from the project graph database built from these play-by-play sources, version tagged as of that date."
+  }
+ },
+ "redactions": 0
+}

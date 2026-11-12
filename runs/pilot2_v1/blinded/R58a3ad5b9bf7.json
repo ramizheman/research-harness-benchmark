@@ -1,0 +1,85 @@
+{
+ "blind_id": "R58a3ad5b9bf7",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does changing the offensive five (lineup personnel) significantly alter a team's shot mix?",
+  "retrieval_summary": {
+   "prior_findings": [],
+   "failed_experiments": [
+    {
+     "id": "RES:[prior work]",
+     "status": "artifact",
+     "summary": "An experiment failed due to an artifact, with evidence pointing to a 'shooter-level confound' when examining an effect related to a shooter's earlier performance and other play types. The effect shrank significantly without lineup fixed effects and was similar to placebo effects on other play types."
+    },
+    {
+     "id": "[prior work][prior work]",
+     "status": "artifact",
+     "summary": "Confirmed an artifact found in EXP:[prior work], ruling out the associated hypothesis for that specific design and data due to a 'shooter-level confound'."
+    }
+   ],
+   "limitations": [
+    {
+     "id": "RES:[prior work]",
+     "text": "The presence of a 'shooter-level confound' highlights a methodological challenge in isolating effects related to individual player actions (like shooting) when aggregated to a lineup or team level, which is critical for shot mix analysis."
+    }
+   ],
+   "unresolved": [
+    {
+     "id": "RES:[prior work]",
+     "text": "The specific effect investigated in EXP:[prior work] remains unresolved due to the artifact. More broadly, how to properly account for individual player tendencies (shooter-level effects) when analyzing aggregated shot data for lineups is a challenge."
+    }
+   ]
+  },
+  "evidence_use": "The retrieved history does not contain direct prior findings supporting or rejecting the claim that changing the offensive five itself moves shot mix. Experiments like EXP:[prior work] and EXP:[prior work] discuss opponent defensive personnel affecting offense mix, which is related but not directly on the offensive personnel effect. RES:[prior work] is about points per possession, not shot mix. The most relevant information is the identification of a 'shooter-level confound' in RES:[prior work] and [prior work][prior work]. This is a critical warning, indicating that any analysis of shot mix must carefully control for the individual shooting tendencies and roles of the players within a lineup to avoid attributing individual player effects to lineup changes. The absence of direct prior work means this question is largely unaddressed by the project's history, but the artifact finding provides valuable guidance on potential pitfalls.",
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "RES:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work does not directly answer whether changing the offensive five itself moves shot mix. However, previous research (RES:[prior work], [prior work][prior work]) has identified 'shooter-level confounds' as a significant issue when analyzing effects related to individual player shooting, which is highly relevant to this research question."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Offensive system and coaching strategy are highly confounded with personnel choices, making it challenging to isolate the effect of personnel changes alone. A coach might change personnel to implement a different strategy, or a strategy might only be viable with specific personnel. The 'shooter-level confound' identified in prior work (RES:[prior work]) is a specific instance of confounding relevant to shot data."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Specific offensive five combinations might not have enough minutes together to yield stable shot mix statistics, especially when attempting to isolate the effect of one or two player changes within a lineup. Rare lineup combinations may lack sufficient data for robust analysis."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Shot mix can evolve over a season due to player development, injuries, fatigue, and strategic adjustments. This non-stationarity can confound the observed effects of lineup changes if not properly accounted for (e.g., by using within-season comparisons or time-based controls)."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Shot mix percentages have natural bounds (0-100%). While not a severe issue, large changes might be harder to detect if a team is already at an extreme for a particular shot type."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.5,
+   "rejected": 0.15,
+   "untestable": 0.15,
+   "artifact": 0.15,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing one or more players in a team's offensive five lineup on the team's subsequent shot mix, specifically focusing on the proportion of attempts from different shot zones (e.g., restricted area, mid-range, three-point line).",
+   "unit": "Offensive possession for a specific team.",
+   "sample": "All offensive possessions from the 2022-23, 2023-24, and 2024-25 NBA regular seasons and playoffs. The analysis will focus on transitions between different five-player offensive lineups for the same team, considering only changes involving 1-2 players to better isolate personnel effects. Lineups with fewer than a minimum threshold of possessions (e.g., 50-100 possessions) will be excluded to ensure statistical stability. We will specifically focus on within-game and within-season changes to mitigate drift.",
+   "power": "Achieve 80% power to detect a 2-percentage-point change in the proportion of shots from a specific zone (e.g., 3-point attempts) with a significance level of alpha = 0.05, assuming an average baseline proportion of 35% and a standard deviation derived from historical data. This will require a sufficient number of lineup transitions and subsequent possessions for analysis.",
+   "controls": "Match on recent offensive efficiency (e.g., points per 100 possessions over the prior 50 possessions), opponent defensive rating, game state (score differential, quarter, time remaining), and home/away status. Use fixed effects for team and opponent to control for baseline differences. Crucially, to address the 'shooter-level confound' (RES:[prior work]), player-level fixed effects for each player on the court, or a robust player-skill adjustment for their expected shot mix contribution, will be incorporated. A difference-in-differences approach will compare shot mix before and after a lineup change, controlling for contemporaneous team-level trends and player-specific shot tendencies.",
+   "falsification": "If changes in defensive personnel on the opposing team are found to correlate strongly with changes in the observed team's shot mix, it would cast doubt on the claim that offensive personnel changes are the primary driver. Additionally, if 'placebo' lineup changes (e.g., changes that occur due to timeouts or other non-personnel-driven interruptions) show similar shot mix shifts after controlling for all other factors, it would suggest an artifact or unmeasured confound. We will also test if the estimated effect on shot mix is primarily driven by changes in the shot distribution of the *newly entered* players, rather than a systemic change for the entire lineup.",
+   "multiplicity": "Adjust p-values for multiple comparisons if testing changes across multiple shot zones (e.g., restricted area, mid-range, three-point) or for multiple types of lineup changes (e.g., 1-player vs. 2-player changes). A Bonferroni correction or False Discovery Rate control will be applied.",
+   "decision_rule": "The research question will be considered 'supported' if there is a statistically significant (p < 0.05 after multiplicity adjustment) and substantively meaningful (e.g., >= 2 percentage point change) alteration in at least one key shot mix category (e.g., 3-point attempt rate, restricted area attempt rate) following a change in offensive personnel, after rigorously controlling for confounding factors including player-specific tendencies. The 'design can detect personnel effects' aspect will be inferred if such an effect is observed, particularly if it's distinct from individual player effects.",
+   "data_version": "NBA 2022-23 regular season and playoffs, NBA 2023-24 regular season and playoffs, NBA 2024-25 regular season and playoffs. Data will be derived from play-by-play, substitution rotation intervals, and derived play-type possession records."
+  }
+ },
+ "redactions": 21
+}

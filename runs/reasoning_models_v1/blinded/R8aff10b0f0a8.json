@@ -1,0 +1,105 @@
+{
+ "blind_id": "R8aff10b0f0a8",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "counter strategy",
+   "recommended mix",
+   "winning"
+  ],
+  "methodological_questions": [
+   "How to operationally define a suppression-conditional recommended mix from play-type and defensive matchup data",
+   "How to measure adherence to the recommended mix without lookahead bias",
+   "How to assess predictive performance for series/game outcomes given the small number of series"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No previous project studies were retrieved, so no prior findings establish anything about this question."
+  ],
+  "evidence_does_not_establish": [
+   "No evidence from prior project work is available, so the feasibility, effect size, and best methodology are entirely unestablished."
+  ],
+  "own_inferences": [
+   "The question proposes a predictive relationship that can be tested with the available data if the recommended mix is clearly defined and the time-series structure is respected.",
+   "The primary unit (54 series) is likely the number of playoff series, which is a very small sample for robust prediction when the predictor is a derived metric that itself requires estimation.",
+   "Switching to a game-level analysis (using hundreds of games) with series-level clustering or hierarchical modelling would substantially increase power and is feasible given the per-game files.",
+   "The construct 'suppression-conditional recommended mix' is under-specified; an operational definition must specify what constitutes a defensive suppression, what counts as a counter strategy, and how the recommended mix is computed (e.g., league-wide efficiency, matchup-specific optimisation).",
+   "Adherence could be measured as divergence (e.g., Kullback-Leibler) between actual offensive play-type distribution and recommended distribution in possessions following a suppression."
+  ],
+  "uncertainties": [
+   "Exactly what defensive events count as 'suppression' (e.g., forced isolation, denied pick-and-roll, forced long mid-range) and whether they can be reliably tagged from play-by-play or derived play-type data.",
+   "Whether the recommended mix is static for a team or varies opponent-by-opponent, series-by-series, or in-game, and how to avoid overfitting when deriving it.",
+   "Whether 'winning' refers to winning the series (binary) or winning individual games (binary/margin) and what level of analysis (series vs. game) the investigator intended."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was retrieved, so the decision is based solely on methodological assessment of the current data and question."
+  },
+  "testability": {
+   "p_testable": 0.35,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 54 series available; detecting a realistic predictive effect requires careful power analysis, and series-level analysis is likely underpowered."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The definition of suppression-conditional recommended mix is ambiguous and may be measured with substantial noise, diluting any true signal."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "If the recommended mix is derived using within-series data or future outcomes, the test will be trivially inflated; a strict temporal or leave-one-series-out scheme is required."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior project studies were retrieved; thus no answer from earlier work is available."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "54 series provide limited statistical power; a moderate association (e.g., AUC 0.65) would require a larger sample to reach conventional significance."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Operationalising 'suppression-conditional recommended mix' and 'adherence' likely involves many arbitrary choices (threshold, similarity metric, time window) that heavily influence the result."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Better teams may both adhere more to optimal strategies and win more; the observed association could be largely driven by team quality rather than adherence itself."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If the recommended mix is derived from the same playoff games used to test the prediction, the predictor becomes contaminated with outcome information."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Without pre-registration of a single definition, the many researcher degrees of freedom in defining the exposure can lead to inflated false-positive risk."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.1,
+   "untestable": 0.4,
+   "artifact": 0.2,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The predictive value of game-level adherence to a pre-defined suppression-conditional recommended offensive mix for game outcome (win/loss), controlling for team strength.",
+   "unit": "One playoff game (team‑game observation).",
+   "sample": "All playoff games from the 2022-23 through 2025-26 seasons for which play-by-play and defensive matchup data are available, with the 54 series used as cluster identifiers.",
+   "power": "With ~800 playoff games, a logistic regression with team fixed effects and series random effects can detect an odds ratio of ~1.5 at 80% power if the exposure is continuous and moderately reliable. A simulation-based power analysis should confirm the minimum detectable effect.",
+   "controls": "Pre-game team Elo rating or regular-season SRS to partial out general team quality; home/away indicator; playoff round; rest days.",
+   "falsification": "Test whether adherence predicts win margin in regular-season games late in the season after playoff motivation is accounted for, or whether within-series adherence differs between wins and losses for the same team using a permutation test that breaks outcome dependence. An alternative falsification: correlate adherence with a future measure of team quality (e.g., next-season win total) to rule out that it merely proxies for underlying strength.",
+   "multiplicity": "Pre-register one primary definition of suppression events (e.g., possessions where the defense forced the offense into a play type whose league-average points per possession was below 0.90 in the previous season) and one adherence metric (e.g., symmetric Kullback-Leibler divergence between observed play-type proportions and recommended proportions). All other specifications are exploratory.",
+   "decision_rule": "Primary test: logistic regression of game win on adherence, controlling for pre-game Elo, with standard errors clustered by series. Significance at p < 0.05 (two-tailed). Direction: higher adherence predicts higher win probability.",
+   "data_version": "NBA stats API per-game files as of 2026-06-16, with play-by-play and derived play-type possession records from the project's graph database; 2025-26 playoffs data frozen on June 21, 2026."
+  }
+ },
+ "redactions": 0
+}

@@ -1,0 +1,36 @@
+# EXP:APPM-052 | MIA vs BOS G6 2023 agent adaptation review
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Two LLM adaptation reviews of the same game plus generated playsheets. Agent review and FIXED copy are identical. Tactical review uses a different PT table.
+- hypothesis: MIA failed to pivot after H1-H2 suppression of PULL_UP/PNR in 2023 ECF G6 (0042200306), leaving points vs H2H baseline.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-052; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-052 {record=APPM-052; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: MIA_G6_2023_AGENT_REVIEW_FIXED.md is a byte-identical copy of the unfixed file. Ranked/tiered/v2 playsheets are app output (CUT opener, AVOID PNR) without outcome scoring.
+- prespecified: no
+- produced: RES:APPM-052 {record=APPM-052; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-022 Superstar suppression; sequential premiums
+- related_to: EXP:APPM-022 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-052; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_G6_tactical.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_G6_v2_playsheet.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_ranked_playsheet.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_tiered_playsheet.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_G6_2023_AGENT_REVIEW.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_G6_2023_AGENT_REVIEW_FIXED.md
+- title: MIA vs BOS G6 2023 agent adaptation review
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPM-052; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-052; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPM-052; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-052 | Result of APPM-052
+- failure_evidence: n=1 game; two reviews disagree on the primary miss (PULL_UP vs PNR) and on whether overall H2 PPP fell (0.971 vs 1.171) because possession classification differs.
+- failure_type: E_unclear
+- power_info: n=1 game; H2 cells n=4 to 9
+- primary_result: Agent review: H1 PPP 1.158 -> H2 0.971. PULL_UP 1.6 (n=5) -> 0.5 (n=6); cost vs H2H 1.361: (1.361-0.5)*6=5.166 points. PNR 1.0 (n=4) -> 0.333 (n=6); cost (1.0-0.333)*6=4.002. Combined 9.168 points. Tactical review: reportable-PT overall 1.157 (n=38) -> 1.171 (n=35); PNR 1.0 (n=4) -> 0.333 (n=6), cost vs H2H 1.172: 4.895 points; PULL_UP 1.25 (n=4) -> 0.75 (n=4).
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

@@ -1,0 +1,118 @@
+{
+ "blind_id": "Ra503af54e426",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR fail",
+   "pull-up jump shot",
+   "counter strategy",
+   "lift",
+   "unit of analysis"
+  ],
+  "methodological_questions": [
+   "Operational definition of PNR fail (defensive stop criteria)",
+   "Baseline for lift measurement (expected points per possession for pull-ups without failed PNR)",
+   "Definition of unit (team, player, lineup) and aggregation level",
+   "Sample size and sparsity of the sequence PNR fail -> pull-up",
+   "Confounding by game situation and shot clock",
+   "Regression to the mean after unusual event",
+   "Multiple testing across units",
+   "Play-type classification reliability in derived data"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No prior work found; nothing established."
+  ],
+  "evidence_does_not_establish": [
+   "Everything regarding this specific hypothesis remains open."
+  ],
+  "own_inferences": [
+   "The sequence can likely be identified from play-by-play and derived play-type possessions, but the exact meaning of 'PNR fail' and 'units' must be clarified before testing.",
+   "Sparsity of the specific chain (defensive stop of PNR immediately followed by a pull-up) may be severe, limiting per-unit sample size and power.",
+   "The median lift of >2pp across units is a fairly high bar relative to typical half-court efficiency variation, especially after an empty possession."
+  ],
+  "uncertainties": [
+   "Exact definition of 'PNR fail' is absent from the task; needs operationalization.",
+   "'Units' not specified — could be teams, player pairs, or lineups, which strongly affects power.",
+   "Lift baseline unclear: compared to overall pull-up efficiency? After non-failed PNR? After any random possession?",
+   "Whether the derived play-type records already classify events with sufficient accuracy for this specific sequence."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was returned, so the decision is based solely on methodological assessment."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The sequence 'PNR fail -> immediate pull-up' is likely rare. If many team-seasons have fewer than 30 such events, power to detect a 2pp median lift per unit will be insufficient, making the 70% criterion untestable."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "The term 'PNR fail' has no standard definition. A poor operationalization (e.g., zero points vs. turnover-only) could misclassify events and bias the lift estimate."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "After a failed possession, the offense often faces a shorter shot clock or a more set defense, which depresses pull-up efficiency. Any observed lift may reflect these conditions rather than a strategic counter, requiring careful baseline adjustment."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "A failed PNR is a below-average outcome; subsequent possessions naturally regress toward the mean. The measured lift could be a regression artifact, not a counter effect."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier studies were retrieved; the hypothesis appears novel in this specific formulation."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "The specific sequence (defensive stop of PNR immediately followed by a pull-up) is expected to be infrequent, leading to imprecise unit-level estimates and impossibility to test the 70% criterion with adequate power."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Classification of pull-up shots and PNR actions depends on play-type tagging accuracy. Misclassification could attenuate or inflate measured lift."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game situation (score, time, shot clock, opponent defensive strength) differs systematically after a failed possession. Failure to control for these factors could produce a spurious lift estimate."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Possessions following a zero-point outcome naturally regress to a higher efficiency, potentially generating a positive lift without any strategic counter."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing the >0 condition across many team-seasons inflates type-I error. Correction for multiplicity is required, reducing power further."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "A median lift of >2pp across units implies a large effect relative to typical possession-level variation. If the true effect is small, the study will likely fail to meet the threshold."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.1,
+   "untestable": 0.4,
+   "artifact": 0.1,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Difference in points per possession (PPP) for pull-up jump shots that immediately follow a defensive stop of a pick-and-roll possession (PNR fail) compared to pull-up jump shots in all other contexts (excluding those after offensive rebounds and broken plays), at the team-season level.",
+   "unit": "Team-season (offensive team, each regular season).",
+   "sample": "All NBA regular-season possessions from 2022-23 through 2025-26 (completed) where the offensive team ran a pick-and-roll (ball-handler or roll-man) and the possession ended with zero points (defensive stop), AND the very next possession by that team ended with a classified pull-up jump shot. Exclude garbage time (point differential > 20 in the last 5 minutes of the 4th quarter), end-of-quarter heaves, and possessions starting with fewer than 8 seconds on the shot clock.",
+   "power": "Estimate via simulation: assume true per-team median lift of 2.5 pp, within-team sequence-level SD of 5 pp. A minimum of 30 qualifying sequences per team-season yields 80% power for a signed-rank test of median > 0 at α=0.05, and sufficient precision for the global median comparison. Only team-seasons with ≥30 sequences are retained; report the proportion of retained units.",
+   "controls": "Adjust for game situation: period, time remaining, score margin (up to ±10), offensive player on floor (fixed effects for primary ball‑handler), opponent defensive rating (adjusted for season), and whether the preceding PNR fail was a turnover or a missed field goal. Use inverse probability of treatment weighting (propensity score) to balance the distribution of pull-ups that follow failed PNRs versus other pull-ups.",
+   "falsification": "Placebo test 1: compute lift for pull-ups that follow a successful PNR (points > 0) — the lift should be near zero or negative. Placebo test 2: shift the counter back one possession — measure pull-up efficiency in the possession before the PNR fail; there should be no elevated lift. Placebo test 3: repeat the analysis using a non-counter shot type (e.g., catch-and-shoot threes) after a failed PNR and verify lift is not present.",
+   "multiplicity": "Benjamini-Hochberg correction applied to the set of p-values testing lift > 0 across all team-seasons. The global median lift is estimated by the median of the team-season point estimates; a 95% percentile bootstrap confidence interval (10,000 samples, resampling team-seasons) is constructed around the global median.",
+   "decision_rule": "Conclude 'supported' if: (i) global median lift ≥ 2.0 pp, (ii) at least 70% of team-seasons have point estimate > 0, and (iii) lower bound of the 95% bootstrap CI for the global median exceeds 1.5 pp. Conclude 'rejected' if the global median lift CI includes values below 2.0 pp and power is adequate. Conclude 'uncertain' if fewer than 50% of team-seasons meet the sample-size threshold or if the CI is too wide to rule out both 0 and 2 pp. 'Artifact' is considered if placebo tests indicate a pattern consistent with regression to the mean.",
+   "data_version": "NBA 2022-23 through 2025-26 regular-season per-game files (NBA stats API), including play-by-play with action types/sub-types, shot distance and result, derived play-type possession records (initiator, play type, points), and box-score summaries. Derived graph database will be used to chain possessions."
+  }
+ },
+ "redactions": 0
+}

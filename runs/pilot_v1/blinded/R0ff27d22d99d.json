@@ -1,0 +1,66 @@
+{
+ "blind_id": "R0ff27d22d99d",
+ "task_statement": "Research question (as posed on 2026-08-08, in the area of structural roles and influence):\nCut-heavy shapers' roles travel better than drive-heavy ones.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=24\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.2,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "The sample size of n=24 shapers is extremely small for a comparison between two groups (cut-heavy vs. drive-heavy). This will lead to very low statistical power, making it difficult to detect a true effect even if one exists, or leading to highly uncertain results. The definition of 'travel better' as measured by variance across contexts also requires sufficient data points for each player."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Defining 'cut-heavy' and 'drive-heavy' shapers based on a threshold (e.g., 60% of possessions) on play-type data may not reliably capture the qualitative 'heaviness' of their role or sufficiently differentiate players. The specific 'travel better' metric (variance of adjusted efficiency) is also subject to reliability concerns due to the small number of contexts per player and the potential for confounding factors not fully controlled by 'adjusted efficiency'."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "The question of 'roles traveling better' is highly susceptible to confounding. Player skill, team context, coaching schemes, and available teammates all influence a player's effectiveness and how their role might 'travel'. While 'adjusted efficiency' attempts to control for some factors, it might not fully account for all relevant confounders when comparing different play styles across different teams/seasons."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior research in the project's history directly addresses the question of whether cut-heavy shapers' roles travel better than drive-heavy ones. The concepts of 'shapers', 'cut-heavy', and 'drive-heavy' are defined within the project's glossary, suggesting they are established internal terms, but their comparative 'travel' ability has not been studied."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "With only n=24 shapers, split into two groups, it's highly improbable to achieve sufficient statistical power to draw robust conclusions about the difference in 'travel' ability between cut-heavy and drive-heavy shapers."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The derivation of 'cut-heavy' and 'drive-heavy' from play-type data, while defined, might not fully capture the nuanced nature of a player's role or the 'heaviness' implied. The outcome measure of 'traveling better' (variance of adjusted efficiency across contexts) needs careful validation for its reliability as a proxy for role generalizability."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The 'adjusted efficiency' attempts to control for some factors, but the inherent complexity of basketball roles means that unobserved confounding variables (e.g., specific team needs, coaching philosophies, other star players) could heavily influence how a player's role manifests and performs in different contexts, making it difficult to isolate the effect of play-type 'heaviness'."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "For each of the 24 shapers, we need sufficient 'contexts' (distinct team-season combinations) to calculate the variance of their adjusted efficiency. If many shapers only played for one or two teams/seasons during the study period, the 'travel' metric will be unreliable or undefined for them."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.6,
+   "artifact": 0.1,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The difference in the variance of context-adjusted offensive efficiency between 'cut-heavy' shapers and 'drive-heavy' shapers.",
+   "unit": "Player-context (a player's performance in a specific team-season combination). The primary unit of analysis for comparison is the player.",
+   "sample": "All players identified as 'shapers' (initiating >= 20% of team possessions) from the NBA 2022-23, 2023-24, and 2024-25 seasons. Exclude players from partial 2025-26 data. Further filter to players who played for at least 3 distinct team-season combinations during this period to allow for variance calculation. Classify shapers as 'cut-heavy' if >= 60% of their initiated possessions are 'cuts', and 'drive-heavy' if >= 60% are 'drives'. The stated n=24 units is the current constraint, which is insufficient.",
+   "power": "Not estimable with the current n=24. A robust study would require a significantly larger sample of shapers with sufficient context diversity (e.g., hundreds of shapers, each with multiple team-season data points) to achieve useful power for detecting a meaningful effect size, likely requiring data from many more seasons.",
+   "controls": "For each player-context, calculate 'context-adjusted offensive efficiency' by regressing raw offensive efficiency against team-level offensive rating, opponent-level defensive rating, and average teammate offensive rating (excluding the player). The variance of this adjusted efficiency across contexts for each player will be the 'travel' metric. Compare the mean of these variances between the cut-heavy and drive-heavy groups using a t-test or non-parametric equivalent. Player skill (e.g., career PER or WS/48) would ideally be controlled for or included as a covariate, but this would require further data access.",
+   "falsification": "A falsification test could involve comparing the variance of adjusted efficiency for players whose primary play-type usage is low (e.g., <10% of possessions) across contexts. We would expect their 'role' to be less defined and therefore their efficiency variance might not follow the hypothesized pattern, or show no significant difference between 'cut' and 'drive' tendencies in this non-shaper group.",
+   "multiplicity": "No multiple testing planned beyond the single primary comparison. If further exploratory analyses are conducted (e.g., different thresholds for 'heavy', different definitions of 'travel'), appropriate adjustments for multiplicity (e.g., Bonferroni, FDR) would be necessary.",
+   "decision_rule": "Reject the null hypothesis (that there is no difference in mean adjusted efficiency variance between cut-heavy and drive-heavy shapers) if the p-value from a two-sided t-test (or non-parametric equivalent) is less than 0.05. Given the severe sample size limitation, any statistically significant finding would be highly suspect and require substantial replication.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 complete seasons and playoffs. The 2025-26 partial data should be excluded to avoid confounding due to incomplete season statistics and potential player movement or role changes within that partial season."
+  }
+ },
+ "redactions": 0
+}

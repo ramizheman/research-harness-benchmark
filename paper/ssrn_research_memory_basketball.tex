@@ -1,0 +1,731 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, booktabs, graphicx, array}
+\usepackage[hidelinks]{hyperref}
+
+\title{Retrieval and Transfer Failures in Research Memory:\\
+A Sports Analytics Benchmark}
+\author{Rami Zheman \\ Independent Researcher, Alexandria, VA}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Sports organizations hold years of analytical work, much of it fragmented or lost when people leave. A persistent research memory that an AI agent can consult is one proposed way to keep that work useful. This paper tests one requirement of such a system: whether an agent, given a record of prior basketball studies, makes a better decision about whether a new research design should proceed. Five language models were run on the same ten tasks with no memory, document retrieval, or graph retrieval, at three seeds each (450 primary runs in three experiments).
+
+Memory did not produce a clear improvement. Under the primary scoring rule, the ten memory-minus-no-memory differences in balanced accuracy range from $-0.083$ to $+0.208$. No difference survives correction for ten comparisons (smallest exact sign-flip $p = 0.06$, Holm-adjusted $0.62$). Across 300 paired comparisons, memory turned a wrong decision into a correct one 47 times and a correct one into a wrong one 46 times. The models reproduced retrieved records accurately.
+
+The paper describes, but does not test, two points where the process can fail. First, retrieval rarely returned the closest prior work: on the three tasks with a prior study of the same question or a precedent named in the answer key, that family was returned in 2 of 45 runs under each retrieval method. Counting looser analogues as well, a relevant family was returned in 48 percent of document-retrieval runs and 36 percent of graph-retrieval runs on the seven tasks that have one. Second, the same prior record supported correct and incorrect decisions on different tasks: a play-type labeling audit was cited in 18 runs on one task (14 correct) and in 11 runs on another (3 correct), and nothing in the record itself separated the two cases. An oracle-retrieval condition would be needed to separate the two failure points.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Sports organizations possess a large stock of analytical capital: game logs, tracking, video, scouting observations, and the record of what was tried, what worked, and what failed. Most of that capital sits in files, in people's heads, or in analyses that are not consulted the next time a similar question comes up. A newer round of investment is aimed at connecting it. The Buffalo Sabres' 2026 partnership with SprintAI, the Cleveland Cavaliers' semantic search over scouting and statistical reports, and the San Antonio Spurs' use of AI for travel planning are different jobs, but they share an ambition (Buffalo Sabres 2026; Sports Business Journal 2025): a system that accumulates knowledge rather than answering one question and forgetting it.
+
+The argument for such a system is that model capability is widely available, while an organization's own research history is not. Knowing which lineup study failed because the sample was too small, or which analysis rested on unreliable play-type labels, could keep the next analyst from repeating the mistake. That argument assumes the lessons are retrieved and applied to the right cases. If they are retrieved and applied to the wrong cases, the archive adds error instead.
+
+This paper tests that assumption on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped?
+
+The results are mixed in a way the average hides. On one task, a prior audit of the play-type labels was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory changed decisions in both directions about equally often and did not improve the average. Section~\ref{sec:transfer} describes the cases. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
+
+\section{Scope and context}
+\label{sec:vision}
+
+The experiment tests one step in a larger loop: given a faithful archive of prior basketball research, does an AI agent make a better research-design decision? It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer. Each run retrieves once from a fixed archive and decides once.
+
+What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
+
+\section{Related work}
+\label{sec:related}
+
+\subsection{Knowledge in sports organizations}
+
+Erhardt and Martin-Rios (2016) compare knowledge practices across professional sports. Football organizations tend toward explicit, codified knowledge. Ice hockey organizations rely more on tacit transfer through people. The difference matters for an AI system. Codified records can be retrieved. Tacit knowledge cannot, unless someone writes it down with the conditions attached.
+
+A 2024 survey of football analytics, covering 29 national federations and 32 clubs, finds thin dedicated staffing (Science and Medicine in Football 2024). At that scale, the history of what the organization has already learned sits with individuals.
+
+\subsection{Case-based reasoning}
+
+Case-based reasoning solves a new problem by retrieving a similar past case and reusing its solution (Aamodt and Plaza 1994). Its standard cycle has four steps: retrieve, reuse, revise, and retain. The revise step tests whether the reused solution actually fits the new problem before it is kept. The benchmark here measures retrieve and reuse with no separate revise step: the same agent that retrieves a prior study decides whether it applies. The cases in Section~\ref{sec:transfer} are examples of what can happen without that step.
+
+\subsection{Retrieval-augmented generation and irrelevant context}
+
+Lewis et al.\ (2020) augment a language model with retrieved documents so that answers can use material outside the model's parameters. The usual target is factual grounding. Research memory asks for something else. A model can quote a prior study accurately and still use it for a question the study does not speak to. The benchmark separates the two: citation checks ask whether the record was reproduced, and the decision score asks whether the decision was right.
+
+Shi et al.\ (2023) show that adding irrelevant information to a problem statement degrades language-model reasoning, even when the relevant information is unchanged. Retrieved research records are a natural source of such context: a record can be on topic and still have no bearing on the decision. The decision shifts reported here are consistent with that finding, although this benchmark does not isolate distraction from other causes.
+
+\subsection{Memory of failures in language agents}
+
+Reflexion (Shinn et al.\ 2023) has an agent write verbal reflections on failed attempts into an episodic memory and reuse them on later attempts, improving performance on decision-making, reasoning, and coding tasks. The lessons there are reused on retries of closely related problems. The archive here holds lessons from different studies, and the question is whether a lesson recorded for one study transfers to another. A lesson such as ``this study was inconclusive because the play-type labels were unreliable'' is useful only if the next decision checks whether the new study depends on those labels in the same way.
+
+\subsection{AI in sports operations}
+
+The public examples sit at different points in the loop. The Boston Celtics' cloud infrastructure is the storage layer that later retrieval depends on (Mission Cloud 2024). The Cavaliers' semantic search is retrieval and synthesis for a person reading the result (Sports Business Journal 2025). The Sabres' partnership is aimed further along, at an operations platform that is supposed to learn (Buffalo Sabres 2026). None of these reports tests whether retrieved history improves the next analytical decision. That is the gap this paper measures, on a basketball research-design task rather than in a live front office.
+
+\section{The accumulated basketball research archive}
+\label{sec:archive_overview}
+
+\subsection{What the archive contains}
+
+The research memory used in these experiments is an archive of 319 adjudicated study families, each collecting one or more analyses on a common research question. The archive was built from a program of basketball analytics work covering four NBA seasons (2022--23 through 2025--26), regular season and playoffs. It is not a literature review of external publications. It is one research program's own accumulated record.
+
+The families span ten topic areas. Table~\ref{tab:archive_topics} summarizes the distribution. The largest topic, defensive suppression and counter strategy, covers 62 families examining whether play-type efficiency declines within games, whether defenses cause those declines, and whether identifiable counters exist. Player absence and offensive reorganization, with 42 families, asks whether structural changes in how a team runs its offense during a key player's absence are predictable or consequential for scoring. Structural roles and influence, with 41 families, develops and tests a measure of how central individual players are to a team's offense. Lineup and matchup effects, play-type labeling and data quality, possession sequences, and in-game adaptation round out the basketball topics.
+
+\begin{table}[ht]
+\centering
+\caption{Archive composition by topic area}
+\label{tab:archive_topics}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Topic area & Fam. & Sup. & Rej. & Untest. & Art. & Uncert. \\
+\midrule
+Defensive suppression and counter strategy & 62 & 13 & 10 & 9 & 8 & 8 \\
+Player absence and offensive reorganization & 42 & 10 & 12 & 5 & 3 & 7 \\
+Structural roles and influence & 41 & 11 & 7 & 8 & 4 & 5 \\
+Lineup and matchup effects & 30 & 3 & 7 & 7 & 3 & 6 \\
+Play-type labeling and data quality & 18 & 1 & 1 & 2 & 6 & 2 \\
+NCAA tournament prediction & 14 & 6 & 1 & 1 & 2 & 3 \\
+In-game and series adaptation & 12 & 0 & 2 & 0 & 3 & 5 \\
+Possession sequences and transitions & 10 & 2 & 3 & 1 & 3 & 0 \\
+Playing time and luck response & 3 & 2 & 0 & 0 & 1 & 0 \\
+Other (including internal evaluation) & 87 & 9 & 14 & 16 & 11 & 16 \\
+\midrule
+Total & 319 & 57 & 57 & 49 & 44 & 52 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Sup.\ = supported, Rej.\ = rejected (adequately powered null), Untest.\ = untestable (data cannot support a test), Art.\ = artifact (apparent result produced by a design flaw), Uncert.\ = uncertain (inconclusive or inadequately tested). An additional 60 families are classified as not a test or no result recorded and are not in the strata above.
+\end{minipage}
+\end{table}
+
+The archive is a mixed body of work, not a collection of failures. Of the 259 families in the five strata, 57 are supported and 57 are rejected by adequately powered tests. The remaining 145 are artifact, untestable, or uncertain.
+
+\subsection{Representative findings and failures}
+
+A few examples from the archive illustrate the range. Each is the recorded result of one benchmark task's own study family; as Section~\ref{sec:design} describes, a task's own family was removed from the memory that task's runs could search. Among the supported findings: changing the offensive five-man lineup shifted the own-lineup three-point rate by $+3.1$ percentage points (SE 1.2), and lineup role coverage varied within teams in a way that was nearly uncorrelated with talent ($|\rho| = 0.042$). Among the rejected findings: the teammate with the closest pre-absence initiation profile to a missing player absorbed that player's role in 19 percent of 148 absence spells, against 14 percent by chance; and the degree of offensive reorganization during an absence did not predict the change in scoring efficiency ($\rho = -0.040$, 95\% CI $[-0.21, +0.17]$).
+
+Among the untestable and artifact cases: a team's ability to limit opponents' second-half improvement had a split-half reliability of $r = -0.001$, so the trait could not be measured with the available sample. A study of a teammate drive preceding a pick-and-roll found $+0.022$ points per possession (PPP) when calibrated pick-and-roll labels were included and $-0.006$ when only labels from the rule-based play-type inferrer were used; the record attributes the difference to temporal contamination in the calibrated labels. And a study of opponent next-possession effects found an effect of about $+0.12$ PPP across all eight play types, but using that effect in the label score placed pick-and-roll in the AVOID category even when the team's own pick-and-roll efficiency was 0.93 to 0.95 PPP.
+
+\section{The archive and the benchmark}
+\label{sec:archive}
+
+\subsection{What a study family record contains}
+
+Each study family is a structured record. It carries the research question and hypothesis, the dataset and sample size, the method and outcome measures, the primary result, an outcome status, the failure mechanism where one was identified, confounders and limitations, a validation status, related families, and source references.
+
+Fields populated directly from observed data are marked as observed. Fields assigned by rule, including outcome status, failure mechanism, risk codes, and confidence level, are marked as automatic. Missing information is recorded as not recorded. The same facts are rendered twice: once as a document for search, and once as a node in a graph linked to concept nodes for research-question clusters, methods, datasets, limitations, and risk codes.
+
+The outcome statuses are rule-based readings of the records, not independent expert adjudication. The benchmark measures agreement with that adjudication.
+
+\subsection{The ten tasks}
+
+Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should proceed. Four tasks should be flagged; six should not. The answer key flags a task when its own study family was recorded as untestable or artifact. Rejected, supported, and uncertain families are keyed as proceed, because a test of the question as posed was runnable and informative.
+
+Table~\ref{tab:tasks} gives the research questions, the expected decision, and the recorded result behind it. The models did not see the recorded result.
+
+\begin{table}[ht]
+\centering
+\caption{The ten benchmark tasks: research questions, expected decisions, and recorded results}
+\label{tab:tasks}
+\small
+\begin{tabular}{p{0.6cm}p{1.6cm}p{4.4cm}p{1.0cm}p{5.2cm}}
+\toprule
+Task & Topic & Research question (as posed) & Decision & Recorded result (not shown to the models) \\
+\midrule
+RT-012 & Play-type labeling & Does a teammate drive preceding a pick-and-roll raise that PNR's efficiency? & Flag & Artifact. $+0.022$ PPP ($p = 0.004$) with calibrated PNR labels; $-0.006$ ($p = 0.76$) with inferrer-only labels. Attributed to temporal contamination in the calibrated labels. \\
+\addlinespace
+RT-014 & Defensive suppression & Does adhering to a suppression-triggered recommended play-type mix predict game outcomes? & Flag & Artifact. The entire apparent win gain ($+11.5$ pp) was second-half PPP leakage from the same game. Ex-ante effect $-2.7\%$, $p = 0.47$. \\
+\addlinespace
+RT-065 & Player absence & Can pre-absence initiation profiles, role similarity, or minutes identify which teammate will absorb a departing player's offensive role? & Proceed & Rejected. 148 absence spells. Profile match 19\% (chance 14\%); 0 of 6 high-load cases correct. \\
+\addlinespace
+RT-066 & Player absence & Does the degree of offensive reorganization during an absence predict the change in team scoring efficiency? & Proceed & Rejected. No relationship in 986 player-seasons; primary analysis $\rho = -0.040$, 95\% CI $[-0.21, +0.17]$, $p = 0.62$. \\
+\addlinespace
+RT-101 & Structural roles & Does lineup role coverage vary within teams in a way that is separable from raw talent? & Proceed & Supported. 72 team-seasons; coverage--talent $|\rho| = 0.042$. All three gates passed. \\
+\addlinespace
+RT-112 & Lineup effects & Does changing the offensive five-man lineup detectably alter shot-type mix? & Proceed & Supported. Own-lineup three-point rate $+3.1$ pp (SE 1.2); opponent-only changes null. \\
+\addlinespace
+RT-146 & Defensive suppression & After pick-and-roll efficiency is suppressed, does pull-up shooting provide a reliably positive counter in at least 70\% of cases? & Proceed & Uncertain. Zero branches met the rule (at least 70\% of units, median lift above 2 pp). \\
+\addlinespace
+RT-147 & Play-type labeling & Are opponent next-possession effects after each play type large and stable enough to justify the AVOID labels the system generates? & Proceed & Uncertain. Effect about $+0.12$ PPP in 8 of 8 play types; using it in the label score put PNR in AVOID even at 0.93--0.95 own PPP. Recorded mechanism: artifact. \\
+\addlinespace
+RT-179 & Defensive suppression & Is a team's ability to limit opponent scoring improvement across halves a reliable team characteristic? & Flag & Untestable. Split-half $r = -0.001$; a detectable effect needs $r \approx 0.18$. \\
+\addlinespace
+RT-183 & Structural roles & Do cut-heavy role players maintain their role more consistently after changing teams than drive-heavy players? & Flag & Untestable. $n = 24$, $p = 0.13$. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The relevance of the archive differs by task. Appendix~\ref{app:retrieval} defines two tiers of relevant prior family. Three tasks (RT-012, RT-147, RT-183) have a question-tier family in memory: a prior study of the same question or a precedent named in the answer key. Four tasks (RT-014, RT-066, RT-112, RT-179) have only lesson-tier families: prior failed or uncertain studies carrying one of the task's expected risk codes. Three tasks (RT-065, RT-101, RT-146) have no relevant family in either tier, so memory cannot supply a direct prior for them.
+
+\section{Experimental design}
+\label{sec:design}
+
+\subsection{Pilots and three experiments}
+
+The protocol changed during development because early versions failed as procedures. Table~\ref{tab:experiments} summarizes the sequence. Pilots 1 and 2 used one seed and are protocol development, not evidence about the effect of memory. Experiments 1 to 3 used the same protocol at seeds 1, 2, and 3, and form the 450 primary runs. The tasks, the answer key, and the scoring did not change across any of them.
+
+\begin{table}[ht]
+\centering
+\caption{Pilots and experiments}
+\label{tab:experiments}
+\small
+\begin{tabular}{llrll}
+\toprule
+Experiment & Model & Runs & What changed & A / B / C \\
+\midrule
+Pilot 1 & Gemini 2.5 Flash & 30 & Individual records & 0.333 / 0.500 / 0.583 \\
+Pilot 2 & Gemini 2.5 Flash & 30 & Family records, retrieval first & 0.583 / 0.542 / 0.542 \\
+\midrule
+Experiment 1 & Gemini 2.5 Flash & 90 & Two-stage protocol, three seeds & 0.639 / 0.681 / 0.583 \\
+Experiment 2 & Claude Haiku 5.5 & 90 & Same protocol, new model & 0.625 / 0.583 / 0.639 \\
+Experiment 2 & gpt-oss-20b & 90 & Same protocol, new model & 0.542 / 0.528 / 0.528 \\
+Experiment 3 & Claude Sonnet 5.5 & 90 & Extended thinking & 0.736 / 0.653 / 0.722 \\
+Experiment 3 & DeepSeek V4 Pro & 90 & Extended thinking & 0.514 / 0.681 / 0.722 \\
+\midrule
+\multicolumn{2}{l}{Primary (3 experiments, 5 models)} & 450 & & \\
+\multicolumn{2}{l}{Pilots (protocol development)} & 60 & & \\
+\multicolumn{2}{l}{Total} & 510 & & \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+A is no memory, B is document retrieval, C is graph retrieval. Balanced accuracy under the primary scoring rule (Section~\ref{sec:outcome}). Pilot 1's no-memory figure is low partly because three of its ten no-memory answers could not be parsed at the time and count as wrong; when those answers are recovered with the parser introduced in Pilot 2, Pilot 1 gives 0.583 / 0.625 / 0.583.
+\end{minipage}
+\end{table}
+
+Pilot 1 stored individual studies and did not force retrieval before the assessment, and the records often did not reach the answer. Pilot 2 moved to family records and a retrieval-first protocol. An audit afterward found that none of the 160 items returned across its memory runs was a family record, so the intervention was not delivered. Experiment 1 fixed that with a two-stage protocol. Stage 1 shows the task and asks only for the retrieval call. The answer schema arrives with the retrieval result in stage 2. A preliminary assessment in stage 1 is rejected. Every memory run in Experiments 1 to 3 received family records. Experiments 2 and 3 repeat Experiment 1 with different models.
+
+\subsection{Three conditions}
+
+Condition A calls retrieval and receives nothing. Condition B searches family documents and returns four families. Condition C matches the query to concept nodes and to family text, scores families by the relationships it traverses, and also returns four. The facts inside a family are the same in B and C. What differs is which families are selected, and that C shows the paths. Agents could make follow-up retrieval calls within a tool budget, so some runs saw more than four families. In Experiment 1, the first retrieval in B and C shared 1.4 of four families on average for the same task and seed; this overlap was not logged for Experiments 2 and 3.
+
+\subsection{Memory snapshots and the exclusion of each task's own result}
+
+Each task's runs searched a per-task snapshot of the archive, built before any run. A snapshot contains only records dated before the task date, and excludes the task's own study family, records that cite it, probable duplicates, and records sharing three or more distinctive result numbers with it. Permitted pools ranged from 104 to 349 records (96 to 289 families), and between 34 and 279 further records per task were excluded because they did not certainly predate the task date (Appendix~\ref{app:snapshots}). Every run logged the fact hash of the snapshot it used. Prior studies of the same question that did predate the task, such as SF07 for RT-147 and SF-CHT-057 for RT-183, were kept, because earlier work on the same question is legitimate evidence.
+
+\subsection{The outcome and the scoring rule}
+\label{sec:outcome}
+
+A run counts as a flag if its decision is do not proceed, or its stated probability that the question is testable is below 0.5, or its predicted probability of an untestable or artifact outcome exceeds 0.5. A ``proceed with changes'' decision with low stated testability therefore counts as a flag.
+
+The primary outcome is balanced flag accuracy: the mean of accuracy on the four tasks that should be flagged and accuracy on the six that should not, after averaging seeds within each task. The ten tasks are the unit of analysis. Seeds measure how much a model varies on the same task; they do not add tasks.
+
+The primary scoring rule is the one in the benchmark's scoring specification: invalid outputs are scored where possible. An output that fails schema validation but still yields a flag decision is scored on that decision, and an output from which no flag can be read counts as wrong. Of 32 invalid outputs in the primary runs, 31 yielded a flag decision; one (gpt-oss-20b, condition C) did not. Two sensitivity rules are reported alongside: strict, in which every invalid output counts as wrong, and valid-only, in which invalid outputs are dropped.
+
+Intervals are percentile bootstrap intervals from 10,000 resamples of the ten task-level differences. The $p$-values are exact sign-flip tests over all $2^{10}$ sign assignments, and Holm's correction is applied across the ten memory contrasts. With ten tasks the intervals are about 0.6 wide, so an effect smaller than roughly 0.3 cannot be ruled out in either direction. Percentile bootstrap intervals on ten units can also be too narrow; where an interval and the exact test disagree, the exact test is the more conservative guide.
+
+\subsection{Models and protocol checks}
+
+Gemini 2.5 Flash, Claude Haiku 5.5, and gpt-oss-20b were run at temperature 0.7. Claude Sonnet 5.5 and DeepSeek V4 Pro were run with extended thinking, which requires temperature 1.0. The task text, answer key, scoring, and memory snapshots were shared. Before the live runs, unit tests checked that the document and the graph carried the same facts, that retrieval preceded any assessment, and that a citation had to match a record the tool had returned. One correction turn was allowed when a cited status did not match the record, and the pre-correction answer was kept.
+
+\section{Primary results}
+\label{sec:results}
+
+Table~\ref{tab:primary} gives the primary result. The sign of the memory effect is not stable across models. DeepSeek moves the most, upward, from a weak baseline. Sonnet, the strongest model without memory, is lower with document retrieval and about unchanged with graph retrieval. The other three models move by less than 0.06 in either direction.
+
+\begin{table}[ht]
+\centering
+\caption{Balanced flag accuracy, primary scoring rule}
+\label{tab:primary}
+\small
+\begin{tabular}{lrrrll}
+\toprule
+Model & A & B & C & B $-$ A [95\% CI], $p$ & C $-$ A [95\% CI], $p$ \\
+\midrule
+Gemini 2.5 Flash & 0.639 & 0.681 & 0.583 & $+0.042$ $[-0.264, +0.389]$, 0.91 & $-0.056$ $[-0.361, +0.292]$, 0.84 \\
+Claude Haiku 5.5 & 0.625 & 0.583 & 0.639 & $-0.042$ $[-0.333, +0.319]$, 0.88 & $+0.014$ $[-0.333, +0.389]$, 1.00 \\
+gpt-oss-20b & 0.542 & 0.528 & 0.528 & $-0.014$ $[-0.250, +0.250]$, 1.00 & $-0.014$ $[-0.333, +0.347]$, 1.00 \\
+Claude Sonnet 5.5 & 0.736 & 0.653 & 0.722 & $-0.083$ $[-0.319, +0.111]$, 0.56 & $-0.014$ $[-0.125, +0.083]$, 1.00 \\
+DeepSeek V4 Pro & 0.514 & 0.681 & 0.722 & $+0.167$ $[-0.097, +0.486]$, 0.44 & $+0.208$ $[+0.069, +0.389]$, 0.06 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Intervals are percentile bootstrap intervals over the ten tasks (10,000 resamples); $p$ is the exact sign-flip $p$-value. After Holm correction across the ten contrasts, the smallest adjusted $p$-value is 0.62 (DeepSeek, C $-$ A).
+\end{minipage}
+\end{table}
+
+One interval excludes zero: DeepSeek's graph-retrieval gain of $+0.208$, with an interval of $[+0.069, +0.389]$. The exact sign-flip test for the same contrast gives $p = 0.06$, and the Holm-adjusted value across ten contrasts is 0.62. This paper treats it as a candidate effect for a larger study, not as a finding.
+
+Table~\ref{tab:sensitivity} reports the same contrasts under the two sensitivity rules. The rules matter most for Sonnet, which produced six invalid outputs under document retrieval and none without memory. Under the strict rule, Sonnet's document-retrieval difference is $-0.194$ with an interval that excludes zero ($[-0.389, -0.014]$, $p = 0.12$). Under the valid-only rule it is zero. DeepSeek's graph-retrieval interval excludes zero under the valid-only rule and not under the strict rule. No contrast has $p < 0.05$ under any rule.
+
+\begin{table}[ht]
+\centering
+\caption{Memory contrasts under the two sensitivity rules}
+\label{tab:sensitivity}
+\small
+\begin{tabular}{lllll}
+\toprule
+ & \multicolumn{2}{c}{Strict (invalid = wrong)} & \multicolumn{2}{c}{Valid outputs only} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Model & B $-$ A & C $-$ A & B $-$ A & C $-$ A \\
+\midrule
+Gemini & $+0.000$ $[-0.264, +0.264]$ & $-0.083$ $[-0.389, +0.278]$ & $+0.042$ $[-0.264, +0.389]$ & $-0.069$ $[-0.375, +0.292]$ \\
+Haiku & $-0.042$ $[-0.333, +0.319]$ & $-0.014$ $[-0.361, +0.375]$ & $-0.056$ $[-0.347, +0.306]$ & $+0.035$ $[-0.292, +0.403]$ \\
+gpt-oss-20b & $+0.111$ $[-0.111, +0.347]$ & $+0.056$ $[-0.278, +0.417]$ & $+0.042$ $[-0.194, +0.292]$ & $+0.125$ $[-0.111, +0.417]$ \\
+Sonnet & $-0.194$ $[-0.389, -0.014]$ & $-0.069$ $[-0.167, +0.000]$ & $+0.000$ $[-0.222, +0.167]$ & $+0.014$ $[-0.042, +0.083]$ \\
+DeepSeek & $+0.139$ $[-0.125, +0.458]$ & $+0.167$ $[-0.028, +0.361]$ & $+0.167$ $[-0.097, +0.486]$ & $+0.208$ $[+0.069, +0.389]$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Smallest sign-flip $p$-values: strict, Sonnet B $-$ A, 0.12; valid only, DeepSeek C $-$ A, 0.06.
+\end{minipage}
+\end{table}
+
+Invalid outputs by condition are given in Table~\ref{tab:invalid}. They were schema failures, not invented findings. gpt-oss-20b had the most (11), followed by Sonnet (9) and Haiku (8); Sonnet's were all in the memory conditions.
+
+\begin{table}[ht]
+\centering
+\caption{Invalid outputs by model and condition (of 30 runs each)}
+\label{tab:invalid}
+\small
+\begin{tabular}{lccc}
+\toprule
+Model & A & B & C \\
+\midrule
+Gemini 2.5 Flash & 0 & 1 & 1 \\
+Claude Haiku 5.5 & 3 & 1 & 4 \\
+gpt-oss-20b & 4 & 1 & 6 \\
+Claude Sonnet 5.5 & 0 & 6 & 3 \\
+DeepSeek V4 Pro & 0 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Gemini series is one check on whether the protocol was the problem. Across Pilot 1, Pilot 2, and Experiment 1, the records, the protocol, and the number of seeds changed. Pilot 1's apparent gains ($+0.167$ for documents, $+0.250$ for the graph) come largely from three no-memory answers that could not be parsed at the time; with those answers recovered, the differences are $+0.042$ and $0.000$. Pilot 2 gives $-0.042$ and $-0.042$, and Experiment 1 gives $+0.042$ and $-0.056$. Delivering the records, which Pilot 2 had failed to do, did not reveal a gain.
+
+Model differences are larger than memory effects. Sonnet without memory (0.736) is 0.097 above Gemini without memory and 0.194 above gpt-oss-20b without memory. On these ten decisions, the choice of model moved accuracy more than attaching this archive did.
+
+\section{What the models did with the record}
+\label{sec:secondary}
+
+\subsection{Citation accuracy}
+
+No final answer cited an identifier the tool had not returned. Every status checked against the record matched in final answers: Gemini 70 of 70 under document retrieval and 97 of 97 under graph retrieval, Haiku 86 of 86 and 98 of 98, gpt-oss-20b 77 of 77 and 80 of 80, Sonnet 96 of 96 and 103 of 103, and DeepSeek 94 of 94 and 97 of 97. Ten memory runs used the allowed correction turn. Condition A runs reported that no historical evidence was available.
+
+The models did overstate what earlier work had settled. A false prior claim is a memory run that says earlier work already answered substantially the same question on a task where no such work was in memory (eight tasks, 24 eligible runs per model and condition). Its rate was 25 to 50 percent of eligible runs under document retrieval and 42 to 67 percent under graph retrieval, and it was higher under graph retrieval for four of the five models.
+
+\subsection{Caution, applied in both directions}
+
+Table~\ref{tab:caution} shows Experiment 1. Retrieved history lowered Gemini's stated probability that the proposed study was testable, both on tasks that should be flagged and on tasks that should not. Document retrieval raised the flag rate from 0.50 to 0.75 where a flag was correct, and from 0.22 to 0.39 where it was not. The gains and losses are similar in size, which is consistent with balanced accuracy barely moving.
+
+\begin{table}[ht]
+\centering
+\caption{Caution shift, Gemini 2.5 Flash, Experiment 1 (primary scoring rule, 30 runs per condition)}
+\label{tab:caution}
+\begin{tabular}{lccc}
+\toprule
+ & A & B & C \\
+\midrule
+Mean $p$(testable), should flag & 0.48 & 0.26 & 0.40 \\
+Mean $p$(testable), should not flag & 0.61 & 0.51 & 0.51 \\
+Flag rate, should flag & 0.50 & 0.75 & 0.50 \\
+Flag rate, should not flag & 0.22 & 0.39 & 0.33 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Stated testability discriminated better with memory for four of the five models. The area under the curve (AUC) for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
+
+Compliance was uneven. gpt-oss-20b needed 18 repair turns across its 60 memory runs, against 3 for Gemini, 2 for DeepSeek, 1 for Haiku, and none for Sonnet.
+
+\section{When memory helps, and when it hurts}
+\label{sec:transfer}
+
+\subsection{The tally}
+
+Each memory run can be paired with the no-memory run of the same model, task, and seed. Under the primary scoring rule there are 300 such pairs.
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Outcome & Pairs \\
+\midrule
+Memory fixed a wrong decision & 47 \\
+Memory broke a correct decision & 46 \\
+Decision unchanged, and correct & 136 \\
+Decision unchanged, and wrong & 71 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Memory changed whether the decision was correct in 93 of 300 pairs (31 percent), and it did so in the right and the wrong direction about equally often. The balance varies by model. Fixes and breaks were 10 and 12 for Gemini, 8 and 11 for Haiku, 10 and 13 for gpt-oss-20b, and 5 and 6 for Sonnet. DeepSeek is the exception, with 14 fixes and 4 breaks. Pairs share tasks, so these counts are descriptive and not independent observations. The cases below show how both directions can occur.
+
+\subsection{Case 1: a precise data-quality record helps two models and not the others (RT-012)}
+\label{sec:rt012}
+
+\textbf{Question.} A proposed analysis asks whether a teammate's drive preceding a pick-and-roll raises that pick-and-roll's efficiency. The answer key flags it: the task's own study, which the models could not see, found that the apparent effect depended on calibrated pick-and-roll labels and disappeared with labels from the rule-based inferrer alone.
+
+\textbf{What the archive contained.} An earlier labeling audit, FAM:SF-CHT-025, was in memory. Its record states that foul-ending possessions inflated the efficiency of the OTHER category (36 percent of those possessions ended in fouls), that drives sat 12 points below the foul benchmark, and that only 335 of 50,668 possessions (0.7 percent) mapped to a real play type through the initiation-type field. It records the outcome as an artifact. It does not mention the calibrated pick-and-roll labels that undid the RT-012 study.
+
+\textbf{What the models did.} Without memory, accuracy on this task was 0.33 averaged across models. With document retrieval it was 0.67, and with graph retrieval 0.60. FAM:SF-CHT-025 was cited in 18 of the 30 memory runs, 14 of which were correct; 5 of the 12 memory runs that did not cite it were correct. The clean pattern, mostly wrong without memory and correct in every memory run, occurred for two models in four of the ten model-condition cells. Haiku was wrong in all three no-memory runs and correct in all six memory runs, citing FAM:SF-CHT-025 in each; in its document-retrieval runs it named the 0.7 percent coverage as a blocking constraint. DeepSeek went from one correct no-memory run in three to six of six. The other three models did not show the pattern. Gemini was correct in one of six memory runs. gpt-oss-20b was correct in three of six. Sonnet, correct in all three no-memory runs, was correct in only one of three document-retrieval runs: it cited FAM:SF-CHT-025 in each, named label error as a risk, and chose to proceed with a label audit written into the design rather than to stop.
+
+\textbf{What the case shows.} A precise record of a defect in data the new analysis would use was associated with correct stops for some models. It did not guarantee a stop: one model treated the same defect as a design step to fix rather than a reason to stop, and the answer key scores that as wrong. Because the analysis is observational, the higher accuracy of runs that cited the record may also reflect which models retrieved it. The automated relevance rule in Appendix~\ref{app:retrieval} does not count FAM:SF-CHT-025 as relevant to RT-012, because the record carries no risk-code tag; a human reader would plausibly treat it as a direct dependency. The appendix's retrieval rates for this task should be read with that in mind.
+
+\subsection{Case 2: the same record, the opposite verdict (RT-147)}
+\label{sec:rt147}
+
+\textbf{Question.} A proposed analysis asks whether opponent next-possession effects after each play type are large and stable enough to justify the AVOID labels a recommendation system generates. The answer key says proceed: the task's own study was recorded as uncertain, with a real opponent effect of about $+0.12$ PPP across all eight play types and a problem in how the effect was used in the label score.
+
+\textbf{What the models did.} Without memory, accuracy was 0.80 averaged across models. With document retrieval it fell to 0.47, and with graph retrieval to 0.60. Three models dropped under document retrieval: Haiku from 1.00 to 0.00, gpt-oss-20b from 1.00 to 0.33, and DeepSeek from 0.33 to 0.00. Haiku also fell to 0.00 under graph retrieval, and gpt-oss-20b to 0.67. Gemini rose from 0.67 to 1.00 under document retrieval, and Sonnet was correct in every run.
+
+The same labeling audit, FAM:SF-CHT-025, was cited in 11 memory runs on this task, and only 3 of them were correct; 13 of the 19 memory runs that did not cite it were correct. Haiku's three document-retrieval runs all cited FAM:SF-CHT-025, the outcome-selected suppression-label artifact FAM:SF-CHT-086, and the inferred defensive-scheme labels recorded as untestable in FAM:SF-APPA-005. Its main blocking constraint was that the AVOID label is defined from the next-possession efficiency it is meant to explain, so the association is partly true by construction. It added that the play-type labels had failed audits.
+
+The prior study of the same question, SF07, was in memory. Its record reports an opponent aftershock of $+0.12$ to $+0.14$ PPP in all eight play types, replicated in the playoffs, and it supports proceeding. Its identifier appeared in the retrieved text of four document-retrieval runs (two from Gemini and two from Sonnet), all of them correct. Gemini cited it in one document-retrieval run and two graph-retrieval runs. It did not appear in the retrieved text of any run from the three models whose accuracy dropped.
+
+\textbf{What the case shows.} Both RT-012 and RT-147 depend on the derived play-type labels, so FAM:SF-CHT-025 bears on both in the same way. Nothing in the record separates them. The answer key separates them by how each study turned out: in RT-012 a small conditional effect depended on how pick-and-roll was labeled, while in RT-147 the opponent effect was large and consistent across play types. That information was not available to the models. A model applying the labeling lesson consistently would stop both designs, and the key scores one of those stops as wrong.
+
+This is also the task on which the answer key is most open to dispute. The task's own study was recorded as uncertain but with an artifact mechanism: using the opponent effect in the label score pushed pick-and-roll into AVOID even when it was performing well. Haiku's objection, that the label is built from the outcome it explains, is close to the problem the study found. The key scores that objection as wrong because the benchmark keys uncertain studies as proceed. Treating this case as an example of a wrong lesson is therefore the author's reading under the benchmark's keying convention, not an independently validated classification.
+
+\subsection{Case 3: an analogous failure, used by most models and ignored by one (RT-179)}
+
+\textbf{Question.} A proposed analysis asks whether a team's ability to limit opponent scoring improvement across halves is a stable team characteristic. The answer key flags it: the trait's split-half reliability was $r = -0.001$.
+
+\textbf{What the models did.} Accuracy rose from 0.20 without memory to 0.73 with document retrieval and 0.53 with graph retrieval. Gemini, gpt-oss-20b, and DeepSeek were wrong in every no-memory run, and each was correct in at least two of three document-retrieval runs. Sonnet was wrong in every run in every condition, including graph-retrieval runs in which it returned and cited families the audit counts as relevant.
+
+\textbf{What the archive contained.} No prior family studies this question, but seven lesson-tier families do: prior untestable or uncertain studies tagged with a measurement-reliability or mechanical-floor risk. Every memory run on this task, under both conditions, returned at least one of them. In 14 of 15 document-retrieval runs, the models cited FAM:SF-APPS-085, a study that found a different trait (a player's teammate-path quality) too unreliable to measure, with a split-half correlation of 0.215. Eleven of those 14 runs were correct. In graph retrieval the same family was cited in 10 runs, 6 of them correct, and accuracy was lower than under document retrieval even though a lesson-tier family was returned in every run.
+
+\textbf{What the case shows.} On this task the analogy appears to have helped: a reliability failure for a different trait was applied to a new trait with the same measurement problem, and most models stopped correctly. Two cautions apply. A general caution shift of the kind in Table~\ref{tab:caution} would also raise accuracy on a task that should be flagged, and the run data do not separate the two explanations. And one model, Sonnet, returned and cited the same families and still proceeded in every run.
+
+\subsection{Tasks with no relevant prior}
+
+RT-065 asks whether pre-absence profiles identify which teammate absorbs a departing player's role. The answer key says proceed (an adequately powered test rejected the hypothesis), but accuracy was 0.07 without memory, 0.07 with documents, and 0.13 with the graph. The archive holds no relevant family for this question in either tier. Because the error appears without memory, retrieval did not cause it, and memory did not correct it.
+
+\section{Extended thinking}
+\label{sec:reasoning}
+
+Sonnet 5.5 and DeepSeek V4 Pro add an internal reasoning pass before the answer. The memory result does not change direction in a consistent way.
+
+Sonnet's no-memory accuracy, 0.736, is the highest in the benchmark. Document retrieval lowers it by 0.083 under the primary rule, by 0.194 under the strict rule, and by nothing under the valid-only rule; most of the difference between rules comes from six invalid document-retrieval outputs. Graph retrieval changes it by $-0.014$. One possible reading is that a stronger model reconstructs many of these failure modes without the archive, leaving less room for memory to help. The data do not test that reading.
+
+DeepSeek's no-memory accuracy is 0.514, and memory raises it by 0.167 (documents) and 0.208 (graph), the largest movement in the benchmark. Its RT-012 runs are consistent with memory supplying a specific fact the model did not produce on its own: it cited the labeling audit in four of six memory runs and was correct in all six. On ten tasks, and after correction for ten contrasts, this is not a clear effect.
+
+Both reasoning models score higher with the graph than with documents (Sonnet 0.722 against 0.653, DeepSeek 0.722 against 0.681). Gemini's ordering is the reverse. None of those gaps is clear.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What the results show and what they do not}
+
+Memory did not reliably improve the decision on these ten tasks for any of the five models. The largest gain, DeepSeek's under graph retrieval, is a candidate effect that does not survive correction for multiple comparisons (Section~\ref{sec:results}). Memory changed correctness in about a third of paired runs, in both directions about equally. The models reproduced the records accurately. These are the measured findings.
+
+Three patterns plausibly contribute to the flat average, though none was tested as a cause. First, retrieval often did not return the most relevant prior work. Second, a record that applied cleanly to one task was applied to another where, by the answer key, it did not decide the question (Cases 1 and 2). Third, retrieved failures shifted models toward caution generally, helping on tasks that should be flagged and hurting on tasks that should not (Table~\ref{tab:caution}).
+
+\subsection{Two points of failure, described}
+
+The data describe two points where the process can fail. They do not establish which one limits accuracy.
+
+The first is retrieval. On the seven tasks with at least one relevant family in memory, a relevant family was returned in 50 of 105 document-retrieval runs and 38 of 105 graph-retrieval runs. Question-tier families, the closest prior work, were returned in 2 of 45 runs in each condition on the three tasks that have one. When a relevant family was returned, it was also cited in 47 of 50 such document-retrieval runs (94 percent) and 35 of 38 graph-retrieval runs (92 percent). That rate says little about use. The ``used'' measure requires only that a returned family be cited and that the explanation of the evidence be at least 30 characters long, and the output schema asks every run to cite the records it relied on. The measure shows that returned families were rarely ignored outright, not that they shaped the decision.
+
+The second is applicability. Returning and citing a relevant family was not consistently linked to accuracy. Among memory runs on tasks with a relevant family, runs that returned one were more accurate under document retrieval (0.82 against 0.60) and less accurate under graph retrieval (0.66 against 0.76). These comparisons are confounded by model and task, because some models retrieve differently and some tasks are harder, and they are not causal estimates. Cases 1 and 2 show the same record leading to opposite verdicts.
+
+A cleaner test would add an oracle-retrieval condition, in which each run receives the relevant prior families directly. If accuracy rose under oracle retrieval, retrieval would be the limiting step. If it did not, the limit would be in judging applicability. A run-level comparison of surfaced and not-surfaced runs within model and task would also help, but it needs more seeds than this design has.
+
+\subsection{Representing accumulated research}
+
+The cases raise a design question the experiments do not test: what information would a record need to carry for an agent to judge when its lesson applies? A typed relationship layer, distinguishing direct dependency, shared method, shared mechanism, contradiction, lineage, and topical similarity, is one proposal (Section~\ref{sec:future}). Cases 1 and 2 suggest it would not be sufficient on its own. FAM:SF-CHT-025 is plausibly a direct dependency for both RT-012 and RT-147, since both use the derived play-type labels. What separated the two tasks was the size and kind of effect each was looking for relative to the label error, and that is a scope condition, not a relationship type. Whether recording scope conditions, typed relationships, or both would change agent decisions is an open question.
+
+\subsection{Model choice}
+
+Sonnet with an empty retrieval (0.736) scored higher than gpt-oss-20b with the graph (0.528). For an organization early in such a build, these results suggest that the choice of model may matter more than the archive attached to it. Whether memory adds value with a different archive, retrieval method, or validation step is not something these experiments can show.
+
+\section{Design implications}
+\label{sec:practical}
+
+The following implications are hypotheses consistent with the results, not tested recommendations.
+
+\textbf{Keep each investigation self-contained.} A stored study is most useful when it records its question, data, method, result, failure mechanism, and limitations, so it can be read on its own. The cases suggest that records should also state the conditions under which the lesson holds: which labels, which estimands, and what effect sizes the identified defect would affect.
+
+\textbf{Treat retrieved lessons as advisory.} In these runs, the same agent retrieved a prior study and judged whether it applied, and its judgment was right and wrong about equally often. A separate review step, by an analyst or an independent check, corresponds to the revise step in case-based reasoning. Whether such a step would improve decisions is untested.
+
+\textbf{Allow ``no relevant evidence.''} Three of the ten tasks have no relevant prior family. An agent required to retrieve something will receive topical neighbors, and Shi et al.\ (2023) suggest such context can shift decisions. A system that can report that nothing relevant was found avoids that input.
+
+\textbf{Measure retrieval separately from use.} The automated relevance rule here missed a record that drove decisions (Case 1), and a parsing error in the audit code initially dropped every family tagged with a single risk code (Appendix~\ref{app:retrieval}). Any system evaluated this way should validate its relevance coding against human judgment before relying on retrieval-rate metrics.
+
+\section{Limitations}
+\label{sec:limits}
+
+\textbf{Ten tasks.} Three seeds reduce noise on each task but do not add tasks. With intervals about 0.6 wide, a small average gain is not something this design can detect. The claim is that memory did not reliably help on these ten decisions, not that its effect is zero.
+
+\textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as proceed is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
+
+\textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Table~\ref{tab:sensitivity}.
+
+\textbf{Exclusion of each task's result.} The runs searched per-task snapshots built before any run, from which the task's own study family and closely linked records had been removed (Appendix~\ref{app:snapshots}). A post-hoc audit of the 450 primary runs confirmed that no retrieval returned a record from the task's own family. Because the runs could only search the restricted snapshots, this audit verifies how the snapshots were built rather than detecting a leak after the fact. Graph retrieval scores families by the relationships traversed from the query; the audit checks returned identifiers, not traversal paths.
+
+\textbf{How retrieval and use were coded.} Mentioned, returned, and used (Appendix~\ref{app:retrieval}) were coded by deterministic rules over the saved run files, not by human raters or a language-model judge, so no inter-rater agreement applies. The rules were not validated against hand coding. The original audit code also dropped the risk code of any family tagged with a single code, which removed families such as FAM:SF-APPS-085 from the lesson tier; the figures in this paper are recomputed with that parsing corrected and nothing else changed (Appendix~\ref{app:retrieval}). At least one known misclassification remains: FAM:SF-CHT-025 is not counted for RT-012 because it has no risk-code tag. The retrieval rates should be read as estimates under these definitions.
+
+\textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files.
+
+\textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. All ten tasks are basketball research designs from one research program. Nothing here shows the same pattern in another sport or in a live scouting workflow.
+
+\textbf{No accumulation.} Each run retrieves from a fixed archive. A wrong lesson is not written back and retrieved again, so the paper cannot measure whether an unchecked loop would reinforce its own errors.
+
+\textbf{Extended thinking} was confirmed by the presence of reasoning traces passed between turns. The content of those traces is not a measured outcome.
+
+\textbf{What would change the conclusion.} More tasks would narrow the intervals enough to detect a plausible effect; 60 to 100 tasks would be a reasonable target. An oracle-retrieval condition would show whether retrieval or applicability limits accuracy. A condition with typed relationships or recorded scope conditions would test the representation question in Section~\ref{sec:discussion}. A differently composed archive or task set, with more tasks that have close prior work, could give memory more room to help.
+
+\section{Future directions}
+\label{sec:future}
+
+This section describes what the results suggest testing next. None of it was tested here.
+
+A relationship layer stored alongside the document archive could distinguish six kinds of connection between investigations:
+
+\begin{enumerate}
+\item \textbf{Direct dependency.} The new investigation reuses the same dataset, labels, variables, or measurements.
+\item \textbf{Shared methodology.} The two investigations use a similar statistical approach.
+\item \textbf{Shared mechanism.} The same causal or structural reason would explain both results.
+\item \textbf{Contradictory evidence.} The prior investigation supports or challenges the new hypothesis.
+\item \textbf{Research lineage.} One investigation was developed from, or motivated by, the other.
+\item \textbf{Topical similarity.} The investigations share terminology or domain but have no established methodological or causal connection.
+\end{enumerate}
+
+Cases 1 and 2 indicate that relationship types alone may not be enough: the same record is a direct dependency for two tasks with opposite answers. A useful layer would probably also need scope conditions on each lesson, stating which estimands and effect sizes a recorded defect threatens. Three conditions would test these ideas in turn: oracle retrieval, to separate retrieval from applicability; retrieval over typed relationships with scope conditions; and an independent validation step that checks each cited connection before a decision is accepted. Each would need more tasks than the present benchmark to give a clear answer.
+
+For the follow-up study, the definitions of mentioned, returned, and used should be fixed in the analysis code before the runs, and the relevance coding should be checked against hand coding on a sample, with agreement reported.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Across five models and 450 primary runs on a fixed basketball benchmark, research memory did not reliably improve the decision about whether a proposed study should proceed. It changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often. The models reproduced retrieved records accurately.
+
+The results describe two points where the process can fail. The closest prior work was returned in 2 of 45 runs under each retrieval method. When a relevant record was returned it was nearly always cited, although the measure of use is weak, and citing it did not consistently produce the right decision. In the clearest example, one labeling audit was cited in runs that correctly stopped one design and in runs that wrongly stopped another, and nothing in the record separated the two cases. Whether better retrieval, records that state their scope conditions, or an independent validation step would change that is the question for the next experiment.
+
+\begin{thebibliography}{99}
+
+\bibitem{aamodt1994}
+Aamodt, A., and Plaza, E. (1994).
+Case-based reasoning: Foundational issues, methodological variations, and system approaches.
+\textit{AI Communications}, 7(1), 39--59.
+\url{https://doi.org/10.3233/AIC-1994-7104}
+
+\bibitem{erhardt2016}
+Erhardt, N., and Martin-Rios, C. (2016).
+Knowledge management systems in sports: The role of organisational culture and structure.
+\textit{Journal of Information \& Knowledge Management}, 15(2), 1650023.
+\url{https://doi.org/10.1142/S0219649216500234}
+
+\bibitem{football2024}
+Science and Medicine in Football (2024).
+Analytical capacity in professional and international football: a survey of 29 national federations and 32 clubs.
+\url{https://doi.org/10.1080/24733938.2024.2341837}
+
+\bibitem{lewis2020}
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., K\"uttler, H., Lewis, M., Yih, W., Rockt\"aschel, T., Riedel, S., and Kiela, D. (2020).
+Retrieval-augmented generation for knowledge-intensive NLP tasks.
+\textit{Advances in Neural Information Processing Systems}, 33, 9459--9474.
+
+\bibitem{mission2024}
+Mission Cloud (2024).
+Boston Celtics: cloud infrastructure case study.
+\url{https://www.missioncloud.com/case-studies/boston-celtics}
+
+\bibitem{sabres2026}
+Buffalo Sabres (9 September 2026).
+Buffalo Sabres and SprintAI announce an AI-powered hockey operations partnership.
+\url{https://www.nhl.com/sabres/news/buffalo-sabres-sprint-ai-partnership}
+
+\bibitem{shi2023}
+Shi, F., Chen, X., Misra, K., Scales, N., Dohan, D., Chi, E. H., Sch\"arli, N., and Zhou, D. (2023).
+Large language models can be easily distracted by irrelevant context.
+\textit{Proceedings of the 40th International Conference on Machine Learning}, PMLR 202, 31210--31227.
+
+\bibitem{shinn2023}
+Shinn, N., Cassano, F., Gopinath, A., Narasimhan, K., and Yao, S. (2023).
+Reflexion: Language agents with verbal reinforcement learning.
+\textit{Advances in Neural Information Processing Systems}, 36, 8634--8652.
+
+\bibitem{sbj2025}
+Sports Business Journal (18 August 2025).
+Cleveland Cavaliers semantic search over scouting and statistical reports; San Antonio Spurs travel planning.
+\url{https://www.sportsbusinessjournal.com}
+
+\end{thebibliography}
+
+\appendix
+
+\section{Prompts}
+\label{app:prompts}
+
+The following excerpts are taken from the protocol used in Experiments 1 to 3.
+
+\subsection*{System prompt (excerpt)}
+
+\begin{quote}\small
+You are a basketball analytics researcher deciding whether and how a research question should be studied. You work only from the task statement and the tools listed below. Do not assume facts you have not seen.
+
+The work has two stages, in this order. Stage 1, retrieval: 1. Read the research objective and the data description. 2. Identify the research concepts and methodological questions the task raises. 3. Retrieve historical evidence by calling retrieve\_history. In stage 1 do not assess the question, predict outcomes or decide. Your only stage-1 reply is the retrieve\_history call. Stage 2, assessment, after the retrieval result is returned: 4. Summarise the relevant historical findings and failed approaches. 5. State what the historical evidence does and does not establish. 6. Assess whether the research question is testable. 7. Identify methodological risks and potential confounders. 8. Make the final research decision. 9. Explain whether and how the historical evidence changed the decision.
+
+Evidence rules: keep what a retrieved record states (historical\_evidence and failed\_approaches, each citing the identifier of a returned record and its status exactly as recorded) separate from your own inference and from uncertainty or missing information. Cite only identifiers returned by a tool, and never describe an earlier study that no tool returned. In some settings retrieval returns no records; then state that no historical evidence was available.
+\end{quote}
+
+\subsection*{Stage 1 user message (RT-012)}
+
+\begin{quote}\small
+Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality): Any teammate DRIVE preceding a PNR raises PNR PPP.
+
+Data available on that date:
+\begin{itemize}\setlength\itemsep{0pt}
+\item NBA 2022-23 regular season and playoffs
+\item NBA 2023-24 regular season and playoffs
+\item NBA 2024-25 regular season and playoffs
+\item NBA 2025-26 regular season (complete from 2026-04-13; partial before)
+\item NBA 2025-26 playoffs (complete from 2026-06-21; partial before)
+\item Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.
+\end{itemize}
+
+Your job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.
+
+Stage 1. Reply only with the retrieval call.
+\end{quote}
+
+\subsection*{Stage 2}
+
+The stage-2 message delivers the retrieval result and the output schema. The schema requires historical evidence cited (identifier, status as recorded, finding), failed approaches, what the evidence establishes and does not establish, own inferences, uncertainties, a testability probability, predicted outcome probabilities, risks, a design, the decision (proceed, proceed with changes, or do not proceed), and whether the evidence changed the decision.
+
+For RT-012, the document-retrieval result in many runs included FAM:SF-CHT-025, whose record reads in part: ``OTHER: 36\% end in fouls, PPP inflated (FOUL\_BUCKET). DRIVE: 12pp below foul benchmark (FOUL\_LEAK). PNR shows 22\% foul rate. Only 335 of 50,668 possessions (0.7\%) map to a real play type via initiation\_type.'' Its recorded outcome status is artifact.
+
+\section{Task-level flag accuracy}
+\label{app:tasks}
+
+Table~\ref{tab:cells} reports the share of seeds with a correct flag decision under the primary scoring rule. Each cell is the mean of three seeds, and the balanced accuracies in Table~\ref{tab:primary} are computed from these cells.
+
+\begin{table}[ht]
+\centering
+\caption{Correct-decision rate by task, condition, and model (primary scoring rule)}
+\label{tab:cells}
+\footnotesize
+\begin{tabular}{llccccc}
+\toprule
+Task & Flag & Gemini & Haiku & gpt-oss & Sonnet & DeepSeek \\
+\midrule
+RT-012 & Yes & 0 / .33 / 0 & 0 / 1 / 1 & .33 / .67 / .33 & 1 / .33 / .67 & .33 / 1 / 1 \\
+RT-014 & Yes & 1 / 1 / .67 & 1 / 1 / 1 & 1 / 1 / 1 & 1 / .67 / 1 & 1 / .67 / 1 \\
+RT-065 & No & 0 / 0 / .33 & 0 / 0 / 0 & .33 / 0 / .33 & 0 / .33 / 0 & 0 / 0 / 0 \\
+RT-066 & No & 1 / .67 / 1 & 0 / 0 / .67 & 0 / 0 / .33 & .67 / 1 / .67 & .67 / .67 / 1 \\
+RT-101 & No & 1 / 0 / .33 & 0 / 0 / 0 & .33 / 0 / 0 & 1 / 1 / 1 & 1 / 1 / 1 \\
+RT-112 & No & 1 / 1 / 1 & 1 / .33 / 1 & .67 / 1 / 1 & 1 / 1 / 1 & .67 / 1 / .67 \\
+RT-146 & No & 1 / 1 / .67 & 1 / .67 / 1 & .67 / 0 / 0 & .67 / 1 / 1 & 0 / 0 / .33 \\
+RT-147 & No & .67 / 1 / .67 & 1 / 0 / 0 & 1 / .33 / .67 & 1 / 1 / 1 & .33 / 0 / .67 \\
+RT-179 & Yes & 0 / 1 / 1 & 1 / 1 / .33 & 0 / .67 / 1 & 0 / 0 / 0 & 0 / 1 / .33 \\
+RT-183 & Yes & 1 / .67 / .33 & 1 / 1 / 1 & 1 / 1 / .33 & 1 / .67 / 1 & 1 / 1 / 1 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Each entry is condition A / B / C. Flag is whether the correct decision is to flag the design. Source: the scored run files for Experiments 1 to 3.
+\end{minipage}
+\end{table}
+
+\section{Retrieval and use of relevant families}
+\label{app:retrieval}
+
+\subsection*{Definitions}
+
+All measures are computed by deterministic rules from the saved run files.
+
+\textbf{Question-tier relevant family.} A family in the task's snapshot that is in the same research-question cluster as the task, is named in the answer key as a knowable precedent or a prior study of the same question, or has text similarity to the task above the archive's merge threshold.
+
+\textbf{Lesson-tier relevant family.} A family in the task's snapshot recorded as untestable, artifact, or uncertain that carries one of the task's expected risk codes. RT-147 has no expected risk codes, so its lesson tier is empty by construction.
+
+\textbf{Mentioned.} A relevant family's identifier appears anywhere in the retrieval output, including in the text of another returned family.
+
+\textbf{Returned.} A relevant family is among the families the retrieval returned.
+
+\textbf{Used.} A relevant family was returned, is cited in the final answer, and the answer's evidence-use text is at least 30 characters long. This is a weak test: the output schema asks for citations of the records relied on, so nearly any returned family that is cited passes. It does not measure whether the family affected the decision.
+
+\begin{table}[ht]
+\centering
+\caption{Relevant families in memory, and the share of runs in which one was mentioned, returned, and used}
+\label{tab:retrieval}
+\small
+\begin{tabular}{llrr rrrr rrrr}
+\toprule
+ & & \multicolumn{2}{c}{In memory} & \multicolumn{4}{c}{Document (B)} & \multicolumn{4}{c}{Graph (C)} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-8}\cmidrule(lr){9-12}
+Task & Stratum & Q & L & Fam & Ment & Ret & Used & Fam & Ment & Ret & Used \\
+\midrule
+RT-012 & artifact   & 1 & 5  & 4.3 & 0.27 & 0.27 & 0.27 & 4.0 & 0.27 & 0.27 & 0.27 \\
+RT-014 & artifact   & 0 & 8  & 4.3 & 0.20 & 0.20 & 0.20 & 4.0 & 0.13 & 0.07 & 0.07 \\
+RT-065 & rejected   & 0 & 0  & 4.8 & 0.00 & 0.00 & 0.00 & 4.2 & 0.00 & 0.00 & 0.00 \\
+RT-066 & rejected   & 0 & 49 & 5.6 & 0.80 & 0.27 & 0.27 & 4.0 & 0.80 & 0.53 & 0.53 \\
+RT-101 & supported  & 0 & 0  & 5.3 & 0.00 & 0.00 & 0.00 & 4.0 & 0.00 & 0.00 & 0.00 \\
+RT-112 & supported  & 0 & 9  & 4.0 & 1.00 & 1.00 & 0.87 & 4.0 & 0.13 & 0.13 & 0.13 \\
+RT-146 & uncertain  & 0 & 0  & 4.5 & 0.00 & 0.00 & 0.00 & 4.0 & 0.00 & 0.00 & 0.00 \\
+RT-147 & uncertain  & 1 & 0  & 4.1 & 0.27 & 0.07 & 0.07 & 4.0 & 0.13 & 0.13 & 0.13 \\
+RT-179 & untestable & 0 & 7  & 4.5 & 1.00 & 1.00 & 0.93 & 4.0 & 1.00 & 1.00 & 0.87 \\
+RT-183 & untestable & 1 & 43 & 4.8 & 0.80 & 0.53 & 0.53 & 3.7 & 0.67 & 0.40 & 0.33 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Q and L are the numbers of question-tier and lesson-tier relevant families in the task's snapshot. Fam is the mean number of families returned per run, including follow-up calls. Ment, Ret, and Used are shares of the 15 runs per cell (five models, three seeds) in which at least one relevant family of either tier was mentioned, returned, or used. The question-tier families for RT-147 and RT-183 are their prior same-question studies, SF07 and SF-CHT-057.
+\end{minipage}
+\end{table}
+
+\subsection*{Summary}
+
+Pooled over the seven tasks that have at least one relevant family (105 runs per condition), a relevant family was mentioned in 65 document-retrieval runs and 47 graph-retrieval runs, returned in 50 and 38, and used in 47 and 35. Used as a share of returned is 0.94 for documents and 0.92 for the graph. Used as a share of mentioned is 0.72 and 0.74; the gap between mentioned and returned reflects identifiers that appear in the text of other families without the family itself being returned.
+
+Question-tier families were rarely returned. RT-012's question-tier family was never returned on that task. SF07 was returned in one document-retrieval run and two graph-retrieval runs on RT-147, all from Gemini; its identifier was mentioned in four document-retrieval runs, two from Gemini and two from Sonnet. SF-CHT-057 was returned in one document-retrieval run on RT-183, from DeepSeek, and in no graph-retrieval run. Across the three tasks with a question-tier family, that family was therefore returned in 2 of 45 runs under each method.
+
+Mentioning, returning, or using a relevant family was not consistently associated with accuracy. Under the primary rule, runs that returned a relevant family were correct in 0.82 of document-retrieval runs and 0.66 of graph-retrieval runs, against 0.60 and 0.76 for runs that did not. These comparisons mix models and tasks and are not causal.
+
+\subsection*{Correction to the audit code}
+
+The audit code that produced the saved per-run files contained a parsing error. In the snapshot graph, a family's risk codes are stored as a list when there are several and as a plain string when there is one. The parser accepted only lists, so every family with a single risk code had no risk codes for the audit, and none could enter the lesson tier. In the RT-179 snapshot, 106 of the 151 families with risk codes store them as a single string, including FAM:SF-APPS-085 (MEASURE\_RELIABILITY). All figures in this appendix and in the main text are recomputed from the saved raw runs with only that parsing corrected. Before applying the correction, the recomputation was checked against the saved audit: with the original parser it reproduces all 300 memory-run rows exactly. The correction enlarges the lesson tier for six tasks (RT-012 from 3 to 5 families, RT-014 from 6 to 8, RT-066 from 21 to 49, RT-112 from 7 to 9, RT-179 from 6 to 7, RT-183 from 21 to 43), raises the returned rate on RT-012, RT-066, RT-179, and RT-183, and removes an apparent reversal in which document retrieval seemed to return nothing relevant for RT-179. The audit reads family attributes from the v2 rendering of each task's permitted records, which carries the stratum and risk fields; the v3 rendering the agents searched stores stratum and risk under different field names, so the audit code cannot read them from v3 directly.
+
+\subsection*{Known limits of the relevance rule}
+
+FAM:SF-CHT-025, the labeling audit cited in most RT-012 memory runs, is not counted for RT-012 because it carries no risk-code tag. CHT-039, a series-level study of AVOID share and winning, is not counted as relevant to RT-147 under either tier. The rule has not been checked against hand coding.
+
+One difference between conditions remains: document retrieval returned a relevant family for RT-112 in every run, and graph retrieval in 2 of 15. It is reported as an observation from one task.
+
+\section{Memory snapshots}
+\label{app:snapshots}
+
+\begin{table}[ht]
+\centering
+\caption{Per-task memory snapshots}
+\label{tab:snapshots}
+\small
+\begin{tabular}{llrrrl}
+\toprule
+Task & Task date & Records & Families & Excluded by date & Own family (excluded) \\
+\midrule
+RT-012 & 2026-06-14 & 166 & 148 & 217 & SF-CHT-032 \\
+RT-014 & 2026-06-16 & 187 & 168 & 196 & SF-CHT-045 \\
+RT-065 & 2026-11-01 & 317 & 266 & 66 & SF-PAP-056 \\
+RT-066 & 2026-11-01 & 317 & 266 & 66 & SF-PAP-058 \\
+RT-101 & 2026-07-13 & 238 & 203 & 145 & SF-PAP-009 \\
+RT-112 & 2026-11-02 & 349 & 289 & 34 & SF-PAP-080 \\
+RT-146 & 2026-05-23 & 104 & 96 & 279 & SF-CHT-026 \\
+RT-147 & 2026-06-19 & 194 & 175 & 189 & SF-CHT-044 \\
+RT-179 & 2026-10-06 & 293 & 248 & 90 & SF-CHT-064 \\
+RT-183 & 2026-08-08 & 264 & 226 & 119 & SF-PAP-021 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Records and Families are the permitted pool each task's runs could search. Excluded by date counts records removed because they did not certainly predate the task date. The task's own family, records citing it, probable duplicates, and records sharing three or more distinctive result numbers were also removed. Each snapshot has a manifest with a fact hash, which every run logged.
+\end{minipage}
+\end{table}
+
+\vspace{1.5em}
+\noindent\textit{Disclosure.} Drafting assistance from a large language model. The tasks, the answer key, the scoring, and the run outputs were fixed before this paper was written, and no experimental runs were added in order to write it. The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in Section~\ref{sec:transfer} were computed after the results were known, from the saved run files.
+
+\end{document}

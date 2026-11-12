@@ -1,0 +1,33 @@
+# EXP:APPS-069 | State persistence vs window-overlap null (pre-registered FAIL)
+- date: 2026-07-12
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: N=1060893 possessions, 4 seasons, W=3 lagged. Excess = observed r - window-overlap null. Pre-registered criterion: excess persistence.
+- hypothesis: Process-only latent state (PCA-1 of tempo/transition) persists above the rolling-window overlap null after game x team demeaning.
+- knowable_in_advance: unclear
+- member_of: FAM:SF-APPS-069 {record=APPS-069; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: High raw r~0.65 is mechanical window overlap. Season-stable observed r 0.642-0.647.
+- prespecified: yes
+- produced: RES:APPS-069 {record=APPS-069; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-059; APPS-072
+- related_to: EXP:APPS-059 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-069; rule=date-ordered record link}
+- related_to: EXP:APPS-072 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-069; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\state_persistence.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\state_persistence.py
+- title: State persistence vs window-overlap null (pre-registered FAIL)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-069; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-069; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPS-069; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPS-069; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-069 | Result of APPS-069
+- failure_evidence: HEADLINE FAIL: excess=-0.010 with CI entirely negative; state persistence does not clear the overlap null. No state-persistence paper.
+- failure_type: B_powered_null
+- power_info: N=1,060,893 possessions
+- primary_result: Process-only lag-1 r=+0.645 vs null +0.655; EXCESS=-0.010, cluster-bootstrap 95% CI [-0.012,-0.009]. Scoring excess -0.000; action texture +0.003. Instantaneous scoring autocorr lag-1=-0.0128.
+- record_stratum: rejected
+- record_substatus: verdict failed_gate, powered null with power information
+- verdict: failed_gate

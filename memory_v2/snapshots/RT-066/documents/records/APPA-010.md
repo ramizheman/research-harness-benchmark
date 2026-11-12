@@ -1,0 +1,31 @@
+# EXP:APPA-010 | Adversarial best-response v1: equilibrium strategy vs actual
+- date: 2026-04-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 240 matchups, 23,922 holdout possessions; iterative best-response to approximate Nash equilibrium, model-scored PPP.
+- hypothesis: The system's offensive strategy survives optimal defensive adjustment and beats what teams ran.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPA-010; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-010 {record=APPA-010; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Model-scored counterfactual compared to realized PPP.
+- prespecified: no
+- produced: RES:APPA-010 {record=APPA-010; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-011
+- related_to: EXP:APPA-011 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-010; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT.md
+- title: Adversarial best-response v1: equilibrium strategy vs actual
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-010; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-010; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-010; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-010 | Result of APPA-010
+- failure_evidence: Doc verdict 'MARGINAL'; equilibrium PPP is model-implied not observed.
+- failure_type: E_unclear
+- power_info: 240 matchups
+- primary_result: Eq vs actual +1.16 pts/100; beats actual 127/240 (53%); vs baseline eq +8.52 pts/100; converged 159/240.
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

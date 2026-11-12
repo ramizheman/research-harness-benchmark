@@ -1,0 +1,32 @@
+# EXP:APPS-088 | Offensive-identity resilience: connector absence vs usage-matched others
+- date: 2026-07-26
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Player-seasons >=400 poss on and off, N=908. Primary: usage-matched pairs connector vs role occupant / vs terminal.
+- hypothesis: Connector absence displaces team offensive identity (D_A) more than usage-matched non-organizer absence.
+- knowable_in_advance: no
+- member_of: FAM:SF-APPS-088 {record=APPS-088; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Does not claim PPP value. PRIMARY ORGANIZER is a positive-control reference (mean D_A 0.2141).
+- prespecified: partial
+- produced: RES:APPS-088 {record=APPS-088; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-080; APPS-083
+- related_to: EXP:APPS-080 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-088; rule=date-ordered record link}
+- related_to: EXP:APPS-083 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-088; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-088; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\identity_resilience_report.md
+- title: Offensive-identity resilience: connector absence vs usage-matched others
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-088; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Player_absence_spells {record=APPS-088; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-088; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-088 | Result of APPS-088
+- failure_evidence: Usage-matched connector vs role occupant identity break is large and significant (n=96). Licensed comparison excludes organizers.
+- failure_type: D_positive
+- power_info: n=96 matched pairs vs role; n=25 vs terminal; 908 player-seasons
+- primary_result: Unmatched conn vs role D_A 0.2020 vs 0.1021, t=5.97 p=2.87e-08. Usage-matched vs role: paired dD_A +0.1151, P(conn>ctrl)=81.2%, t=6.35 p=7.35e-09 n=96. Vs terminal: +0.0777 t=2.37 p=0.0261 n=25.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

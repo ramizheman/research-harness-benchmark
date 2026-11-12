@@ -1,0 +1,32 @@
+# EXP:APPS-065 | Brown-initiated possession -> Tatum next-possession ATT
+- date: 2026-06-13
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Chain N=6992; treated=1173 control=5819. PSM 1:3 caliper 0.05; exact-match fallback; perm 800; placebo 200.
+- hypothesis: A Jaylen Brown-initiated BOS possession raises Tatum's points on the next BOS possession (spillover/gravity).
+- knowable_in_advance: unclear
+- member_of: FAM:SF30 {record=APPS-065; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Verdict: NO ROBUST EFFECT, consistent with spillover/state-transition artifact.
+- prespecified: partial
+- produced: RES:APPS-065 {record=APPS-065; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-066; APPS-075
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\brown_tatum_causal.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\brown_tatum_causal_report.txt
+- title: Brown-initiated possession -> Tatum next-possession ATT
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-065; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-065; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPS-065; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-065; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-065; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-065 | Result of APPS-065
+- failure_evidence: PSM CI includes 0; ATT inside placebo range; not robustly >0. Perm p=0.0275 is on a near-zero negative ATT.
+- failure_type: B_powered_null
+- power_info: treated n=1173
+- primary_result: PSM ATT=-0.0165, bootstrap 95% CI [-0.0924,+0.0605]. Exact-match ATT=-0.0857. Stratified perm p=0.0275 on ATT=-0.0171. Placebo 95% [-0.0762,+0.0730]; real ATT inside. Playoffs ATT=+0.0485 CI[-0.1095,+0.2078].
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

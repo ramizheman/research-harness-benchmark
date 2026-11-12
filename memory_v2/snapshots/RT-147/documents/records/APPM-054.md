@@ -1,0 +1,34 @@
+# EXP:APPM-054 | Playoff adaptation-pair sustainability (12 pairs x 74 matchups)
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 42,787 playoff possessions / 244 games / 74 directed matchups; 12 adaptation pairs; sustained_ppp vs non_pivot_ppp; CV<30% = CONSISTENT; |delta|>=0.10 = PIVOT_WINS/LOSES.
+- hypothesis: Pivoting to a listed counter after suppression sustains higher PPP than not pivoting, consistently across playoff matchups.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-054; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-054 {record=APPM-054; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: _sustainability_all_playoffs_out.txt and _out2.txt are identical reruns (29166 bytes each). Sequential premiums were later removed from the deck as not holding up.
+- prespecified: no
+- produced: RES:APPM-054 {record=APPM-054; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-033 sequential premiums (abandoned); three-level sustainability
+- related_to: EXP:APPM-033 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-054; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs.py
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs_out.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs_out2.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_mia_bos.py
+- title: Playoff adaptation-pair sustainability (12 pairs x 74 matchups)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-054; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-054; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPM-054; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-054 | Result of APPM-054
+- failure_evidence: Population deltas mostly |d|<0.10; two pairs with enough signal are PIVOT_LOSES (pivot worse than staying).
+- failure_type: B_powered_null
+- power_info: n=74 matchups; pair n_matchups 5 to 44
+- primary_result: 10/12 pairs CONSISTENT and within 0.10 of non-pivot (no PIVOT_WINS). PNR->PULL_UP sustained 1.069 vs non_pivot 1.224 (n_matchups=9) PIVOT_LOSES. DRIVE->PULL_UP 1.101 vs 1.217 (n=5) PIVOT_LOSES. Largest positive pair in the table: DRIVE->SPOT_UP 1.150 vs 1.098 (n=26). Shelf-life ~34-41 possessions.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

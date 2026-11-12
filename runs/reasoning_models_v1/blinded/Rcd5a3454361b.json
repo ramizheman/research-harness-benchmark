@@ -1,0 +1,170 @@
+{
+ "blind_id": "Rcd5a3454361b",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive lineup change",
+   "shot mix",
+   "personnel effects",
+   "within-game substitution",
+   "causal identification"
+  ],
+  "methodological_questions": [
+   "How to isolate lineup changes from confounding factors such as score, opponent, and fatigue?",
+   "What unit of analysis (possession, stint) is appropriate for detecting shot mix shifts?",
+   "How to measure shot mix reliably and aggregate across stints?",
+   "How to address small sample sizes and multiple comparisons for many lineups?",
+   "What are potential pitfalls of using within-game lineup changes as a natural experiment?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Offenses attack the rim more when the opponent has no big: DRIVE +0.82pp, POST_UP +0.43pp, 3PA -1.79pp, rim <=4ft +0.12pp, PPP +0.008 (t=+1.1); but rim_pct 0 bigs +0.123 (SE 0.295); tpa_pct -1.785 (SE 0.309). N=1.07M possessions. Verdict weak/small."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Rank-1 openers all CUT-centered and INFEASIBLE; CUT target exceeds stretch ceiling by +9.6 to +15.9pp for every team. Optimizer ignores personnel; CUT target 3-10x stretch ceiling."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Play-type mix shifts by halftime, crunch, post-run: OTHER +2.26 to +2.48pp in H2, crunch OTHER +6.08pp, PULL_UP +1.20pp, post-run DRIVE +3.75pp, OTHER -6.72pp. No inferential tests; OTHER label noisy."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Offenses tilt play-type mix toward opponent's defensive weakness: tilt -2.353 pp per PPP (SE 1.212, t=-1.94); payoff +0.83 (SE 0.82); heterogeneity split-half r=+0.242; CUT[path] tilt -8.271 (SE 2.240). Null result, wrong sign, SD of weakness only 0.017 PPP."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "optimizer-based opener recommendation using CUT-centered targets",
+    "why": "C_artifact: CUT target exceeds stretch ceiling, ignoring personnel capacity; label/construction flaw."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "descriptive play-type adaptation analysis (no inferential test)",
+    "why": "E_unclear: OTHER label noisy, low measurement reliability, no statistical tests performed."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "game-plan adaptation tilt test (play-type mix toward opponent's prior weakness)",
+    "why": "B_powered_null: tilt wrong sign, low signal (SD 0.017 PPP), implementation bugs, measurement reliability issues."
+   }
+  ],
+  "evidence_establishes": [
+   "Shot mix shifts in response to opponent lineup changes (loss of rim protector) are detectable for some play types but with small effect sizes and non-significant PPP.",
+   "Derived play-type labels (especially OTHER) have low reliability, as seen in within-game adaptation descriptions.",
+   "Tilting offensive shot mix toward opponent's historical defensive weaknesses yields a powered null result."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a change of the offensive five itself causes a detectable shift in shot mix.",
+   "Feasibility of isolating offensive personnel effects from confounding opponent adjustments, score, and game state.",
+   "Effect size or power for a stint-level design comparing offensive lineups before and after substitutions."
+  ],
+  "own_inferences": [
+   "The question is a methodological proof-of-concept: if offensive personnel matter, shot mix should differ across lineup changes. However, the signal is likely small and the study would be underpowered given the expected number of clean five-man changes.",
+   "Play-type labels from [source] database are noisy, which will attenuate any real shift; using simple shot distance bins (rim, mid, 3pt) would be more reliable.",
+   "Confounding by simultaneous opponent substitutions and game state (score, quarter, fatigue) cannot be fully eliminated without careful design, and the exclusion restriction may be violated.",
+   "A more promising approach would be to focus on a large-sample subset (e.g., changes where only one offensive star is subbed) or to use a within-game fixed-effects model with a specific, pre-registered shot type."
+  ],
+  "uncertainties": [
+   "Exact definition of 'changing the offensive five' (all five at once? any substitution that alters the lineup?).",
+   "Number of qualifying stints with full offensive-five changes in the 2024-25 season is unknown but likely small.",
+   "Shot mix operationalization: which play-type taxonomy, aggregation method, and time window post-substitution.",
+   "Reliability of derived play-type possession records for the 2024-25 season has not been audited.",
+   "Whether the study is intended as a single hypothesis test or an exploratory scan across many shot types and lineups."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Retrieved studies show that shot-mix changes from opponent lineup shifts produce small effects ([prior work], inconclusive) and strategic tilt designs yield null results (SF-[prior work]). Measurement noise in play-type labels (SF-[prior work]) and artifacts from label construction ([prior work]) further reduce confidence. Without this evidence, the question might have appeared more straightforward; now the probability of an informative, well-powered test is judged low, shifting the decision to do_not_proceed."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Number of clean five-man offensive lineup changes likely insufficient for adequate power against plausible effect sizes."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Derived play-type labels (e.g., OTHER) are known to be noisy, reducing signal-to-noise ratio and power."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Lineup changes are correlated with game state, opponent substitutions, and fatigue; isolating the causal effect of offensive personnel is hard."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Earlier work examined shot mix adaptations to opponent lineups ([prior work], inconclusive) and within-game play-type variation (SF-[prior work], descriptive). A game-plan tilt test (SF-[prior work]) was null. No study directly tested shot mix shifts from a change in the offensive five."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Expected number of distinct five-man lineup changes with enough possessions may be <200, underpowered for detecting small effect sizes (e.g., 0.03 proportion change)."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many possible lineups; most appear only a few times, making per-lineup shot mix estimates noisy and raising dimensionality issues."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type classification (OTHER, etc.) is error-prone; using shot distance bins would reduce noise but may miss personnel-specific tendencies."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If lineups are selected for change after extreme performance, shot mix may exhibit regression to the mean, biasing pre-post comparisons."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Lineup changes may be triggered by upcoming opponent substitutions or game situation (fouls, timeouts), contaminating the 'treatment' with forward-looking information."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Opponent defense, score margin, quarter, and rest days all change simultaneously with offensive subs and influence shot selection."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If many shot types or lineups are tested without correction, false positives are likely; even with pre-registration, exploratory slicing is tempting."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels may systematically misclassify some personnel-dependent actions, creating artifacts similar to [prior work]."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Certain shot types are rare (e.g., alley-oops, post-ups for specific players), leading to near-zero counts and unstable proportions."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.4,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.3
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Average change in shot-type frequency (pre-specified: 3PA proportion, rim attempt proportion, or mid-range proportion) when the offensive five is replaced by a fully different five via substitution, compared to adjacent stints where the same five continues.",
+   "unit": "A stint (continuous game clock segment with the same offensive five) with a minimum of 3 possessions. Pre-change stint is the last stint before the substitution; post-change stint is the immediately following stint. A paired comparison per transition.",
+   "sample": "NBA 2024-25 regular season. Exclude garbage time (score margin >20 in the final 5 minutes of 4th quarter), technical foul situations, and stints shorter than 3 possessions. Only transitions where the offensive five changes completely (all five players differ) and the opponent's defensive five remains unchanged (to control defensive confounding) or where opponent changes are also measured and controlled.",
+   "power": "Assume a true shift of 0.05 in 3PA proportion (Cohen's d ~0.15). To achieve 80% power with a paired t-test (alpha=0.05 two-sided) would require ~350 transitions. Expected clean transitions with full five-man change and no opponent substitution are likely fewer than 200, so the study would be underpowered.",
+   "controls": "Paired t-test or stint-level linear model with fixed effects for quarters, point differential (linear and squared), home/away, and opponent defensive rating. Alternative: within-game stint fixed-effects model that compares only stints within the same game, essentially a pre-post difference within game.",
+   "falsification": "Placebo test: For games where the lineup does not change, artificially split a single stint into two halves and test whether shot mix differs between the halves. Expect null. Also, test whether the direction of the shift is symmetric (e.g., swap of lineups A and B should produce opposite signs).",
+   "multiplicity": "Pre-register exactly one primary shot-mix metric (e.g., 3PA rate). All other shot types are exploratory and reported with adjusted p-values (Bonferroni).",
+   "decision_rule": "Reject the null hypothesis of no change if the paired t-test p < 0.05 (one-sided for a directional prediction, or two-sided). Require a minimum effect size of 0.03 in the primary proportion (practical significance threshold).",
+   "data_version": "NBA 2024-25 play-by-play and derived play-type possession records from [source] database as of 2026-11-02."
+  }
+ },
+ "redactions": 27
+}

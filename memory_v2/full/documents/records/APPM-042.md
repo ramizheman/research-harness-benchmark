@@ -1,0 +1,35 @@
+# EXP:APPM-042 | Lineup structural-role coverage vs talent accumulation (prereg T1)
+- also_recorded_as: CHT-055
+- date: 2026-07-13
+- date_basis: doc
+- date_reliable: yes
+- design: Possession-level OLS on 420,993 all-5-classified RS possessions (2022-24), 90 team-seasons; COVERED threshold plus n_ORG/n_CONN/n_TERM + leave-game-out TALENT + team-season FE; cluster-robust p and 2000 team-season cluster bootstrap. Feasibility gate first (G1-G3).
+- hypothesis: Conditional on talent and linear role counts, a lineup covering organizer+connector+terminal (COVERED) produces more PPP than one missing a function.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-042; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF29 {record=APPM-042; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Updated copy of APPM-037 after reading TOPOLOGY_COVERAGE_PREREGISTRATION.md (gate numbers and n_CONNECTOR/n_TERMINAL/TALENT terms were not in the earlier record). Terminal confirmatory test of the role program; no fallback.
+- prespecified: yes
+- produced: RES:APPM-042 {record=APPM-042; rule=record fields}
+- project: Structural Influence (Paper 1)
+- related_as_recorded: APPM-037; Paper numbers audit
+- reported_in: PAPER:Structural_Influence_published {record=APPM-042; rule=project field}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PAPER_NUMBERS_SHEET.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\TOPOLOGY_COVERAGE_PREREGISTRATION.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\coverage_full_study.py
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\coverage_gate.py
+- title: Lineup structural-role coverage vs talent accumulation (prereg T1)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-042; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPM-042; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPM-042; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-042; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-042 | Result of APPM-042
+- failure_evidence: Estimate 0.67 below MDE 1.4 pts/100; p=0.176; CI includes 0. T1 NOT CONFIRMED: accumulation, not coverage.
+- failure_type: A_unanswerable
+- power_info: n=420,993 possessions; MDE 1.4 pts/100; SE implied by t=1.35 on +0.67
+- primary_result: Gate PASS (COVERED 30.0%; 72 team-seasons both strata; |Spearman(COVERED,TALENT)|=0.042; R2(COVERED~counts)=0.203; Spearman(TALENT,PPP)=+0.027). M1 COVERED b=+0.0067 (+0.67 pts/100), t=1.35, p=0.176, team-season CI [-0.28,+1.65] pts/100 includes 0. n_ORGANIZER +2.24 t=7.29; n_CONNECTOR +0.53 t=1.35; n_TERMINAL +0.08 t=0.18; TALENT +3.98 t=0.60. M2 +0.64 p=0.188; naive +0.68 p=0.177; >=4/5 +0.83 p=0.068 CI [-0.08,+1.75]. MDE(80%) 1.4 pts/100 (from PAPER_NUMBERS_SHEET).
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

@@ -1,0 +1,27 @@
+# FAM:SF-APPM-002 | Study family SF-APPM-002: Top-player on/off features in calibrator
+- observed_research_question: Top-player on/off features in calibrator
+- auto_outcome_status: rejected
+- observed_hypothesis: Adding star on/off presence features (top-1 or top-3 players) improves holdout R2 over shipped 8-feature OLS.
+- observed_result: top_n=3 best R2_hol +0.0971 (lift -0.0179); top_n=1 best R2_hol +0.0865 (lift -0.0285).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Holdout lift negative at every k (-0.0179 / -0.0285).
+- observed_sample_and_power: holdout 520 cells
+- observed_method: Train-learned on/off deltas per top-N player, swept k_player shrinkage; val 690 cells, holdout 520 cells; compare R2_hol to 8-feat baseline +0.1150.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPM-002: 'per top-n player, swept k_player shrinkage; val 690 cells, holdout 520 cells; compare r2_hol to 8-feat baseline +0.1150. top_n'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-002: 2026-04-17 (mtime)
+- observed_member_records: APPM-002
+- observed_sources: APPM-002: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ONOFF.md
+- observed_sources: APPM-002: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ONOFF_TOP1.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-006 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-019 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}

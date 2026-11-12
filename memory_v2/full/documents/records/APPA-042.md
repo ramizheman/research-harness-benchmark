@@ -1,0 +1,31 @@
+# EXP:APPA-042 | Suppression vs routing: defense reads play type not initiator
+- date: 2026-06-22
+- date_basis: doc
+- date_reliable: yes
+- design: RS 2025-26 holdout 2,779 triggers; same-player both-halves pairs; same vs swapped primary initiator; _test_same_vs_swap.py. Prevalence: 1,783/2,296 processed team-games (77.7%) or 72.5% vs full-season denominator.
+- extends: EXP:APPA-036 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-042; rule=date-ordered record link}
+- hypothesis: The H2 PPP collapse after a trigger is initiator-specific (routing) rather than play-type suppression; swapping the primary initiator should recover efficiency.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-042; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF06 {record=APPA-042; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Doc verdict: kill routing-regret as an adaptation mechanism on suppressed H2 plays; keep routing regret on BEST counter possessions. Cite-now line says +0.124; related-behavioral table says +0.116.
+- prespecified: partial
+- produced: RES:APPA-042 {record=APPA-042; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-036; APPA-046
+- related_to: EXP:APPA-046 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-042; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-042; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Suppression vs routing: defense reads play type not initiator
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-042; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-042; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-042 | Result of APPA-042
+- failure_evidence: Same-player drop 0.643 matches the play-type drop 0.631; swapping initiator does not recover (swap drop 0.639, replacement 1.093 vs demoted 0.789).
+- failure_type: B_powered_null
+- power_info: 2,779 triggers; 825 same / 1,732 swap
+- primary_result: Deck baseline drop 0.631 (H1 1.470 to H2 0.839, n=2,779). Same player both halves drop 0.643 (n=10,194 pairs). Same initiator 825 drop 0.575/0.600; swapped 1,732 drop 0.634/0.639; SWAP-SAME +0.039 p=0.002 d=0.12. 68% swap. Routing regret on BEST counter poss +0.116 PPP, 72.4% oracle wins, n=6,808 (sheet also cites +0.124).
+- record_stratum: rejected
+- record_substatus: verdict reversed, powered null with power information
+- verdict: reversed

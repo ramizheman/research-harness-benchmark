@@ -1,0 +1,31 @@
+# EXP:APPS-051 | A1 within-scheme adapter vs wrong-way (selection-controlled)
+- date: 2026-05-16
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Playoff possessions. Within-scheme adapter vs wrong-way; also early-PPP quintile match. Carryover Game N->N+1.
+- hypothesis: Within inferred scheme, teams that shift toward SHOULD counters (adapters) have higher early->late dPPP than wrong-way teams, after removing early-PPP selection.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-051; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF12 {record=APPS-051; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Wrote to fix unfair T1 that compared adapters to no_signal cells that never started hot.
+- prespecified: partial
+- produced: RES:APPS-051 {record=APPS-051; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-052; APPS-053
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\A1_WITHIN_SCHEME_findings.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\a1_within_scheme.py
+- title: A1 within-scheme adapter vs wrong-way (selection-controlled)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-051; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-051; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-051; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-051 | Result of APPS-051
+- failure_evidence: DROP/HELP within-scheme gaps are positive; SWITCH has the wrong sign; next-game carryover is null. Early-PPP of wrong_way (1.0939) still exceeds adapters (1.0448).
+- failure_type: E_unclear
+- power_info: n adapt=205, wrong=274
+- primary_result: DROP: adapt +0.0041 vs wrong -0.0789, gap +0.0830, Welch p=0.0046, n=73/109. HELP: +0.0943 vs +0.0404, gap +0.0539, p=0.0493, n=96/115. SWITCH: +0.1200 vs +0.1399, gap -0.0199, p=0.6514, n=36/50. Pooled quintiles: adapt +0.0667 n=205 vs wrong +0.0111 n=274, gap +0.0556. Carryover next-game PPP gaps ns (DROP +0.0039 p=0.4244).
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

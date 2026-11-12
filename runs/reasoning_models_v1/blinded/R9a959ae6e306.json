@@ -1,0 +1,120 @@
+{
+ "blind_id": "R9a959ae6e306",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup effect on shot distribution",
+   "shot mix shift due to personnel change",
+   "offensive five composition and shot selection",
+   "detecting causal lineup effects through shot mix",
+   "methodological validation using shot mix as a test statistic"
+  ],
+  "methodological_questions": [
+   "Is shot mix change a reliable indicator of personnel effect, given variation in shot type stability?",
+   "What sample size (possessions per lineup) is needed to detect meaningful shot mix differences?",
+   "How can opponent lineup, game state, and team strategy be controlled to isolate offensive personnel?",
+   "Does observational lineup variation (coach decisions) produce detectable shot mix changes in this dataset?",
+   "Are there previous attempts to use shot mix to validate lineup effect detection that failed?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No historical evidence was available; nothing is pre-established for this specific question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a shot-mix-based test can detect offensive five effects with sufficient power and control in these data.",
+   "What the appropriate lineup-level sample size threshold should be.",
+   "The degree of confounding by opponent quality and game context.",
+   "The reliability of any previous implementation of this design."
+  ],
+  "own_inferences": [
+   "The data contain play-by-play shot distance and derived play-type possessions, so shot mix (e.g., three-point proportion, rim frequency) can be constructed for each offensive lineup.",
+   "With three full seasons, many lineups will accumulate hundreds of possessions, but rarer five-man combos will still suffer from small samples and sparse exposure.",
+   "Lineup changes are endogenous: coaches adjust personnel in response to score, matchups, rest, and hot/cold streaks. Simple before/after comparisons are likely confounded.",
+   "If the true effect of personnel on shot mix is modest, the signal may be swamped by noise, opponent effects, and game-state shifts.",
+   "A validation study of this sort could over-interpret statistically significant differences that are actually artifacts of multiple testing or label noise in the derived play types."
+  ],
+  "uncertainties": [
+   "The exact structure and accuracy of the derived play-type possession records (e.g., how reliably initiator, play type, and points are assigned).",
+   "The granularity of the defensive matchup data (possession-level or segment-level) and whether it accurately captures who guarded whom.",
+   "Whether the research team intends a within-team, cross-team, or league-wide comparison.",
+   "The pre-specified minimum effect size they would consider ‘detectable’ for a design validation."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "The retrieval returned no earlier studies, so the decision is based solely on the research question, data description, and methodological assessment."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Many five-man lineups will have too few possessions for reliable shot-mix estimates; sparsity erodes power."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Non-random lineup selection by coaches correlates with opponent strength, game situation, and recent performance, confounding shot-mix comparisons."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Comparing shot-mix across hundreds of lineups inflates false positives unless multiplicity adjustments are pre-registered."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Derived play-type records depend on a model or rule-based assignment; misclassification of play types or initiators can create spurious shot-mix differences."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No previous work on this specific question was retrieved; the design appears novel within this project."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Lineups with low possession counts (e.g., < 100) produce unstable shot-mix estimates; power to detect meaningful differences is low for many combos."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "A large fraction of possible offensive fives appears only in garbage time or due to foul trouble, leading to very few observations and extreme selection."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Changes in offensive five are often paired with changes in the opponent’s defensive five and with score-driven tactical shifts, making it hard to attribute shot-mix changes to the offensive personnel alone."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many lineups without a correction plan risks false discovery; a league-wide omnibus test is safer but less informative about specific combos."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The shot mix depends on play-type labels that may be mis-assigned, particularly ambiguous transition vs. half-court designs, creating correlated errors that could mimic lineup effects."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot distance bins or play-type groupings may not be stable within a lineup over small samples, leading to spurious ‘differences’ from a handful of possessions."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.1,
+   "untestable": 0.2,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The difference in shot-type distribution (e.g., % three-point, % rim, % mid-range) between two offensive five-man lineups of the same team, holding opponent defensive lineup strength and game context constant.",
+   "unit": "A possession with a specific offensive five, linked to the defensive five and period/score state.",
+   "sample": "All offensive lineups from the 2022-23, 2023-24, and 2024-25 regular seasons that logged at least 300 non-garbage-time possessions. Garbage time defined as last 5 minutes of 4th quarter with score margin > 15.",
+   "power": "Using simulation, determine the minimum number of possessions per lineup needed to detect a 5-percentage-point shift in three-point attempt rate at 80 % power, alpha = 0.01, adjusting for within-team correlation. Exclude lineups below that threshold.",
+   "controls": "Fixed effects for opponent defensive lineup (clustered by similarity), game location (home/away), period, point differential at start of possession, and indicator for back-to-back game.",
+   "falsification": "1) Permutation test: shuffle shot mixes across lineups within the same team and check that the observed differences are no longer detectable. 2) Stability test: split each lineup’s possessions into odd/even games and confirm shot mix correlates at r > 0.7.",
+   "multiplicity": "Pre-register a hierarchical testing plan: first an omnibus chi-square test comparing all lineups against the team average; only if significant, apply Benjamini-Hochberg correction to pairwise comparisons among top-20 most-used lineups.",
+   "decision_rule": "The design is deemed to detect personnel effects if (a) the omnibus test rejects the null of equal distributions at p < 0.001, and (b) at least 60 % of previously defined high-minutes lineups show a significant pairwise difference after multiplicity correction.",
+   "data_version": "NBA stats API per-game play-by-play and box-score summary as of 2026-11-02; derived play-type possession records from the project's graph database (version commit hash pre-registered)."
+  }
+ },
+ "redactions": 0
+}

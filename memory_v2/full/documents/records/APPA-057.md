@@ -1,0 +1,31 @@
+# EXP:APPA-057 | Double-suppression stacking (POST_UP then PUTBACK)
+- date: 2026-05-31
+- date_basis: doc
+- date_reliable: yes
+- design: League sequence opp POST_UP -> offense -> opp PUTBACK -> star next; vs each alone. Mitchell PUTBACK-by-opponent directional split.
+- extends: EXP:APPA-050 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-057; rule=date-ordered record link}
+- hypothesis: Opponent POST_UP then PUTBACK stacks additively against the next star possession.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-057; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF09 {record=APPA-057; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Shared-pathway interpretation: offense adjusts after the first disruption.
+- prespecified: no
+- produced: RES:APPA-057 {record=APPA-057; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-054; APPA-050
+- related_to: EXP:APPA-054 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-057; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-057; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Double-suppression stacking (POST_UP then PUTBACK)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-057; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-057; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-057 | Result of APPA-057
+- failure_evidence: Stacked suppression -0.071 is less than either alone and far below additive -0.232 (n=1,047).
+- failure_type: B_powered_null
+- power_info: n=1,047 stacked; 15,898 / 76,329 singles
+- primary_result: Baseline 1.210 n=960,764. After PUTBACK only 1.097 d=-0.113 n=15,898. After POST_UP only 1.091 d=-0.119 n=76,329. Stacked 1.138 d=-0.071 n=1,047 vs additive prediction -0.232. Mitchell after PUTBACK 0.919 vs 1.252 (d=-0.333, n=95); 8/13 teams below baseline n>=5, spread 1.200 PPP.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

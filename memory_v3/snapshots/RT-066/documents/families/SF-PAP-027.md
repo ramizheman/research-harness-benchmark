@@ -1,0 +1,30 @@
+# FAM:SF-PAP-027 | Study family SF-PAP-027: Celtics Brown pairwise on/off
+- observed_research_question: Celtics Brown pairwise on/off
+- auto_outcome_status: untestable
+- observed_hypothesis: Tatum's PPP depends on Jaylen Brown being on the floor.
+- observed_result: Tatum delta +0.034 CI[-0.0706,+0.1397] t=0.639; Pritchard -0.226 CI[-0.666,+0.232] (small)
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: CIs span 0; Pritchard flagged small
+- observed_sample_and_power: n=278-3149 possessions
+- observed_method: BOS 2022-23 possessions, bootstrap CI.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Not in paper.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-027: 2026-08-08 (mtime)
+- observed_member_records: PAP-027
+- observed_sources: PAP-027: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\celtics_brown_pairwise.py
+- observed_sources: PAP-027: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\celtics_brown_pairwise.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-066 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF30 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-011 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

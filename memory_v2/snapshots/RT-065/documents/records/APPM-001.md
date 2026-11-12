@@ -1,0 +1,34 @@
+# EXP:APPM-001 | Play-type mix alignment vs actual PPP (matchup residual)
+- also_recorded_as: CHT-088
+- date: 2026-04-18
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 908 holdout game-team rows (454 games), terciles of L1 distance actual vs recommended mix; actual PPP residualized on team offense and opponent defense means.
+- hypothesis: Holdout games where a team's play-type mix is closer to the model's recommended mix score more efficiently.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-001; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:net_rating_ORtg {record=APPM-001; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPM-001; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-001 {record=APPM-001; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Observational; doc states regret is a tautology. _new/_prior files are identical reruns (only elapsed time differs).
+- prespecified: no
+- produced: RES:APPM-001 {record=APPM-001; rule=record fields}
+- project: Strategy app
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL_new.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL_prior.md
+- title: Play-type mix alignment vs actual PPP (matchup residual)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-001; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-001; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-001; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-001 | Result of APPM-001
+- failure_evidence: Strength-controlled gap +3.27 ORtg persists after team/opponent residualization.
+- failure_type: D_positive
+- power_info: n=908 rows; no CI stated
+- primary_result: Raw gap aligned-deviated +5.18 ORtg; strength-controlled gap +3.27 ORtg (+0.0193 vs -0.0134 PPP residual). Model regret median +25.94 ORtg (non-negative by construction).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

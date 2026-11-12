@@ -1,0 +1,170 @@
+{
+ "blind_id": "Rabc5cdd8c2fe",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling and AVOID labels",
+   "opponent next-possession PPP after running a specific play type",
+   "own-sequence lags (temporal dependence of own play types on opponent response)",
+   "play-type data quality and measurement"
+  ],
+  "methodological_questions": [
+   "Can we reliably estimate opponent next-possession PPP conditional on the preceding own play type?",
+   "What is the minimal detectable effect size given sample sizes per play-type transition?",
+   "How do we control for defensive team quality, game state, and previous-make confounders?",
+   "Does the effect persist after multiple-testing correction and across seasons (drift risk)?",
+   "Are own-sequence lags (e.g., play type at t-1, t-2) estimable without excessive dimensionality?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "3/64 transition cells (opponent play type → your offense PPP) survived def-match, off-match, prev_made, and BH-FDR: SPOT_UP→TRANSITION -0.085, POST_UP→TRANSITION -0.083, PNR→DRIVE -0.058. Most 64 cells were null."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Q5c verdict 'rank-1 suppressor varies meaningfully across players'; e.g., Jokic after opponent POST_UP PPP 1.1271 (-0.0675, SE ±0.0500, n=480). Rank-1 deltas mostly within 1-2 SE, no multiple-comparison control."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "PUTBACK was top suppressor for 6+ stars (e.g., D. Mitchell baseline PPP 1.178 → 0.884, d=-0.294, n_after=95). Other tops: TRANSITION, POST_UP. No multiplicity correction, small n_after cells (32-95)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Agent ablation (n=40 pairs) median regret V4 0.102 vs V5 0.067, Holm p=0.062, McNemar p=0.118. Override hit rate 25% (0-100% CI). Brittle precision 7.5%."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Uncorrected multiple testing in per-star, per-opponent-play-type suppression analysis",
+    "why": "No multiplicity correction; n_after as low as 32 for rare opponent play types, causing spurious rank-1 suppressor identification."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inconclusive ranking of rank-1 suppressors without formal inference",
+    "why": "Rank-1 deltas mostly within 1-2 SE; no multiple-comparison control; OTHER artifact flagged, undermining confidence in specific suppressor play types."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Small-scale agent ablation (n=40) as a template for play-type evaluation",
+    "why": "Underpowered (p>0.05, 25% override hit with near-zero precision), untestable for player-level recommendations, heavy multiple-testing burden."
+   }
+  ],
+  "evidence_establishes": [
+   "Opponent play type can affect your next-possession PPP, but the effects are small (~ -0.05 to -0.09 PPP) and sparse (3/64 after rigorous controls).",
+   "Defensive-team quality, offensive-team strength, and previous-shot-made are critical confounders; matching is essential.",
+   "Without multiplicity correction, apparent top suppressors are likely false positives.",
+   "Sample sizes for rare opponent-play-type → your-offense transitions can be as low as 30-100 even with multiple seasons of data."
+  ],
+  "evidence_does_not_establish": [
+   "Whether your own play type influences the opponent's next-possession PPP (the requested direction, i.e., own play type → opponent PPP).",
+   "The magnitude or existence of own-sequence lag effects (e.g., how the opponent's response depends on your prior sequence of play types).",
+   "Whether any such effects are practically large enough to drive 'AVOID' labels, as the historical deltas were below 0.10 PPP.",
+   "Generalizability across seasons (drift) and to the 2025-26 partial season."
+  ],
+  "own_inferences": [
+   "Because the methodology for own-play-type → opponent-PPP is structurally symmetric to the opponent-to-own direction studied in SF-[prior work], a similar sparse-signal pattern is likely; most play types will show null effects after controls.",
+   "The effect sizes observed in the opposite direction are borderline for practical AVOID labeling; an effect of -0.08 PPP might not meaningfully change win probability unless it applies to high-leverage situations.",
+   "Own-sequence lags (e.g., play-type history of the same team) will multiply dimensionality and require an order of magnitude more data, making them infeasible without strong simplifying assumptions (e.g., only lag-1 binary indicator of same/different play type).",
+   "The historical evidence strongly motivates a matched-control design with pre-registered play types and FDR control to avoid the failures seen in earlier families."
+  ],
+  "uncertainties": [
+   "The exact sample size per own-play-type → opponent-PPP transition is unknown before data extraction; rare play types may be underpowered.",
+   "Potential non-stationarity from 2022-23 to 2025-26 (rule changes, pace shifts) could violate the i.i.d. assumption; a season-stratified analysis may be needed.",
+   "Play-type classification errors (e.g., by the NBA stats API or derived labels) could attenuate effects or create artifacts.",
+   "The practical threshold for an AVOID label has not been defined in advance and would need stakeholder input."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the retrieved evidence, one might assume that opponent next-possession PPP varies substantially by your play type and that own-sequence lags are straightforward to test. The historical record shows that even the better-powered opponent-to-own direction yields only a few significant cells after rigorous controls, with small effect sizes, and that uncorrected analyses (SF-[prior work], SF-[prior work]) produced unreliable top lists. This shifts the decision from a simple test to a carefully pre-registered, matched, multiplicity-controlled design and downgrades the feasibility of own-sequence lags without additional constraints."
+  },
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Rare play types (e.g., PUTBACK, POST_UP after transition) may have too few occurrences to estimate opponent PPP with sufficient precision, as suggested by n_after=32-95 in SF-[prior work]."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "The opponent's next-possession PPP is heavily influenced by their offensive strength and your defensive lineup; failing to control for these could produce spurious play-type effects."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing many play-type transitions without correction risks false positives, as evidenced by the lack of multiplicity control in earlier star-suppression studies."
+    },
+    {
+     "code": "DRIFT_NONSTATIONARITY",
+     "text": "Combining four seasons spanning 2022-23 to 2025-26 could introduce drift; the play-type effects may not be stable across seasons."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Misclassification of the play type (e.g., ambiguous fast-break vs. half-court) would dilute or bias the estimate."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work studied the opposite direction (opponent play type → your next-possession PPP) and found sparse, small effects after rigorous matching. Star-suppression studies suggested individual play types can matter but lacked multiplicity control and adequate sample sizes. The direct question of whether your play type influences the opponent's next-possession PPP, and whether own-sequence lags matter, has not been tested."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-transition cell counts may be insufficient for rare play types; power analysis on historical transition frequencies is needed before committing to all play types."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Defensive team identity, opponent offensive strength, and game context (score margin, period) are strongly predictive of opponent PPP and must be controlled, ideally via matching or fixed effects."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Evaluating many own-play-type categories inflates the false-positive rate; a pre-specified set and FDR correction are required."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Effects may differ across seasons; a pooled analysis should test for season-play-type interactions or use season-stratified estimates."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Derived play-type labels from [source] database could be unreliable; a validation sample should be manually checked or cross-validated."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "If the analysis does not include a placebo test (e.g., using false future possessions), apparent effects may be due to temporal clustering rather than causal influence."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If play types are selected for AVOID labels based on extreme observed deltas, regression to the mean will overstate the effect; out-of-sample validation is needed."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.4,
+   "untestable": 0.1,
+   "artifact": 0.05,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average treatment effect of own team's play type X on the opponent's points per possession in the immediately following defensive possession, relative to the expected opponent PPP given the defensive matchup and game state, conditional on X being clearly identified.",
+   "unit": "A linked pair of possessions: (i) an offensive possession by Team A that ended with a play type X assignment; (ii) the immediately following defensive possession for Team A, which is the opponent's offensive possession.",
+   "sample": "All regular season and playoff possessions from the 2022-23 through 2025-26 NBA seasons, excluding garbage time (lead ≥20 in last 5 minutes of the 4th quarter) and possessions with unclear play-type labeling (e.g., transition ambiguous). Use the complete 2025-26 season once available; the partial season up to 2026-06-19 is used for initial exploration.",
+   "power": "Set minimum detectable effect size at -0.06 PPP (comparable to SF-[prior work] findings). For play types occurring at least 800 times per season (~30 per team), a four-season sample yields >3000 observations, providing >80% power at α=0.05 (two-sided) assuming a PPP standard deviation of 1.3. Simulation-based power analysis will be pre-registered with the exact observed frequency distribution.",
+   "controls": "Primary: match each possession with play type X to a counterfactual possession by the same defensive team (Team A) on the same date, with similar score margin (±3), period, and opponent offensive rating (±2 pts/100), but where Team A ran a different play type. Sensitivity: regression adjustment with defensive-team fixed effects, opponent offensive rating linear term, previous-made indicator, and home/away indicator.",
+   "falsification": "1) Placebo forward: use the opponent's possession *after* the next (i.e., two possessions later) as outcome; any effect there indicates temporal confounding. 2) Permutation test: randomly shuffle play-type labels within each team-game and re-estimate the effect distribution; the true effect should lie outside the null distribution. 3) Check that effects vanish when defensive-team quality is not matched. 4) Out-of-sample validation: estimate the effect in even seasons (2022-23 + 2024-25) and test on odd seasons (2023-24 + 2025-26); report consistency.",
+   "multiplicity": "Pre-register a primary set of 8 most frequent play types (ISOLATION, PNR_BALL_HANDLER, PNR_ROLL_MAN, SPOT_UP, TRANSITION, POST_UP, CUT, OFF_SCREEN). All 8 main effects are tested with Benjamini-Hochberg FDR control at q=0.1. Any exploratory extensions (e.g., own-sequence lags) will be reported as secondary with Bonferroni-Holm over the total number of secondary tests.",
+   "decision_rule": "A play type is considered for AVOID labeling only if: (a) its estimated opponent-PPP delta is < -0.05 PPP (worse for defense) or > +0.05 PPP (better), (b) the FDR-adjusted p-value < 0.1, (c) the effect replicates in the out-of-sample holdout, and (d) it passes all falsification tests. Otherwise, the conclusion is that opponent next-possession PPP does not provide sufficient signal for AVOID labels for the tested play types.",
+   "data_version": "NBA Stats API per-game play-by-play and derived play-type possessions as of 2026-06-19, with reproducible data pull scripts that include versioned schema of [source] database. All data processing steps (possession linking, play-type extraction, matching) will be containerised."
+  }
+ },
+ "redactions": 27
+}

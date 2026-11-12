@@ -1,0 +1,33 @@
+# EXP:APPS-003 | SQ2 decision quality hit rate: engine top pt_shift vs team modal PT
+- also_recorded_as: CHT-021
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: (team, series) pairs across 42 correction_log series (84 rows, 53 scoreable in full-calibrated run); HIT if rec PT PPP > modal PT PPP, both n>=15.
+- hypothesis: The V4 engine's recommended play type outperforms the team's highest-volume play type in that playoff series.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-003; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-003 {record=APPS-003; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: the DRIVE ban and CUT PPP level were known before scoring. Holdout protocol (tuning 17 series, holdout 25, SHA 59a9be48) was written but no holdout result was found in files read.
+- prespecified: no
+- produced: RES:APPS-003 {record=APPS-003; rule=record fields}
+- project: Strategy app
+- related_as_recorded: SQ2 holdout protocol; Post-hoc calibrated hit rate (96%); Possession-level SQ2 test; Alignment regression
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\decision_quality_findings.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\README.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\decision_quality_test.py
+- title: SQ2 decision quality hit rate: engine top pt_shift vs team modal PT
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-003; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-003; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPS-003; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-003 | Result of APPS-003
+- failure_evidence: Headline 'structurally inflated': 14 of 53 pairs compare against banned DRIVE; 13 of 37 hits from CUT recs with structurally high PPP; in-sample, same series used to discover DRIVE failure and tune exclusion.
+- failure_type: C_artifact
+- power_info: n=53 scoreable; no bootstrap CI computed
+- primary_result: Full-calibrated headline 69.8% (37/53); DRIVE-modal (banned-PT) comparisons 85.7% (12/14); clean comparisons 64.1% (25/39); high-confidence 64.3% (27/42). CUT recs 13/13; POST_UP 0/4. Uncalibrated archival: 51.7% (31/60), high-conf 42.9%, DRIVE recs 8% (n=25).
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

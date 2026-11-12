@@ -1,0 +1,42 @@
+# EXP:APPS-019 | PO 55-series n-gated BEST vs AVOID counter gap (leakage-corrected)
+- date: 2026-06-20
+- date_basis: doc
+- date_reliable: yes
+- design: 55 playoff series, 272 games, 633 triggers, counter_h2_n>=5; row-mean PPP (canonical). Scout exclude_gids leakage fixed 2026-06-20. Robustness: CUT removed, n>=10, within-play-type, CUT share<=15% cap.
+- extends: EXP:APPM-030 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=repeat-run family SF03; record=APPS-019; rule=date-ordered record link}
+- extends: EXP:APPS-003 {direction=verified by dates; needs_review=no; origin=related field; record=APPS-019; rule=date-ordered record link}
+- extends: EXP:APPS-018 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-019; rule=date-ordered record link}
+- extends: EXP:APPS-023 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-019; rule=date-ordered record link}
+- extends: EXP:APPS-033 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-019; rule=date-ordered record link}
+- extends: EXP:APPS-036 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-019; rule=date-ordered record link}
+- hypothesis: Out-of-sample playsheet tiers (series held out) rank counters so BEST outscores AVOID after a suppression trigger.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPS-019; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-019; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF03 {record=APPS-019; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: COHERENT_NUMBERS.md is deprecated in favor of FINAL_NUMBERS_SHEET.md (APPA slice) but is the playsheet_validation canonical writeup. Do not cite poss-weighted BEST-AVOID +0.323 on slides; row-mean +0.375 is locked.
+- prespecified: partial
+- produced: RES:APPS-019 {record=APPS-019; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-018; APPS-020; APPS-003
+- related_to: EXP:CHT-042 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF03; record=APPS-019; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\COHERENT_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\best_avoid_gap_defense.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_feasibility_cap\cut_feasibility_cap_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\h1h2_aggregate_all_graph_series\validation_report_clean.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\slide5_tier_table.md
+- title: PO 55-series n-gated BEST vs AVOID counter gap (leakage-corrected)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-019; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-019; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-019; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPS-019; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-019 | Result of APPS-019
+- failure_evidence: Gap survives leakage fix, CUT removal, n-gate, within-type, and feasibility cap; thick H2H (>=50) gap +0.384 vs thin +0.131.
+- failure_type: D_positive
+- power_info: 193 BEST / 156 AVOID n-gated rows; 1580/1409 possessions; 272 games
+- primary_result: Canonical n-gated gap +0.375 (BEST 1.298 n=193 vs AVOID 0.923 n=156, p=0.0). Ungated Spearman rho=-0.2349, n=2544. Within-play-type +0.225 (p~1e-07); CUT removed +0.279; n>=10 +0.221; CUT<=15% cap gap +0.505 (2508 rows). Oracle BEST 1.578 (+0.655 vs AVOID); routing gain +0.280. Pre-fix leaky gap was ~+0.488.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

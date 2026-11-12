@@ -1,0 +1,31 @@
+# EXP:APPM-049 | SCOUT D6/D7 8-game calibration batch
+- date: 2026-04-23
+- date_basis: doc
+- date_reliable: yes
+- design: 8-game validation batch of ScoutQueryLayer + synthesis D6/D7 rules; then a 3-game thin re-validation of D4/D5/D8 + D7 stack (HOU/LAL, ATL/NYK, ORL/DET).
+- hypothesis: SCOUT conditional-query triggers (D6 EMPIRICAL PIVOT, D7 REGIME MIX, TRANSITION LEVER, REGIME SHIFT) fire at usable rates and respect Rule-of-Three on 8 playoff games.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPM-049; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:three_point_attempts_or_luck {record=APPM-049; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-049 {record=APPM-049; rule=audit/study_family_review.csv or singleton}
+- n_runs: 11
+- notes: D6+D7 merge branch (same team,PT firing both) did not occur and remains untested. Thin re-validation is n_runs extra but same product-calibration family; counted in n_runs=11 as 8+3.
+- prespecified: partial
+- produced: RES:APPM-049 {record=APPM-049; rule=record fields}
+- project: Strategy app
+- related_as_recorded: SCOUT ORL vs DET demos
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PIPELINE_BACKLOG.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_thin_revalidate_three.py
+- title: SCOUT D6/D7 8-game calibration batch
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-049; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-049; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPM-049; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-049 | Result of APPM-049
+- failure_evidence: 8/8 and 3/3 reports completed; Rule-of-Three 7/8 with one documented overflow.
+- failure_type: D_positive
+- power_info: n=8 then n=3 games
+- primary_result: 8/8 ok, 43 min. Triggers: 14 D6 EMPIRICAL PIVOT, 9 REGIME SHIFT, 1 TRANSITION LEVER, 0 REGIME MIX. Rule-of-Three respected 7/8 (POR/SAS emitted 4 bullets). Post-batch: D7 REGIME MIX threshold +/-10pp -> +/-8pp after probe showed at n>=15 only 2 non-OTHER cells reached 10pp across 16 team-sides (projected 1 REGIME MIX: MIN clutch PULL_UP +9.8%). Thin re-validation 3 ok, ~16 min.
+- record_stratum: not_a_test
+- record_substatus: tool_eval_pass
+- verdict: tool_eval_pass

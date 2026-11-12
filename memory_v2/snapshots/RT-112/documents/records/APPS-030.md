@@ -1,0 +1,31 @@
+# EXP:APPS-030 | Coaching alignment: BEST/AVOID run rates vs series wins (55 series)
+- date: 2026-05-30
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 633 triggers, 110 series-directions. Spearman of pct triggers ran BEST/AVOID vs series won.
+- hypothesis: Teams that run BEST counters more (and AVOID less) after suppression win more series.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-030; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPS-030; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-030 {record=APPS-030; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Volume share of BEST is only 9.7%; most H2 counters are INSUFF_EVIDENCE (46.8% volume).
+- prespecified: no
+- produced: RES:APPS-030 {record=APPS-030; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-027; APPS-031
+- related_to: EXP:APPS-031 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-030; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\coaching_alignment_55series\coaching_alignment_report.md
+- title: Coaching alignment: BEST/AVOID run rates vs series wins (55 series)
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-030; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-030; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-030 | Result of APPS-030
+- failure_evidence: Alignment-win Spearmans ns (p=0.172 / 0.310) at n=110 directions; INSUFF_EVIDENCE is 91.5% of triggers.
+- failure_type: A_unanswerable
+- power_info: n=110 series-directions
+- primary_result: % ran BEST 44.7% of triggers / 9.7% volume; % ran AVOID 61.1% / 23.3% volume. Spearman BEST vs won rho=+0.131 p=0.1723; AVOID vs won rho=-0.098 p=0.3099. Mean PPP BEST 1.395 vs AVOID 0.865.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

@@ -1,0 +1,33 @@
+# EXP:APPS-075 | Extended Possession Value (direct PPP + opponent T+1 suppression)
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Exact match margin x period x season x focal team. Ext.Value = direct PPP + (-opp ATT). BH+placebo for downstream.
+- hypothesis: Play types and players have a real downstream (opponent next-PPP) component beyond direct PPP.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-075; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-075 {record=APPS-075; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: POST_UP has low direct PPP (1.107) but real downstream suppression, opposite of the 52-series negative net-swing ranking which uses own-PPP minus opp-next without this matching.
+- prespecified: no
+- produced: RES:APPS-075 {record=APPS-075; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-037; APPS-049
+- related_to: EXP:APPS-037 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-075; rule=date-ordered record link}
+- related_to: EXP:APPS-049 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-075; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\epv.md
+- title: Extended Possession Value (direct PPP + opponent T+1 suppression)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-075; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-075; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-075; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-075; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-075 | Result of APPS-075
+- failure_evidence: Downstream effects are small (~0.01-0.02 PPP) relative to direct PPP gaps; player list is mostly non-FINDING after BH.
+- failure_type: E_unclear
+- power_info: PT-level n in the tens to hundreds of thousands implied by other seq files
+- primary_result: 4/8 PTs downstream real: CUT Ext 1.658 (supp +0.0220), TRANSITION 1.509 (+0.0145), SPOT_UP 1.303 (+0.0124), POST_UP 1.127 (+0.0194). DRIVE downstream not real (opp ATT +0.0024). Player downstream mostly BH ns except M. McBride supp +0.1007 BH p=0.0000.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

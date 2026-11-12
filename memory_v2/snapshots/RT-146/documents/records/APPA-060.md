@@ -1,0 +1,32 @@
+# EXP:APPA-060 | PT-shift layer diagnostic across four upset series
+- date: 2026-04-21
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Same 4 leakage-safe series; top feasible PT-shift destination, ceiling vs aspirational pp, muDelta.
+- hypothesis: The play-type mix optimizer produces different feasible destination PTs by matchup (prescriptive) rather than one universal clipped destination (diagnostic).
+- knowable_in_advance: yes
+- measures: VAR:play_type_share_mix {record=APPA-060; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPA-060; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-060 {record=APPA-060; rule=audit/study_family_review.csv or singleton}
+- n_runs: 4
+- notes: Knowable from the CUT-everywhere / personnel-feasibility failure (APPA-033).
+- prespecified: no
+- produced: RES:APPA-060 {record=APPA-060; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-033; APPA-059
+- related_to: EXP:APPA-033 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-060; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HISTORICAL_UPSET_BACKTEST.md
+- title: PT-shift layer diagnostic across four upset series
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-060; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-060; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-060; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-060 | Result of APPA-060
+- failure_evidence: 0/4 series surfaced a feasible PT shift; verdict 'Confirmed diagnostic, not prescriptive.' Continuous feasibility still collapses away from a matchup-specific opener.
+- failure_type: C_artifact
+- power_info: 4 series
+- primary_result: No feasible PT shift in any of 4 series. Distinct top-feasible destination PTs: 0 (none).
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict null, mechanism C_artifact
+- verdict: null

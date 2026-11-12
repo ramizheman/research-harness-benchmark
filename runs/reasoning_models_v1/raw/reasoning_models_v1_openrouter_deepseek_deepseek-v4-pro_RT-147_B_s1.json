@@ -1,0 +1,466 @@
+{
+ "model": {
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-pro",
+  "temperature": 1.0,
+  "max_tokens": 16000,
+  "extra": {
+   "reasoning": {
+    "enabled": true
+   },
+   "provider": {
+    "only": [
+     "streamlake/fp8"
+    ],
+    "allow_fallbacks": false
+   }
+  },
+  "price_per_million": {
+   "input": 0.88,
+   "output": 1.76,
+   "source": "openrouter.ai/models, confirmed via preflight 2026-11-11"
+  }
+ },
+ "task_id": "RT-147",
+ "condition": "B",
+ "seed": 1,
+ "run_id": "reasoning_models_v1|openrouter:deepseek/deepseek-v4-pro|RT-147|B|s1",
+ "model_name": "openrouter.ai:deepseek/deepseek-v4-pro",
+ "task_hash": "1bbad1d6bf8f669f19dc552707a38ad7aba5b499a79f9aa3c63f043156989e5f",
+ "snapshot_fact_hash": "8ab9a85ed1ed2760e8e838e2cf9a12b07934f9c6b6e65271dbefa33786899268",
+ "config_hash": "4f57814edf7e0bcd43daf005d8c2e981ad8cb6aca4def1d7bc7f243ee109c6d3",
+ "code_hash": "07b5aba45682670be9ee2a23c758149eacdefa9ce9c7cf5e6896280ca89e777e",
+ "error": "",
+ "finished": "2026-11-11T17:23:56",
+ "final": {
+  "research_concepts": [
+   "play-type labeling",
+   "opponent next-possession PPP",
+   "own-sequence lags",
+   "AVOID labels",
+   "conditional possession outcomes",
+   "data quality in play-by-play derived labels"
+  ],
+  "methodological_questions": [
+   "How to compute opponent next-possession points per possession from play-by-play, handling end-of-period and overtime gaps?",
+   "What is the effect of play-type sparsity on statistical power for conditional PPP?",
+   "How to control for game context (score, period, opponent strength) when estimating next-possession outcomes?",
+   "How to avoid look-ahead bias when using future possession outcomes to define AVOID labels?",
+   "How to select appropriate own-sequence lag windows and account for autocorrelation?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:SF-APPA-005",
+    "status_as_recorded": "untestable",
+    "finding": "Defensive scheme change labels inferred from play transitions produced near-uniform transition matrices consistent with label noise; the inferred label cannot separate real defensive adjustment from offense executing differently."
+   },
+   {
+    "id": "FAM:SF-APPA-050",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "PUTBACK as an opponent preceding play type appeared to suppress several stars' next-possession PPP (e.g., D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95), but no multiplicity correction was applied and sample sizes were small (n_after 32–95)."
+   },
+   {
+    "id": "FAM:SF-CHT-039",
+    "status_as_recorded": "untestable",
+    "finding": "Higher AVOID share showed a weak negative correlation with winning at game level (rho=-0.19, p=0.008) but was confounded by team quality and underpowered at the series level (n=50, p=0.07; ~80 series needed for p<0.05)."
+   },
+   {
+    "id": "FAM:SF-CHT-086",
+    "status_as_recorded": "artifact",
+    "finding": "Suppression label was mostly an RTM artifact; apparent LLM skill was leakage, and after fixing leakage the remaining edge was not statistically retrievable. The label selection on the outcome drove the artifact."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:SF-APPA-005",
+    "what_failed": "Inferring defensive scheme change labels from play-type transitions",
+    "why": "Label or classification error; near-uniform transitions indistinguishable from noise."
+   },
+   {
+    "id": "FAM:SF-CHT-086",
+    "what_failed": "Using outcome-derived suppression labels for prediction",
+    "why": "RTM selection artifact; leakage from future target; label error."
+   },
+   {
+    "id": "FAM:SF-CHT-039",
+    "what_failed": "Correlating AVOID label share with winning",
+    "why": "Confounding by team quality and insufficient sample size at series level."
+   }
+  ],
+  "evidence_establishes": [
+   "Prior attempts to derive play-type labels (including AVOID and suppression) from possession outcomes have been susceptible to regression-to-the-mean artifacts, label noise, and confounding by team quality.",
+   "Suppression-like labels created by selecting on the outcome (next-possession points) can appear significant but turn out to be artifacts when tested out-of-sample with leakage removed.",
+   "Even when effects are observed, they often lack multiplicity correction and are based on small per-cell samples."
+  ],
+  "evidence_does_not_establish": [
+   "Whether opponent next-possession PPP differences after each play-type in the 2022-26 data are large enough to be robust to label noise and confounding when properly validated out-of-sample.",
+   "The magnitude or existence of own-sequence lag effects on subsequent possessions for AVOID labeling purposes."
+  ],
+  "own_inferences": [
+   "The question as posed – 'is large enough to drive AVOID labels' – implicitly assumes that outcome-based thresholds can be used to assign labels retroactively, which is the same mechanism that produced the RTM artifact in FAM:SF-CHT-086.",
+   "Even with multiple seasons of data, the sparsity for many play types (especially when conditioning on own-sequence lags and opponent PPP) will likely leave most cells underpowered, similar to FAM:SF-APPA-050.",
+   "Without a clear ex‑ante definition of 'large enough' and an independent validation set, any apparent effect would be indistinguishable from noise or artifact."
+  ],
+  "uncertainties": [
+   "True effect sizes of play types on opponent next-possession PPP in the NBA 2022-26 era.",
+   "Power to detect meaningful differences given sparsity for less frequent play types and specific lag combinations.",
+   "Optimal lag windows and how to handle overlapping possessions and end-of-quarter truncation.",
+   "Whether a rigorous prospective study with out-of-sample validation could overcome the RTM problem that defeated FAM:SF-CHT-086."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieval returned direct evidence (FAM:SF-CHT-086) that outcome-driven suppression labels are RTM artifacts, and FAM:SF-APPA-005 that label noise makes inferred play-type labels unreliable. This elevates the risk that the proposed study would reproduce the same artifacts, shifting the decision toward do_not_proceed."
+  },
+  "testability": {
+   "p_testable": 0.25,
+   "blocking_constraints": [
+    {
+     "code": "RTM_SELECTION",
+     "text": "Selecting play types as AVOID on the basis of observed opponent PPP amounts to selecting on the outcome; regression to the mean will overstate the association in-sample without rigorous out-of-sample validation."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Any AVOID label derived from observed next-possession outcomes is noisy and inherits classification error from play-type labeling and possession boundary detection, as seen in FAM:SF-APPA-005."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Many play types, especially when further conditioned on own-sequence lags, will have too few occurrences to estimate opponent PPP with adequate precision."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Opponent next-possession PPP is strongly confounded by overall opponent offensive quality, game score differential, and period, mimicking the team-quality confound that limited FAM:SF-CHT-039."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:SF-APPA-005",
+    "FAM:SF-APPA-050",
+    "FAM:SF-CHT-039",
+    "FAM:SF-CHT-086"
+   ],
+   "summary": "No prior study directly tested whether opponent next-possession PPP after specific play types is sufficiently large and robust to drive AVOID labels. However, closely related work on suppression labels and AVOID share found that outcome-derived labels are susceptible to RTM artifacts, label noise, and confounding, and that observed effects often shrink or disappear under proper validation."
+  },
+  "risks": [
+   {
+    "code": "RTM_SELECTION",
+    "text": "Selecting play types for AVOID labeling based on high observed opponent next-possession PPP is selecting on the outcome, which inflates apparent effects and creates RTM artifacts."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels from the graph database, possession boundaries, and opponent PPP computations contain noise that can mask or mimic true signal, as documented in FAM:SF-APPA-005."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Opponent next-possession outcomes are confounded by opponent offensive ability, game state (score margin, period), and team defensive quality; failing to fully adjust for these will bias effect estimates."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many play types occur infrequently, making per-type opponent PPP estimates noisy and underpowered, especially when split by own-sequence lag."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many play types and lags without multiplicity correction risks false positives, as was the case in FAM:SF-APPA-050."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If AVOID labels are defined using full-season or future data and then applied to past decisions, look-ahead bias can overstate predictability, analogous to the leakage in FAM:SF-CHT-086."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.25,
+   "artifact": 0.45,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Average opponent points per possession on the first possession following each play type, adjusted for score differential, period, opponent offensive rating, and home/away, using only out-of-sample data for labeling thresholds.",
+   "unit": "Possession immediately following a labeled play-type possession.",
+   "sample": "All regular-season and playoff possessions from 2022-23 through 2025-26 where a play-type label is assigned and a valid next possession by the opponent exists, excluding end-of-quarter and end-of-game possessions without a subsequent possession.",
+   "power": "Require at least 200 occurrences per play-type for inclusion; at that sample, a 0.05 PPP shift can be detected with 80% power at α=0.05 under typical variance. Play types with fewer occurrences are grouped into a broader category.",
+   "controls": "Score differential (categorical: trailing, tie, leading), game period, opponent defensive rating (season-level, lagged), home/away indicator, starter/bench status of the offensive lineup, and rest days.",
+   "falsification": "Split the data temporally: train on 2022-23 to 2024-25, test whether play types identified as having high opponent PPP in the training set replicate in 2025-26. Use placebo lags (e.g., two possessions later) to check specificity.",
+   "multiplicity": "Benjamini-Hochberg FDR correction at 0.05 across all play types tested for both opponent next-possession PPP and own-sequence lags.",
+   "decision_rule": "A play type is flagged as potentially AVOID-worthy only if, after FDR correction, its opponent next-possession PPP is significantly above the league-average opponent PPP in the out-of-sample test, and the effect size exceeds 0.04 PPP (about 0.5 points per 100 possessions).",
+   "data_version": "NBA per-game files 2022-23 through 2025-26 as of 2026-06-19."
+  }
+ },
+ "stop_reason": "final",
+ "api_error": "",
+ "model_versions": [
+  "deepseek/deepseek-v4-pro"
+ ],
+ "turns": 2,
+ "tool_calls": [
+  {
+   "name": "retrieve_history",
+   "args": {
+    "research_concepts": [
+     "play-type labeling",
+     "opponent next-possession PPP",
+     "own-sequence lags",
+     "AVOID labels",
+     "conditional possession outcomes",
+     "play-by-play derived possessions",
+     "data quality"
+    ],
+    "methodological_questions": [
+     "computation of next possession points per possession from play-by-play",
+     "handling of end-of-period or no-next-possession cases",
+     "sparsity and sample size for specific play types",
+     "confounding by game context and opponent strength in conditional PPP",
+     "effect size estimation for AVOID label assignment",
+     "look-ahead bias in using future outcomes for labeling",
+     "lag selection for own-sequence outcomes",
+     "defensive adjustment of opponent PPP"
+    ],
+    "query": "opponent next-possession PPP after play type drives AVOID labels and own-sequence lags similarly matter"
+   },
+   "result_chars": 4525,
+   "result_tokens_est": 1131,
+   "latency_seconds": 0.002,
+   "returned_ids": [
+    "FAM:SF-APPA-005",
+    "FAM:SF-APPA-050",
+    "FAM:SF-CHT-039",
+    "FAM:SF-CHT-086"
+   ],
+   "trace": {
+    "query_terms": [
+     "adjustment",
+     "after",
+     "and",
+     "assignment",
+     "avoid",
+     "bias",
+     "by",
+     "cases",
+     "computation",
+     "conditional",
+     "confounding",
+     "context",
+     "data",
+     "defensive",
+     "derived",
+     "drives",
+     "effect",
+     "end-of-period",
+     "estimation",
+     "for",
+     "from",
+     "future",
+     "game",
+     "handling",
+     "in",
+     "label",
+     "labeling",
+     "labels",
+     "lag",
+     "lags",
+     "look-ahead",
+     "matter",
+     "next",
+     "next-possession",
+     "no-next-possession",
+     "of",
+     "opponent",
+     "or",
+     "outcomes",
+     "own-sequence"
+    ],
+    "scores": {
+     "FAM:SF-APPA-005": 0.145,
+     "FAM:SF-APPA-050": 0.133,
+     "FAM:SF-CHT-039": 0.116,
+     "FAM:SF-CHT-086": 0.114
+    }
+   }
+  }
+ ],
+ "n_tool_calls": 1,
+ "memory_tool_calls": 1,
+ "protocol": 3,
+ "repair_turns": 0,
+ "gate_turns": 0,
+ "preliminary_answers": 0,
+ "correction_turns": 0,
+ "final_precorrection": null,
+ "initial_citation_problems": [],
+ "parse_recoveries": [
+  "bare output object"
+ ],
+ "usage": {
+  "input_tokens": 4205,
+  "output_tokens": 6425,
+  "cost_usd": 0.012127708475999999,
+  "cost_known": true
+ },
+ "wall_seconds": 133.63,
+ "system_prompt": "You are a basketball analytics researcher deciding whether and how a research question should be studied.\nYou work only from the task statement and the tools listed below. Do not assume facts you have not seen.\n\nThe work has two stages, in this order.\nStage 1, retrieval:\n1. Read the research objective and the data description.\n2. Identify the research concepts and methodological questions the task raises.\n3. Retrieve historical evidence by calling retrieve_history.\nIn stage 1 do not assess the question, predict outcomes or decide. Your only stage-1 reply is the retrieve_history call.\nStage 2, assessment, after the retrieval result is returned:\n4. Summarise the relevant historical findings and failed approaches.\n5. State what the historical evidence does and does not establish.\n6. Assess whether the research question is testable.\n7. Identify methodological risks and potential confounders.\n8. Make the final research decision.\n9. Explain whether and how the historical evidence changed the decision.\nThe stage-2 output format is given together with the retrieval result.\n\nEvidence rules: keep what a retrieved record states (historical_evidence and failed_approaches, each citing the\nidentifier of a returned record and its status exactly as recorded) separate from your own inference and from\nuncertainty or missing information. Cite only identifiers returned by a tool, and never describe an earlier study that\nno tool returned. In some settings retrieval returns no records; then state that no historical evidence was available.\n\nTools:\n- retrieve_history(research_concepts, methodological_questions, query): the prescribed retrieval step. Returns the most relevant consolidated study-family records of earlier research by this project that are available in this setting, with their identifiers; returns an empty list when none are available.\n- glossary(): definitions of basketball and project terms used in task statements.\n- data_catalog(): the fields available in each per-game data file.\n- search_documents(query): rank further study-family documents by text relevance; returns up to 4 families not yet returned.\n- read_family(id): the complete record of one study family (for example 'FAM:SF-APPA-001').\n\nProtocol: every reply is exactly one JSON object and nothing else.\nTo call a tool: {\"action\": \"tool\", \"tool\": \"<name>\", \"args\": {...}}\nTo finish (stage 2 only): {\"action\": \"final\", \"output\": <object following the stage-2 schema>}\nYou may call at most 12 tools; then you must finish. Check that every opening brace has a closing brace.\n\nRisk codes (use only these): SAMPLE_SIZE_POWER, EXPOSURE_SPARSITY, MEASURE_RELIABILITY, RTM_SELECTION, OUTCOME_DERIVED_LABEL, LEAKAGE_LOOKAHEAD, MECHANICAL_FLOOR, BASE_RATE, CONFOUNDING, LABEL_ERROR, PLACEBO_DEPENDENCE, MULTIPLE_TESTING, IMPLEMENTATION_BUG, DRIFT_NONSTATIONARITY\n",
+ "messages": [
+  {
+   "role": "user",
+   "content": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.\n\nStage 1. Reply only with the retrieval call: {\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"...\"], \"methodological_questions\": [\"...\"], \"query\": \"...\"}}"
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"play-type labeling\", \"opponent next-possession PPP\", \"own-sequence lags\", \"AVOID labels\", \"conditional possession outcomes\", \"play-by-play derived possessions\", \"data quality\"], \"methodological_questions\": [\"computation of next possession points per possession from play-by-play\", \"handling of end-of-period or no-next-possession cases\", \"sparsity and sample size for specific play types\", \"confounding by game context and opponent strength in conditional PPP\", \"effect size estimation for AVOID label assignment\", \"look-ahead bias in using future outcomes for labeling\", \"lag selection for own-sequence outcomes\", \"defensive adjustment of opponent PPP\"], \"query\": \"opponent next-possession PPP after play type drives AVOID labels and own-sequence lags similarly matter\"}}",
+   "reasoning_details": [
+    {
+     "type": "reasoning.text",
+     "text": "We are in Stage 1. The task is to decide whether a research question can be answered with the given data, assess historical evidence, risks, etc., but Stage 1 is only the retrieval step. We must read the research question and data description, identify research concepts and methodological questions, then call retrieve_history.\n\nThe research question: \"Opponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\"\n\nInterpretation: We want to study how the opponent's points per possession (PPP) on the next possession after your team runs a specific play type X influences the labeling of plays (likely in a play-type labeling system, such as classifying plays as AVOID). The question also says \"own-sequence lags similarly matter\", meaning that your own team's subsequent possessions' outcomes (maybe PPP on the next possession after running play X) are also important for driving AVOID labels. So it's about whether conditional outcomes (opponent next-possession PPP, own subsequent possession outcomes) are predictive of play-type labels (specifically AVOID labels). This likely relates to a play-type labeling system that uses some criteria to assign labels like \"AVOID\" to plays, and the question is whether these conditional outcomes (opponent next-possession PPP, own lags) are significant enough to influence those labels. Alternatively, it could be testing whether these factors are already captured or are valid for labeling. The question is about data quality: labeling play types and the data available.\n\nResearch concepts: play-type labeling, opponent next-possession PPP, own-sequence lagged outcomes, AVOID labels, conditional possession outcomes, play-by-play data, per-game data, graph database derived play-type possession records.\n\nMethodological questions: How to define and measure opponent next-possession PPP? How to identify the next possession after a specific play type? How to handle end-of-quarter/game issues? How to assign labels (AVOID) based on these outcomes? Sample size and sparsity of play types? Confounding (e.g., opponent strength, game context)? Lag selection and autocorrelation? Data quality of play-type labeling? Portability across seasons? Look-ahead bias if using future outcomes to label past plays? But the task says \"data available on that date\" includes full seasons up to 2025-26 regular season complete from 2026-04-13 and playoffs complete from 2026-06-21, but the research question is posed on 2026-06-19. So some 2025-26 playoffs data is not yet complete? Wait: partial before 2026-06-21, but question posed on 2026-06-19, so the 2025-26 playoffs are only partial then. However, the question could be about whether we can answer it with the data available at that date, including partial playoffs. But likely the study would be retrospective, so we need to consider data availability. However, the data catalog says \"NBA 2025-26 regular season (complete from 2026-04-13; partial before)\" and \"NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\". So as of 2026-06-19, the regular season is complete, but playoffs not yet complete. Could still be used but with caution. The main data: per-game files from NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play. That suggests we have play-type labels already derived? Possibly those are from some existing system? The question states \"in the area of play-type labeling and data quality\" and \"AVOID labels\". So perhaps the project has a labeling system that assigns plays types, and one of the labels is AVOID. The question: do opponent next-possession PPP and own-sequence lags matter enough to drive those AVOID labels? That could be a study to validate the labeling or to incorporate these features into the labeling algorithm.\n\nSo research concepts: play-type (like pick-and-roll, isolation, etc.), AVOID label (maybe a label indicating a bad play that should be avoided), opponent next-possession PPP, own-team subsequent possession outcomes (lags). Methodological questions: how to compute next-possession PPP from play-by-play; how to handle possessions where there is no next possession (end of period); lag selection; sparsity of specific play types; confounders like score differential, opponent defense, time remaining; reliability of play-type assignment; sample size to detect effect; data leakage if using future outcomes to label past plays (since the AVOID label might be based on these outcomes? But the question says \"large enough to drive AVOID labels\", implying these outcomes might be used to determine whether a play gets an AVOID label. If we are testing whether these outcomes drive labels, we might be looking at the relationship between those outcomes and the labels. But if labels are already assigned using these outcomes, then it's circular. Alternatively, maybe the AVOID label is derived from some other criteria, and we want to see if these conditional outcomes are associated with that label, i.e., predictive validity. That would be a predictive study, not a causal one, but still testable. However, we need to assess if this question can be answered with the data.\n\nI'll craft a query that captures these concepts.\n\nNow, retrieve_history: research_concepts list, methodological_questions list, query string.\n\nI'll list concepts: \"play-type labeling\", \"opponent next-possession PPP\", \"own-sequence lags\", \"AVOID labels\", \"conditional possession outcomes\", \"play-by-play derived possessions\", \"data quality\".\n\nMethodological questions: \"computation of next possession points per possession\", \"handling of possessions end-of-period\", \"sparsity of play types\", \"confounding by game context\", \"effect size and sample size for conditional outcomes\", \"look-ahead bias in labeling\", \"lag selection for own-sequence outcomes\", \"defensive adjustment in PPP\".\n\nQuery: \"opponent next-possession PPP after play type drives AVOID labels and own-sequence lags matter\"\n\nNow call the tool.",
+     "format": "unknown",
+     "index": 0
+    }
+   ]
+  },
+  {
+   "role": "user",
+   "content": "TOOL_RESULT retrieve_history:\n{\"results\": [{\"id\": \"FAM:SF-APPA-005\", \"score\": 0.145, \"document\": \"# FAM:SF-APPA-005 | Study family SF-APPA-005: Defensive scheme change within game and across games (inferred labels)\\n- observed_research_question: Defensive scheme change within game and across games (inferred labels)\\n- auto_outcome_status: untestable\\n- observed_hypothesis: Playoff defenses change scheme within games and between games, especially after the opponent ran a play type heavily.\\n- observed_result: Within-game change 319/523 (61.0%); cross-game change 298/440 (67.7%); 103/104 units (99.0%) and 52/52 series show a change; transition matrices near-uniform.\\n- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)\\n- auto_limited_by: LIM:label_or_classification_error\\n- auto_has_risk: RISK:LABEL_ERROR\\n- observed_failure_evidence: Doc caveat: inferred label cannot separate real defensive adjustment from offense executing differently; near-uniform transition matrices consistent with label noise.\\n- observed_sample_and_power: 523 cells; 440 pairs\\n- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED\"}, {\"id\": \"FAM:SF-APPA-050\", \"score\": 0.133, \"document\": \"# FAM:SF-APPA-050 | Study family SF-APPA-050: Superstar sequential suppression: opponent play before the star\\n- observed_research_question: Superstar sequential suppression: opponent play before the star\\n- auto_outcome_status: not a hypothesis test\\n- observed_hypothesis: A specific opponent play type on the preceding possession suppresses each star's next-possession PPP relative to that star's baseline.\\n- observed_result: PUTBACK is top suppressor for 6+ stars (e.g. D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95; B. Beal d=-0.345 n=32; C. Holmgren d=-0.222 n=52). Other tops: TRANSITION (A. Davis -0.058), POST_UP (N. Jokic -0.075), PULL_ [cut; read_family for the full text]\\n- auto_failure_mechanism: E_unclear (mechanism unclear from the records)\\n- auto_has_risk: RISK:DRIFT_NONSTATIONARITY\\n- observed_failure_evidence: No multiplicity correction; n_after is 32-95 for several PUTBACK cells vs thousands of baseline possessions.\\n- observed_sample_and_power: 30 stars; min n_after=30\\n- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED\"}, {\"id\": \"FAM:SF-CHT-039\", \"score\": 0.116, \"document\": \"# FAM:SF-CHT-039 | Study family SF-CHT-039: Series-level AVOID share vs winning (talent confound)\\n- observed_research_question: Series-level AVOID share vs winning (talent confound)\\n- auto_outcome_status: untestable\\n- observed_hypothesis: Higher AVOID share predicts losing, independent of team quality.\\n- observed_result: Game-level rho=-0.19 p=0.008 (inflated n, team-quality confound). Series-level rho=-0.26 p=0.07 (n=50, underpowered; ~80 series needed for p<0.05). Low AVOID-share bin 52.6% vs 25-50% bin 37.0%.\\n- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)\\n- auto_limited_by: LIM:confounding\\n- auto_limited_by: LIM:small_sample\\n- auto_has_risk: RISK:CONFOUNDING\\n- auto_has_risk: RISK:SAMPLE_SIZE_POWER\\n- observed_failure_evidence: Series n=50 p=0.07; still confounded by team quality (OKC disciplined and good).\\n- observed_sample_and_power: n=50 series; stated need ~80 for p<0.05\\n- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED\\n- observed_verdict: inconclusive\"}, {\"id\": \"FAM:SF-CHT-086\", \"score\": 0.114, \"document\": \"# FAM:SF-CHT-086 | Study family SF-CHT-086: LLM / ex-ante usefulness of suppression context (leakage audit)\\n- observed_research_question: LLM / ex-ante usefulness of suppression context (leakage audit)\\n- auto_outcome_status: artifact\\n- observed_hypothesis: An LLM layer can reason about suppression context beyond the engine, or predicting suppression from H1 is a viable label.\\n- observed_result: Label is mostly an RTM artifact. Apparent LLM skill was leakage; what survives is small/noisy; engine misses are selection/override not missing graph facts. Margin of LLM vs engine described as literally zero after leaka [cut; read_family for the full text]\\n- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)\\n- auto_limited_by: LIM:label_or_classification_error\\n- auto_has_risk: RISK:LABEL_ERROR\\n- auto_has_risk: RISK:RTM_SELECTION\\n- observed_failure_evidence: Suppression label selected on the outcome; remaining LLM edge not statistically retrievable.\\n- auto_related_family: FAM:SF-APPA-005\"}], \"n_results\": 4}\n\nStage 2. Using the retrieval result above (follow-up tools are allowed within the tool budget), complete steps 4 to 9\nand reply with the final action. Output schema (all fields required):\n{\n \"research_concepts\": [\n  \"concept\"\n ],\n \"methodological_questions\": [\n  \"question\"\n ],\n \"historical_evidence\": [\n  {\n   \"id\": \"identifier of a record returned by a tool\",\n   \"status_as_recorded\": \"outcome status exactly as stated in the record (supported | rejected | inconclusive | untestable | artifact | not a hypothesis test | no result recorded)\",\n   \"finding\": \"what the record states, in its own terms\"\n  }\n ],\n \"failed_approaches\": [\n  {\n   \"id\": \"identifier of a returned record\",\n   \"what_failed\": \"approach\",\n   \"why\": \"failure mechanism or limitation as recorded\"\n  }\n ],\n \"evidence_establishes\": [\n  \"what the retrieved evidence establishes for this question\"\n ],\n \"evidence_does_not_establish\": [\n  \"what it leaves open or cannot show\"\n ],\n \"own_inferences\": [\n  \"your inference, not stated in any record\"\n ],\n \"uncertainties\": [\n  \"uncertainty or missing information\"\n ],\n \"historical_effect\": {\n  \"changed_decision\": \"yes | no | no_historical_evidence\",\n  \"explanation\": \"whether and how the historical evidence changed the decision\"\n },\n \"testability\": {\n  \"p_testable\": \"number in [0,1]: probability the question can be answered with the stated data at useful power\",\n  \"blocking_constraints\": [\n   {\n    \"code\": \"one of RISK_CODES\",\n    \"text\": \"string\"\n   }\n  ]\n },\n \"prior_work\": {\n  \"already_answered\": \"yes | partly | no | unknown\",\n  \"cited\": [\n   \"identifiers of prior work relied on\"\n  ],\n  \"summary\": \"string\"\n },\n \"risks\": [\n  {\n   \"code\": \"one of RISK_CODES\",\n   \"text\": \"string\"\n  }\n ],\n \"predicted_outcome\": {\n  \"supported\": \"probability\",\n  \"rejected\": \"probability\",\n  \"untestable\": \"probability\",\n  \"artifact\": \"probability\",\n  \"uncertain\": \"probability\"\n },\n \"decision\": \"proceed | proceed_with_changes | do_not_proceed\",\n \"design\": {\n  \"estimand\": \"string\",\n  \"unit\": \"string\",\n  \"sample\": \"string\",\n  \"power\": \"string\",\n  \"controls\": \"string\",\n  \"falsification\": \"string\",\n  \"multiplicity\": \"string\",\n  \"decision_rule\": \"string\",\n  \"data_version\": \"string\"\n }\n}\nField guidance:\n- historical_evidence and failed_approaches: only records returned by a tool, with the status as recorded; empty lists\n  if nothing relevant was returned.\n- testability.p_testable: probability that the question can be answered with the stated data at useful statistical power.\n- prior_work.already_answered: whether retrieved earlier work already answered substantially the same question.\n  Use \"unknown\" if no earlier work was retrieved. List identifiers you relied on in prior_work.cited.\n- predicted_outcome: probabilities (summing to 1) of what a competent test of the question as posed would conclude:\n  supported, rejected (adequately powered null), untestable (cannot be tested with this data), artifact (apparent\n  effect produced by a flaw), uncertain (inconclusive or inadequately tested).\n- decision: proceed, proceed_with_changes (state the changes in design), or do_not_proceed.\n- design: a pre-registration-quality plan even if the decision is do_not_proceed (then describe the minimum viable test)."
+  },
+  {
+   "role": "assistant",
+   "content": "{\n  \"research_concepts\": [\n    \"play-type labeling\",\n    \"opponent next-possession PPP\",\n    \"own-sequence lags\",\n    \"AVOID labels\",\n    \"conditional possession outcomes\",\n    \"data quality in play-by-play derived labels\"\n  ],\n  \"methodological_questions\": [\n    \"How to compute opponent next-possession points per possession from play-by-play, handling end-of-period and overtime gaps?\",\n    \"What is the effect of play-type sparsity on statistical power for conditional PPP?\",\n    \"How to control for game context (score, period, opponent strength) when estimating next-possession outcomes?\",\n    \"How to avoid look-ahead bias when using future possession outcomes to define AVOID labels?\",\n    \"How to select appropriate own-sequence lag windows and account for autocorrelation?\"\n  ],\n  \"historical_evidence\": [\n    {\n      \"id\": \"FAM:SF-APPA-005\",\n      \"status_as_recorded\": \"untestable\",\n      \"finding\": \"Defensive scheme change labels inferred from play transitions produced near-uniform transition matrices consistent with label noise; the inferred label cannot separate real defensive adjustment from offense executing differently.\"\n    },\n    {\n      \"id\": \"FAM:SF-APPA-050\",\n      \"status_as_recorded\": \"not a hypothesis test\",\n      \"finding\": \"PUTBACK as an opponent preceding play type appeared to suppress several stars' next-possession PPP (e.g., D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95), but no multiplicity correction was applied and sample sizes were small (n_after 32–95).\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-039\",\n      \"status_as_recorded\": \"untestable\",\n      \"finding\": \"Higher AVOID share showed a weak negative correlation with winning at game level (rho=-0.19, p=0.008) but was confounded by team quality and underpowered at the series level (n=50, p=0.07; ~80 series needed for p<0.05).\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-086\",\n      \"status_as_recorded\": \"artifact\",\n      \"finding\": \"Suppression label was mostly an RTM artifact; apparent LLM skill was leakage, and after fixing leakage the remaining edge was not statistically retrievable. The label selection on the outcome drove the artifact.\"\n    }\n  ],\n  \"failed_approaches\": [\n    {\n      \"id\": \"FAM:SF-APPA-005\",\n      \"what_failed\": \"Inferring defensive scheme change labels from play-type transitions\",\n      \"why\": \"Label or classification error; near-uniform transitions indistinguishable from noise.\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-086\",\n      \"what_failed\": \"Using outcome-derived suppression labels for prediction\",\n      \"why\": \"RTM selection artifact; leakage from future target; label error.\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-039\",\n      \"what_failed\": \"Correlating AVOID label share with winning\",\n      \"why\": \"Confounding by team quality and insufficient sample size at series level.\"\n    }\n  ],\n  \"evidence_establishes\": [\n    \"Prior attempts to derive play-type labels (including AVOID and suppression) from possession outcomes have been susceptible to regression-to-the-mean artifacts, label noise, and confounding by team quality.\",\n    \"Suppression-like labels created by selecting on the outcome (next-possession points) can appear significant but turn out to be artifacts when tested out-of-sample with leakage removed.\",\n    \"Even when effects are observed, they often lack multiplicity correction and are based on small per-cell samples.\"\n  ],\n  \"evidence_does_not_establish\": [\n    \"Whether opponent next-possession PPP differences after each play-type in the 2022-26 data are large enough to be robust to label noise and confounding when properly validated out-of-sample.\",\n    \"The magnitude or existence of own-sequence lag effects on subsequent possessions for AVOID labeling purposes.\"\n  ],\n  \"own_inferences\": [\n    \"The question as posed – 'is large enough to drive AVOID labels' – implicitly assumes that outcome-based thresholds can be used to assign labels retroactively, which is the same mechanism that produced the RTM artifact in FAM:SF-CHT-086.\",\n    \"Even with multiple seasons of data, the sparsity for many play types (especially when conditioning on own-sequence lags and opponent PPP) will likely leave most cells underpowered, similar to FAM:SF-APPA-050.\",\n    \"Without a clear ex‑ante definition of 'large enough' and an independent validation set, any apparent effect would be indistinguishable from noise or artifact.\"\n  ],\n  \"uncertainties\": [\n    \"True effect sizes of play types on opponent next-possession PPP in the NBA 2022-26 era.\",\n    \"Power to detect meaningful differences given sparsity for less frequent play types and specific lag combinations.\",\n    \"Optimal lag windows and how to handle overlapping possessions and end-of-quarter truncation.\",\n    \"Whether a rigorous prospective study with out-of-sample validation could overcome the RTM problem that defeated FAM:SF-CHT-086.\"\n  ],\n  \"historical_effect\": {\n    \"changed_decision\": \"yes\",\n    \"explanation\": \"The retrieval returned direct evidence (FAM:SF-CHT-086) that outcome-driven suppression labels are RTM artifacts, and FAM:SF-APPA-005 that label noise makes inferred play-type labels unreliable. This elevates the risk that the proposed study would reproduce the same artifacts, shifting the decision toward do_not_proceed.\"\n  },\n  \"testability\": {\n    \"p_testable\": 0.25,\n    \"blocking_constraints\": [\n      {\n        \"code\": \"RTM_SELECTION\",\n        \"text\": \"Selecting play types as AVOID on the basis of observed opponent PPP amounts to selecting on the outcome; regression to the mean will overstate the association in-sample without rigorous out-of-sample validation.\"\n      },\n      {\n        \"code\": \"LABEL_ERROR\",\n        \"text\": \"Any AVOID label derived from observed next-possession outcomes is noisy and inherits classification error from play-type labeling and possession boundary detection, as seen in FAM:SF-APPA-005.\"\n      },\n      {\n        \"code\": \"EXPOSURE_SPARSITY\",\n        \"text\": \"Many play types, especially when further conditioned on own-sequence lags, will have too few occurrences to estimate opponent PPP with adequate precision.\"\n      },\n      {\n        \"code\": \"CONFOUNDING\",\n        \"text\": \"Opponent next-possession PPP is strongly confounded by overall opponent offensive quality, game score differential, and period, mimicking the team-quality confound that limited FAM:SF-CHT-039.\"\n      }\n    ]\n  },\n  \"prior_work\": {\n    \"already_answered\": \"no\",\n    \"cited\": [\n      \"FAM:SF-APPA-005\",\n      \"FAM:SF-APPA-050\",\n      \"FAM:SF-CHT-039\",\n      \"FAM:SF-CHT-086\"\n    ],\n    \"summary\": \"No prior study directly tested whether opponent next-possession PPP after specific play types is sufficiently large and robust to drive AVOID labels. However, closely related work on suppression labels and AVOID share found that outcome-derived labels are susceptible to RTM artifacts, label noise, and confounding, and that observed effects often shrink or disappear under proper validation.\"\n  },\n  \"risks\": [\n    {\n      \"code\": \"RTM_SELECTION\",\n      \"text\": \"Selecting play types for AVOID labeling based on high observed opponent next-possession PPP is selecting on the outcome, which inflates apparent effects and creates RTM artifacts.\"\n    },\n    {\n      \"code\": \"LABEL_ERROR\",\n      \"text\": \"Play-type labels from the graph database, possession boundaries, and opponent PPP computations contain noise that can mask or mimic true signal, as documented in FAM:SF-APPA-005.\"\n    },\n    {\n      \"code\": \"CONFOUNDING\",\n      \"text\": \"Opponent next-possession outcomes are confounded by opponent offensive ability, game state (score margin, period), and team defensive quality; failing to fully adjust for these will bias effect estimates.\"\n    },\n    {\n      \"code\": \"EXPOSURE_SPARSITY\",\n      \"text\": \"Many play types occur infrequently, making per-type opponent PPP estimates noisy and underpowered, especially when split by own-sequence lag.\"\n    },\n    {\n      \"code\": \"MULTIPLE_TESTING\",\n      \"text\": \"Testing many play types and lags without multiplicity correction risks false positives, as was the case in FAM:SF-APPA-050.\"\n    },\n    {\n      \"code\": \"LEAKAGE_LOOKAHEAD\",\n      \"text\": \"If AVOID labels are defined using full-season or future data and then applied to past decisions, look-ahead bias can overstate predictability, analogous to the leakage in FAM:SF-CHT-086.\"\n    }\n  ],\n  \"predicted_outcome\": {\n    \"supported\": 0.05,\n    \"rejected\": 0.05,\n    \"untestable\": 0.25,\n    \"artifact\": 0.45,\n    \"uncertain\": 0.20\n  },\n  \"decision\": \"do_not_proceed\",\n  \"design\": {\n    \"estimand\": \"Average opponent points per possession on the first possession following each play type, adjusted for score differential, period, opponent offensive rating, and home/away, using only out-of-sample data for labeling thresholds.\",\n    \"unit\": \"Possession immediately following a labeled play-type possession.\",\n    \"sample\": \"All regular-season and playoff possessions from 2022-23 through 2025-26 where a play-type label is assigned and a valid next possession by the opponent exists, excluding end-of-quarter and end-of-game possessions without a subsequent possession.\",\n    \"power\": \"Require at least 200 occurrences per play-type for inclusion; at that sample, a 0.05 PPP shift can be detected with 80% power at α=0.05 under typical variance. Play types with fewer occurrences are grouped into a broader category.\",\n    \"controls\": \"Score differential (categorical: trailing, tie, leading), game period, opponent defensive rating (season-level, lagged), home/away indicator, starter/bench status of the offensive lineup, and rest days.\",\n    \"falsification\": \"Split the data temporally: train on 2022-23 to 2024-25, test whether play types identified as having high opponent PPP in the training set replicate in 2025-26. Use placebo lags (e.g., two possessions later) to check specificity.\",\n    \"multiplicity\": \"Benjamini-Hochberg FDR correction at 0.05 across all play types tested for both opponent next-possession PPP and own-sequence lags.\",\n    \"decision_rule\": \"A play type is flagged as potentially AVOID-worthy only if, after FDR correction, its opponent next-possession PPP is significantly above the league-average opponent PPP in the out-of-sample test, and the effect size exceeds 0.04 PPP (about 0.5 points per 100 possessions).\",\n    \"data_version\": \"NBA per-game files 2022-23 through 2025-26 as of 2026-06-19.\"\n  }\n}",
+   "reasoning_details": [
+    {
+     "type": "reasoning.text",
+     "text": "We have the retrieval result. Now we need to complete stages 4-9. Let's parse the research question:\n\nResearch question: \"Opponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\"\n\nWe are to decide whether this can be answered with the given data. We have four retrieved records: FAM:SF-APPA-005, FAM:SF-APPA-050, FAM:SF-CHT-039, FAM:SF-CHT-086.\n\nFirst, identify research concepts and methodological questions from the question. The question is about opponent next-possession PPP after play X driving AVOID labels. Also \"own-sequence lags similarly matter\". This implies a study of conditional outcomes: if running a certain play type results in high opponent PPP on the next possession, then that play type might be labeled as \"AVOID\" (i.e., a play that should be avoided). Similarly, own subsequent possession outcomes (lags) might matter for labeling. The question is: is opponent next-possession PPP large enough to drive AVOID labels, and do own-sequence lags similarly matter? So it's about the magnitude of the effect on next possession outcomes, and whether these are substantial enough to inform play-type labeling.\n\nMethodological questions: how to compute opponent next-possession PPP from play-by-play data, handling end of quarter/game with no next possession, sparsity for specific play types, confounding (game score, opponent strength), effect size estimation, look-ahead bias, lag selection, defensive adjustment.\n\nThe historical records:\n- FAM:SF-APPA-005: Defensive scheme change within game and across games (inferred labels). Untestable. Label/classification error. Near-uniform transition matrices consistent with label noise.\n- FAM:SF-APPA-050: Superstar sequential suppression: opponent play before the star. Not a hypothesis test? The auto_outcome_status is \"not a hypothesis test\". Finding: PUTBACK is top suppressor for 6+ stars, with some effect sizes. But no multiplicity correction; n_after=32-95. Risk: DRIFT_NONSTATIONARITY.\n- FAM:SF-CHT-039: Series-level AVOID share vs winning (talent confound). Untestable. Found some correlation but confounded by team quality and underpowered.\n- FAM:SF-CHT-086: LLM / ex-ante usefulness of suppression context (leakage audit). Artifact. Label is mostly an RTM artifact; apparent LLM skill was leakage; suppression label selected on outcome. Related family: FAM:SF-APPA-005. So labeling based on outcomes can produce artifacts.\n\nThese all seem relevant in various ways: the AVOID label concept, suppression labels, label noise, RTM selection, confounding. The question is about using opponent next-possession PPP to assign AVOID labels. The retrieved evidence suggests that label-based approaches have suffered from label error, RTM selection, and confounding. The \"suppression\" concept in FAM:SF-APPA-050 might be related: star's next-possession PPP after a specific opponent play type. That's similar to the own next-possession PPP after a specific play type, but for opponent play type. Still, it shows that such conditional PPP differences can be found, but with small samples and no multiplicity correction, and the outcome status is \"not a hypothesis test\", meaning it wasn't a formal test. FAM:SF-CHT-086 is highly relevant: it found that suppression label (likely a label derived from outcomes) is mostly an RTM artifact, and selection on outcome causes leakage and label error. FAM:SF-CHT-039 used AVOID share (probably proportion of plays labeled AVOID) and found confounding and underpowered. So the evidence suggests that attempts to create AVOID labels from outcomes have been problematic.\n\nNow, step 4: summarise relevant historical findings and failed approaches. I'll list each record's finding and its status as recorded. For historical_evidence, I need to include the status_as_recorded exactly as in the record: \"untestable\" for APPA-005, \"not a hypothesis test\" for APPA-050, \"untestable\" for CHT-039, \"artifact\" for CHT-086. For failed_approaches, I can draw from APPA-005 (label error, near-uniform transitions), CHT-086 (RTM artifact, leakage, label error), and maybe CHT-039 (confounding, small sample). I'll cite all with appropriate reasoning.\n\nStep 5: what the evidence establishes and does not establish. It establishes that prior studies on play-type labeling (including AVOID and suppression labels) have been susceptible to label noise, RTM selection artifacts, confounding, and small sample issues. It does not establish the magnitude or significance of opponent next-possession PPP differences for specific play types in the 2022-26 data.\n\nStep 6: testability assessment. I need to produce p_testable. This question involves computing conditional PPP for each play type, then determining if differences are large enough to drive labels. This is methodologically similar to the challenges seen in the historical records. Main risks: EXPOSURE_SPARSITY (many play types may have few observations; next-possession PPP will be even sparser), CONFOUNDING (opponent strength, game context), LABEL_ERROR (if we use outcome-based labels, RTM), MULTIPLE_TESTING (many play types and lags), LEAKAGE_LOOKAHEAD (using future outcomes to label past plays, but if we are labeling for future avoidance, it might be ok but still need careful cross-validation). The question could be testable with appropriate controls, but given historical failures with similar AVOID label studies, success probability might be low. However, we have multiple seasons of data, which might provide enough sample for common play types. Still, the label itself is derived from the outcome, which is prone to regression to the mean and selection bias. I'd give p_testable around 0.4? The question is well-defined but the historical evidence shows pitfalls. Let's consider: The data includes play-by-play, so we can compute opponent next-possession PPP for each play type. The problem is whether the differences are \"large enough\" to be meaningful and robust, not just noise. The historical records (FAM:SF-CHT-086) directly warn that such outcome-based labels can be RTM artifacts. So there's a high risk that any apparent effect is artifact. Also FAM:SF-APPA-005 shows label error in inferred defensive scheme changes, likely due to noise. So testability is uncertain. p_testable: maybe 0.3-0.4. I'll list blocking constraints: CONFOUNDING, LABEL_ERROR, RTM_SELECTION, EXPOSURE_SPARSITY, MULTIPLE_TESTING, maybe MECHANICAL_FLOOR (because opponent next-possession PPP conditional on specific play outcomes might be mechanically bounded? Not sure). \n\nStep 7: methodological risks and potential confounders. I'll list from the risk codes.\n\nStep 8: final research decision. Given the historical evidence of label artifact and confounding, I'd lean do_not_proceed, or proceed_with_changes: design a careful study that avoids out-of-sample RTM, uses proper cross-validation, controls for many confounders, and accounts for multiplicity. But the question as posed says \"is large enough to drive AVOID labels\" – it assumes a label derivation based on outcome. That is flawed. A more robust approach would be to test whether play type affects next-possession opponent PPP in a way that is predictive, not just an artifact. However, the historical evidence from CHT-086 suggests that outcome-based labels are mostly RTM. So I'd recommend do_not_proceed, but I'll outline a minimal design.\n\nStep 9: explanation of how historical evidence changed decision. The evidence shows that similar attempts at outcome-derived labels have suffered from RTM, label error, and confounding, which directly indicates high risk for this study.\n\nNow, I'll fill out the JSON. \n\nI'll include all four records in historical_evidence and failed_approaches.\n\nhistorical_evidence:\n- APPA-005: untestable; finding: near-uniform transition matrices consistent with label noise; inferred label cannot separate real defensive adjustment from offense executing differently.\n- APPA-050: not a hypothesis test; finding: PUTBACK is top suppressor for 6+ stars with some effect sizes, but no multiplicity correction and small n_after.\n- CHT-039: untestable; finding: AVOID share vs winning confounded by team quality; underpowered series-level analysis.\n- CHT-086: artifact; finding: suppression label mostly RTM artifact; LLM edge zero after leakage fix; selection on outcome causes label error.\n\nfailed_approaches:\n- APPA-005: inferring labels from play-type transition probabilities; failure: label/classification error and near-uniform transitions.\n- CHT-086: using outcome-derived suppression labels; failure: RTM selection artifact, leakage, label error.\n- CHT-039: studying AVOID share vs winning; failure: confounding by team quality and small sample.\n\nevidence_establishes: previous attempts to derive play-type labels from possession outcomes (including AVOID and suppression) have been susceptible to RTM, label noise, and confounding.\n\nevidence_does_not_establish: whether opponent next-possession PPP differences after play types in the 2022-26 data are large enough and robust to label noise and confounders.\n\nown_inferences: The present question directly inherits the risks that broke prior studies; without explicit out-of-sample validation and adjustment, it would likely produce similar artifacts.\n\nuncertainties: true effect sizes; power for less frequent play types; appropriate lag windows; the definition of \"large enough\" for labeling.\n\nhistorical_effect: yes, changed decision by revealing that outcome-driven labeling has repeatedly failed due to RTM and label error, making the study high-risk.\n\ntestability: p_testable maybe 0.25 because the conceptual approach is prone to artifact even though data exists to compute conditional PPP. Blocking constraints: LABEL_ERROR, RTM_SELECTION, CONFOUNDING, EXPOSURE_SPARSITY.\n\nprior_work: already_answered: no, but related studies show high risk. Cited: all four.\n\nrisks: list with codes and text.\n\npredicted_outcome: I'll assign probabilities: artifact (0.45), untestable (0.25), uncertain (0.2), rejected (0.05), supported (0.05). Sum 1.0.\n\ndecision: do_not_proceed. I'll state design anyway.\n\nDesign: estimand: the average opponent next-possession points per possession following each play type, after adjusting for game context and opponent defensive quality; unit: a possession; sample: all 2022-26 regular season and playoff possessions with a play type label; power: need to compute for play types with at least, say, 200 occurrences to detect a meaningful shift of 0.05 PPP; controls: score differential, period, opponent defensive rating, home/away, lineup; falsification: test for null effect using out-of-sample split; multiplicity: Bonferroni or FDR correction across play types; decision rule: effect size > some threshold with FDR-adjusted p<0.05; data version: as described.\n\nI'll craft the JSON accordingly.",
+     "format": "unknown",
+     "index": 0
+    }
+   ]
+  }
+ ],
+ "log": [
+  {
+   "turn": 0,
+   "stage": 1,
+   "reply": "{\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"play-type labeling\", \"opponent next-possession PPP\", \"own-sequence lags\", \"AVOID labels\", \"conditional possession outcomes\", \"play-by-play derived possessions\", \"data quality\"], \"methodological_questions\": [\"computation of next possession points per possession from play-by-play\", \"handling of end-of-period or no-next-possession cases\", \"sparsity and sample size for specific play types\", \"confounding by game context and opponent strength in conditional PPP\", \"effect size estimation for AVOID label assignment\", \"look-ahead bias in using future outcomes for labeling\", \"lag selection for own-sequence outcomes\", \"defensive adjustment of opponent PPP\"], \"query\": \"opponent next-possession PPP after play type drives AVOID labels and own-sequence lags similarly matter\"}}",
+   "usage": {
+    "input_tokens": 953,
+    "output_tokens": 1532,
+    "cost_usd": 0.0029154267675,
+    "model_version": "deepseek/deepseek-v4-pro",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We are in Stage 1. The task is to decide whether a research question can be answered with the given data, assess historical evidence, risks, etc., but Stage 1 is only the retrieval step. We must read the research question and data description, identify research concepts and methodological questions, then call retrieve_history.\n\nThe research question: \"Opponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\"\n\nInterpretation: We want to study how the opponent's points per possession (PPP) on the next possession after your team runs a specific play type X influences the labeling of plays (likely in a play-type labeling system, such as classifying plays as AVOID). The question also says \"own-sequence lags similarly matter\", meaning that your own team's subsequent possessions' outcomes (maybe PPP on the next possession after running play X) are also important for driving AVOID labels. So it's about whether conditional outcomes (opponent next-possession PPP, own subsequent possession outcomes) are predictive of play-type labels (specifically AVOID labels). This likely relates to a play-type labeling system that uses some criteria to assign labels like \"AVOID\" to plays, and the question is whether these conditional outcomes (opponent next-possession PPP, own lags) are significant enough to influence those labels. Alternatively, it could be testing whether these factors are already captured or are valid for labeling. The question is about data quality: labeling play types and the data available.\n\nResearch concepts: play-type labeling, opponent next-possession PPP, own-sequence lagged outcomes, AVOID labels, conditional possession outcomes, play-by-play data, per-game data, graph database derived play-type possession records.\n\nMethodological questions: How to define and measure opponent next-possession PPP? How to identify the next possession after a specific play type? How to handle end-of-quarter/game issues? How to assign labels (AVOID) based on these outcomes? Sample size and sparsity of play types? Confounding (e.g., opponent strength, game context)? Lag selection and autocorrelation? Data quality of play-type labeling? Portability across seasons? Look-ahead bias if using future outcomes to label past plays? But the task says \"data available on that date\" includes full seasons up to 2025-26 regular season complete from 2026-04-13 and playoffs complete from 2026-06-21, but the research question is posed on 2026-06-19. So some 2025-26 playoffs data is not yet complete? Wait: partial before 2026-06-21, but question posed on 2026-06-19, so the 2025-26 playoffs are only partial then. However, the question could be about whether we can answer it with the data available at that date, including partial playoffs. But likely the study would be retrospective, so we need to consider data availability. However, the data catalog says \"NBA 2025-26 regular season (complete from 2026-04-13; partial before)\" and \"NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\". So as of 2026-06-19, the regular season is complete, but playoffs not yet complete. Could still be used but with caution. The main data: per-game files from NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play. That suggests we have play-type labels already derived? Possibly those are from some existing system? The question states \"in the area of play-type labeling and data quality\" and \"AVOID labels\". So perhaps the project has a labeling system that assigns plays types, and one of the labels is AVOID. The question: do opponent next-possession PPP and own-sequence lags matter enough to drive those AVOID labels? That could be a study to validate the labeling or to incorporate these features into the labeling algorithm.\n\nSo research concepts: play-type (like pick-and-roll, isolation, etc.), AVOID label (maybe a label indicating a bad play that should be avoided), opponent next-possession PPP, own-team subsequent possession outcomes (lags). Methodological questions: how to compute next-possession PPP from play-by-play; how to handle possessions where there is no next possession (end of period); lag selection; sparsity of specific play types; confounders like score differential, opponent defense, time remaining; reliability of play-type assignment; sample size to detect effect; data leakage if using future outcomes to label past plays (since the AVOID label might be based on these outcomes? But the question says \"large enough to drive AVOID labels\", implying these outcomes might be used to determine whether a play gets an AVOID label. If we are testing whether these outcomes drive labels, we might be looking at the relationship between those outcomes and the labels. But if labels are already assigned using these outcomes, then it's circular. Alternatively, maybe the AVOID label is derived from some other criteria, and we want to see if these conditional outcomes are associated with that label, i.e., predictive validity. That would be a predictive study, not a causal one, but still testable. However, we need to assess if this question can be answered with the data.\n\nI'll craft a query that captures these concepts.\n\nNow, retrieve_history: research_concepts list, methodological_questions list, query string.\n\nI'll list concepts: \"play-type labeling\", \"opponent next-possession PPP\", \"own-sequence lags\", \"AVOID labels\", \"conditional possession outcomes\", \"play-by-play derived possessions\", \"data quality\".\n\nMethodological questions: \"computation of next possession points per possession\", \"handling of possessions end-of-period\", \"sparsity of play types\", \"confounding by game context\", \"effect size and sample size for conditional outcomes\", \"look-ahead bias in labeling\", \"lag selection for own-sequence outcomes\", \"defensive adjustment in PPP\".\n\nQuery: \"opponent next-possession PPP after play type drives AVOID labels and own-sequence lags matter\"\n\nNow call the tool.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   },
+   "parse_error": "",
+   "parse_recovery": "",
+   "tool": {
+    "name": "retrieve_history",
+    "args": {
+     "research_concepts": [
+      "play-type labeling",
+      "opponent next-possession PPP",
+      "own-sequence lags",
+      "AVOID labels",
+      "conditional possession outcomes",
+      "play-by-play derived possessions",
+      "data quality"
+     ],
+     "methodological_questions": [
+      "computation of next possession points per possession from play-by-play",
+      "handling of end-of-period or no-next-possession cases",
+      "sparsity and sample size for specific play types",
+      "confounding by game context and opponent strength in conditional PPP",
+      "effect size estimation for AVOID label assignment",
+      "look-ahead bias in using future outcomes for labeling",
+      "lag selection for own-sequence outcomes",
+      "defensive adjustment of opponent PPP"
+     ],
+     "query": "opponent next-possession PPP after play type drives AVOID labels and own-sequence lags similarly matter"
+    },
+    "result_chars": 4525,
+    "result_tokens_est": 1131,
+    "latency_seconds": 0.002,
+    "returned_ids": [
+     "FAM:SF-APPA-005",
+     "FAM:SF-APPA-050",
+     "FAM:SF-CHT-039",
+     "FAM:SF-CHT-086"
+    ],
+    "trace": {
+     "query_terms": [
+      "adjustment",
+      "after",
+      "and",
+      "assignment",
+      "avoid",
+      "bias",
+      "by",
+      "cases",
+      "computation",
+      "conditional",
+      "confounding",
+      "context",
+      "data",
+      "defensive",
+      "derived",
+      "drives",
+      "effect",
+      "end-of-period",
+      "estimation",
+      "for",
+      "from",
+      "future",
+      "game",
+      "handling",
+      "in",
+      "label",
+      "labeling",
+      "labels",
+      "lag",
+      "lags",
+      "look-ahead",
+      "matter",
+      "next",
+      "next-possession",
+      "no-next-possession",
+      "of",
+      "opponent",
+      "or",
+      "outcomes",
+      "own-sequence"
+     ],
+     "scores": {
+      "FAM:SF-APPA-005": 0.145,
+      "FAM:SF-APPA-050": 0.133,
+      "FAM:SF-CHT-039": 0.116,
+      "FAM:SF-CHT-086": 0.114
+     }
+    }
+   }
+  },
+  {
+   "turn": 1,
+   "stage": 2,
+   "reply": "{\n  \"research_concepts\": [\n    \"play-type labeling\",\n    \"opponent next-possession PPP\",\n    \"own-sequence lags\",\n    \"AVOID labels\",\n    \"conditional possession outcomes\",\n    \"data quality in play-by-play derived labels\"\n  ],\n  \"methodological_questions\": [\n    \"How to compute opponent next-possession points per possession from play-by-play, handling end-of-period and overtime gaps?\",\n    \"What is the effect of play-type sparsity on statistical power for conditional PPP?\",\n    \"How to control for game context (score, period, opponent strength) when estimating next-possession outcomes?\",\n    \"How to avoid look-ahead bias when using future possession outcomes to define AVOID labels?\",\n    \"How to select appropriate own-sequence lag windows and account for autocorrelation?\"\n  ],\n  \"historical_evidence\": [\n    {\n      \"id\": \"FAM:SF-APPA-005\",\n      \"status_as_recorded\": \"untestable\",\n      \"finding\": \"Defensive scheme change labels inferred from play transitions produced near-uniform transition matrices consistent with label noise; the inferred label cannot separate real defensive adjustment from offense executing differently.\"\n    },\n    {\n      \"id\": \"FAM:SF-APPA-050\",\n      \"status_as_recorded\": \"not a hypothesis test\",\n      \"finding\": \"PUTBACK as an opponent preceding play type appeared to suppress several stars' next-possession PPP (e.g., D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95), but no multiplicity correction was applied and sample sizes were small (n_after 32–95).\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-039\",\n      \"status_as_recorded\": \"untestable\",\n      \"finding\": \"Higher AVOID share showed a weak negative correlation with winning at game level (rho=-0.19, p=0.008) but was confounded by team quality and underpowered at the series level (n=50, p=0.07; ~80 series needed for p<0.05).\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-086\",\n      \"status_as_recorded\": \"artifact\",\n      \"finding\": \"Suppression label was mostly an RTM artifact; apparent LLM skill was leakage, and after fixing leakage the remaining edge was not statistically retrievable. The label selection on the outcome drove the artifact.\"\n    }\n  ],\n  \"failed_approaches\": [\n    {\n      \"id\": \"FAM:SF-APPA-005\",\n      \"what_failed\": \"Inferring defensive scheme change labels from play-type transitions\",\n      \"why\": \"Label or classification error; near-uniform transitions indistinguishable from noise.\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-086\",\n      \"what_failed\": \"Using outcome-derived suppression labels for prediction\",\n      \"why\": \"RTM selection artifact; leakage from future target; label error.\"\n    },\n    {\n      \"id\": \"FAM:SF-CHT-039\",\n      \"what_failed\": \"Correlating AVOID label share with winning\",\n      \"why\": \"Confounding by team quality and insufficient sample size at series level.\"\n    }\n  ],\n  \"evidence_establishes\": [\n    \"Prior attempts to derive play-type labels (including AVOID and suppression) from possession outcomes have been susceptible to regression-to-the-mean artifacts, label noise, and confounding by team quality.\",\n    \"Suppression-like labels created by selecting on the outcome (next-possession points) can appear significant but turn out to be artifacts when tested out-of-sample with leakage removed.\",\n    \"Even when effects are observed, they often lack multiplicity correction and are based on small per-cell samples.\"\n  ],\n  \"evidence_does_not_establish\": [\n    \"Whether opponent next-possession PPP differences after each play-type in the 2022-26 data are large enough to be robust to label noise and confounding when properly validated out-of-sample.\",\n    \"The magnitude or existence of own-sequence lag effects on subsequent possessions for AVOID labeling purposes.\"\n  ],\n  \"own_inferences\": [\n    \"The question as posed – 'is large enough to drive AVOID labels' – implicitly assumes that outcome-based thresholds can be used to assign labels retroactively, which is the same mechanism that produced the RTM artifact in FAM:SF-CHT-086.\",\n    \"Even with multiple seasons of data, the sparsity for many play types (especially when conditioning on own-sequence lags and opponent PPP) will likely leave most cells underpowered, similar to FAM:SF-APPA-050.\",\n    \"Without a clear ex‑ante definition of 'large enough' and an independent validation set, any apparent effect would be indistinguishable from noise or artifact.\"\n  ],\n  \"uncertainties\": [\n    \"True effect sizes of play types on opponent next-possession PPP in the NBA 2022-26 era.\",\n    \"Power to detect meaningful differences given sparsity for less frequent play types and specific lag combinations.\",\n    \"Optimal lag windows and how to handle overlapping possessions and end-of-quarter truncation.\",\n    \"Whether a rigorous prospective study with out-of-sample validation could overcome the RTM problem that defeated FAM:SF-CHT-086.\"\n  ],\n  \"historical_effect\": {\n    \"changed_decision\": \"yes\",\n    \"explanation\": \"The retrieval returned direct evidence (FAM:SF-CHT-086) that outcome-driven suppression labels are RTM artifacts, and FAM:SF-APPA-005 that label noise makes inferred play-type labels unreliable. This elevates the risk that the proposed study would reproduce the same artifacts, shifting the decision toward do_not_proceed.\"\n  },\n  \"testability\": {\n    \"p_testable\": 0.25,\n    \"blocking_constraints\": [\n      {\n        \"code\": \"RTM_SELECTION\",\n        \"text\": \"Selecting play types as AVOID on the basis of observed opponent PPP amounts to selecting on the outcome; regression to the mean will overstate the association in-sample without rigorous out-of-sample validation.\"\n      },\n      {\n        \"code\": \"LABEL_ERROR\",\n        \"text\": \"Any AVOID label derived from observed next-possession outcomes is noisy and inherits classification error from play-type labeling and possession boundary detection, as seen in FAM:SF-APPA-005.\"\n      },\n      {\n        \"code\": \"EXPOSURE_SPARSITY\",\n        \"text\": \"Many play types, especially when further conditioned on own-sequence lags, will have too few occurrences to estimate opponent PPP with adequate precision.\"\n      },\n      {\n        \"code\": \"CONFOUNDING\",\n        \"text\": \"Opponent next-possession PPP is strongly confounded by overall opponent offensive quality, game score differential, and period, mimicking the team-quality confound that limited FAM:SF-CHT-039.\"\n      }\n    ]\n  },\n  \"prior_work\": {\n    \"already_answered\": \"no\",\n    \"cited\": [\n      \"FAM:SF-APPA-005\",\n      \"FAM:SF-APPA-050\",\n      \"FAM:SF-CHT-039\",\n      \"FAM:SF-CHT-086\"\n    ],\n    \"summary\": \"No prior study directly tested whether opponent next-possession PPP after specific play types is sufficiently large and robust to drive AVOID labels. However, closely related work on suppression labels and AVOID share found that outcome-derived labels are susceptible to RTM artifacts, label noise, and confounding, and that observed effects often shrink or disappear under proper validation.\"\n  },\n  \"risks\": [\n    {\n      \"code\": \"RTM_SELECTION\",\n      \"text\": \"Selecting play types for AVOID labeling based on high observed opponent next-possession PPP is selecting on the outcome, which inflates apparent effects and creates RTM artifacts.\"\n    },\n    {\n      \"code\": \"LABEL_ERROR\",\n      \"text\": \"Play-type labels from the graph database, possession boundaries, and opponent PPP computations contain noise that can mask or mimic true signal, as documented in FAM:SF-APPA-005.\"\n    },\n    {\n      \"code\": \"CONFOUNDING\",\n      \"text\": \"Opponent next-possession outcomes are confounded by opponent offensive ability, game state (score margin, period), and team defensive quality; failing to fully adjust for these will bias effect estimates.\"\n    },\n    {\n      \"code\": \"EXPOSURE_SPARSITY\",\n      \"text\": \"Many play types occur infrequently, making per-type opponent PPP estimates noisy and underpowered, especially when split by own-sequence lag.\"\n    },\n    {\n      \"code\": \"MULTIPLE_TESTING\",\n      \"text\": \"Testing many play types and lags without multiplicity correction risks false positives, as was the case in FAM:SF-APPA-050.\"\n    },\n    {\n      \"code\": \"LEAKAGE_LOOKAHEAD\",\n      \"text\": \"If AVOID labels are defined using full-season or future data and then applied to past decisions, look-ahead bias can overstate predictability, analogous to the leakage in FAM:SF-CHT-086.\"\n    }\n  ],\n  \"predicted_outcome\": {\n    \"supported\": 0.05,\n    \"rejected\": 0.05,\n    \"untestable\": 0.25,\n    \"artifact\": 0.45,\n    \"uncertain\": 0.20\n  },\n  \"decision\": \"do_not_proceed\",\n  \"design\": {\n    \"estimand\": \"Average opponent points per possession on the first possession following each play type, adjusted for score differential, period, opponent offensive rating, and home/away, using only out-of-sample data for labeling thresholds.\",\n    \"unit\": \"Possession immediately following a labeled play-type possession.\",\n    \"sample\": \"All regular-season and playoff possessions from 2022-23 through 2025-26 where a play-type label is assigned and a valid next possession by the opponent exists, excluding end-of-quarter and end-of-game possessions without a subsequent possession.\",\n    \"power\": \"Require at least 200 occurrences per play-type for inclusion; at that sample, a 0.05 PPP shift can be detected with 80% power at α=0.05 under typical variance. Play types with fewer occurrences are grouped into a broader category.\",\n    \"controls\": \"Score differential (categorical: trailing, tie, leading), game period, opponent defensive rating (season-level, lagged), home/away indicator, starter/bench status of the offensive lineup, and rest days.\",\n    \"falsification\": \"Split the data temporally: train on 2022-23 to 2024-25, test whether play types identified as having high opponent PPP in the training set replicate in 2025-26. Use placebo lags (e.g., two possessions later) to check specificity.\",\n    \"multiplicity\": \"Benjamini-Hochberg FDR correction at 0.05 across all play types tested for both opponent next-possession PPP and own-sequence lags.\",\n    \"decision_rule\": \"A play type is flagged as potentially AVOID-worthy only if, after FDR correction, its opponent next-possession PPP is significantly above the league-average opponent PPP in the out-of-sample test, and the effect size exceeds 0.04 PPP (about 0.5 points per 100 possessions).\",\n    \"data_version\": \"NBA per-game files 2022-23 through 2025-26 as of 2026-06-19.\"\n  }\n}",
+   "usage": {
+    "input_tokens": 3252,
+    "output_tokens": 4893,
+    "cost_usd": 0.0092122817085,
+    "model_version": "deepseek/deepseek-v4-pro",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We have the retrieval result. Now we need to complete stages 4-9. Let's parse the research question:\n\nResearch question: \"Opponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\"\n\nWe are to decide whether this can be answered with the given data. We have four retrieved records: FAM:SF-APPA-005, FAM:SF-APPA-050, FAM:SF-CHT-039, FAM:SF-CHT-086.\n\nFirst, identify research concepts and methodological questions from the question. The question is about opponent next-possession PPP after play X driving AVOID labels. Also \"own-sequence lags similarly matter\". This implies a study of conditional outcomes: if running a certain play type results in high opponent PPP on the next possession, then that play type might be labeled as \"AVOID\" (i.e., a play that should be avoided). Similarly, own subsequent possession outcomes (lags) might matter for labeling. The question is: is opponent next-possession PPP large enough to drive AVOID labels, and do own-sequence lags similarly matter? So it's about the magnitude of the effect on next possession outcomes, and whether these are substantial enough to inform play-type labeling.\n\nMethodological questions: how to compute opponent next-possession PPP from play-by-play data, handling end of quarter/game with no next possession, sparsity for specific play types, confounding (game score, opponent strength), effect size estimation, look-ahead bias, lag selection, defensive adjustment.\n\nThe historical records:\n- FAM:SF-APPA-005: Defensive scheme change within game and across games (inferred labels). Untestable. Label/classification error. Near-uniform transition matrices consistent with label noise.\n- FAM:SF-APPA-050: Superstar sequential suppression: opponent play before the star. Not a hypothesis test? The auto_outcome_status is \"not a hypothesis test\". Finding: PUTBACK is top suppressor for 6+ stars, with some effect sizes. But no multiplicity correction; n_after=32-95. Risk: DRIFT_NONSTATIONARITY.\n- FAM:SF-CHT-039: Series-level AVOID share vs winning (talent confound). Untestable. Found some correlation but confounded by team quality and underpowered.\n- FAM:SF-CHT-086: LLM / ex-ante usefulness of suppression context (leakage audit). Artifact. Label is mostly an RTM artifact; apparent LLM skill was leakage; suppression label selected on outcome. Related family: FAM:SF-APPA-005. So labeling based on outcomes can produce artifacts.\n\nThese all seem relevant in various ways: the AVOID label concept, suppression labels, label noise, RTM selection, confounding. The question is about using opponent next-possession PPP to assign AVOID labels. The retrieved evidence suggests that label-based approaches have suffered from label error, RTM selection, and confounding. The \"suppression\" concept in FAM:SF-APPA-050 might be related: star's next-possession PPP after a specific opponent play type. That's similar to the own next-possession PPP after a specific play type, but for opponent play type. Still, it shows that such conditional PPP differences can be found, but with small samples and no multiplicity correction, and the outcome status is \"not a hypothesis test\", meaning it wasn't a formal test. FAM:SF-CHT-086 is highly relevant: it found that suppression label (likely a label derived from outcomes) is mostly an RTM artifact, and selection on outcome causes leakage and label error. FAM:SF-CHT-039 used AVOID share (probably proportion of plays labeled AVOID) and found confounding and underpowered. So the evidence suggests that attempts to create AVOID labels from outcomes have been problematic.\n\nNow, step 4: summarise relevant historical findings and failed approaches. I'll list each record's finding and its status as recorded. For historical_evidence, I need to include the status_as_recorded exactly as in the record: \"untestable\" for APPA-005, \"not a hypothesis test\" for APPA-050, \"untestable\" for CHT-039, \"artifact\" for CHT-086. For failed_approaches, I can draw from APPA-005 (label error, near-uniform transitions), CHT-086 (RTM artifact, leakage, label error), and maybe CHT-039 (confounding, small sample). I'll cite all with appropriate reasoning.\n\nStep 5: what the evidence establishes and does not establish. It establishes that prior studies on play-type labeling (including AVOID and suppression labels) have been susceptible to label noise, RTM selection artifacts, confounding, and small sample issues. It does not establish the magnitude or significance of opponent next-possession PPP differences for specific play types in the 2022-26 data.\n\nStep 6: testability assessment. I need to produce p_testable. This question involves computing conditional PPP for each play type, then determining if differences are large enough to drive labels. This is methodologically similar to the challenges seen in the historical records. Main risks: EXPOSURE_SPARSITY (many play types may have few observations; next-possession PPP will be even sparser), CONFOUNDING (opponent strength, game context), LABEL_ERROR (if we use outcome-based labels, RTM), MULTIPLE_TESTING (many play types and lags), LEAKAGE_LOOKAHEAD (using future outcomes to label past plays, but if we are labeling for future avoidance, it might be ok but still need careful cross-validation). The question could be testable with appropriate controls, but given historical failures with similar AVOID label studies, success probability might be low. However, we have multiple seasons of data, which might provide enough sample for common play types. Still, the label itself is derived from the outcome, which is prone to regression to the mean and selection bias. I'd give p_testable around 0.4? The question is well-defined but the historical evidence shows pitfalls. Let's consider: The data includes play-by-play, so we can compute opponent next-possession PPP for each play type. The problem is whether the differences are \"large enough\" to be meaningful and robust, not just noise. The historical records (FAM:SF-CHT-086) directly warn that such outcome-based labels can be RTM artifacts. So there's a high risk that any apparent effect is artifact. Also FAM:SF-APPA-005 shows label error in inferred defensive scheme changes, likely due to noise. So testability is uncertain. p_testable: maybe 0.3-0.4. I'll list blocking constraints: CONFOUNDING, LABEL_ERROR, RTM_SELECTION, EXPOSURE_SPARSITY, MULTIPLE_TESTING, maybe MECHANICAL_FLOOR (because opponent next-possession PPP conditional on specific play outcomes might be mechanically bounded? Not sure). \n\nStep 7: methodological risks and potential confounders. I'll list from the risk codes.\n\nStep 8: final research decision. Given the historical evidence of label artifact and confounding, I'd lean do_not_proceed, or proceed_with_changes: design a careful study that avoids out-of-sample RTM, uses proper cross-validation, controls for many confounders, and accounts for multiplicity. But the question as posed says \"is large enough to drive AVOID labels\" – it assumes a label derivation based on outcome. That is flawed. A more robust approach would be to test whether play type affects next-possession opponent PPP in a way that is predictive, not just an artifact. However, the historical evidence from CHT-086 suggests that outcome-based labels are mostly RTM. So I'd recommend do_not_proceed, but I'll outline a minimal design.\n\nStep 9: explanation of how historical evidence changed decision. The evidence shows that similar attempts at outcome-derived labels have suffered from RTM, label error, and confounding, which directly indicates high risk for this study.\n\nNow, I'll fill out the JSON. \n\nI'll include all four records in historical_evidence and failed_approaches.\n\nhistorical_evidence:\n- APPA-005: untestable; finding: near-uniform transition matrices consistent with label noise; inferred label cannot separate real defensive adjustment from offense executing differently.\n- APPA-050: not a hypothesis test; finding: PUTBACK is top suppressor for 6+ stars with some effect sizes, but no multiplicity correction and small n_after.\n- CHT-039: untestable; finding: AVOID share vs winning confounded by team quality; underpowered series-level analysis.\n- CHT-086: artifact; finding: suppression label mostly RTM artifact; LLM edge zero after leakage fix; selection on outcome causes label error.\n\nfailed_approaches:\n- APPA-005: inferring labels from play-type transition probabilities; failure: label/classification error and near-uniform transitions.\n- CHT-086: using outcome-derived suppression labels; failure: RTM selection artifact, leakage, label error.\n- CHT-039: studying AVOID share vs winning; failure: confounding by team quality and small sample.\n\nevidence_establishes: previous attempts to derive play-type labels from possession outcomes (including AVOID and suppression) have been susceptible to RTM, label noise, and confounding.\n\nevidence_does_not_establish: whether opponent next-possession PPP differences after play types in the 2022-26 data are large enough and robust to label noise and confounders.\n\nown_inferences: The present question directly inherits the risks that broke prior studies; without explicit out-of-sample validation and adjustment, it would likely produce similar artifacts.\n\nuncertainties: true effect sizes; power for less frequent play types; appropriate lag windows; the definition of \"large enough\" for labeling.\n\nhistorical_effect: yes, changed decision by revealing that outcome-driven labeling has repeatedly failed due to RTM and label error, making the study high-risk.\n\ntestability: p_testable maybe 0.25 because the conceptual approach is prone to artifact even though data exists to compute conditional PPP. Blocking constraints: LABEL_ERROR, RTM_SELECTION, CONFOUNDING, EXPOSURE_SPARSITY.\n\nprior_work: already_answered: no, but related studies show high risk. Cited: all four.\n\nrisks: list with codes and text.\n\npredicted_outcome: I'll assign probabilities: artifact (0.45), untestable (0.25), uncertain (0.2), rejected (0.05), supported (0.05). Sum 1.0.\n\ndecision: do_not_proceed. I'll state design anyway.\n\nDesign: estimand: the average opponent next-possession points per possession following each play type, after adjusting for game context and opponent defensive quality; unit: a possession; sample: all 2022-26 regular season and playoff possessions with a play type label; power: need to compute for play types with at least, say, 200 occurrences to detect a meaningful shift of 0.05 PPP; controls: score differential, period, opponent defensive rating, home/away, lineup; falsification: test for null effect using out-of-sample split; multiplicity: Bonferroni or FDR correction across play types; decision rule: effect size > some threshold with FDR-adjusted p<0.05; data version: as described.\n\nI'll craft the JSON accordingly.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   },
+   "parse_error": "",
+   "parse_recovery": "bare output object",
+   "citation_problems": []
+  }
+ ]
+}

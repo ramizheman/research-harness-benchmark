@@ -1,0 +1,32 @@
+# EXP:APPS-079 | State-attribution AUC decomposition of lag-1 memory
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Minimal-state base AUC=0.5205 vs full 0.5819 on 2025-26 opponent next-possession outcome. Block ablation.
+- hypothesis: Lag-1 predictive signal is process/state (pace, play type, transition) rather than outcome persistence.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPS-079; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPS-079; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-079 {record=APPS-079; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Collinear blocks: momentum large alone, unique 0.
+- prespecified: no
+- produced: RES:APPS-079 {record=APPS-079; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-059
+- related_to: EXP:APPS-059 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-079; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\state_attribution.md
+- title: State-attribution AUC decomposition of lag-1 memory
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-079; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-079; rule=keyword rule DATASET_RULES}
+- uses_method: METH:ablation {record=APPS-079; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-079 | Result of APPS-079
+- failure_evidence: Dominant block is outcome persistence/momentum, not play-type or lineup state. Unique signal is mostly transition_state.
+- failure_type: B_powered_null
+- power_info: 2025-26 test set; original N0->N1 jump +0.0242 for reference
+- primary_result: Total attributable +0.0614 AUC. outcome_persistence marginal +0.0527 (39% share) unique +0.0069; momentum +0.0494 unique 0; transition_state unique +0.0117 (53% of unique); playtype_state unique +0.0003; lineup_state unique -0.0049.
+- record_stratum: rejected
+- record_substatus: verdict reversed, powered null with power information
+- verdict: reversed

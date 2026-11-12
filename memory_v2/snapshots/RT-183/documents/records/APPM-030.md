@@ -1,0 +1,33 @@
+# EXP:APPM-030 | BEST vs AVOID counter-tier OOS gap
+- date: 2026-06-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 55 playoff series / 272 games (175 BEST / 456 AVOID rows) and RS holdout 2025-26 1,148 games (980 BEST / 691 AVOID), n>=5 gate.
+- hypothesis: After suppression, pre-ranked BEST counters score more than AVOID counters out of sample.
+- knowable_in_advance: unclear
+- member_of: FAM:SF03 {record=APPM-030; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Numbers changed across versions (+0.620 -> +0.476 -> +0.375 after leakage fix); INSUFF_EVIDENCE 34-80%.
+- prespecified: no
+- produced: RES:APPM-030 {record=APPM-030; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: FINAL_NUMBERS_SHEET.md (A-L); Counter-tier validation Test 1
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPM-030; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_three_condition_gap.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_within_trigger_regret.py
+- title: BEST vs AVOID counter-tier OOS gap
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-030; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPM-030; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-030; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-030 | Result of APPM-030
+- failure_evidence: Gap survives CUT removal (+0.389), turnover correction (+0.371), within-PT FE (+0.363).
+- failure_type: D_positive
+- power_info: PO 175/456 rows; RS 980/691
+- primary_result: Corrected gap +0.375 (PO) / +0.422 (RS) per v8 stale note; earlier +0.476/+0.413 and ungated +0.620; within-trigger paired +0.588 (86) / +0.445 (221); Spearman rho -0.316; KW H 644.84.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

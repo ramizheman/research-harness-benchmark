@@ -1,0 +1,170 @@
+{
+ "blind_id": "Rf6796fd3b8c5",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP (T+1 downstream effect) after a play type",
+   "play-type AVOID labels",
+   "own-sequence lag effects (T-1, T-2 own possessions)",
+   "possession sequencing and carryover",
+   "play-type label quality (foul leakage, OTHER bucket, label noise)"
+  ],
+  "methodological_questions": [
+   "Is the opponent T+1 PPP shift after play X large enough to change an AVOID label, compared with the direct-PPP margin that defines the label?",
+   "Do own-sequence lags add information after conditioning on play type, how the previous possession ended, team strength and game state?",
+   "Do label noise, foul-ending leakage and small cells create or hide sequence effects?",
+   "How should multiplicity across play types, lags and teams or players be handled?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Extended Possession Value study. 4 of 8 play types show a real downstream opponent T+1 effect (CUT +0.0220, TRANSITION +0.0145, SPOT_UP +0.0124, POST_UP +0.0194). DRIVE downstream was not real (+0.0024). Player-level effects were mostly non-significant after BH correction. [prior work] states downstream effects are small (~0.01-0.02 PPP) relative to direct PPP gaps."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Superstar sequential suppression. PUTBACK was the top suppressor of next-possession PPP for 6+ stars (e.g. D. Mitchell d=-0.294 with n_after=95). [prior work] notes no multiplicity correction and n_after of 32-95 for several PUTBACK cells against thousands of baseline possessions. Recorded risk: DRIFT_NONSTATIONARITY."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Labeling audit. OTHER has 36% foul endings, which inflate its PPP. DRIVE sits 12pp below the foul benchmark (foul leakage). PNR shows a 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Inferred-label study of defensive scheme change after an opponent ran a play type heavily. Transition matrices were near-uniform, consistent with label noise. Recorded limitation: the inferred label cannot separate real adjustment from the offense executing differently (LABEL_ERROR)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Per-star suppression ranking without multiplicity correction and with small post-event cells",
+    "why": "n_after of 32-95 against large baselines and no multiplicity correction; mechanism recorded as unclear."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Treating raw play-type PPP (and labels derived from it) as clean efficiency",
+    "why": "Foul-ending leakage inflates OTHER and deflates DRIVE; initiation_type mapping covers only 0.7% of possessions."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring sequence-driven adjustment from derived labels",
+    "why": "The inferred label cannot distinguish real adjustment from execution differences, and the near-uniform matrices are consistent with noise."
+   }
+  ],
+  "evidence_establishes": [
+   "Per [prior work][prior work], downstream opponent T+1 effects exist for some play types but are recorded as small (~0.01-0.02 PPP) relative to direct PPP gaps. This works against the 'large enough to drive AVOID labels' premise.",
+   "Per [prior work][prior work], play-type labels carry foul-leakage and bucket artifacts, so any label-based AVOID rule is already contaminated.",
+   "Per [prior work][prior work], sequence effects at the player level rest on small cells with no multiplicity control and are not reliable on their own."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the downstream effects are large enough to change any specific AVOID classification, because the AVOID threshold is not defined in the retrieved records.",
+   "Whether own-sequence lags (the team's own T-1, T-2 possessions) matter. The retrieved records address opponent T+1 and star-level preceding-play effects, not team own-lag effects.",
+   "Whether downstream effects survive conditioning on how play X ended (make, miss, turnover, foul).",
+   "Whether results hold on the 2025-26 data or are stable across seasons."
+  ],
+  "own_inferences": [
+   "Opponent next-possession PPP is mechanically tied to how X ended: after a make the opponent inbounds against a set defense, while after a miss or turnover the opponent often gets transition. A raw 'suppression after X' is therefore partly the outcome of X, not a property of the play type. This is OUTCOME_DERIVED_LABEL / mechanical confounding.",
+   "Because the prior estimates are about 0.01-0.02 PPP, a flip in AVOID labels is likely only for plays whose direct PPP sits within about 0.02 of the threshold. I expect the headline claim to be rejected or to apply to very few labels.",
+   "Own-lag effects are probably smaller than opponent T+1 effects, because an opposing possession and a pace and score context sit between them. Detecting them will need very large samples and clean labels.",
+   "Label noise (FOUL_LEAK, OTHER bucket) could produce spurious lag effects, because misclassified possessions correlate with how they end."
+  ],
+  "uncertainties": [
+   "The definition and threshold of the 'AVOID' label are unknown.",
+   "Retrieved records are consolidated summaries; the full text of [prior work][prior work] and [prior work][prior work] was cut and was not read.",
+   "The 2025-26 playoffs are only partial as of 2026-06-19 and complete on 2026-06-21.",
+   "The share of possessions with a reliable play type is uncertain, given the recorded 0.7% initiation_type mapping."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have treated this as a straightforward 'proceed'. [prior work] show that downstream effects are small, that labels have foul-leakage artifacts, and that sequence results on small cells without correction are unreliable. So the decision becomes proceed_with_changes: reframe the question as a magnitude-versus-label-margin test, condition on how X ended, and apply multiplicity control and validated labels."
+  },
+  "testability": {
+   "p_testable": 0.65,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "Opponent T+1 PPP depends on how possession X ended, so downstream effects must be conditioned on ending type or they are mechanical."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Foul leakage and OTHER-bucket inflation mean the AVOID label is contaminated, so label-flip counts could be artifacts."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Effects of ~0.01-0.02 PPP need tens of thousands of possessions per play type, and own-lag effects need more. Player or team-level cells will be underpowered."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Opponent T+1 effects were estimated at the play-type level (small, ~0.01-0.02 PPP, 4 of 8 real). Star-level sequence effects exist but rest on small cells with no correction. Labeling artifacts are documented. No retrieved record tests whether the effects change AVOID labels or measures own-sequence lags."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "X's ending (make[path]) determines the opponent's next-possession start type. Stratify or condition on it, otherwise the effect is mechanical."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Foul leakage, OTHER bucket, and 0.7% initiation_type mapping make play-type labels noisy, and noise in label-correlated outcomes can mimic sequence effects."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team strength, lineup, pace, score margin, garbage time, home court and period/clock context affect both what is run and the next-possession PPP."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Small effects mean heavily underpowered cells at team, player or play-by-lag level."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Play types x lags x teams or players create many comparisons, and [prior work][prior work] was run without correction."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Baseline next-possession PPP differs by start type (live-ball turnover, defensive rebound, dead-ball inbound), so comparisons must be against matched baselines."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type usage and league efficiency change across seasons, so pool with season fixed effects and check stability."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Labels flagged AVOID from extreme observed PPP will regress to the mean, which can look like a sequence effect if the label was selected on the same data."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The AVOID label must be defined on data that excludes the possessions used to measure the downstream effect (split by season or game)."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.12,
+   "rejected": 0.38,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each play type X, the difference in opponent next-possession PPP after X versus matched baseline possessions, conditional on how X ended (make, defensive rebound, turnover, foul) and on game state. Then the number of AVOID labels that change when a downstream adjustment is added to direct PPP. Secondary estimand: the effect of own-team lags (T-1, T-2 own play type and outcome) on the team's own next-possession PPP, with the intervening opponent possession controlled.",
+   "unit": "Possession pair (X possession, next opposing possession) for opponent T+1, and own-possession triples for own lags; clustered by game and by team-season.",
+   "sample": "Calibrate the AVOID definition and effect sizes on 2022-23 to 2024-25 regular seasons. Confirm on the complete 2025-26 regular season as holdout. Treat playoffs separately (or exclude them) and exclude the partial 2025-26 playoffs pending completion on 2026-06-21. Exclude garbage time, end-of-period heaves and possessions with ambiguous labels. Restrict to possessions where the play type is reliably labeled and drop or separately report OTHER.",
+   "power": "Minimum detectable effect for each play type should be about 0.01 PPP. With SD of possession points ~1.1-1.2, that needs roughly 40,000+ possessions per arm for 80% power. Report the achieved MDE per play type and demote underpowered cells to descriptive. Do not test at player or team level unless power is shown.",
+   "controls": "Ending type of X, start type of the next possession, team offensive and defensive ratings, lineup quality, score margin, period and clock, home/away, pace, and season fixed effects. Use a mixed model with team and game random effects, or matched baselines by start type. Correct for foul leakage by reporting results with and without foul-ending possessions.",
+   "falsification": "Placebo: replace X with a random same-game earlier possession or shuffle X labels within game and ending type, and the effect should vanish. Negative control: play types that have no mechanical route to the opponent's next start (e.g. after matching on ending type) should show ~0. Compare estimated shifts with the label noise rate from an audit. Check that the effect reproduces across seasons and on 2025-26 holdout.",
+   "multiplicity": "Benjamini-Hochberg FDR at 5% across play types x lags x ending types. Pre-specify the family and report all tests, including nulls.",
+   "decision_rule": "Support the claim only if (a) the downstream shift is significant after BH on both calibration and holdout, (b) its magnitude exceeds the label threshold margin so that at least a pre-specified share (e.g. 10%) of AVOID classifications flip, and (c) the effect survives conditioning on ending type and the placebo. If shifts are ~0.01-0.02 PPP and flip fewer than that share, reject the 'large enough' claim. Own-lag claims are supported only if the lag coefficient is significant after BH and its magnitude is above the MDE. If label noise rates exceed a pre-set bound, report as artifact or inconclusive.",
+   "data_version": "NBA stats API per-game play-by-play, rotations, starters, matchups and box scores, plus the derived play-type possession graph, for 2022-23 to 2024-25 and 2025-26 regular season (complete from 2026-04-13). 2025-26 playoffs partial as of 2026-06-19 and not used until complete (2026-06-21). Freeze the extraction date and graph build version before analysis."
+  }
+ },
+ "redactions": 38
+}

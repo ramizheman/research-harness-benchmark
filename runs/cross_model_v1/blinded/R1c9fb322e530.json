@@ -1,0 +1,179 @@
+{
+ "blind_id": "R1c9fb322e530",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup effects",
+   "offensive five personnel change",
+   "shot mix (distance and type)",
+   "matchup effects",
+   "design sensitivity to personnel effects",
+   "reconstructed lineups from substitution intervals"
+  ],
+  "methodological_questions": [
+   "Does an offensive-five change, compared with matched intervals without a change, shift shot mix (rim, mid-range, 3PA, drive, post-up) by more than noise?",
+   "Can the design distinguish a personnel effect from game context (score, period, fatigue, foul trouble, timeouts) and opponent matchup?",
+   "Is the 2022-23 to 2024-25 sample large enough to detect the effect sizes seen in earlier shot-mix work?",
+   "Does the question's premise (that the design can detect personnel effects) need to be tested rather than assumed?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Opponent lineup adaptation study (shot mix when the opposing rim big is off the floor) on NBA play-by-play possessions and reconstructed lineups, N=1.07M possessions. Recorded results: DRIVE +0.82pp (SE 0.25, t=+3.3); POST_UP +0.43pp (SE 0.18, t=+2.4); 3PA -1.79pp (SE 0.31, t=-5.8); rim <=4ft +0.12pp (t=+0.4); PPP +0.008 (SE 0.007, t=+1.1). Recorded verdict: WEAK/SMALL, will not carry a paper. Recorded failure evidence: sub-1pp mix shifts with PPP t=+1.1; rim share +0.123 with SE 0.295. Auto failure mechanism recorded as none."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Decision-value test of a kernel argmax model against an NBA baseline (v1 leak, v2 fixed). v1 showed A at -4.51 pts/100 vs baseline; v2 showed -1.48 pts/100, with the baseline winning on 23,922 possessions in both versions. Recommendations were CUT about 88% of the time against an actual rate of 6.8%. Recorded mechanism: C_artifact."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Opener recommendations vs personnel feasibility. All rank-1 openers were CUT-centred and infeasible, with the CUT target 3-10x the stretch ceiling in every team-game. Recorded mechanism: C_artifact, with the optimizer recorded as ignoring personnel."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Play-type mix alignment vs actual PPP (matchup residual), n=908 holdout game-team rows (454 games). Raw gap +5.18 ORtg; strength-controlled gap +3.27 ORtg. Recorded validation status: same_pipeline_validation; no CI stated. This concerns play-type mix against efficiency, not offensive-five changes or shot mix directly."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Evaluating a model's play-type recommendations against a baseline, where v1 contained a leak.",
+    "why": "Recorded as C_artifact: the apparent [source] (-4.51 pts/100 in v1) was produced by a construction flaw. After the fix (v2), the model still did not beat the baseline (-1.48 pts/100). Lookahead leakage and drift were recorded risks."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Producing opener recommendations that are feasible given the rotation's personnel.",
+    "why": "Recorded as C_artifact: the optimizer ignored personnel, so recommended CUT targets exceeded the stretch ceiling for every team-game (for example PHI capacity 1.7% vs target 16.4%)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Detecting opponent-lineup shot-mix adaptation at practical size.",
+    "why": "Recorded as inconclusive. Shifts were sub-1pp, the PPP effect had t=+1.1, and the rim-share estimate had SE 0.295 relative to +0.123. Not a failure mechanism as such, but the effects were too small to carry a claim even at N=1.07M."
+   }
+  ],
+  "evidence_establishes": [
+   "Shot-mix shifts linked to lineup composition (opposing rim big off floor) can be estimated from this kind of play-by-play data at the N=1.07M possession scale, and the estimates have usable standard errors for shot-type shares (for example 3PA SE 0.31pp).",
+   "At that scale, effects on shot mix were recorded as small (sub-1pp) and not decisive, so the design has some sensitivity but limited power for effects of that size.",
+   "Earlier work from this project has already encountered leakage and artifacts in personnel-related and recommendation-related analyses, so those pitfalls are documented for this data family."
+  ],
+  "evidence_does_not_establish": [
+   "Whether changing the offensive five itself moves shot mix. FAM:[prior work] studies the opposing lineup, not the team's own five-man change.",
+   "That the design can detect personnel effects. No retrieved record tests offensive-five changes against a placebo or matched baseline.",
+   "Any effect size for offensive-five changes, or whether the effect exceeds noise at the scale of individual lineup changes.",
+   "Anything about the 2024-25 season or playoffs specifically, since the retrieved records do not state per-season results."
+  ],
+  "own_inferences": [
+   "The question as posed presupposes its answer: it treats detectability of personnel effects as shown by a shot-mix change. The test should estimate the change and then check that the design can detect it, not assume it.",
+   "Offensive-five changes are not randomly assigned. Substitutions follow fatigue, foul trouble, score and timeouts, so a raw before-after shot-mix difference will mostly reflect context.",
+   "The ~1pp scale recorded in FAM:[prior work] suggests a per-change shot-mix effect may be too small to detect reliably at single-event level. Aggregating across many lineup changes and using matched non-change intervals would be needed.",
+   "[prior work][prior work] is supported only by same-pipeline validation with no CI, so it should not be read as confirming personnel sensitivity.",
+   "The mechanism of interest (shot mix moves with personnel) may be partly mediated by which players are on court; player-level shot profiles would be a stronger control than lineup identity alone."
+  ],
+  "uncertainties": [
+   "The retrieved records give no detail on how lineups were reconstructed from substitution intervals or whether reconstruction errors bias the lineup-change events.",
+   "No record gives the number of offensive-five change events in 2022-23 to 2024-25, or how many fall in clean (non-garbage-time, non-timeout) windows.",
+   "No record reports a formal power calculation for offensive-five change effects.",
+   "Whether shot-type classification (rim, mid, 3PA, drive, post-up) from play-by-play is reliable enough for shares to be compared across lineups is not stated.",
+   "Only four records were returned, and only one (FAM:[prior work]) is about shot mix; the evidence base is thin."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The initial reading treated the question as a straightforward test with the data available. Retrieved evidence changed that in three ways. First, FAM:[prior work] showed that shot-mix effects in this data are often sub-1pp and inconclusive even at 1.07M possessions, so the design must be powered for small effects and must not assume detection. Second, the recorded artifacts (FAM:[prior work], FAM:[prior work]) show that leakage and construction flaws have already produced misleading results in this family, so the design needs strict pre-period lineup reconstruction and a placebo. Third, the premise that the design detects personnel effects is itself the thing to test, so the question is reframed as an estimand with a falsification step. The decision moved from proceed to proceed_with_changes."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Recorded shot-mix effects are sub-1pp (FAM:[prior work]) and the per-change effect of offensive-five substitutions is unknown; per-event detection is unlikely without aggregation across many changes."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Offensive-five changes are selected by fatigue, foul trouble, score and timeouts, so naive comparisons are confounded by the selection process."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Game context (score, period, opponent matchup) changes with the lineup and independently affects shot mix."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "FAM:[prior work] addresses shot-mix adaptation to the opposing lineup and was recorded as inconclusive and weak. [prior work][prior work] is supported for play-type mix vs efficiency, with no CI and only same-pipeline validation. Neither answers whether changing the team's own offensive five moves shot mix. Other retrieved records (FAM:[prior work], FAM:[prior work]) concern recommendation and optimizer artifacts and are relevant only as cautionary evidence."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Recorded effects of this size were sub-1pp with weak significance in FAM:[prior work]; per-change estimates will be noisy."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Lineup changes occur in response to fatigue, foul trouble, and score, so the change is not exogenous."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Score, period, opponent lineup, and player shot profiles co-vary with the five on court."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "FAM:[prior work] recorded a v1 leak producing an apparent [source] that vanished after the fix; lineup and shot labels must use only information available before each possession."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Shot-type and drive labels are derived from play-by-play and may be mis-assigned; labels must not be defined using the outcome of the possession."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot-share measures from play-by-play may be unstable across lineups with small shot counts."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many specific five-man combinations will have too few possessions to estimate shot mix reliably."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several shot categories (rim, mid, 3PA, drive, post-up) and multiple lineup comparisons inflate false positives."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "If the design's detection depends on a placebo that is not independent of the outcome, a null or positive result may be an artifact."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Shot-mix tendencies change across 2022-23 to 2024-25 and between regular season and playoffs."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Lineup reconstruction from substitution intervals and starters may contain errors that mimic personnel effects; FAM:[prior work] and FAM:[prior work] show construction flaws have occurred in this family."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.1,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.35
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average change in shot-type share (rim, mid, 3PA, drive, post-up) and points per possession within a team-game when the offensive five changes, versus matched intervals without a change, with the question treated as open rather than assumed.",
+   "unit": "Team-game offensive possession windows around each offensive-five substitution event; aggregated by team-game for inference.",
+   "sample": "Regular season and playoffs, 2022-23, 2023-24, 2024-25, using substitution rotation intervals and starters to reconstruct the on-court five at each possession, with reconstruction using only information available before each possession.",
+   "power": "Pre-specify the minimum detectable shot-mix shift (for example 1pp) using counts of offensive-five change events in clean windows; if the design cannot reach this, report the power ceiling and do not claim a null.",
+   "controls": "Score margin, period, time remaining, foul trouble, timeouts, opponent five (including rim-big presence), player-level shot profiles, and fixed effects for team-game and season; matched non-change intervals as the reference.",
+   "falsification": "Placebo test: assign fake lineup-change times within the same game (or use intervals where the five does not change) and require no shot-mix shift; the design passes only if placebo effects are null and the real effect exceeds the placebo.",
+   "multiplicity": "Pre-register a primary shot category (3PA share or rim share) and treat others as exploratory with Holm correction.",
+   "decision_rule": "Supported only if the primary shot-share shift exceeds the pre-specified minimum detectable effect with the 95% CI excluding zero, and the placebo shows no shift; report artifact if the effect disappears under placebo or after the leakage check; report uncertain if power is below the pre-specified floor.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs per-game files (play-by-play, substitution rotation intervals, starters, box-score summary), with the derived possession graph used only after leakage checks; version the reconstruction code and freeze the data before analysis."
+  }
+ },
+ "redactions": 31
+}

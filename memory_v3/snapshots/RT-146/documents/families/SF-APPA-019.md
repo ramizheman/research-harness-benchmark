@@ -1,0 +1,28 @@
+# FAM:SF-APPA-019 | Study family SF-APPA-019: Usage-curve constrained optimizer (A2) vs baseline
+- observed_research_question: Usage-curve constrained optimizer (A2) vs baseline
+- auto_outcome_status: rejected
+- observed_hypothesis: Diminishing-returns usage curves improve recommendations over static argmax and baseline.
+- observed_result: A2 -8.32 pts/100 vs baseline; A2 vs A -6.84; A2 outperforms baseline 47/240. Distribution: A2 mix +13.40 pts/100 vs actual (beats 217/240) but -24.85 vs B argmax.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: -8.32 pts/100 vs baseline on 23,922 possessions.
+- observed_sample_and_power: 23,922 possessions
+- observed_method: Same 23,922 holdout possessions; per-possession and distribution-level evaluation.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPA-019: 'same 23,922 holdout possessions; per-possession and distribution-level evaluati'
+- observed_notes: Doc labels -6.84 as an 'improvement'; number and wording disagree.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-019: 2026-04-14 (mtime)
+- observed_member_records: APPA-019
+- observed_sources: APPA-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_REPORT_v3.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-006 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

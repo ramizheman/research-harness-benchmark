@@ -1,0 +1,314 @@
+{
+ "model": {
+  "provider": "openrouter",
+  "model": "anthropic/claude-sonnet-5.5",
+  "temperature": 1.0,
+  "max_tokens": 16000,
+  "extra": {
+   "reasoning": {
+    "enabled": true
+   },
+   "provider": {
+    "only": [
+     "anthropic"
+    ],
+    "allow_fallbacks": false
+   }
+  },
+  "price_per_million": {
+   "input": 2.0,
+   "output": 10.0,
+   "source": "openrouter.ai/models, confirmed via preflight 2026-11-11; thinking tokens billed as output"
+  }
+ },
+ "task_id": "RT-146",
+ "condition": "A",
+ "seed": 3,
+ "run_id": "reasoning_models_v1|openrouter:anthropic/claude-sonnet-5.5|RT-146|A|s3",
+ "model_name": "openrouter.ai:anthropic/claude-sonnet-5.5",
+ "task_hash": "fbcbe9ffbfacd0ce7877461494adbe332833f37a7eac378b9e8e79ce6dfb85ad",
+ "snapshot_fact_hash": "2b909b244f52a5644c66dd8a52e61b36d7ba0bbefb6b9d66067160ef0c70f5db",
+ "config_hash": "4f57814edf7e0bcd43daf005d8c2e981ad8cb6aca4def1d7bc7f243ee109c6d3",
+ "code_hash": "07b5aba45682670be9ee2a23c758149eacdefa9ce9c7cf5e6896280ca89e777e",
+ "error": "",
+ "finished": "2026-11-11T17:47:39",
+ "final": {
+  "research_concepts": [
+   "PNR (pick-and-roll) defensive suppression",
+   "PULL_UP as a counter to a failed PNR",
+   "league-wide counter strategy",
+   "lift in percentage points over a baseline",
+   "share of units with positive lift and median lift",
+   "play-type possession classification from play-by-play"
+  ],
+  "methodological_questions": [
+   "How is 'PNR fail' defined from information available before the counter possession, without using the outcome being scored?",
+   "What is lift, in which metric (eFG%, points per possession, or usage share), and against which baseline?",
+   "What is the unit (player, team, team-season), and does each unit have enough failed-PNR exposure?",
+   "What null distribution or placebo calibrates the thresholds of at least 70% of units positive and median lift above 2pp?",
+   "How are regression to the mean, shot-location mix, defender and game context controlled?",
+   "Is the derived play-type labelling reliable enough for PULL_UP and PNR failure?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. retrieve_history returned zero records, so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this question, or a close variant, was tested before, or with what status.",
+   "Whether any definition of PNR failure, lift, or unit has already been tried or has failed.",
+   "Whether the 70% and 2pp thresholds were calibrated against a null or placebo in earlier work.",
+   "The reliability of the play-type derivation for this purpose."
+  ],
+  "own_inferences": [
+   "The hypothesis is underspecified. 'PNR fail' could mean a suppressed action, a possession with no shot, or a low-efficiency PNR, and 'counter' could mean a within-possession choice or a later-possession adjustment. The data has no defensive coverage labels (drop, switch, blitz), so 'suppression' can only be proxied from outcomes or matchup minutes.",
+   "If failure is defined by the PNR possession outcome (a turnover, a missed shot, or no points), then PULL_UP efficiency conditioned on that label is mechanically biased. Selecting on a low-outcome state invites regression to the mean (RTM), so any positive lift may be generic bounce-back and not specific to PULL_UP.",
+   "Pull-up shots are typically lower eFG% than shots at the rim or catch-and-shoot threes. A lift above 2pp therefore depends heavily on the baseline. A within-unit baseline (the same ball handler's PULL_UP outside the failed-PNR state) is more defensible than a league-wide one.",
+   "The 70% and 2pp rule has no stated null. With noisy small units, the share of units with positive lift under true zero effect sits near 50% but has wide spread, and a median above 2pp can arise from selection alone. Both criteria need calibration against a placebo.",
+   "Adjacent-possession dependence and heavy ball-handler concentration mean that few units have enough exposure for unit-level lift to be stable."
+  ],
+  "uncertainties": [
+   "Number of failed-PNR to PULL_UP possessions per unit is unknown. This is the key power determinant.",
+   "Accuracy of PNR and PULL_UP labels in the derived graph database is unknown.",
+   "Whether 'lift' is meant as an efficiency difference or a usage-share difference.",
+   "The 2025-26 playoffs are partial on 2026-05-23, so the data are not frozen for that slice."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so the decision rests on the task statement and general methodological reasoning. No earlier finding or failed approach was available to alter it."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If PNR fail is defined from the outcome of the same or a following possession, the conditioning is mechanically linked to the outcome measure. A pre-outcome definition is required."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Failed-PNR followed by PULL_UP possessions per player or team-season may be too few for stable unit lift. A minimum-exposure rule is needed and may leave few units."
+    },
+    {
+     "code": "BASE_RATE",
+     "text": "No null or placebo-calibrated baseline exists for the 70% and 2pp thresholds."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No historical evidence was available. Nothing can be said about earlier tests of this question."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Defining failure by the PNR outcome ties the label to the efficiency being compared."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Selecting low-performing PNR states produces bounce-back in any subsequent play type, which would inflate PULL_UP lift."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Per-unit counts of qualifying events will be small and heavy-tailed, concentrated in a few high-usage ball handlers."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The derived play-type labels (initiator, PULL_UP versus other shot types) may be misclassified, and no coverage labels are available."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Shot distance, three-point share, defender quality, score, clock, lineup, and the ball handler's own skill affect both the choice of PULL_UP and its efficiency."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "The 70% share of units with positive lift is not interpretable without a null distribution. Noisy units give about 50% positive by chance."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "A 2pp median lift can arise from the shot-value mix of pull-ups relative to the baseline alone."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several definitions of fail, lift metric, unit, and season splits would inflate false positives if not fixed in advance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "League shot profiles and defensive schemes shift across 2022-23 to 2025-26 and between regular season and playoffs."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Any state definition using information from after the decision point (full-game PNR efficiency, for example) leaks the future."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.3,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For each unit u, lift_u is the difference in eFG% (primary) or points per possession (secondary) on PULL_UP possessions in the 'suppressed-PNR' state versus the same unit's PULL_UP possessions in the matched 'non-suppressed' state. The state is defined ex ante by the team's preceding PNR possessions (for example, PPP at or below a threshold on the previous k=5 PNR possessions in the game, or the ball handler's prior PNR possession ending in no shot or a turnover). The state is measured strictly before the target possession. Lift is compared against the same difference for a placebo play type (catch-and-shoot, rim attack) to separate PULL_UP-specific counter value from generic bounce-back.",
+   "unit": "Primary: ball handler (initiator) across seasons, with a minimum of 40 PULL_UP shots in the suppressed state and 100 in the baseline state. Secondary: team-season with analogous minimums. Units below the minimum are excluded, and the number excluded is reported.",
+   "sample": "Regular seasons 2022-23 to 2025-26, plus playoffs 2022-23 to 2024-25. 2025-26 playoffs are excluded until complete (from 2026-06-21) and then used once as a held-out confirmation set. Freeze the data version and the play-type derivation before analysis. Specify the PNR and PULL_UP labelling rules in advance and audit a random sample of at least 200 possessions for label accuracy.",
+   "power": "Run a simulation before any analysis using the observed exposure per unit. The test is adequately powered only if, at a true lift of 4pp, the probability that at least 70% of included units show positive lift and the median exceeds 2pp is at least 80%, and at a true lift of 0 that probability is at most 5%. If fewer than about 30 units survive the exposure filter, or the simulation fails these targets, report the question as underpowered or untestable and do not draw a conclusion.",
+   "controls": "Adjust for shot distance, three-point or two-point shot type, period, score margin, shot clock, home or away, regular season versus playoffs, season, and lineup or on-court defender quality where the matchup data allow. Use hierarchical or shrinkage estimates so that the share of units positive is computed on partially pooled lifts and on raw lifts, and report both. Cluster by game and by ball handler.",
+   "falsification": "(1) Placebo state: randomly permute the suppressed-state label within unit-game to get the null distribution of the share positive and the median lift. (2) Placebo play types: repeat for catch-and-shoot and rim attacks. If the lift for these matches PULL_UP, the effect is generic RTM or bounce-back. (3) Lagged-state placebo: assign the state from future possessions to check for leakage. (4) Test sensitivity to an alternative failure definition, as a pre-specified robustness check only.",
+   "multiplicity": "One primary hypothesis: eFG% lift, ball-handler unit, one failure definition. All variants (PPP metric, team unit, alternative definitions, season splits) are secondary and reported with Holm correction. Report the number of definitions examined.",
+   "decision_rule": "Supported only if, in both the discovery data and the held-out 2025-26 playoffs, at least 70% of included units have lift above 0 and the median lift exceeds 2pp, AND both observed statistics exceed the 95th percentile of the permutation null, AND the PULL_UP lift exceeds the placebo play-type lift by a pre-specified margin (at least 1pp). Rejected if the powered test gives a median lift below 2pp or a share positive below the null-calibrated threshold. Report as artifact if the lift disappears under the placebo or lagged-state checks, and as untestable or underpowered if the power requirement is not met.",
+   "data_version": "Per-game NBA stats API play-by-play, rotation, starters, matchup and box-score files for 2022-23 through 2025-26 regular season and 2022-23 through 2024-25 playoffs, with the derived graph-database play-type records as of a fixed snapshot date recorded before analysis. 2025-26 playoffs excluded from the discovery set and used only as the one-time held-out set once complete (from 2026-06-21)."
+  }
+ },
+ "stop_reason": "final",
+ "api_error": "",
+ "model_versions": [
+  "anthropic/claude-sonnet-5.5"
+ ],
+ "turns": 2,
+ "tool_calls": [
+  {
+   "name": "retrieve_history",
+   "args": {
+    "research_concepts": [
+     "pick and roll (PNR) defensive suppression",
+     "pull-up jump shot as counter to PNR defense",
+     "league-wide counter strategy",
+     "lift in efficiency (percentage points) over baseline",
+     "unit-level consistency (share of units with positive lift)",
+     "play-type possession classification"
+    ],
+    "methodological_questions": [
+     "How should lift be defined and what is the baseline or comparison for PULL_UP after a failed PNR?",
+     "What is the unit of analysis (player, team, team-season) and is there enough exposure per unit?",
+     "How should 'PNR fail' be defined without using the outcome of the following possession?",
+     "Does the >=70% of units positive and median lift >2pp threshold have a defensible null or placebo distribution?",
+     "How to handle regression to the mean, selection, and confounding by shot location, defender and game context?",
+     "Is the possession-level play-type derivation reliable enough to label PULL_UP and PNR failure?"
+    ],
+    "query": "Prior studies of whether PULL_UP is a real league-wide counter after a failed pick-and-roll: lift versus baseline, proportion of units with positive lift, median lift in percentage points, definition of PNR failure, exposure sparsity, and placebo or null calibration"
+   },
+   "result_chars": 31,
+   "result_tokens_est": 7,
+   "latency_seconds": 0.0,
+   "returned_ids": [],
+   "trace": {
+    "note": "no historical memory in this condition"
+   }
+  }
+ ],
+ "n_tool_calls": 1,
+ "memory_tool_calls": 0,
+ "protocol": 3,
+ "repair_turns": 0,
+ "gate_turns": 0,
+ "preliminary_answers": 0,
+ "correction_turns": 0,
+ "final_precorrection": null,
+ "initial_citation_problems": [],
+ "parse_recoveries": [],
+ "usage": {
+  "input_tokens": 4538,
+  "output_tokens": 4977,
+  "cost_usd": 0.058846,
+  "cost_known": true
+ },
+ "wall_seconds": 41.39,
+ "system_prompt": "You are a basketball analytics researcher deciding whether and how a research question should be studied.\nYou work only from the task statement and the tools listed below. Do not assume facts you have not seen.\n\nThe work has two stages, in this order.\nStage 1, retrieval:\n1. Read the research objective and the data description.\n2. Identify the research concepts and methodological questions the task raises.\n3. Retrieve historical evidence by calling retrieve_history.\nIn stage 1 do not assess the question, predict outcomes or decide. Your only stage-1 reply is the retrieve_history call.\nStage 2, assessment, after the retrieval result is returned:\n4. Summarise the relevant historical findings and failed approaches.\n5. State what the historical evidence does and does not establish.\n6. Assess whether the research question is testable.\n7. Identify methodological risks and potential confounders.\n8. Make the final research decision.\n9. Explain whether and how the historical evidence changed the decision.\nThe stage-2 output format is given together with the retrieval result.\n\nEvidence rules: keep what a retrieved record states (historical_evidence and failed_approaches, each citing the\nidentifier of a returned record and its status exactly as recorded) separate from your own inference and from\nuncertainty or missing information. Cite only identifiers returned by a tool, and never describe an earlier study that\nno tool returned. In some settings retrieval returns no records; then state that no historical evidence was available.\n\nTools:\n- retrieve_history(research_concepts, methodological_questions, query): the prescribed retrieval step. Returns the most relevant consolidated study-family records of earlier research by this project that are available in this setting, with their identifiers; returns an empty list when none are available.\n- glossary(): definitions of basketball and project terms used in task statements.\n- data_catalog(): the fields available in each per-game data file.\n\nProtocol: every reply is exactly one JSON object and nothing else.\nTo call a tool: {\"action\": \"tool\", \"tool\": \"<name>\", \"args\": {...}}\nTo finish (stage 2 only): {\"action\": \"final\", \"output\": <object following the stage-2 schema>}\nYou may call at most 12 tools; then you must finish. Check that every opening brace has a closing brace.\n\nRisk codes (use only these): SAMPLE_SIZE_POWER, EXPOSURE_SPARSITY, MEASURE_RELIABILITY, RTM_SELECTION, OUTCOME_DERIVED_LABEL, LEAKAGE_LOOKAHEAD, MECHANICAL_FLOOR, BASE_RATE, CONFOUNDING, LABEL_ERROR, PLACEBO_DEPENDENCE, MULTIPLE_TESTING, IMPLEMENTATION_BUG, DRIFT_NONSTATIONARITY\n",
+ "messages": [
+  {
+   "role": "user",
+   "content": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.\n\nStage 1. Reply only with the retrieval call: {\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"...\"], \"methodological_questions\": [\"...\"], \"query\": \"...\"}}"
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"pick and roll (PNR) defensive suppression\", \"pull-up jump shot as counter to PNR defense\", \"league-wide counter strategy\", \"lift in efficiency (percentage points) over baseline\", \"unit-level consistency (share of units with positive lift)\", \"play-type possession classification\"], \"methodological_questions\": [\"How should lift be defined and what is the baseline or comparison for PULL_UP after a failed PNR?\", \"What is the unit of analysis (player, team, team-season) and is there enough exposure per unit?\", \"How should 'PNR fail' be defined without using the outcome of the following possession?\", \"Does the >=70% of units positive and median lift >2pp threshold have a defensible null or placebo distribution?\", \"How to handle regression to the mean, selection, and confounding by shot location, defender and game context?\", \"Is the possession-level play-type derivation reliable enough to label PULL_UP and PNR failure?\"], \"query\": \"Prior studies of whether PULL_UP is a real league-wide counter after a failed pick-and-roll: lift versus baseline, proportion of units with positive lift, median lift in percentage points, definition of PNR failure, exposure sparsity, and placebo or null calibration\"}}"
+  },
+  {
+   "role": "user",
+   "content": "TOOL_RESULT retrieve_history:\n{\"results\": [], \"n_results\": 0}\n\nStage 2. Using the retrieval result above (follow-up tools are allowed within the tool budget), complete steps 4 to 9\nand reply with the final action. Output schema (all fields required):\n{\n \"research_concepts\": [\n  \"concept\"\n ],\n \"methodological_questions\": [\n  \"question\"\n ],\n \"historical_evidence\": [\n  {\n   \"id\": \"identifier of a record returned by a tool\",\n   \"status_as_recorded\": \"outcome status exactly as stated in the record (supported | rejected | inconclusive | untestable | artifact | not a hypothesis test | no result recorded)\",\n   \"finding\": \"what the record states, in its own terms\"\n  }\n ],\n \"failed_approaches\": [\n  {\n   \"id\": \"identifier of a returned record\",\n   \"what_failed\": \"approach\",\n   \"why\": \"failure mechanism or limitation as recorded\"\n  }\n ],\n \"evidence_establishes\": [\n  \"what the retrieved evidence establishes for this question\"\n ],\n \"evidence_does_not_establish\": [\n  \"what it leaves open or cannot show\"\n ],\n \"own_inferences\": [\n  \"your inference, not stated in any record\"\n ],\n \"uncertainties\": [\n  \"uncertainty or missing information\"\n ],\n \"historical_effect\": {\n  \"changed_decision\": \"yes | no | no_historical_evidence\",\n  \"explanation\": \"whether and how the historical evidence changed the decision\"\n },\n \"testability\": {\n  \"p_testable\": \"number in [0,1]: probability the question can be answered with the stated data at useful power\",\n  \"blocking_constraints\": [\n   {\n    \"code\": \"one of RISK_CODES\",\n    \"text\": \"string\"\n   }\n  ]\n },\n \"prior_work\": {\n  \"already_answered\": \"yes | partly | no | unknown\",\n  \"cited\": [\n   \"identifiers of prior work relied on\"\n  ],\n  \"summary\": \"string\"\n },\n \"risks\": [\n  {\n   \"code\": \"one of RISK_CODES\",\n   \"text\": \"string\"\n  }\n ],\n \"predicted_outcome\": {\n  \"supported\": \"probability\",\n  \"rejected\": \"probability\",\n  \"untestable\": \"probability\",\n  \"artifact\": \"probability\",\n  \"uncertain\": \"probability\"\n },\n \"decision\": \"proceed | proceed_with_changes | do_not_proceed\",\n \"design\": {\n  \"estimand\": \"string\",\n  \"unit\": \"string\",\n  \"sample\": \"string\",\n  \"power\": \"string\",\n  \"controls\": \"string\",\n  \"falsification\": \"string\",\n  \"multiplicity\": \"string\",\n  \"decision_rule\": \"string\",\n  \"data_version\": \"string\"\n }\n}\nField guidance:\n- historical_evidence and failed_approaches: only records returned by a tool, with the status as recorded; empty lists\n  if nothing relevant was returned.\n- testability.p_testable: probability that the question can be answered with the stated data at useful statistical power.\n- prior_work.already_answered: whether retrieved earlier work already answered substantially the same question.\n  Use \"unknown\" if no earlier work was retrieved. List identifiers you relied on in prior_work.cited.\n- predicted_outcome: probabilities (summing to 1) of what a competent test of the question as posed would conclude:\n  supported, rejected (adequately powered null), untestable (cannot be tested with this data), artifact (apparent\n  effect produced by a flaw), uncertain (inconclusive or inadequately tested).\n- decision: proceed, proceed_with_changes (state the changes in design), or do_not_proceed.\n- design: a pre-registration-quality plan even if the decision is do_not_proceed (then describe the minimum viable test)."
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\":\"final\",\"output\":{\"research_concepts\":[\"PNR (pick-and-roll) defensive suppression\",\"PULL_UP as a counter to a failed PNR\",\"league-wide counter strategy\",\"lift in percentage points over a baseline\",\"share of units with positive lift and median lift\",\"play-type possession classification from play-by-play\"],\"methodological_questions\":[\"How is 'PNR fail' defined from information available before the counter possession, without using the outcome being scored?\",\"What is lift, in which metric (eFG%, points per possession, or usage share), and against which baseline?\",\"What is the unit (player, team, team-season), and does each unit have enough failed-PNR exposure?\",\"What null distribution or placebo calibrates the thresholds of at least 70% of units positive and median lift above 2pp?\",\"How are regression to the mean, shot-location mix, defender and game context controlled?\",\"Is the derived play-type labelling reliable enough for PULL_UP and PNR failure?\"],\"historical_evidence\":[],\"failed_approaches\":[],\"evidence_establishes\":[\"Nothing. retrieve_history returned zero records, so no historical evidence was available for this question.\"],\"evidence_does_not_establish\":[\"Whether this question, or a close variant, was tested before, or with what status.\",\"Whether any definition of PNR failure, lift, or unit has already been tried or has failed.\",\"Whether the 70% and 2pp thresholds were calibrated against a null or placebo in earlier work.\",\"The reliability of the play-type derivation for this purpose.\"],\"own_inferences\":[\"The hypothesis is underspecified. 'PNR fail' could mean a suppressed action, a possession with no shot, or a low-efficiency PNR, and 'counter' could mean a within-possession choice or a later-possession adjustment. The data has no defensive coverage labels (drop, switch, blitz), so 'suppression' can only be proxied from outcomes or matchup minutes.\",\"If failure is defined by the PNR possession outcome (a turnover, a missed shot, or no points), then PULL_UP efficiency conditioned on that label is mechanically biased. Selecting on a low-outcome state invites regression to the mean (RTM), so any positive lift may be generic bounce-back and not specific to PULL_UP.\",\"Pull-up shots are typically lower eFG% than shots at the rim or catch-and-shoot threes. A lift above 2pp therefore depends heavily on the baseline. A within-unit baseline (the same ball handler's PULL_UP outside the failed-PNR state) is more defensible than a league-wide one.\",\"The 70% and 2pp rule has no stated null. With noisy small units, the share of units with positive lift under true zero effect sits near 50% but has wide spread, and a median above 2pp can arise from selection alone. Both criteria need calibration against a placebo.\",\"Adjacent-possession dependence and heavy ball-handler concentration mean that few units have enough exposure for unit-level lift to be stable.\"],\"uncertainties\":[\"Number of failed-PNR to PULL_UP possessions per unit is unknown. This is the key power determinant.\",\"Accuracy of PNR and PULL_UP labels in the derived graph database is unknown.\",\"Whether 'lift' is meant as an efficiency difference or a usage-share difference.\",\"The 2025-26 playoffs are partial on 2026-05-23, so the data are not frozen for that slice.\"],\"historical_effect\":{\"changed_decision\":\"no_historical_evidence\",\"explanation\":\"Retrieval returned no records, so the decision rests on the task statement and general methodological reasoning. No earlier finding or failed approach was available to alter it.\"},\"testability\":{\"p_testable\":0.5,\"blocking_constraints\":[{\"code\":\"OUTCOME_DERIVED_LABEL\",\"text\":\"If PNR fail is defined from the outcome of the same or a following possession, the conditioning is mechanically linked to the outcome measure. A pre-outcome definition is required.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Failed-PNR followed by PULL_UP possessions per player or team-season may be too few for stable unit lift. A minimum-exposure rule is needed and may leave few units.\"},{\"code\":\"BASE_RATE\",\"text\":\"No null or placebo-calibrated baseline exists for the 70% and 2pp thresholds.\"}]},\"prior_work\":{\"already_answered\":\"unknown\",\"cited\":[],\"summary\":\"No historical evidence was available. Nothing can be said about earlier tests of this question.\"},\"risks\":[{\"code\":\"OUTCOME_DERIVED_LABEL\",\"text\":\"Defining failure by the PNR outcome ties the label to the efficiency being compared.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Selecting low-performing PNR states produces bounce-back in any subsequent play type, which would inflate PULL_UP lift.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Per-unit counts of qualifying events will be small and heavy-tailed, concentrated in a few high-usage ball handlers.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"The derived play-type labels (initiator, PULL_UP versus other shot types) may be misclassified, and no coverage labels are available.\"},{\"code\":\"CONFOUNDING\",\"text\":\"Shot distance, three-point share, defender quality, score, clock, lineup, and the ball handler's own skill affect both the choice of PULL_UP and its efficiency.\"},{\"code\":\"BASE_RATE\",\"text\":\"The 70% share of units with positive lift is not interpretable without a null distribution. Noisy units give about 50% positive by chance.\"},{\"code\":\"MECHANICAL_FLOOR\",\"text\":\"A 2pp median lift can arise from the shot-value mix of pull-ups relative to the baseline alone.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Several definitions of fail, lift metric, unit, and season splits would inflate false positives if not fixed in advance.\"},{\"code\":\"DRIFT_NONSTATIONARITY\",\"text\":\"League shot profiles and defensive schemes shift across 2022-23 to 2025-26 and between regular season and playoffs.\"},{\"code\":\"LEAKAGE_LOOKAHEAD\",\"text\":\"Any state definition using information from after the decision point (full-game PNR efficiency, for example) leaks the future.\"}],\"predicted_outcome\":{\"supported\":0.15,\"rejected\":0.2,\"untestable\":0.1,\"artifact\":0.3,\"uncertain\":0.25},\"decision\":\"proceed_with_changes\",\"design\":{\"estimand\":\"For each unit u, lift_u is the difference in eFG% (primary) or points per possession (secondary) on PULL_UP possessions in the 'suppressed-PNR' state versus the same unit's PULL_UP possessions in the matched 'non-suppressed' state. The state is defined ex ante by the team's preceding PNR possessions (for example, PPP at or below a threshold on the previous k=5 PNR possessions in the game, or the ball handler's prior PNR possession ending in no shot or a turnover). The state is measured strictly before the target possession. Lift is compared against the same difference for a placebo play type (catch-and-shoot, rim attack) to separate PULL_UP-specific counter value from generic bounce-back.\",\"unit\":\"Primary: ball handler (initiator) across seasons, with a minimum of 40 PULL_UP shots in the suppressed state and 100 in the baseline state. Secondary: team-season with analogous minimums. Units below the minimum are excluded, and the number excluded is reported.\",\"sample\":\"Regular seasons 2022-23 to 2025-26, plus playoffs 2022-23 to 2024-25. 2025-26 playoffs are excluded until complete (from 2026-06-21) and then used once as a held-out confirmation set. Freeze the data version and the play-type derivation before analysis. Specify the PNR and PULL_UP labelling rules in advance and audit a random sample of at least 200 possessions for label accuracy.\",\"power\":\"Run a simulation before any analysis using the observed exposure per unit. The test is adequately powered only if, at a true lift of 4pp, the probability that at least 70% of included units show positive lift and the median exceeds 2pp is at least 80%, and at a true lift of 0 that probability is at most 5%. If fewer than about 30 units survive the exposure filter, or the simulation fails these targets, report the question as underpowered or untestable and do not draw a conclusion.\",\"controls\":\"Adjust for shot distance, three-point or two-point shot type, period, score margin, shot clock, home or away, regular season versus playoffs, season, and lineup or on-court defender quality where the matchup data allow. Use hierarchical or shrinkage estimates so that the share of units positive is computed on partially pooled lifts and on raw lifts, and report both. Cluster by game and by ball handler.\",\"falsification\":\"(1) Placebo state: randomly permute the suppressed-state label within unit-game to get the null distribution of the share positive and the median lift. (2) Placebo play types: repeat for catch-and-shoot and rim attacks. If the lift for these matches PULL_UP, the effect is generic RTM or bounce-back. (3) Lagged-state placebo: assign the state from future possessions to check for leakage. (4) Test sensitivity to an alternative failure definition, as a pre-specified robustness check only.\",\"multiplicity\":\"One primary hypothesis: eFG% lift, ball-handler unit, one failure definition. All variants (PPP metric, team unit, alternative definitions, season splits) are secondary and reported with Holm correction. Report the number of definitions examined.\",\"decision_rule\":\"Supported only if, in both the discovery data and the held-out 2025-26 playoffs, at least 70% of included units have lift above 0 and the median lift exceeds 2pp, AND both observed statistics exceed the 95th percentile of the permutation null, AND the PULL_UP lift exceeds the placebo play-type lift by a pre-specified margin (at least 1pp). Rejected if the powered test gives a median lift below 2pp or a share positive below the null-calibrated threshold. Report as artifact if the lift disappears under the placebo or lagged-state checks, and as untestable or underpowered if the power requirement is not met.\",\"data_version\":\"Per-game NBA stats API play-by-play, rotation, starters, matchup and box-score files for 2022-23 through 2025-26 regular season and 2022-23 through 2024-25 playoffs, with the derived graph-database play-type records as of a fixed snapshot date recorded before analysis. 2025-26 playoffs excluded from the discovery set and used only as the one-time held-out set once complete (from 2026-06-21).\"}}}",
+   "reasoning_details": [
+    {
+     "type": "reasoning.text",
+     "text": "Retrieval came back empty, so there's no historical evidence to draw on and I'll have to say so. The data cutoff is 2026-05-23, with the 2025-26 regular season complete and playoffs still underway. I'm planning to freeze the data on the regular seasons through 2025-26 and playoffs through 2024-25, and hold off on the partial 2025-26 playoffs until they finish.\n\nI'm now defining the question as whether a failed pick-and-roll is followed by a pull-up shot that performs better than baseline. I'll need to pick a unit (team-seasons or ball handlers with enough minutes), settle on an efficiency measure, and decide how to define a \"fail\" before looking at the outcome, so the label doesn't leak into the result.\n\nI'm weighing how to define a \"fail\" without it leaking the outcome: since the data has no defensive coverage labels, I'd tie it to the team's recent pick-and-roll results within the game, then check whether pull-up usage and efficiency rise afterward compared with other counters and with the same unit's baseline, since low scoring tends to regress regardless of play type.\n\nI'm putting rough weights on the possible outcomes: supported at 0.15, rejected at 0.2, untestable at 0.1, a measurement artifact at 0.3, and uncertain at 0.25. Leaning toward proceeding with changes, I estimate the chance the question is testable at about even.\n\n",
+     "format": "anthropic-claude-v1",
+     "index": 0,
+     "signature": "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.eyJlbmRwb2ludF9zbHVnIjoiYW50aHJvcGljL2NsYXVkZS1zb25uZXQtNS41LTIwMjYwOTI4fGFudGhyb3BpYyJ9"
+    }
+   ]
+  }
+ ],
+ "log": [
+  {
+   "turn": 0,
+   "stage": 1,
+   "reply": "{\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"pick and roll (PNR) defensive suppression\", \"pull-up jump shot as counter to PNR defense\", \"league-wide counter strategy\", \"lift in efficiency (percentage points) over baseline\", \"unit-level consistency (share of units with positive lift)\", \"play-type possession classification\"], \"methodological_questions\": [\"How should lift be defined and what is the baseline or comparison for PULL_UP after a failed PNR?\", \"What is the unit of analysis (player, team, team-season) and is there enough exposure per unit?\", \"How should 'PNR fail' be defined without using the outcome of the following possession?\", \"Does the >=70% of units positive and median lift >2pp threshold have a defensible null or placebo distribution?\", \"How to handle regression to the mean, selection, and confounding by shot location, defender and game context?\", \"Is the possession-level play-type derivation reliable enough to label PULL_UP and PNR failure?\"], \"query\": \"Prior studies of whether PULL_UP is a real league-wide counter after a failed pick-and-roll: lift versus baseline, proportion of units with positive lift, median lift in percentage points, definition of PNR failure, exposure sparsity, and placebo or null calibration\"}}",
+   "usage": {
+    "input_tokens": 1427,
+    "output_tokens": 434,
+    "cost_usd": 0.007194,
+    "model_version": "anthropic/claude-sonnet-5.5",
+    "reasoning_details": null
+   },
+   "parse_error": "",
+   "parse_recovery": "",
+   "tool": {
+    "name": "retrieve_history",
+    "args": {
+     "research_concepts": [
+      "pick and roll (PNR) defensive suppression",
+      "pull-up jump shot as counter to PNR defense",
+      "league-wide counter strategy",
+      "lift in efficiency (percentage points) over baseline",
+      "unit-level consistency (share of units with positive lift)",
+      "play-type possession classification"
+     ],
+     "methodological_questions": [
+      "How should lift be defined and what is the baseline or comparison for PULL_UP after a failed PNR?",
+      "What is the unit of analysis (player, team, team-season) and is there enough exposure per unit?",
+      "How should 'PNR fail' be defined without using the outcome of the following possession?",
+      "Does the >=70% of units positive and median lift >2pp threshold have a defensible null or placebo distribution?",
+      "How to handle regression to the mean, selection, and confounding by shot location, defender and game context?",
+      "Is the possession-level play-type derivation reliable enough to label PULL_UP and PNR failure?"
+     ],
+     "query": "Prior studies of whether PULL_UP is a real league-wide counter after a failed pick-and-roll: lift versus baseline, proportion of units with positive lift, median lift in percentage points, definition of PNR failure, exposure sparsity, and placebo or null calibration"
+    },
+    "result_chars": 31,
+    "result_tokens_est": 7,
+    "latency_seconds": 0.0,
+    "returned_ids": [],
+    "trace": {
+     "note": "no historical memory in this condition"
+    }
+   }
+  },
+  {
+   "turn": 1,
+   "stage": 2,
+   "reply": "{\"action\":\"final\",\"output\":{\"research_concepts\":[\"PNR (pick-and-roll) defensive suppression\",\"PULL_UP as a counter to a failed PNR\",\"league-wide counter strategy\",\"lift in percentage points over a baseline\",\"share of units with positive lift and median lift\",\"play-type possession classification from play-by-play\"],\"methodological_questions\":[\"How is 'PNR fail' defined from information available before the counter possession, without using the outcome being scored?\",\"What is lift, in which metric (eFG%, points per possession, or usage share), and against which baseline?\",\"What is the unit (player, team, team-season), and does each unit have enough failed-PNR exposure?\",\"What null distribution or placebo calibrates the thresholds of at least 70% of units positive and median lift above 2pp?\",\"How are regression to the mean, shot-location mix, defender and game context controlled?\",\"Is the derived play-type labelling reliable enough for PULL_UP and PNR failure?\"],\"historical_evidence\":[],\"failed_approaches\":[],\"evidence_establishes\":[\"Nothing. retrieve_history returned zero records, so no historical evidence was available for this question.\"],\"evidence_does_not_establish\":[\"Whether this question, or a close variant, was tested before, or with what status.\",\"Whether any definition of PNR failure, lift, or unit has already been tried or has failed.\",\"Whether the 70% and 2pp thresholds were calibrated against a null or placebo in earlier work.\",\"The reliability of the play-type derivation for this purpose.\"],\"own_inferences\":[\"The hypothesis is underspecified. 'PNR fail' could mean a suppressed action, a possession with no shot, or a low-efficiency PNR, and 'counter' could mean a within-possession choice or a later-possession adjustment. The data has no defensive coverage labels (drop, switch, blitz), so 'suppression' can only be proxied from outcomes or matchup minutes.\",\"If failure is defined by the PNR possession outcome (a turnover, a missed shot, or no points), then PULL_UP efficiency conditioned on that label is mechanically biased. Selecting on a low-outcome state invites regression to the mean (RTM), so any positive lift may be generic bounce-back and not specific to PULL_UP.\",\"Pull-up shots are typically lower eFG% than shots at the rim or catch-and-shoot threes. A lift above 2pp therefore depends heavily on the baseline. A within-unit baseline (the same ball handler's PULL_UP outside the failed-PNR state) is more defensible than a league-wide one.\",\"The 70% and 2pp rule has no stated null. With noisy small units, the share of units with positive lift under true zero effect sits near 50% but has wide spread, and a median above 2pp can arise from selection alone. Both criteria need calibration against a placebo.\",\"Adjacent-possession dependence and heavy ball-handler concentration mean that few units have enough exposure for unit-level lift to be stable.\"],\"uncertainties\":[\"Number of failed-PNR to PULL_UP possessions per unit is unknown. This is the key power determinant.\",\"Accuracy of PNR and PULL_UP labels in the derived graph database is unknown.\",\"Whether 'lift' is meant as an efficiency difference or a usage-share difference.\",\"The 2025-26 playoffs are partial on 2026-05-23, so the data are not frozen for that slice.\"],\"historical_effect\":{\"changed_decision\":\"no_historical_evidence\",\"explanation\":\"Retrieval returned no records, so the decision rests on the task statement and general methodological reasoning. No earlier finding or failed approach was available to alter it.\"},\"testability\":{\"p_testable\":0.5,\"blocking_constraints\":[{\"code\":\"OUTCOME_DERIVED_LABEL\",\"text\":\"If PNR fail is defined from the outcome of the same or a following possession, the conditioning is mechanically linked to the outcome measure. A pre-outcome definition is required.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Failed-PNR followed by PULL_UP possessions per player or team-season may be too few for stable unit lift. A minimum-exposure rule is needed and may leave few units.\"},{\"code\":\"BASE_RATE\",\"text\":\"No null or placebo-calibrated baseline exists for the 70% and 2pp thresholds.\"}]},\"prior_work\":{\"already_answered\":\"unknown\",\"cited\":[],\"summary\":\"No historical evidence was available. Nothing can be said about earlier tests of this question.\"},\"risks\":[{\"code\":\"OUTCOME_DERIVED_LABEL\",\"text\":\"Defining failure by the PNR outcome ties the label to the efficiency being compared.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Selecting low-performing PNR states produces bounce-back in any subsequent play type, which would inflate PULL_UP lift.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Per-unit counts of qualifying events will be small and heavy-tailed, concentrated in a few high-usage ball handlers.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"The derived play-type labels (initiator, PULL_UP versus other shot types) may be misclassified, and no coverage labels are available.\"},{\"code\":\"CONFOUNDING\",\"text\":\"Shot distance, three-point share, defender quality, score, clock, lineup, and the ball handler's own skill affect both the choice of PULL_UP and its efficiency.\"},{\"code\":\"BASE_RATE\",\"text\":\"The 70% share of units with positive lift is not interpretable without a null distribution. Noisy units give about 50% positive by chance.\"},{\"code\":\"MECHANICAL_FLOOR\",\"text\":\"A 2pp median lift can arise from the shot-value mix of pull-ups relative to the baseline alone.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Several definitions of fail, lift metric, unit, and season splits would inflate false positives if not fixed in advance.\"},{\"code\":\"DRIFT_NONSTATIONARITY\",\"text\":\"League shot profiles and defensive schemes shift across 2022-23 to 2025-26 and between regular season and playoffs.\"},{\"code\":\"LEAKAGE_LOOKAHEAD\",\"text\":\"Any state definition using information from after the decision point (full-game PNR efficiency, for example) leaks the future.\"}],\"predicted_outcome\":{\"supported\":0.15,\"rejected\":0.2,\"untestable\":0.1,\"artifact\":0.3,\"uncertain\":0.25},\"decision\":\"proceed_with_changes\",\"design\":{\"estimand\":\"For each unit u, lift_u is the difference in eFG% (primary) or points per possession (secondary) on PULL_UP possessions in the 'suppressed-PNR' state versus the same unit's PULL_UP possessions in the matched 'non-suppressed' state. The state is defined ex ante by the team's preceding PNR possessions (for example, PPP at or below a threshold on the previous k=5 PNR possessions in the game, or the ball handler's prior PNR possession ending in no shot or a turnover). The state is measured strictly before the target possession. Lift is compared against the same difference for a placebo play type (catch-and-shoot, rim attack) to separate PULL_UP-specific counter value from generic bounce-back.\",\"unit\":\"Primary: ball handler (initiator) across seasons, with a minimum of 40 PULL_UP shots in the suppressed state and 100 in the baseline state. Secondary: team-season with analogous minimums. Units below the minimum are excluded, and the number excluded is reported.\",\"sample\":\"Regular seasons 2022-23 to 2025-26, plus playoffs 2022-23 to 2024-25. 2025-26 playoffs are excluded until complete (from 2026-06-21) and then used once as a held-out confirmation set. Freeze the data version and the play-type derivation before analysis. Specify the PNR and PULL_UP labelling rules in advance and audit a random sample of at least 200 possessions for label accuracy.\",\"power\":\"Run a simulation before any analysis using the observed exposure per unit. The test is adequately powered only if, at a true lift of 4pp, the probability that at least 70% of included units show positive lift and the median exceeds 2pp is at least 80%, and at a true lift of 0 that probability is at most 5%. If fewer than about 30 units survive the exposure filter, or the simulation fails these targets, report the question as underpowered or untestable and do not draw a conclusion.\",\"controls\":\"Adjust for shot distance, three-point or two-point shot type, period, score margin, shot clock, home or away, regular season versus playoffs, season, and lineup or on-court defender quality where the matchup data allow. Use hierarchical or shrinkage estimates so that the share of units positive is computed on partially pooled lifts and on raw lifts, and report both. Cluster by game and by ball handler.\",\"falsification\":\"(1) Placebo state: randomly permute the suppressed-state label within unit-game to get the null distribution of the share positive and the median lift. (2) Placebo play types: repeat for catch-and-shoot and rim attacks. If the lift for these matches PULL_UP, the effect is generic RTM or bounce-back. (3) Lagged-state placebo: assign the state from future possessions to check for leakage. (4) Test sensitivity to an alternative failure definition, as a pre-specified robustness check only.\",\"multiplicity\":\"One primary hypothesis: eFG% lift, ball-handler unit, one failure definition. All variants (PPP metric, team unit, alternative definitions, season splits) are secondary and reported with Holm correction. Report the number of definitions examined.\",\"decision_rule\":\"Supported only if, in both the discovery data and the held-out 2025-26 playoffs, at least 70% of included units have lift above 0 and the median lift exceeds 2pp, AND both observed statistics exceed the 95th percentile of the permutation null, AND the PULL_UP lift exceeds the placebo play-type lift by a pre-specified margin (at least 1pp). Rejected if the powered test gives a median lift below 2pp or a share positive below the null-calibrated threshold. Report as artifact if the lift disappears under the placebo or lagged-state checks, and as untestable or underpowered if the power requirement is not met.\",\"data_version\":\"Per-game NBA stats API play-by-play, rotation, starters, matchup and box-score files for 2022-23 through 2025-26 regular season and 2022-23 through 2024-25 playoffs, with the derived graph-database play-type records as of a fixed snapshot date recorded before analysis. 2025-26 playoffs excluded from the discovery set and used only as the one-time held-out set once complete (from 2026-06-21).\"}}}",
+   "usage": {
+    "input_tokens": 3111,
+    "output_tokens": 4543,
+    "cost_usd": 0.051652,
+    "model_version": "anthropic/claude-sonnet-5.5",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "Retrieval came back empty, so there's no historical evidence to draw on and I'll have to say so. The data cutoff is 2026-05-23, with the 2025-26 regular season complete and playoffs still underway. I'm planning to freeze the data on the regular seasons through 2025-26 and playoffs through 2024-25, and hold off on the partial 2025-26 playoffs until they finish.\n\nI'm now defining the question as whether a failed pick-and-roll is followed by a pull-up shot that performs better than baseline. I'll need to pick a unit (team-seasons or ball handlers with enough minutes), settle on an efficiency measure, and decide how to define a \"fail\" before looking at the outcome, so the label doesn't leak into the result.\n\nI'm weighing how to define a \"fail\" without it leaking the outcome: since the data has no defensive coverage labels, I'd tie it to the team's recent pick-and-roll results within the game, then check whether pull-up usage and efficiency rise afterward compared with other counters and with the same unit's baseline, since low scoring tends to regress regardless of play type.\n\nI'm putting rough weights on the possible outcomes: supported at 0.15, rejected at 0.2, untestable at 0.1, a measurement artifact at 0.3, and uncertain at 0.25. Leaning toward proceeding with changes, I estimate the chance the question is testable at about even.\n\n",
+      "format": "anthropic-claude-v1",
+      "index": 0,
+      "signature": "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.eyJlbmRwb2ludF9zbHVnIjoiYW50aHJvcGljL2NsYXVkZS1zb25uZXQtNS41LTIwMjYwOTI4fGFudGhyb3BpYyJ9"
+     }
+    ]
+   },
+   "parse_error": "",
+   "parse_recovery": "",
+   "citation_problems": []
+  }
+ ]
+}

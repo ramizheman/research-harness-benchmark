@@ -1,0 +1,28 @@
+# FAM:SF-CHT-037 | Study family SF-CHT-037: Sequence-memory lag effects with game-state controls
+- observed_research_question: Sequence-memory lag effects with game-state controls
+- auto_outcome_status: artifact
+- observed_hypothesis: Naive lag-1 play-type PPP effects survive period/clock/margin controls and within-team baselines.
+- observed_result: Lag-1 real, lag-2 small, lag-3+ ~0: d(1)=+0.024 AUC, d(2)=+0.004. SPOT_UP lag-1 MWU_p=0.0000 with and without controls. DRIVE lag-1 MWU_p=0.0000 but ctrl_p=0.0911. PNR naive p=0.031, controlled 0.136, within-team lift -0.021.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: DRIVE and PNR lag-1 effects disappear with game-state controls / within-team baseline.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Lag-1..3; naive MWU vs controlled p; within-team lift.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: sequence_memory_report.md.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Strategy app
+- observed_dates: CHT-037: 2026-06-24 (transcript)
+- observed_member_records: CHT-037
+- observed_sources: CHT-037: 63b34ece-c73f-4a3d-90ce-9d0d911f8bce
+- observed_sources: CHT-037: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\sequence_memory\output\sequence_memory_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-073 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-029 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-029 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-011 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

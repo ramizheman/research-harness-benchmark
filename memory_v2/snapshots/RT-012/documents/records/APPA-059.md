@@ -1,0 +1,37 @@
+# EXP:APPA-059 | Historical upset backtest: V2 P(overperform) on 4 known series
+- date: 2026-04-21
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 4 series; leakage-safe RS priors (playoff games of the target year dropped); calibration off; 7-game binomial rollup. Tempo mix from pooled within-team-season regression n=9,830 team-games.
+- hypothesis: V2 P(overperform) plus the top-feasible opener recovers the narrative lever of four known playoff upsets without future leakage.
+- knowable_in_advance: yes
+- measures: VAR:play_type_share_mix {record=APPA-059; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:turnovers {record=APPA-059; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPA-059; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF10 {record=APPA-059; rule=audit/study_family_review.csv or singleton}
+- n_runs: 4
+- notes: OREB_PUSH was top-5 for every series with realized muDelta +0.012 to +0.015 and a fixed 0.55 survival ratio. Earlier TEMPO_UP for MIA (+0.7pp) was a hand-picked mix-shift term.
+- prespecified: no
+- produced: RES:APPA-059 {record=APPA-059; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-033; APPA-060; APPA-066
+- related_to: EXP:APPA-033 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-059; rule=date-ordered record link}
+- related_to: EXP:APPA-060 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-059; rule=date-ordered record link}
+- related_to: EXP:APPA-066 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-059; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HISTORICAL_UPSET_BACKTEST.md
+- title: Historical upset backtest: V2 P(overperform) on 4 known series
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-059; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPA-059; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-059; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-059; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-059; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-059 | Result of APPA-059
+- failure_evidence: n=4 selected known upsets; expected lever matched in 1/4; all top-feasible openers collapsed to four-factor TOV/OREB rather than the claimed mechanism except DAL's #2.
+- failure_type: A_unanswerable
+- power_info: 4 series; priors 255,099 (MIA) / 319,921 (others) possessions
+- primary_result: Lever fired 1/4 (DAL-OKC matchup_hunt_stack YES). MIA-MIL: V1 series 0.1% / V2 post-opener 8.7%, top TOV_AVOID not variance_push. IND-NYK: 25.6% vs 44.9%, top TOV_AVOID not tempo UP. ORL-CLE: 45.8% vs 65.2%, top TOV_AVOID not personnel_feasibility. DAL-OKC: 34.6% vs 52.1%, top TOV_FORCE; matchup_hunt_stack was #2 (P=50.5%). TEMPO UP for MIA dP -0.5pp; TEMPO DOWN +0.6pp.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict failed_gate
+- verdict: failed_gate

@@ -1,0 +1,132 @@
+{
+ "blind_id": "Ra142f36f74f8",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE preceding a pick-and-roll (PNR)",
+   "PNR points per possession (PPP)",
+   "rule-based play-type classifier and its PNR inferrer",
+   "possession-level play-type labels (one label per possession)",
+   "sequencing and attribution of a drive to a later PNR",
+   "play-type label data quality"
+  ],
+  "methodological_questions": [
+   "Can a teammate drive 'preceding' a PNR be identified from the available data, given one play-type label per possession and no drive or screen tracking field in the raw files?",
+   "Is 'preceding' defined within the same possession (sub-possession sequence), or across possessions?",
+   "Is the PNR label, which is inferred from play-by-play text, independent of the PNR outcome and of the drive?",
+   "Can an effect on PNR PPP be separated from lineup, ball-handler quality, defense, game state and possession context?",
+   "How sparse is the exposure, and how should the 'any drive' definition, windows and seasons be handled without inflating false positives?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing about this question: retrieve_history returned no records (n_results = 0), so no historical evidence was available."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this or a similar drive-then-PNR question was ever tested, and with what result.",
+   "Whether the classifier's PNR and DRIVE labels have been validated, or what their error rates are.",
+   "Whether any earlier approach to sequencing play types failed, or why.",
+   "Prior effect sizes, base rates of drive-before-PNR sequences, or variance of PNR PPP for power calculations."
+  ],
+  "own_inferences": [
+   "The glossary says the classifier assigns one play-type label per possession. A DRIVE possession and a PNR possession are therefore different possessions. A drive in one possession cannot causally precede a PNR in the same possession in the labels; it can only precede a PNR in a later possession. Because possession changes and other events intervene, that cross-possession reading is not the stated mechanism, so the question as worded is probably not measurable from the derived records alone.",
+   "A within-possession drive-then-screen sequence would have to be reconstructed from raw pbp. The catalog lists actionType, subType, description, shotDistance and coordinates, with no drive, screen or pass-tracking field. A reconstructed drive would depend on description text or shot-distance heuristics, which risks LABEL_ERROR and outcome-derived labeling, since drives are often identified from the shot.",
+   "The PNR is inferred from pbp text (the 'inferrer') and the label is assigned after the possession. If the classifier uses the same events that signal a drive (for example a rim attempt or a foul) to label PNR possessions, an apparent drive effect can be built into the labels (OUTCOME_DERIVED_LABEL).",
+   "'Any teammate drive' is an unrestricted exposure with no window and no drive-quality definition. That invites forking paths and a vague, hard-to-falsify claim.",
+   "Even with a clean definition, drives are not randomly assigned. They occur against broken or rotating defenses, in transition-adjacent situations and from better creators, so a raw PPP difference would mostly reflect confounding.",
+   "Because PNR possessions are labeled from text, a PPP difference by drive status could arise from the labeling rule changing which possessions count as PNR, not from the offense actually improving.",
+   "The prior is more likely that a naive comparison shows a positive difference produced by confounding or labeling than that a clean causal effect is established."
+  ],
+  "uncertainties": [
+   "The classifier rules are not given, so I cannot tell whether DRIVE and PNR can co-occur in a possession or which events trigger each label.",
+   "The exposure rate of drive-then-PNR sequences is unknown, as is the true PNR sample size per season.",
+   "I do not know whether [source] database stores event order within a possession.",
+   "The 2025-26 playoffs are only partial on the question date (2026-06-14). They complete on 2026-06-21, so using them would mean analyzing a changing dataset.",
+   "No validation sample of hand-coded drives or PNRs is mentioned."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so history neither supported nor discouraged the question. The decision rests on the task statement, the glossary (one label per possession, an inferred PNR label) and the data catalog (no drive or screen tracking field)."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "There is no raw drive or screen field. PNR is inferred from play-by-play text, and DRIVE and PNR are mutually exclusive possession-level labels, so the exposure 'drive preceding PNR' cannot be read from the derived records."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If labels or reconstructed drives use shot location, shot result or fouls, they share information with the PPP outcome."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Drives depend on defensive state and player quality, and the data contain no tracking information on defender position or spacing."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was returned by retrieval, so whether this has been answered is unknown. The glossary shows that the project has studied play-type mixes, initiators and suppression, but it reports no results on drive-to-PNR sequencing."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Classifier PNR and DRIVE labels come from text rules with unknown precision and recall. Misclassification will probably be non-random across teams and eras."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Labels and reconstructed drives may use the possession's shot or foul outcome, which mechanically links the exposure to PPP."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Lineup, ball-handler and screener quality, opponent defense, game state, rest, home court and transition context all affect both drives and PNR efficiency."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "If 'preceding' means a within-possession sequence or a short window, qualifying sequences may be rare and uneven across teams."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "PPP per possession has a large variance, around 1.0 per possession. Small PPP differences of about 0.02 to 0.04 need several thousand exposed possessions per arm."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "'Any drive' leaves many choices open: window length, drive definition, drive result, who drove, and season or team subsets."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "A 'preceding' drive must be identified using only events before the PNR screen. Full-possession labels can leak later events into the exposure."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-by-play text conventions and league style change across 2022-23 to 2025-26, which can shift the classifier's behavior."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Any apparent effect needs placebo exposures (for example a preceding non-drive action) to show it is specific to drives."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.07,
+   "rejected": 0.05,
+   "untestable": 0.45,
+   "artifact": 0.23,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "As posed ('any teammate drive preceding a PNR raises PNR PPP') the question is not identifiable. Minimum viable test, if the owner redefines it: the average difference in PPP (and in turnover-adjusted points) for PNR possessions with a classifier-labeled DRIVE by a teammate of the PNR ball handler in the immediately preceding same-team possession chain, compared with matched PNR possessions without one, adjusted for confounders. This is an associational estimand unless a within-possession drive is validated.",
+   "unit": "PNR possession, clustered by game and team (and by ball handler as a secondary cluster)",
+   "sample": "Phase 0 validation first: hand-code a random sample of about 300 PNR and 300 DRIVE labeled possessions from 2022-23 to 2024-25 against video or full play-by-play text, and report the label's precision. Only if precision is at least 0.85 and event order within the possession is recoverable, proceed to a primary analysis on 2022-23 to 2024-25 regular season and playoffs. Treat the 2025-26 regular season (complete from 2026-04-13) as a locked confirmation set. Exclude 2025-26 playoffs, which are partial until 2026-06-21. Exclude garbage time and the last 24 seconds of periods.",
+   "power": "Assume SD of possession points of about 1.1 and a minimum effect of interest of 0.04 PPP (two-sided alpha 0.05, 80% power). That needs about 1,200 exposed and 1,200 unexposed possessions after matching. Cluster correction raises this by an unknown design effect. Compute the real exposure count from the data and stop as underpowered if the exposed count is below 1,500.",
+   "controls": "Matching or regression on lineup and ball-handler quality (pre-period usage and PPP, shrunk toward the mean), screener identity, opponent defensive rating, score margin, period and clock, home court, rest, season, and the previous possession's outcome. Labels must be built without using the possession's outcome. Use only events before the screen as the exposure.",
+   "falsification": "(1) Placebo exposure: a preceding CUT or SPOT_UP possession by a teammate should show no effect on PNR PPP; a comparable effect would indicate confounding. (2) A negative-control outcome that a drive cannot cause, such as PNR possessions in the opposite half or the opponent's next PPP. (3) A shuffled-exposure test within game and lineup. (4) Re-estimate with relabeled PNRs using only pre-shot events. If the effect disappears, treat it as an artifact of the labeling.",
+   "multiplicity": "One pre-registered primary exposure (a teammate DRIVE in the preceding possession chain) and one primary outcome (PNR PPP). Secondary analyses (alternative windows, drive results, player subsets) go in a labeled exploratory list with Holm correction across them.",
+   "decision_rule": "Call it supported only if the pre-registered adjusted difference is at least +0.04 PPP with a 95% cluster-robust CI excluding 0, it replicates in the locked 2025-26 regular-season set in the same direction, label precision is at least 0.85, and the placebo exposure effect is under half the primary effect. Call it rejected if the CI excludes ±0.04 with adequate power. Otherwise report it as inconclusive, and as untestable if the label cannot support the sequence or the exposure count is below 1,500.",
+   "data_version": "Freeze the per-game files and [source] database snapshot with a version hash on the registration date (2026-06-14). Use 2022-23 to 2024-25 plus the 2025-26 regular season (complete from 2026-04-13). Do not use the 2025-26 playoffs (complete 2026-06-21) in this study. Record the classifier code version and commit."
+  }
+ },
+ "redactions": 2
+}

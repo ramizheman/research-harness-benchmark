@@ -1,0 +1,35 @@
+# EXP:APPS-091 | Cut-share x load 2x2 connector PPP (id-keyed, after collision fix)
+- date: 2026-07-27
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 150 connector-seasons; merged on/off n=102 keyed by player_id (prior abbrev-name collision duplicated rows 102->109). Possession M1 HasHighCut etc.
+- hypothesis: High-CUT portable-diet connectors have higher on/off adj PPP, especially when combined with high load.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-091; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-091; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:structural_influence_load_L {record=APPS-091; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-091 {record=APPS-091; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Bug fix: J. Williams name collisions. Multiple-comparison + non-exclusive presence flags; authors say not a confirmed efficiency screen.
+- prespecified: no
+- produced: RES:APPS-091 {record=APPS-091; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-084; APPS-089
+- related_to: EXP:APPS-084 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-091; rule=date-ordered record link}
+- related_to: EXP:APPS-089 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-091; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-091; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\cutshare_connector_ppp_report.md
+- title: Cut-share x load 2x2 connector PPP (id-keyed, after collision fix)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-091; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-091; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-091; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-091 | Result of APPS-091
+- failure_evidence: Cut-only still null after id-key fix. The cell that would confirm portability (HiCut x HiLoad) is null; significant cells are mixed/discordant and exploratory.
+- failure_type: B_powered_null
+- power_info: n=102 id-keyed; 150 connector-seasons
+- primary_result: Spearman(cut, adj) rho=-0.1269 p=0.204 n=102. HasHighCut=+0.59 p=0.293; HasLowCut=+1.39 p=0.117. 2x2 M1: HiCut x HiLoad -0.29 p=0.688 (portability x hub cell null/wrong-sign); HiCut x LoLoad +2.14 p=0.00248; LoCut x HiLoad +3.06 p=0.00162. Kruskal-Wallis adj p=0.191.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

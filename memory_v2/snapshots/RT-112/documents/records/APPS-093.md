@@ -1,0 +1,32 @@
+# EXP:APPS-093 | Connector success vs failure commonality hunt
+- date: 2026-07-27
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Within-team n=102 (success=53 fail=49). Features: dA, team A, diet x gap, load HHI, n organizers, prototype similarity.
+- hypothesis: Successful vs failing connectors share a structural signature, diet-gap match, or roster-load pattern.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPS-093; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:structural_influence_load_L {record=APPS-093; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-093 {record=APPS-093; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Looking like the average success prototype predicted worse Q_p in the ecosystem report as well.
+- prespecified: no
+- produced: RES:APPS-093 {record=APPS-093; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-086; APPS-090
+- related_to: EXP:APPS-086 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-093; rule=date-ordered record link}
+- related_to: EXP:APPS-090 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-093; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-093; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_success_commonality_report.md
+- title: Connector success vs failure commonality hunt
+- uses_method: METH:matched_control {record=APPS-093; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-093 | Result of APPS-093
+- failure_evidence: No structural/diet/roster feature separates success from failure once the tautological adj_pts100 split is set aside; talent_gap is the only other scalar with p<0.05.
+- failure_type: B_powered_null
+- power_info: n=102 (53/49)
+- primary_result: Within raw_success: L p=0.433; usage p=0.952; diet x gap p=0.399; n organizers p=0.975; talent_gap p=0.0122; adj_pts100 p=3.5e-18 (mechanical, it is the success label). proto sim p=0.0554 (wrong direction: fail med +0.676 vs success +0.279).
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

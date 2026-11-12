@@ -1,0 +1,33 @@
+# EXP:APPS-073 | Persistent Impact Score lag curves (global then within-team)
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Global baseline then re-center on team-season mean. PNR inferrer-only; OT+garbage excluded; min n>=30.
+- hypothesis: Running play type X raises the same team's next 1-5 possession PPP vs a matched baseline (action memory).
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-073; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-073 {record=APPS-073; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: Knowable: good teams both run certain PTs and score more later, which a global baseline attributes to the PT.
+- prespecified: partial
+- produced: RES:APPS-073 {record=APPS-073; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-059; APPS-069
+- related_to: EXP:APPS-059 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-073; rule=date-ordered record link}
+- related_to: EXP:APPS-069 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-073; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\persistent_impact_level1.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\persistent_impact_level1_withinteam.md
+- title: Persistent Impact Score lag curves (global then within-team)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-073; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-073; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-073; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-073 | Result of APPS-073
+- failure_evidence: Flat non-decaying global lifts disappear after team-season demeaning; remaining within-team memory is essentially none except SPOT_UP lag-1.
+- failure_type: C_artifact
+- power_info: DRIVE lag-1 n=163696; SPOT_UP n=175021
+- primary_result: Global horizons: DRIVE/SPOT_UP/TRANSITION=5; others 0 (PNR/CUT/POST_UP/PUTBACK). SPOT_UP lag-1 lift +0.027 ctrl_p=0.0000. Within-team: all horizons 0 except SPOT_UP horizon(all)=1; PNR lag-1 within_team_lift=-0.0218.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

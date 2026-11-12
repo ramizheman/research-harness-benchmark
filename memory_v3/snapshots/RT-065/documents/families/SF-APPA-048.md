@@ -1,0 +1,27 @@
+# FAM:SF-APPA-048 | Study family SF-APPA-048: Player-level BEST vs AVOID H2 PPP gaps (exploratory)
+- observed_research_question: Player-level BEST vs AVOID H2 PPP gaps (exploratory)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Players score more on BEST-ranked counters than AVOID-ranked counters in the 55-series playsheets.
+- observed_result: 78 players with >=5 BEST and >=5 AVOID rows. Top gaps D. Lively II +1.833 (n=6/6), M. Brogdon +1.831 (7/11); some reverse (N. Jokic -0.333 n=8/18; L. Doncic -0.190 n=6/14). Stars mixed (D. White +0.864 n=49/42; SGA +0.333 n=5/60).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n is small for most players (single-game playsheets); no multiplicity or clustered test.
+- observed_sample_and_power: 78 players; min 5 rows/tier
+- observed_method: 55-series graph; each player BEST-tier vs AVOID-tier H2 PPP; min 5 rows per tier; N=78 players.
+- observed_verdict: descriptive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Exploratory; sheet says n is small for most players.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-048: 2026-05-31 (doc)
+- observed_member_records: APPA-048
+- observed_sources: APPA-048: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-036 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

@@ -1,0 +1,31 @@
+# EXP:APPS-066 | Brown DRIVE -> Tatum PNR sequential-premium placebo
+- also_recorded_as: CHT-031
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 99 BOS DRIVE->Tatum-PNR chains (Brown 43 / other 56). Placebo 5000 relabels; also league-wide teammate-DRIVE->PNR.
+- hypothesis: The reported +0.326 Brown->Tatum PNR premium is Brown-specific, not any-teammate DRIVE->Tatum PNR.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPS-066 {record=APPS-066; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: original n=43, t=+1.7 was already below |t|=2.
+- prespecified: no
+- produced: RES:APPS-066 {record=APPS-066; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-038; APPS-065
+- related_to: EXP:APPS-038 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-066; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\brown_tatum_chain_placebo.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\teammate_drive_pnr.txt
+- title: Brown DRIVE -> Tatum PNR sequential-premium placebo
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-066; rule=keyword rule DATASET_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-066; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-066 | Result of APPS-066
+- failure_evidence: Brown-specific +0.326 does not survive placebo; any teammate's DRIVE produces a comparable number. League effect is +0.02 PPP.
+- failure_type: C_artifact
+- power_info: n=43 Brown chains; league n_t=20658
+- primary_result: Reproduced premium +0.3262 n=43 vs Tatum PNR baseline 1.0459. Brown-other gap +0.3185, MW p=0.1702. Placebo 95% [-0.1389,+0.4192], observed inside, p=0.1136; perm p=0.2034. League teammate-DRIVE->PNR controlled beta=+0.0220 p=0.0044 n_t=20658 (tiny). Tatum any-teammate +0.1524 p=0.2546, perm inside.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

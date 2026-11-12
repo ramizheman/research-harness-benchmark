@@ -1,0 +1,33 @@
+# EXP:APPM-031 | Teams don't adapt after suppression (H1 to H2 tier shares)
+- date: 2026-06-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 55 playoff series; H1 vs H2 BEST/AVOID shares; continuation cost of suppressed PT.
+- hypothesis: Offenses shift toward BEST counters and away from suppressed plays after a trigger.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-031; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPM-031; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF05 {record=APPM-031; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Claim is a behavioral null (no adaptation).
+- prespecified: no
+- produced: RES:APPM-031 {record=APPM-031; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: Within-series learning
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPM-031; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_cost_of_ignoring_suppression.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_points_left_on_table.py
+- title: Teams don't adapt after suppression (H1 to H2 tier shares)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-031; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-031; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-031 | Result of APPM-031
+- failure_evidence: Shares flat H1->H2.
+- failure_type: D_positive
+- primary_result: BEST share 10.5% -> 10.9%, AVOID 29.1% -> 29.5% (pickup +0.003 pp); continuing suppressed PT -0.646 PPP (corrected 0.63 trigger row-mean); ~5.4 points per trigger; AVOID vs continue +0.054 (corrected +0.069/+0.162).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

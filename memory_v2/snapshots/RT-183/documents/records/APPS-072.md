@@ -1,0 +1,31 @@
+# EXP:APPS-072 | MC suppression check: memoryless sim vs Paper 1 DiD +0.408
+- date: 2026-07-12
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Same 10000x200 sim; H1 steps 0-49 / H2 50-99; trigger h1_ppp>=1.15 and drop; NN match caliper 0.1.
+- hypothesis: A memoryless process matching possession micro-stats will reproduce the Paper 1 matched DiD suppression excess.
+- knowable_in_advance: unclear
+- member_of: FAM:SF-APPS-072 {record=APPS-072; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Verdict of this check is that the real Paper 1 number is an anomaly vs the sim (near-zero sim ATT). Runtime field '1783832484s' is a clock artifact, not a measured runtime.
+- prespecified: partial
+- produced: RES:APPS-072 {record=APPS-072; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-022; APPS-071
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\mc_suppression_check.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\mc_suppression_check.md
+- title: MC suppression check: memoryless sim vs Paper 1 DiD +0.408
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-072; rule=keyword rule DATASET_RULES}
+- uses_method: METH:difference_in_differences {record=APPS-072; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-072; rule=keyword rule METHOD_RULES}
+- uses_method: METH:simulation {record=APPS-072; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-072 | Result of APPS-072
+- failure_evidence: Sim ATT near 0 (slightly negative) as RTM+matching requires; cannot close the +0.408 real excess. Supports that half-level suppression is not memoryless microdynamics.
+- failure_type: D_positive
+- power_info: 25561 matched sim pairs; 1000 bootstrap
+- primary_result: Sim DiD ATT=-0.076 [-0.081,-0.071] n_pairs=25561 vs real +0.408; gap +0.484. Trigger count 25564 (32.9% of game x PT cells) vs ~5500 RS. Raw unmatched decline sim -0.504 vs real ~-0.655.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

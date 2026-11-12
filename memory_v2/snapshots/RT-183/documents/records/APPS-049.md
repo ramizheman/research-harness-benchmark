@@ -1,0 +1,31 @@
+# EXP:APPS-049 | 52-series sequential adaptation: durable pivot branches and net swing
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 52 series, 104 units. Durable branch: median lift>0 and lift>0 in >=70% of units. Net swing per PT per unit.
+- hypothesis: If-X-fails-then-Y pivot branches and PT net-swing (own PPP - opp next PPP) are durable across ~104 playoff team-offense units.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-049; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-049 {record=APPS-049; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Verdict is for the pre-specified durable-branch test (null). The aftershock ranking of DRIVE/POST_UP is supported and used as the prior in the net-swing scorer.
+- prespecified: partial
+- produced: RES:APPS-049 {record=APPS-049; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-050; APPS-037
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\NET_SWING_SCORING_PROTOTYPE.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\sequential_adaptation_summary.json
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\sequential_adaptation_52series.py
+- title: 52-series sequential adaptation: durable pivot branches and net swing
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-049; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-049; rule=keyword rule DATASET_RULES}
+
+# RES:APPS-049 | Result of APPS-049
+- failure_evidence: No conditional pivot branch met the durability bar (empty durable_branches). DRIVE/POST_UP negative net swing is the durable aftershock finding, recorded here as the positive half of the same run.
+- failure_type: B_powered_null
+- power_info: 52 series, 104 units
+- primary_result: durable_branches=[]. Median net swing: CUT +0.36 (neg in 9%), TRANSITION +0.26 (21%), PULL_UP +0.09 (33%), PNR +0.04 (45%), SPOT_UP +0.02 (40%), POST_UP -0.22 (77%), DRIVE -0.27 (88%). n_units: CUT 103, DRIVE/POST_UP/SPOT_UP/TRANSITION/PULL_UP 104, PUTBACK 47.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

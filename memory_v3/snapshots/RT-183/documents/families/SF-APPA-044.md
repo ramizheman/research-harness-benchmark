@@ -1,0 +1,29 @@
+# FAM:SF-APPA-044 | Study family SF-APPA-044: Oracle player matchup specificity on BEST counters (Route step)
+- observed_research_question: Oracle player matchup specificity on BEST counters (Route step)
+- auto_outcome_status: supported
+- observed_hypothesis: The oracle BEST player for a counter play type varies by opponent, not a single team identity.
+- observed_result: 64/78 (82%) (off, PT) cells have >1 oracle player across opponents; 19/78 dominated by one player (>=90%); median oracle-player entropy 0.928.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: 82% of cells vary the oracle player by opponent.
+- observed_sample_and_power: n=6,852 oracle BEST possessions; 78 cells
+- observed_method: _oracle_player_specificity.py; n=6,852 oracle BEST possessions; (off_team, play_type) cells.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Valid on counter plays only; routing on suppressed plays was rejected in APPA-042.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-044: 2026-06-22 (doc)
+- observed_member_records: APPA-044
+- observed_sources: APPA-044: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-045 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF06 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-024 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

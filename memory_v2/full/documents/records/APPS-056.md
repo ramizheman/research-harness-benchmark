@@ -1,0 +1,36 @@
+# EXP:APPS-056 | Historical series_analysis backtest: winner and PT-rank Spearman
+- date: 2026-04-30
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 45 series_analysis.md reports (51 slug folders). Winner from predictions.json vs actual. Spearman of pregame PT PPP ranks vs observed series PPP-by-PT. Canonical-10 Spearmans tabulated in Chat 6.
+- hypothesis: Pregame predicted series winner and predicted PT-PPP ranks match realized playoff series outcomes.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-056; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPS-056; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-056 {record=APPS-056; rule=audit/study_family_review.csv or singleton}
+- n_runs: 45
+- notes: Family of repeated series backtests. Individual TEAM_vs_TEAM generated reports in reports/ and demo_reports/ were not scored as experiments. Remaining 6 series_analysis folders lack series_analysis.md.
+- prespecified: no
+- produced: RES:APPS-056 {record=APPS-056; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-003; APPS-008
+- related_to: EXP:APPS-003 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-056; rule=date-ordered record link}
+- related_to: EXP:APPS-008 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-056; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\Chats\6. cursor_spearman_correlation_for_basketb.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\series_analysis\phi_bos_2526\series_analysis.md
+- title: Historical series_analysis backtest: winner and PT-rank Spearman
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-056; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-056; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-056; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPS-056; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-056; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-056 | Result of APPS-056
+- failure_evidence: Winner hit 27/45 with no CI; per-series Spearmans range from PHI_BKN -0.024 to MIN_DEN 0.905; RS 0.54 is a hand-maintained headline file.
+- failure_type: E_unclear
+- power_info: 45 series with series_analysis.md; canonical 10 for tabulated rho
+- primary_result: Winner: 27 CONFIRMED / 18 CONTRADICTED of 45 (60%). Canonical-10 team-side Spearman median ~0.536 (20 sides); series-mean median ~0.554. Example phi_bos_2526: predicted BOS (85.2% conf, PHI baseline 7.4%) CONTRADICTED (PHI 4-3); scheme-adjusted Spearman PHI 0.714, BOS 0.452. Chat 6 also cites RS holdout methodology rho=0.54, n=454, MAE 0.0922 PPP from pipeline_report_metadata.json.
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

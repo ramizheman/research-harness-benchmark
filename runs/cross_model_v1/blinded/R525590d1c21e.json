@@ -1,0 +1,134 @@
+{
+ "blind_id": "R525590d1c21e",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "DRIVE",
+   "PNR",
+   "PPP"
+  ],
+  "methodological_questions": [
+   "exposure_definition",
+   "outcome_definition",
+   "confounding_control",
+   "measurement_error"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Regular season vs playoff PPP by play type (DRIVE over-prediction): DRIVE PPP higher in RS (1.198) than playoffs (0.912); PNR PPP lower in RS (-0.173) vs playoffs; other play types similar."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "System BEST vs constrained league mix: non-CUT BEST vs mix gap 0.010, p=0.1709, n=136; L3 non-CUT gap 0.001, p=0.3277, n=47."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "DRIVE-as-BEST counter vs constrained mix: observed gap -0.066 below MDE 0.180 PPP, n=44; cannot distinguish true null from effect up to 0.18."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Sequential pair premium and defensive aftershock: after success, PNR PPP +0.127 (n=51,194); generic pair premiums (e.g., PUTBACK->TRANSITION +0.084)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "null test of non-CUT BEST vs mix",
+    "why": "B_powered_null (adequately powered null result)"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "small sample size",
+    "why": "A_unanswerable (question not answerable with the data or design)"
+   }
+  ],
+  "evidence_establishes": [
+   "DRIVE PPP differs between regular season and playoffs.",
+   "Sequential pair premiums exist after successful plays, including PNR PPP +0.127.",
+   "General pattern of play-type sequential effects in NBA data."
+  ],
+  "evidence_does_not_establish": [
+   "Effect of a teammate DRIVE immediately preceding a PNR on PNR PPP.",
+   "Whether the observed pair premium is causal or confounded by game context.",
+   "Specific magnitude of the DRIVE→PNR PPP effect.",
+   "Whether the effect holds across seasons or is season-specific."
+  ],
+  "own_inferences": [
+   "The data contain the necessary raw events to construct DRIVE→PNR sequences, but the frequency of such sequences may be low relative to the total sample, raising power concerns.",
+   "Teammate DRIVE is a situational variable that co-varies with many contextual factors (score margin, defensive assignment, offensive strategy), thus confounding is likely."
+  ],
+  "uncertainties": [
+   "Exact frequency of DRIVE→PNR sequences in the dataset.",
+   "Potential measurement noise in identifying teammate DRIVE versus other actions.",
+   "Variability of the effect across seasons and playoff contexts."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "Historical studies confirm play-type sequential effects but do not directly address DRIVE→PNR, so the decision to proceed remains unchanged."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Limited number of DRIVE→PNR sequences may reduce power to detect a modest PPP difference."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Teammate DRIVE may be correlated with offensive strategy, defensive matchups, and score margin, which can bias estimated effects."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Identifying “teammate DRIVE” from play-by-play requires accurate player attribution; errors could bias results."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior work documents general sequential pair premiums and seasonal PPP differences but does not test the specific DRIVE→PNR PPP effect."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Potentially insufficient number of DRIVE→PNR sequences."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Co-variation with game context and strategy."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Possible misclassification of teammate DRIVE actions."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.2,
+   "untestable": 0.2,
+   "artifact": 0.05,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average difference in PNR PPP when preceded by a teammate DRIVE versus when not preceded by a teammate DRIVE, conditional on PNR occurring.",
+   "unit": "individual possession",
+   "sample": "All possessions containing a PNR event; sub-sample where the preceding possession was a DRIVE by a teammate versus all other preceding contexts.",
+   "power": "80% power to detect a 0.05 PPP difference (SD≈0.35) requires ~500 DRIVE→PNR sequences; target n≈1500 total PNR possessions to allow for stratification and covariate adjustment.",
+   "controls": "Include match context (score margin, period, time remaining), defensive matchup (player/positional matchups), and offensive possession variables (length, starter status).",
+   "falsification": "Test the same estimand on random pairs of non-PNR plays (e.g., DRIVE→SHOT) to check for systematic bias.",
+   "multiplicity": "Apply Benjamini–Hochberg FDR correction for testing multiple sequential pairings (e.g., DRIVE→PNR, DRIVE→SHOT, DRIVE→PUTBACK).",
+   "decision_rule": "Reject null if estimated effect >0.05 PPP and p<0.05 after FDR correction.",
+   "data_version": "NBA 2025-26 regular season and playoffs (complete up to 2026-06-21), plus 2022‑23, 2023‑24, 2024‑25 seasons for robustness checks."
+  }
+ },
+ "redactions": 14
+}

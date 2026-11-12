@@ -1,0 +1,156 @@
+{
+ "blind_id": "R7a54dd134353",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession points per possession after offensive play type X",
+   "AVOID labelling from suppression trigger and counter recommendations",
+   "own-team possession sequence lags after play type X",
+   "play-type label reliability",
+   "data quality of rule-based play-type classifier"
+  ],
+  "methodological_questions": [
+   "How to measure opponent next-possession PPP per play type with adequate sample size?",
+   "What confounding (game state, lineup, opponent defensive quality) must be controlled when linking play type to opponent's subsequent possession?",
+   "Is there lookahead bias if the AVOID label and the lagged PPP come from the same game?",
+   "Can label noise in play-type assignment create spurious correlations with opponent PPP?",
+   "What multiplicity adjustment is needed for testing many play types and lags?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Opponent play type on the preceding possession may suppress a star's next-possession PPP (PUTBACK is top suppressor for 6+ stars), but sample sizes are 32-95 for many cells, no multiplicity correction, and the analysis was not a formal hypothesis test."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type PPP differences are artefacts of label/foul leakage: OTHER PPP inflated by 36% foul endings, DRIVE PPP 12 points below foul benchmark, and only 0.7% of possessions map to a real play type via initiation_type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Inferred defensive scheme changes from play-type labels cannot separate real adjustment from offense execution; near-uniform transition matrices are consistent with label noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "No elite creator produces a positive lineup-matched teammate-PPP lift on the next 1-3 possessions (powered null). A secondary structural initiator effect survived for Antetokounmpo but not efficiency."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "using play-type labelled possessions to compute PPP differences",
+    "why": "labeling artifact: foul endings inflate OTHER PPP and leak from DRIVE; 0.7% initiation_type mapping indicates the labels do not reflect true play initiation."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "inferring defensive scheme changes from within-game play-type mix",
+    "why": "label/classification error; cannot disentangle offensive execution from defensive adjustment; near-uniform transition suggests noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "characterising opponent play type suppression of a star",
+    "why": "small sample sizes (n_after 32-95) and no multiplicity correction made the results unreliable."
+   }
+  ],
+  "evidence_establishes": [
+   "Existing play-type labels contain substantial artefacts (foul leakage, misclassification) that distort PPP metrics.",
+   "Inferred play-type labels are noisy; changes in observed play-type mix often cannot be attributed to genuine defensive adjustments.",
+   "Lagged own-team PPP effects from elite-creator actions are essentially null in a well-powered matched test.",
+   "Small-sample analyses of play-type-conditional opponent PPP are subject to high variance and multiplicity issues."
+  ],
+  "evidence_does_not_establish": [
+   "Whether opponent next-possession PPP after a specific offensive play type is systematically different from average opponent PPP.",
+   "Whether such differences, if they exist, are large enough to influence AVOID label assignment.",
+   "Whether own-sequence lagged PPP after a play type matters for anything beyond what is already captured by within-game suppression triggers.",
+   "That a clean test free of label noise would still yield a null or positive result."
+  ],
+  "own_inferences": [
+   "The research question can be operationalised by computing opponent PPP on the possession immediately following an offensive possession of type X, and by computing the offensive team's PPP on its next k possessions after running play X.",
+   "Any signal that survives label noise is likely to be small because the effect works through a chain (offensive play type -> end-of-possession event -> opponent transition -> opponent possession) that introduces many confounders.",
+   "Given the AVOID labels are derived from within-game PPP changes, using within-game opponent next-possession PPP to predict those labels may create circularity if the same data window is used; a clean design would need to hold out games or use pre-trigger segments only.",
+   "The available data (full play-by-play with derived play-type records from 2022-23 to 2025-26) provides enough possessions overall, but power will be low for rarely called play types."
+  ],
+  "uncertainties": [
+   "Precise definition of AVOID labels and whether they are deterministic or probabilistic thresholds.",
+   "Whether the project can isolate 'direct' (non-inferred) play types from the rule-based classifier to reduce label noise.",
+   "The exact handling of possession transitions (turnovers, end-of-quarter, technical free throws) and whether the data link opponent possessions reliably.",
+   "The magnitude of an effect that would be considered 'large enough to drive AVOID labels'."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without the historical evidence the question might have been viewed as an exploratory correlation. [prior work] show that play-type labels contain systematic artifacts (foul leakage, misclassification) and that lagged PPP effects have been null in a similar setting, which raises the risk of artefactual findings and lowers the expected signal-to-noise ratio. This pushes the recommendation from 'proceed with caution' to 'do not proceed' unless label quality can be improved."
+  },
+  "testability": {
+   "p_testable": 0.4,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play-type labels (especially inferred ones) are known to have foul-leakage and misclassification artifacts that can create spurious variation in per-possession PPP, making it hard to attribute any observed difference to the play type itself."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Rare play types will have very few opponent next-possession observations; even common types may yield only hundreds of observations per team per season, limiting power to detect small but practically meaningful differences."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No prior study directly examined opponent next-possession PPP after an offensive play type as a driver of AVOID labels. Related work found that play-type labels are artefact-laden, that lagged own-team PPP effects are null, and that opponent-play-type analyses suffer from small samples and multiplicity concerns."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Existing play-type labels have documented foul leakage and misclassification; these can distort both the independent variable (play type X) and the outcome (opponent PPP if the previous possession's ending influences the next possession's context)."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Many play types occur infrequently, leading to wide confidence intervals on opponent next-possession PPP; an 'AVOID' decision based on such unstable estimates would be unreliable."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The opponent's defensive quality, game score, period, and substitution patterns influence both which play type the offense runs and how the opponent performs on the next possession."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the same game is used to compute opponent next-possession PPP and to determine AVOID labels (which depend on within-game PPP changes), information from later possessions can leak into the predictor, inflating the apparent relationship."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many play types and multiple lags simultaneously creates a large multiplicity problem that, if uncorrected, will produce false positives."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Playing styles and the classifier may change across the four available seasons, potentially violating the assumption of stationarity when pooling data."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.3,
+   "untestable": 0.3,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The difference between opponent next-possession PPP when the preceding offensive possession is of play type X and the league-average opponent next-possession PPP on all possessions (adjusted for game state and opponent defensive quality). For own-sequence lags: the change in the offensive team's PPP on possession t+k after a play-type-X possession at t, compared with its typical PPP at that lag.",
+   "unit": "a possession (offensive or opponent) linked to a preceding play-type-labelled offensive possession; for lagged own sequence, a possession within the same team's subsequent k possessions.",
+   "sample": "All NBA regular-season and playoff games from 2022-23 through 2025-26 (full seasons where available), excluding garbage time (Q4 margin >20, or Q4 with <2 min and >10), and possessions that start with under 3 seconds remaining.",
+   "power": "A priori power analysis: for the most frequent play type (e.g., PNR) ~10,000 opponent next-possession observations per season, which could detect a Cohen's d of about 0.03 at 80% power with alpha=0.01 (corrected for 10 play types x 3 lags). Rare play types like PUTBACK (~500 obs) could detect only d~0.12 under the same conditions.",
+   "controls": "Fixed effects for offensive team, opponent team, period (1,2,3,4), score margin (binned), and an indicator for whether the preceding offensive possession ended in a defensive rebound vs. a made basket vs. a turnover.",
+   "falsification": "1) Replace the preceding play type with a random draw from the offensive team's play-type distribution and show that the relationship with opponent PPP disappears. 2) Test whether opponent next-possession PPP following timeouts or end-of-quarter breaks (no play type) shows similar variance. 3) Use only directly tagged (non-inferred) play types and check if the pattern holds.",
+   "multiplicity": "Bonferroni-Holm correction across all play-type–lag combinations; pre-registration of a primary hypothesis for the three most frequent play types and lag 1 only.",
+   "decision_rule": "The effect of play type X is considered large enough to influence AVOID if, after adjustment, its opponent next-possession PPP exceeds the league average by at least 0.05 PPP with a one-sided FDR < 0.05, and the effect is stable across seasons and not accounted for by the falsification checks.",
+   "data_version": "Per-game files from NBA stats API as of 2026-06-19, with derived play-type possession records from the project's graph database, snapshot of the 2025-26 regular season and playoffs through 2026-04-13 and 2026-06-21 respectively."
+  }
+ },
+ "redactions": 23
+}

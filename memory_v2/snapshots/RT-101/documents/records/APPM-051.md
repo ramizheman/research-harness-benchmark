@@ -1,0 +1,37 @@
+# EXP:APPM-051 | Risk-aware feasible openers vs legacy mu-top CUT
+- date: 2026-04-20
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 11 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 4 games / 8 team-sides; pool pt_shift, matchup_hunt, four_factor, tempo; compare legacy E[Delta PPP] opener vs best feasible risk-aware opener.
+- hypothesis: Scoring candidates by P(overperform) over 95 possessions and dropping INFEASIBLE personnel pushes changes the rank-1 opener away from CUT for playoff G1s.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPM-051; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:turnovers {record=APPM-051; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-051 {record=APPM-051; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Demonstration of a product change, not a backtest against game outcomes. Complements the CUT-capacity table (ORL stretch 6.0% vs target 19.1%, gap +13.1pp).
+- prespecified: no
+- produced: RES:APPM-051 {record=APPM-051; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-025; APPM-023
+- related_to: EXP:APPM-023 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-051; rule=date-ordered record link}
+- related_to: EXP:APPM-025 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-051; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PERSONNEL_FEASIBILITY_PLAYOFF_TEAMS.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RISK_AWARE_OPENERS.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\STRATEGY_V2_RESULTS.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_risk_rerank_playoff.py
+- title: Risk-aware feasible openers vs legacy mu-top CUT
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-051; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-051; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-051; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPM-051; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-051 | Result of APPM-051
+- failure_evidence: Legacy rank-1 is INFEASIBLE CUT/PUTBACK for 4/8 sides; feasible four-factor openers replace them with only -0.3 to -1.7pp modeled P.
+- failure_type: C_artifact
+- power_info: n=8 team-sides; not outcome-tested
+- primary_result: ORL underdog: CUT-push INFE P=36.7% -> OREB_PUSH +3.0pp P=35.0% (DeltaP -1.7pp); baseline P(overperform) 29.9%, best feasible +5.1pp to 35.0%. DET favorite: TOV_AVOID stays, P=76.8%. PHI: PUTBACK INFE 28.9% -> OREB_PUSH 28.5%. BOS: CUT INFE 80.3% -> OREB_PUSH 79.9%. OKC: CUT INFE 60.5% -> OREB_PUSH 60.1%. PHX/POR/SAS four_factor already FEAS, DeltaP +0.0pp. ORL 18/26 candidates INFEASIBLE; DET 18/38 INFEASIBLE.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

@@ -1,0 +1,36 @@
+# EXP:APPM-039 | Travel x fit screen and outcome holdout validation
+- date: 2026-07-18
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 296 movers (230 with outcomes); LOO travel forecast; 500 random 50/50 calibration/holdout splits.
+- hypothesis: Forecast portability (travel) and fit quadrants predict mover outcomes (embedded minutes, net rating).
+- knowable_in_advance: unclear
+- measures: VAR:minutes_playing_time {record=APPM-039; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:net_rating_ORtg {record=APPM-039; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPM-039; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-039 {record=APPM-039; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Modest AUC 0.60.
+- prespecified: partial
+- produced: RES:APPM-039 {record=APPM-039; rule=record fields}
+- project: Structural Influence (Paper 1)
+- related_as_recorded: Portability
+- reported_in: PAPER:Structural_Influence_published {record=APPM-039; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PAPER_NUMBERS_SHEET.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\outcome_check.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\outcome_split_validation.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\travel_fit_screen.py
+- title: Travel x fit screen and outcome holdout validation
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPM-039; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPM-039; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-039; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-039 | Result of APPM-039
+- failure_evidence: Additive > irrelevant in 98.4% of splits.
+- failure_type: D_positive
+- power_info: n=230
+- primary_result: LOO corr 0.1998, AUC 0.5986; holdout additive embedded 89.59% vs irrelevant 48.11%; P(add emb > irr)=0.984; P(add net > irr)=0.99; corr(travel,net) 0.1881.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

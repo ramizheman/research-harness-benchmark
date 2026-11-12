@@ -1,0 +1,32 @@
+# EXP:APPS-061 | Test 2: PUTBACK Q4 star-suppression IVW trend
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Matched ATT by quarter; IVW trend; quarter-shuffle placebo 5000x; Cochran-Armitage P(score). Treated=2481, control capped 60000.
+- hypothesis: Star PPP after conceding a putback declines monotonically Q1->Q4.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-061; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-061 {record=APPS-061; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Console verdict said WEAK SIGNAL; header said FINDING (qualified). Recorded as supported-with-qualifications; Test 3 shows load is not the mechanism.
+- prespecified: yes
+- produced: RES:APPS-061 {record=APPS-061; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-041; APPS-062
+- related_to: EXP:APPS-041 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-061; rule=date-ordered record link}
+- related_to: EXP:APPS-062 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-061; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_2_putback_trend.md
+- title: Test 2: PUTBACK Q4 star-suppression IVW trend
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-061; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-061; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-061; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-061 | Result of APPS-061
+- failure_evidence: Trend clears IVW, placebo, and Q4 CI excludes 0 in RS/close. Mechanism unresolved (Test 3 null) and playoff subset underpowered.
+- failure_type: D_positive
+- power_info: n_t Q1=705 Q4=520; playoffs n_t=55
+- primary_result: Q1 ATT=+0.0671 to Q4 -0.1394. IVW slope=-0.0649/qtr (z=-2.98, one-sided p=0.0014). Placebo p=0.0028. RS Q4 -0.1262 [-0.2240,-0.0284] n_t=465; close -0.1949; playoffs Q4 CI[-0.444,+0.138] n_t=55 underpowered. CA p=0.0378.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

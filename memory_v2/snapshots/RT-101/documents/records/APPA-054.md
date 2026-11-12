@@ -1,0 +1,31 @@
+# EXP:APPA-054 | PUTBACK suppression mechanism: fatigue vs value
+- also_recorded_as: APPS-040
+- date: 2026-05-31
+- date_basis: doc
+- date_reliable: yes
+- design: Four tests on PUTBACK-suppressed stars: H1 vs H2 delta, Q1 vs Q4, PUTBACK H2 PPP vs baseline, offense PPP after opp PUTBACK.
+- extends: EXP:APPA-050 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-054; rule=date-ordered record link}
+- hypothesis: PUTBACK suppresses the next star possession via fatigue (stronger in H2 and Q4), while PUTBACK itself remains high-value.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-054; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-054 {record=APPA-054; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Sheet calls fatigue the primary driver; Q4 sparsity is knowable from the n>=30 gate.
+- prespecified: no
+- produced: RES:APPA-054 {record=APPA-054; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-050; APPA-055
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-054; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: PUTBACK suppression mechanism: fatigue vs value
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-054; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-054; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-054 | Result of APPA-054
+- failure_evidence: Q4 PUTBACK is sparse (34 pooled poss at n>=30; Mitchell n=34 drives the Q4 cell) even though the H2 vs H1 and aftershock tests are larger.
+- failure_type: E_unclear
+- power_info: 22 stars H1+H2; Q4 pooled n=34; 15,898 aftershock poss
+- primary_result: H1 delta -0.038 vs H2 -0.130 (22 stars, 3.4x). Q1 -0.009 vs Q4 -0.289 (11 stars; Q4 pooled n=34). PUTBACK H2 1.528 vs 1.217 (+0.311) n=8,614 vs 474,564. After opp PUTBACK offense 1.097 vs 1.210 (d=-0.113) n=15,898.
+- record_stratum: supported
+- record_substatus: mechanism E_unclear
+- verdict: supported

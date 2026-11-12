@@ -1,0 +1,34 @@
+# EXP:APPM-005 | Matchup-model shrinkage K sweep
+- date: 2026-04-17
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Sweep k=5..5000 on 690 val / 520 holdout cells using actual usage mix; R2 raw and OLS-calibrated on holdout.
+- hypothesis: Lowering SHRINKAGE_K in MatchupPPPModel recovers signal lost to over-shrinkage.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPM-005; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-005 {record=APPM-005; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Byproduct finding: downstream equilibrium optimizer eats the matchup signal (10x).
+- prespecified: no
+- produced: RES:APPM-005 {record=APPM-005; rule=record fields}
+- project: Strategy app
+- related_as_recorded: VARIANCE_DIAG.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_PREDICTIVE.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_PREDICTIVE_HIGH.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_SWEEP.md
+- title: Matchup-model shrinkage K sweep
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPM-005; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPM-005; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-005; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-005; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-005; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-005 | Result of APPM-005
+- failure_evidence: Lower k gives wider spread but lower R2 (k=5 +0.018 vs k=200 +0.058).
+- failure_type: B_powered_null
+- power_info: holdout 520 cells
+- primary_result: Hypothesis REJECTED: k=5 R2 alone +0.018, k=50 +0.045, k=200 +0.058; best OLS R2 +0.0744 at k=500 (lift +0.0072 vs k=50). Actual-usage path R2 +0.045 vs equilibrium path +0.004.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

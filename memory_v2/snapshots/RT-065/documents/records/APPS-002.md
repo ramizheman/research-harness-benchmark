@@ -1,0 +1,31 @@
+# EXP:APPS-002 | Three-series adaptation review and v2 playsheet pipeline test
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 16 focal games (MIA vs BOS 2023 ECF G1-7, DEN vs MIA 2023 Finals G1-5, LAL vs OKC 2025-26 G1-4), one offense each; adaptation review plus v2 playsheet per game.
+- hypothesis: The agent adaptation-review and v2 playsheet pipeline runs end to end on full playoff series.
+- knowable_in_advance: unclear
+- measures: VAR:three_point_attempts_or_luck {record=APPS-002; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-002 {record=APPS-002; rule=audit/study_family_review.csv or singleton}
+- n_runs: 16
+- notes: Pipeline smoke test rather than a validation of recommendations.
+- prespecified: no
+- produced: RES:APPS-002 {record=APPS-002; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Overnight 10-series LLM adaptation review
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\three_series_test\MIA_vs_BOS_2023_ECF\MIA_BOS_tiered_playsheet.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\three_series_test\_three_series_log.json
+- title: Three-series adaptation review and v2 playsheet pipeline test
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPS-002; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-002; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPS-002; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-002 | Result of APPS-002
+- failure_evidence: Only run status recorded; no outcome-based scoring. G3_DEN_off.md is only 1405 bytes (report appears truncated).
+- failure_type: E_unclear
+- power_info: 16 games
+- primary_result: 16/16 runs status ok (19-25 tool calls, ~124-227 s each); MIA_BOS tiered playsheet: 5 robust, 5 fragile, 1 structural of 11 entries.
+- record_stratum: not_a_test
+- record_substatus: tool_eval_pass
+- verdict: tool_eval_pass

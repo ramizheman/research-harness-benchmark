@@ -1,0 +1,55 @@
+{
+ "blind_id": "Re398d82f1d51",
+ "task_statement": "Research question (as posed on 2026-07-13, in the area of structural roles and influence):\nLineup coverage (>=1 organizer, shaper, terminal) varies within team, is separable from talent/counts, and talent control behaves.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 420,993 possessions; 90 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work]"
+   ],
+   "summary": "The glossary explicitly defines 'Role categories' (Primary Organizer, Shaper, Terminal Scorer, Role Occupant/Specialist) as derived from the 'Structural Influence paper,' using usage and residual influence. This indicates that the methodology for defining these roles exists and has been published. The project also has access to play-by-play and derived play-type possession records (initiator, play type, points), which are the foundational data for calculating structural influence and usage. Therefore, the core components of the question related to defining and identifying these roles are based on established prior work within the project's domain."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The derivation of 'structural influence' and the subsequent classification of players into role categories (Organizer, Shaper, Terminal) can be complex and sensitive to methodological choices and thresholds. While prior work exists, ensuring the reliability and stability of these measures across different seasons and player contexts is crucial."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "While the total number of possessions and team-seasons is substantial, the number of unique lineups with specific combinations of structural roles, especially those with less common configurations, might be limited, potentially affecting statistical power for certain analyses. Additionally, reliably estimating a player's structural role requires a sufficient sample of their initiations, which might be an issue for players with low usage or limited playing time."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Lineup composition is a strategic decision made by coaches, not a random assignment. Therefore, any observed effects of structural role coverage on team performance might be confounded by unobserved factors such as coaching strategy, player talent (beyond what is explicitly controlled for), player chemistry, or opponent adjustments. The phrase 'talent control behaves' directly addresses this but highlights the difficulty of fully isolating the effect of structural coverage."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Certain combinations of structural roles within a lineup might occur very infrequently across the dataset, making it difficult to draw statistically robust conclusions about their impact or variation."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of specific structural role coverage (e.g., presence of at least one Primary Organizer, Shaper, or Terminal Scorer) within a lineup on team offensive efficiency (e.g., Points Per Possession or Offensive Rating), controlling for individual player talent, usage, and other confounding factors. Specifically, to quantify how much variation in offensive efficiency is explained by structural role coverage beyond what player talent and usage can explain.",
+   "unit": "Possession, nested within lineup (stint) and team-game.",
+   "sample": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs. The 2025-26 season will be excluded or used only as a hold-out test set due to partial data. Only non-garbage time possessions will be included. Players will be assigned structural roles (Primary Organizer, Shaper, Terminal Scorer, Role Occupant/Specialist) based on their performance over a full season (or a significant portion like a half-season) to ensure stability and sufficient data for influence calculation. These player roles will then be mapped to lineups.",
+   "power": "Player-level structural roles will be derived from a minimum threshold of initiations (e.g., 500 initiations per player per season) to ensure reliable calculation of structural influence. Lineup-level analyses will require a minimum number of possessions per lineup (e.g., 50 possessions) to estimate offensive efficiency reliably. With 420,993 possessions and 90 team-seasons, there is sufficient data to classify players and analyze common lineups, but specific rare lineup configurations may still lack power. A power analysis will be conducted for the primary estimand to determine minimum detectable effect sizes given the observed distribution of lineup types.",
+   "controls": "Individual player-level controls: Usage rate, individual PPP, true shooting percentage, individual offensive rating, minutes played. Team-level controls: Opponent strength (e.g., defensive rating), game context (home/away, score differential, period), coaching staff, season, team-level talent (e.g., average talent of players on the court as measured by a composite metric).",
+   "falsification": "1. Test if randomly assigned 'structural roles' (while maintaining the overall distribution of roles) show similar explanatory power. 2. Test if roles derived from purely talent-based metrics (e.g., high usage, high efficiency) without structural influence components can explain as much variation. 3. Test for 'placebo' effects by examining defensive efficiency outcomes, which should not be directly impacted by offensive structural roles in the same way.",
+   "multiplicity": "If multiple specific hypotheses about different role combinations or individual role effects are tested, a multiple testing correction (e.g., Bonferroni, FDR) will be applied. The primary estimand will focus on a pre-specified aggregate measure of 'structural coverage' or a single, most impactful role combination.",
+   "decision_rule": "The primary hypothesis is that lineup structural coverage, as defined by the presence of specific role categories, explains a statistically significant (p < 0.05) and substantively meaningful portion of the variance in offensive efficiency, beyond what can be explained by player talent and usage. The 'behavior' of talent control will be assessed by examining the coefficients and significance of talent metrics in the model; they should align with established basketball principles (e.g., more talented players correlating with higher efficiency).",
+   "data_version": "NBA 2022-23 regular season and playoffs, NBA 2023-24 regular season and playoffs, NBA 2024-25 regular season and playoffs. Play-by-play, rotation, matchups, summary, and starters files from the NBA stats API, alongside derived play-type possession records."
+  }
+ },
+ "redactions": 1
+}

@@ -1,0 +1,27 @@
+# FAM:SF-APPS-010 | Study family SF-APPS-010: Play-type PPP change across playoff series game buckets
+- observed_research_question: Play-type PPP change across playoff series game buckets
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Play-type PPP (especially DRIVE) declines as a playoff series progresses, so DRIVE is a good early-series call.
+- observed_result: DRIVE 0.889 -> 0.949 (+0.060); CUT +0.114; PNR +0.087; PULL_UP -0.077; POST_UP -0.032.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: 'NO CLEAR SIGNAL - DRIVE PPP is stable or improves across the series'; observational with selection caveats.
+- observed_sample_and_power: 1197 records; no CIs
+- observed_method: Pooled (series, team, PT, bucket) records (1197), EARLY G1-2 / MID G3-4 / LATE G5-7, min 10 poss, min 3 series.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-010: 2026-05-08 (mtime)
+- observed_member_records: APPS-010
+- observed_sources: APPS-010: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_series_game_adaptation.md
+- observed_sources: APPS-010: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\game_adaptation_run.log
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_addresses_question: RQC:RQC-017 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

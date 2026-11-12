@@ -1,0 +1,163 @@
+{
+ "blind_id": "R44523f5df10d",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive five personnel change",
+   "shot mix (rim, midrange, three-point shares)",
+   "positive control / design sensitivity",
+   "substitution rotation intervals and reconstructed lineups",
+   "within-team, within-game comparison"
+  ],
+  "methodological_questions": [
+   "Does a substitution that changes the offensive five shift shot mix by more than a matched no-change placebo?",
+   "Is the shift proportional to an ex-ante, out-of-sample measure of how different the incoming and outgoing players' shot profiles are?",
+   "How can personnel effects be separated from clock, score, opponent, fatigue and coach-selected substitution timing?",
+   "Is the result informative as a positive control, or is it mechanically guaranteed?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Opponent lineup adaptation, with the opposing rim big off the floor. On N=1.07M possessions the shot-mix shifts were small: DRIVE +0.82pp (SE 0.25), POST_UP +0.43pp, 3PA -1.79pp (SE 0.31), rim <=4ft +0.12pp (SE 0.295, t=+0.4), PPP +0.008 (t=+1.1). [prior work] says the verdict was WEAK/SMALL and 'will not carry a paper'. It lists [prior work] and RISK:SAMPLE_SIZE_POWER."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Structural disruption vs PPP: an adequately powered null (failure mechanism B_powered_null), S3 rho=-0.040, CI [-0.212,+0.166], with MDE rho~0.23 at n=148 for S3 (n=986 overall). Validation is recorded as same_pipeline_validation only."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The Persistent Impact Score Level 1 gate failed its decay sanity check. Lifts were flat and collapsed under a within-team baseline, which [prior work] attributes to a team-quality confound. p~0 came from n>150k with Cohen d ~0.01-0.03. It lists RISK:CONFOUNDING."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Opener recommendations were infeasible given personnel: an optimizer that ignored personnel produced targets 3-10x the stretch ceiling (C_artifact). This shows personnel constraints matter when constructing lineup-level quantities."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Detecting shot-mix shifts from a lineup condition (opposing big off floor) as a pooled possession-level comparison.",
+    "why": "Sub-1pp shifts, with the rim share indistinguishable from zero even on ~1.07M possessions. Recorded limitation: small sample / power."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Pooled possession-level contrasts without a within-team baseline.",
+    "why": "Team-quality confound produced apparent effects that vanished within team (C_artifact); large n gave p~0 for trivially small effects."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Lineup-level targets built without personnel constraints.",
+    "why": "Optimizer ignored personnel (C_artifact)."
+   }
+  ],
+  "evidence_establishes": [
+   "Under the retrieved opponent-side lineup design (FAM:[prior work]), shot-mix effects were small and partly indistinguishable from zero, so sub-1pp mix shifts from lineup conditions are hard to detect at the possession level.",
+   "Earlier lineup/personnel work in this project hit confounding and construction artifacts ([prior work][prior work], FAM:[prior work]), and p-values from very large n are not informative on their own.",
+   "A pooled, powered null on a related offense-reorganization question ([prior work][prior work]) exists, with MDE rho~0.23."
+  ],
+  "evidence_does_not_establish": [
+   "Whether changing the team's own offensive five moves shot mix: none of the retrieved records tests that directly.",
+   "Whether a substitution-based design has the sensitivity to act as a positive control for personnel effects.",
+   "Any dose-response between player shot-profile differences and the size of the mix shift.",
+   "The size of the shift per substitution type, or its stability across seasons."
+  ],
+  "own_inferences": [
+   "As worded, the claim is close to a mechanical truism: replacing a rim-running big with a wing must change who takes shots. A significant 'any change' result would show little about the design's sensitivity, and the claim could be rescued by any nonzero shift.",
+   "A meaningful positive control must pre-specify a predicted direction and magnitude from out-of-sample player shot profiles and test for dose-response, and it must beat a placebo with the same five.",
+   "FAM:[prior work] suggests that when the effect operates through opponent adaptation, shifts are ~1pp. Own-five composition changes with large profile gaps (e.g., a center for a guard) should be larger, but this is untested.",
+   "Coach-selected substitution timing creates selection and context confounding (fatigue, score, foul trouble, opponent lineup), so a naive before/after comparison is biased.",
+   "The retrieved records are on possessions and reconstructed lineups, so lineup reconstruction should be validated against rotation intervals; the correspondence is not shown."
+  ],
+  "uncertainties": [
+   "No retrieved record directly tests own-five shot-mix change, and I did not call follow-up tools to look for one.",
+   "Per-substitution exposure may be short: stints can be a few possessions, so shot counts per stint are small.",
+   "The share of substitutions that involve large shot-profile differences is unknown.",
+   "Rim, three-point and midrange definitions depend on shot-distance coding in the play-by-play."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have approved a simple before/after test of whether shot mix changes after a lineup change. [prior work] shifted the decision to proceed_with_changes: FAM:[prior work] shows that lineup-condition mix effects can be small and underpowered, and [prior work][prior work] and FAM:[prior work] show that pooled or personnel-blind contrasts produce artifacts and p~0 from huge n. The design therefore needs within-team matching, a pre-specified dose-response and a placebo, and should be judged on effect size and CI rather than p-values."
+  },
+  "testability": {
+   "p_testable": 0.85,
+   "blocking_constraints": [
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "'Any change in the five moves shot mix' is nearly guaranteed by construction, so as phrased it cannot fail and does not show design sensitivity. The test must be a pre-specified dose-response with placebo."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "No retrieved family tests whether changing the team's own offensive five moves shot mix. The closest, FAM:[prior work] (inconclusive), covers opponent-side lineup effects and found small shifts. The others contribute methodological cautions only: powered null, confounding artifacts and personnel-blind construction."
+  },
+  "risks": [
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Shot mix necessarily follows who is on the floor, so a nonzero shift is expected and uninformative. Sensitivity must be shown through predicted magnitude and dose-response."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Substitutions are coach-chosen and correlate with score, clock, fatigue, foul trouble, opponent lineup and garbage time. Team quality confounded earlier lineup work ([prior work][prior work])."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Player shot profiles used to predict the shift must come from earlier data (prior season or earlier games), not from the same possessions."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Stints and per-substitution exposure are short, and sub-1pp mix effects were not detectable in FAM:[prior work] even on ~1.07M possessions. Use stint windows and report an MDE."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Lineups or substitutions triggered by recent hot or cold shooting or runs can show reversion in shot mix unrelated to personnel."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Lineup reconstruction from substitutions and play-by-play can mis-assign players, especially around period starts, timeouts and simultaneous subs, and shot-zone coding may be noisy."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Conclusions rest on the placebo being valid: same-five split points and permuted substitutions must preserve context to be a fair null."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Several shot zones, substitution types and seasons invite forking paths unless the primary outcome is fixed."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Shot profiles and league shot mix shift across 2022-23 to 2024-25, so profiles and effects should be estimated with season control."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.68,
+   "rejected": 0.04,
+   "untestable": 0.03,
+   "artifact": 0.1,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-team, within-game change in the offensive shot-mix vector (primary: share of FGA at the rim <=4ft, three-point share, and midrange share) from the 10 possessions before to the 10 after a substitution that changes the offensive five, as a function of the pre-specified predicted shift D. D is the difference between the incoming and outgoing players' shot-zone profiles, estimated only from prior-season and earlier-game data and weighted by usage. Primary parameter: slope of the realized shift on D, plus the mean shift for the top-tercile |D| substitutions. Success as a positive control requires a positive slope, with realized shifts at least a fixed fraction of predicted shifts.",
+   "unit": "Substitution event (one team, one dead-ball stoppage, with a change to the five) nested in team-game, with possession-level shot outcomes as the underlying data. Use game-clustered or team-season-clustered SEs.",
+   "sample": "Regular season and playoffs, 2022-23 to 2024-25. Exclude garbage time (pre-specified score margin and clock), the first and last two minutes of periods, overtime, possessions around timeouts or ejections, events with reconstruction mismatches against rotation intervals, and stints shorter than 5 possessions after the sub. Primary analysis on 2022-23 and 2023-24 for profiles and tuning, with 2024-25 as the confirmatory holdout; the profile window is fixed before outcomes are viewed.",
+   "power": "Compute before analysis the empirical SD of the 10-possession-window rim share and the number of eligible substitution events. Report the MDE for the slope and for the top-tercile mean shift. Declare the design adequate only if the MDE is below the predicted shift for large-|D| swaps. Otherwise widen the window (15-20 possessions) or pool by substitution type. Interpret via CI and effect size, not p-values, given the large n and the [prior work][prior work] lesson.",
+   "controls": "Team-game fixed effects, with pre-sub window shot mix, score margin, period, clock, opponent five (or opponent rim-big presence), home/away and rest as covariates. Match each large-|D| substitution to small-|D| substitutions for the same team on score and period. Estimate player profiles with shrinkage to position means. Include a season effect.",
+   "falsification": "Placebos: (1) same-five pseudo-substitutions, splitting continuous same-five stretches at random dead-ball points and recomputing the before/after shift, which should be about 0 with slope 0 on D; (2) permuting D across substitutions within team-season, which should destroy the slope; (3) a reverse-time check that the slope on D computed from post-sub profiles does not appear in pre-sub windows. A design that finds a slope in placebos fails as a positive control. Also check that outcomes not tied to personnel (e.g., free-throw share or pace) do not scale with D.",
+   "multiplicity": "Primary outcome: rim share, with the slope on D as the single confirmatory test. Three-point and midrange shares are secondary, with Holm correction across the three zones. Substitution-type and season subgroups are exploratory and labelled as such. No new outcomes after viewing data.",
+   "decision_rule": "Supported (design is a valid positive control) if, on the 2024-25 holdout, the primary slope on D is positive with a 95% CI excluding 0 and at least 50% of the predicted magnitude, and the same-five placebo slope has a CI including 0 and is smaller than the real slope. Rejected if the powered CI excludes both zero and the minimum meaningful slope (design lacks sensitivity). Artifact if the placebo slope is nonzero or the effect disappears under team-game fixed effects. Uncertain if the MDE exceeds the predicted shift. A mere nonzero mean shift is not a pass.",
+   "data_version": "NBA stats API per-game files for 2022-23, 2023-24 and 2024-25 (play-by-play, substitution rotation intervals, starters, box-score summary) as available on 2026-11-02, with possession records from [source] database built from play-by-play. Freeze the extraction date and hash, record the lineup reconstruction version, and lock the profile windows and exclusions before outcome inspection."
+  }
+ },
+ "redactions": 38
+}

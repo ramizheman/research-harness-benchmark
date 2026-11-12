@@ -1,0 +1,176 @@
+{
+ "blind_id": "Ref5c58912493",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type AVOID labels",
+   "opponent next-possession PPP after a play type (sequential carryover)",
+   "own-sequence lags (previous own possession play type or outcome)",
+   "mechanical dependence of the next possession on the outcome of the previous one",
+   "play-type possession records derived from play-by-play"
+  ],
+  "methodological_questions": [
+   "Is the carryover from play X to opponent next-possession PPP large enough to change AVOID labels once outcome mechanics are handled?",
+   "Do own-sequence lags add information beyond the opponent-next effect?",
+   "How to separate causal carryover from confounding by defense quality, lineup, score, pace and the make[path] outcome?",
+   "How to control multiplicity, sparse cells and regression to the mean across many play-type pairs and teams?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Opponent action T -> your offense T+1, tested in an 8x8 grid with defense matching. 3 of 64 cells survived defense matching, offense matching and a prev_made control: SPOT_UP->TRANSITION ATT=-0.085, POST_UP->TRANSITION -0.083, PNR->DRIVE -0.058. PULL_UP->DRIVE was dropped as a defense-quality confound. Most of the 64 cells were null. BH-FDR, placebo and free-throw-clean checks were used. Validation was same-pipeline only."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Net-swing scoring (own PPP minus opponent next-possession PPP) changed the top recommendation in 40/104 (38%) team-series units. DRIVE median net swing was -0.27 (negative in 88% of units) and POST_UP -0.22 (77%). It was descriptive, was not evaluated against outcomes, and used in-series observed opp_next_PPP."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Superstar sequential suppression: PUTBACK was the top suppressor for 6+ stars (e.g. Mitchell d=-0.294, n_after=95). Several cells had n_after of 32-95 against thousands of baseline possessions. There was no multiplicity correction and no validation recorded. [prior work] flags a DRIFT_NONSTATIONARITY risk."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Q5c sequential triggering: the rank-1 suppressor varies across players (e.g. Jokic after opponent POST_UP -0.0675, SE 0.05, n=480). Rank-1 deltas were mostly within 1-2 SE with no multiple-comparison control, and an OTHER artifact was flagged."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Picking the top suppressor per star from many small preceding-play cells without multiplicity correction",
+    "why": "n_after of 32-95 per cell, no multiplicity correction, mechanism unclear (E_unclear)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Reading rank-1 suppressor deltas as real profiles",
+    "why": "Deltas were within 1-2 SE with no multiple-comparison control, and an OTHER artifact was flagged (E_unclear)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Raw PULL_UP->DRIVE carryover cell",
+    "why": "Dropped as a defense-quality confound once defense matching was applied."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Net-swing scoring from observed in-series opponent next PPP as a basis for recommendations",
+    "why": "Not evaluated against outcomes; no controls recorded; mechanism unclear (E_unclear)."
+   }
+  ],
+  "evidence_establishes": [
+   "[prior work] [prior work][prior work] reports that a small number of sequential cells (3 of 64) survive matching and controls, with effect sizes of about 0.06-0.09 PPP. Most cells were null.",
+   "[prior work] [prior work][prior work] reports large raw net swings (about -0.2 to -0.3 PPP for DRIVE and POST_UP), and that net-swing scoring changes the top-ranked play type in 38% of units.",
+   "[prior work] show that per-player or per-cell sequential effects have been reported without multiplicity control and with small n ([prior work][prior work], [prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the opponent-next effect, once adjusted for mechanical outcome dependence, is large enough to flip AVOID labels. [prior work][prior work] did not evaluate this against outcomes.",
+   "Anything about own-sequence lags beyond a prev_made control used in [prior work][prior work].",
+   "Out-of-sample stability of the surviving cells; validation was same-pipeline only.",
+   "A causal mechanism. Several records list the failure mechanism as E_unclear."
+  ],
+  "own_inferences": [
+   "[prior work][prior work] studies the mirror image of this pairing (opponent T then your T+1), so I treat it as partly informative for the lag structure. It does not directly test your play X then opponent next PPP.",
+   "The raw net swings of about -0.27 are probably inflated by mechanics: a miss gives the opponent a rebound and transition chance, while a make gives them a set half-court possession. If so, the label would reflect outcome-dependent possession type, not the play type itself.",
+   "The matched effects of about 0.06-0.09 PPP are probably too small to move many labels. This depends on the label's margin, which I have not seen.",
+   "A play type's own PPP and its opponent next PPP are likely correlated through possession outcome, so the net swing may double count.",
+   "Own-sequence lags are likely weak or partly mechanical (after a make versus a turnover), and are better treated as controls than as a headline claim."
+  ],
+  "uncertainties": [
+   "How the AVOID label is defined, including its threshold, margin and whether it uses shrinkage.",
+   "The exact matching and controls used in [prior work][prior work], since I did not read the full record.",
+   "Whether the 2025-26 playoffs data (complete from 2026-06-21, partial on 2026-06-19) is usable.",
+   "The accuracy of the possession segmentation and play-type labels (LABEL_ERROR), and whether other sequences such as offensive rebounds and and-ones are cleanly handled."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I would have been inclined to run the raw opponent-next-PPP contrast and take large gaps at face value. The retrieved records show that raw swings are large ([prior work][prior work]) while matched, controlled effects are small and rare ([prior work][prior work]), and that uncorrected small-cell sequential rankings were inconclusive ([prior work][prior work], [prior work][prior work]). So I proceed only with changes: condition on the outcome of the previous possession, match on defense, apply FDR, and test whether labels actually change."
+  },
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The opponent's next possession type is determined by how play X ended (make, miss, turnover). The label must be assessed within outcome strata, or it measures outcome mechanics."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Team-by-play-type-by-next-possession cells are sparse. Pooled league-level or hierarchical estimates are required."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Mirror-direction carryover (opponent T then your T+1) was tested with matching: 3 of 64 cells survive, with effects of about 0.06-0.09 PPP. Net-swing scoring was shown descriptively to change 38% of top recommendations, but it was not validated against outcomes. Player-level sequential suppression is inconclusive. Own-sequence lags and the direct question of whether the matched effect is large enough to drive AVOID labels remain open."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Opponent next PPP depends on the outcome of play X (turnover leading to transition, miss leading to rebound), so a play-type effect is confounded with the outcome mechanism. Estimate within outcome strata and report the overall effect as a decomposition."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Makes lead to a half-court opponent possession, while turnovers and long rebounds lead to transition. Next-possession type, and the start of possession, differ by construction."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Defense quality (the PULL_UP->DRIVE cell was dropped for this in [prior work][prior work]), lineup, score, pace, clock and star presence all affect both play selection and the next possession."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many play-type pairs, teams and lag orders. [prior work][prior work] and [prior work][prior work] had no correction."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Cells with n of 30-95 against SEs of 0.05 or more cannot detect effects of 0.06-0.09 PPP. Pooled analysis is needed."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Picking the most extreme play types or teams, as in the top-suppressor rankings, inflates apparent effects."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Errors in possession segmentation and play-type derivation from play-by-play, including and-ones, offensive rebounds and end-of-period possessions."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Rule, style and rotation changes across 2022-26 and between regular season and playoffs (flagged in [prior work][prior work])."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Results need a placebo (e.g. the opponent's possession two steps ahead, or shuffled sequence) or the carryover may reflect pace and game-state structure."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Evaluating labels with data from the same series or season used to fit them. Fit and evaluate on separate seasons."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.35,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For play type X by the focal team, the outcome-stratified average effect of X on the opponent's next-possession PPP (X versus all other play types) after matching on defense, offense, lineup and game state. Secondary: the incremental contribution of own-sequence lags (previous own play type and outcome). The primary decision-relevant quantity is the fraction of play types whose AVOID label changes when the label is computed from own PPP alone versus own PPP plus adjusted opponent-next PPP, with the AVOID rule fixed in advance.",
+   "unit": "A consecutive pair of possessions (focal team possession t, opponent possession t+1) within a game and period, excluding pairs that cross periods or contain end-of-period, garbage-time or free-throw-only sequences. For own-sequence lags, the focal team's possessions t-1 and t+1.",
+   "sample": "Fit and select on the 2022-23 to 2024-25 regular seasons, validate on the complete 2025-26 regular season (complete from 2026-04-13) as a holdout, and treat the playoffs separately (2022-23 to 2024-25 playoffs only). Exclude the 2025-26 playoffs, which are partial on 2026-06-19. Freeze the dataset snapshot before analysis.",
+   "power": "Compute per-cell SEs first, using the SE from [prior work][prior work] (about 0.05 at n=480) as a scale. Detecting 0.06-0.09 PPP at SE of 0.05 is not possible at the cell level, so require a minimum of n of about 1,500 per pooled league-level play-type contrast, and a minimum detectable effect of about 0.03-0.04 PPP. Use hierarchical shrinkage for team-level cells. Do not report team or player cells with n under 300.",
+   "controls": "Stratify by the outcome of play X (make, miss with defensive rebound, turnover, foul). Match or adjust for defense quality, own offense quality, lineup/star presence, score margin, clock, period, home/away, season and the previous possession outcome (prev_made, as in [prior work][prior work]). Fit a mixed model with team and season random effects as a sensitivity analysis. Include own-sequence lags as covariates and report the incremental R² or likelihood ratio.",
+   "falsification": "Placebo: replace the next possession with the possession two steps ahead (t+2) and with a within-game shuffled possession, where no effect should appear. Negative control: play types with no plausible carryover. Replication: effects found in 2022-25 must keep their sign and at least half their size in 2025-26. Check segmentation with a hand audit of a random sample of 200 possessions. Confirm that free-throw-only and and-one sequences do not drive results.",
+   "multiplicity": "Benjamini-Hochberg FDR at q=0.05 over the full play-type pair family, with the family size reported. Report effect sizes with CIs and shrunken estimates. Pre-specify the list of play types and exclude post-hoc extreme-cell selection.",
+   "decision_rule": "Conclude that opponent next PPP drives AVOID labels only if (1) the outcome-stratified adjusted effect has an FDR-significant, replicated sign and a magnitude exceeding the pre-set AVOID label margin, and (2) at least a pre-set share (e.g. 10%) of labels change when the adjusted opponent-next term is included, and the change is stable in the holdout. If the raw net swing flips labels but the stratified effect does not, classify the effect as mechanical (artifact). If effects are below the minimum detectable effect, report as inconclusive, not null. Treat own-sequence lags the same way, and add them to the label only if they improve out-of-sample prediction of next-possession PPP.",
+   "data_version": "NBA stats API per-game play-by-play and the derived play-type possession graph, 2022-23 to 2025-26 regular seasons, and playoffs 2022-23 to 2024-25. The 2025-26 playoffs are excluded because they are partial as of 2026-06-19. Record the snapshot date, the possession-segmentation code version and the play-type derivation version."
+  }
+ },
+ "redactions": 65
+}

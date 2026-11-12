@@ -1,0 +1,53 @@
+{
+ "blind_id": "R87d13b6cdc22",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does the opponent's points per possession (PPP) in the possession immediately following a specific offensive play, or within the same offensive sequence (own-sequence lags), significantly influence the assignment of 'AVOID' labels to that play?",
+  "retrieval_summary": {
+   "prior_findings": [],
+   "failed_experiments": [],
+   "limitations": [],
+   "unresolved": []
+  },
+  "evidence_use": "The retrieval step returned no direct prior findings, failed experiments, methodological limitations, or unresolved questions specifically related to the influence of opponent next-possession PPP or own-sequence lags on the assignment of 'AVOID' labels. The retrieved records primarily focus on how one play type or event affects subsequent PPP, or defensive schemes, but do not connect these sequential effects to the 'AVOID' labeling process itself. This absence indicates that the current research question is novel within the project's [prior work], suggesting an initial exploration into a potential data quality issue rather than a re-test or refinement of existing work. This implies a higher potential for novel findings and no specific prior pitfalls to avoid, making the investigation more open-ended but also more critical for understanding data quality.",
+  "testability": {
+   "p_testable": 0.95,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior work directly addressing the influence of sequential possession outcomes on 'AVOID' label assignment was found within the project's history. Existing research focuses on sequential PPP effects between plays, but not their impact on play-type labeling."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "The observed correlation between lag variables and 'AVOID' labels might be due to confounding factors. For example, a particularly poor offensive play might lead to both an 'AVOID' label and put the defense in a disadvantageous position, leading to higher opponent PPP, without a direct causal link from the opponent PPP to the label itself. Controls will be used, but residual confounding is a risk."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the 'AVOID' labels are assigned or refined with knowledge of subsequent possession outcomes (either explicitly in the labeling algorithm or implicitly by human labelers), this would represent data leakage rather than a true causal influence. While the study can detect correlation, it cannot definitively prove leakage without insight into the labeling process itself."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.6,
+   "rejected": 0.15,
+   "untestable": 0.05,
+   "artifact": 0.15,
+   "uncertain": 0.05
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "The association between opponent next-possession Points Per Possession (PPP) and own-sequence prior-possession outcomes (PPP at lag -1, -2, etc.) and the probability of an offensive play type receiving an 'AVOID' label. This will be quantified by the coefficients of these lag variables in a logistic regression model predicting the 'AVOID' label.",
+   "unit": "Individual offensive play type instances (possessions) as identified in the derived play-type possession records.",
+   "sample": "All identified offensive play type instances from NBA 2022-23, 2023-24, 2024-25, and 2025-26 regular seasons and playoffs for which 'AVOID' labels are available. The 2025-26 season data will include complete regular season (up to 2026-04-13) and complete playoffs (up to 2026-06-21).",
+   "power": "Given the extensive multi-season NBA dataset, the sample size is expected to be very large, providing high statistical power to detect even small to moderate effect sizes. A formal power analysis will be conducted to determine the minimum detectable odds ratio for the lag variables with 80% power at an alpha of 0.05, assuming a conservative base rate for 'AVOID' labels.",
+   "controls": "The primary model will control for immediate offensive outcome (PPP on the current play), game context variables (quarter, time remaining, score differential, home/away status), team identity, opponent identity, and player strength/lineup composition (e.g., average player efficiency rating on court). This aims to isolate the unique contribution of the lag variables.",
+   "falsification": "A key falsification test will involve replicating the analysis using 'EFFICIENT' or 'NEUTRAL' labels as dependent variables. If these labels do not show a similar susceptibility to lag variables, or show an inverse relationship, it strengthens the case that 'AVOID' labels are uniquely influenced. Another falsification will be to test for effects from 'future' lags (e.g., 2nd or 3rd next opponent possession) which should theoretically not influence the label.",
+   "multiplicity": "Multiple lag variables (e.g., opponent next-possession PPP, own-sequence PPP at lag -1, -2) will be included in a single logistic regression model. If separate models are run for different lag definitions or for different play types, a multiple testing correction (e.g., Benjamini-Hochberg for False Discovery Rate) will be applied to p-values.",
+   "decision_rule": "The hypothesis will be considered supported if the coefficients for opponent next-possession PPP and/or own-sequence prior-possession outcomes are statistically significant (p < 0.05 after any necessary multiplicity correction) and the effect sizes are practically meaningful (e.g., an odds ratio > 1.1) in predicting an 'AVOID' label, and this effect is robust across seasons or shows a consistent trend. If these conditions are not met, the hypothesis will be rejected or deemed uncertain.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25, and 2025-26 (complete to 2026-06-21) season data from NBA stats API per-game files (play-by-play, box scores, substitutions, matchups) and derived play-type possession records from [source] database."
+  }
+ },
+ "redactions": 2
+}

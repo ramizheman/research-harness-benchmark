@@ -1,0 +1,25 @@
+# FAM:SF-APPS-044 | Study family SF-APPS-044: Clutch sequence-premium family (multiple windows)
+- observed_research_question: Clutch sequence-premium family (multiple windows)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Star X->Y offensive sequences in clutch have stable premiums across last-5 / last-10 windows.
+- observed_result: Last 5 n>=25: 18 pos / 11 neg of 29 cells; top S. Curry DRIVE->PULL_UP +0.426 n=28. Last 10 n>=30: 25 pos / 13 neg of 38; top A. Edwards PULL_UP->DRIVE +0.365 n=33. Headline #1 sequence is not stable across windows. No-floor table is dominated by n=1 cells.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Top cell changes with window/floor; many n~25-35; no pooled test or multiplicity correction.
+- observed_sample_and_power: 29 cells last5 n>=25; 38 cells last10 n>=30
+- observed_method: Analysis A: team X then opp then star Y; premium vs star clutch baseline on Y. Windows last 5 min n>=25/30 and last 10 min n>=20/30. Analysis D is opp-suppression, separate.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Family of window variants; conclusions do not stabilize so recorded as one descriptive family rather than separate supported findings.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-044: 2026-06-04 (mtime)
+- observed_member_records: APPS-044
+- observed_sources: APPS-044: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\clutch_sequence_archetypes\clutch_sequence_premiums_CROSS_SCENARIO.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-035 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_related_family: FAM:SF40 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-038 {basis=TF-IDF question clustering}

@@ -1,0 +1,33 @@
+# EXP:APPA-020 | Evaluation-alignment diagnostic and opponent-strength lambda sweep
+- date: 2026-04-17
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 520 holdout matchup cells, 69,876 poss; R2 vs global/team means; lambda 0-1.5 post-hoc sweep.
+- hypothesis: Equilibrium and actual-mix predictors explain matchup PPP better than simple means; opponent-strength scaling helps.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-020; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPA-020; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-020 {record=APPA-020; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: Opponent-strength adjustment, recommended as high-ROI, made it worse.
+- prespecified: no
+- produced: RES:APPA-020 {record=APPA-020; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-016; APPA-021
+- related_to: EXP:APPA-021 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-020; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_DIAGNOSIS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_DIAGNOSIS_SWEEP.md
+- title: Evaluation-alignment diagnostic and opponent-strength lambda sweep
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-020; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-020; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-020; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-020 | Result of APPA-020
+- failure_evidence: Both model predictors have negative R2 while team-mean is +0.1197; R2 more negative in larger cells.
+- failure_type: B_powered_null
+- power_info: 520 cells, 69,876 possessions
+- primary_result: Equilibrium R2 -0.1981; actual-mix R2 -0.7167; team-offense mean R2 +0.1197; >=100-poss cells equil -0.2785. Lambda sweep: R2 worsens monotonically (lambda 1.0 -0.2862).
+- record_stratum: not_a_test
+- record_substatus: tool_eval_fail
+- verdict: tool_eval_fail

@@ -1,0 +1,130 @@
+{
+ "blind_id": "R87971787fed3",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "DRIVE initiator identification",
+   "PNR (pick-and-roll) possession points per possession (PPP)",
+   "teammate action sequencing within a possession",
+   "derived play-type records built from play-by-play",
+   "label data quality and provenance"
+  ],
+  "methodological_questions": [
+   "Does a teammate DRIVE occurring earlier in the same possession, before a PNR, change PNR PPP after adjusting for shooter, defender, shot location and lineup?",
+   "Do the DRIVE and PNR labels depend on the possession outcome (points scored), which would make the association partly circular?",
+   "Is the sequencing effect distinguishable from confounding by possession type, player quality, and pace?",
+   "Is the claim 'any teammate DRIVE' a single defined exposure or a family of sequence definitions that needs multiplicity control?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "retrieve_history returned no records (n_results = 0), so no earlier project study of this question, its labels, or its methods is available in this setting."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the DRIVE-to-PNR association exists, its size, or its sign.",
+   "Whether the derived DRIVE and PNR labels are accurate, reliable, or free of outcome dependence.",
+   "Whether any earlier project work has tested this or a related sequencing claim."
+  ],
+  "own_inferences": [
+   "The question is testable in principle: the 2022-23 to 2025-26 play-by-play provides ordered events for each possession, so a timestamp-ordered exposure could be built from raw events rather than from the outcome-derived graph records.",
+   "The main threat is label construction. If DRIVE or PNR labels are assigned using points scored or later events in the possession, the estimated effect would be partly or wholly an artifact of the labeling rule.",
+   "'Any teammate DRIVE' is ambiguous as stated (which teammate, how far back, same possession or any earlier action), so the claim needs a fixed operational definition before testing.",
+   "The 2025-26 playoffs are partial as of 2026-06-14 and should be excluded from the confirmatory sample."
+  ],
+  "uncertainties": [
+   "No record of earlier validation of the play-type labels in [source] database was returned.",
+   "Exact label definitions (DRIVE, PNR, initiator) and whether they use lookahead are not given in the task statement; the glossary and data catalog were not consulted.",
+   "Expected effect size and achievable sample size per exposure cell were not computed; power is unknown.",
+   "Whether the 2025-26 regular season file is fully complete is only confirmed for dates from 2026-04-13 onward."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical records were returned, so the decision rests on the task statement and on general reasoning about label construction and confounding. It was not changed by prior results. The decision is proceed_with_changes, with the changes listed in the design."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If DRIVE or PNR labels or initiator assignments are derived from points or outcomes in [source] database, the exposure and outcome are not independent and the test is circular. Exposure must be rebuilt from raw ordered play-by-play events that precede the PNR."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "Exposure definitions must use only events strictly before the PNR action. Any use of later events in the possession to define a DRIVE would leak outcome information into the exposure."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Possessions with a DRIVE before a PNR differ systematically in ball-handler quality, lineup, pace, and defensive matchups. These must be adjusted for, or the association reflects selection rather than sequencing."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved (retrieve_history returned an empty list), so it is unknown whether this question, or a close variant, has already been answered in this project."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Graph-derived play-type labels and initiator assignments may depend on points scored, which makes DRIVE-to-PNR PPP association partly mechanical."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Defining a DRIVE that precedes a PNR using events after the PNR, or using possession totals, would leak the outcome into the exposure."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Automated play-type labels from play-by-play action types and sub-types may misclassify DRIVE and PNR, and the misclassification may correlate with outcome."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Label reliability is unknown. Without an audit against video or manual labels, label noise may attenuate or inflate the effect."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Ball-handler quality, teammate quality, shot location, defensive matchup, lineup, and pace are all plausibly associated with both DRIVE sequencing and PNR PPP."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "PNR possessions preceded by a specific teammate DRIVE may be a small cell, so the test may be underpowered for modest effects."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Specific teammate-and-sequence combinations may be rare, leading to unstable estimates for sub-definitions."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "'Any teammate DRIVE' implies many possible teammate, lag and sequence definitions; testing several and reporting the best inflates false positives."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Falsification depends on choosing non-DRIVE preceding actions as placebos; if placebo actions are themselves mislabeled or correlated with the outcome, the falsification check is weak."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type frequencies, shot efficiency, and defensive schemes change across 2022-23 to 2025-26, so pooled estimates may mix regimes."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.25,
+   "rejected": 0.3,
+   "untestable": 0.05,
+   "artifact": 0.25,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-season difference in mean PNR points per possession (PPP) between PNR possessions where at least one teammate DRIVE occurred earlier in the same possession (before the PNR action) and matched PNR possessions where no such DRIVE occurred, adjusted for covariates. The primary estimand is the adjusted difference, not the 'any' claim as posed. The exposure is fixed in advance as a DRIVE by a teammate of the ball-handler, within the same possession, and before the PNR.",
+   "unit": "Possession: one offensive possession that contains a PNR action by a ball-handler, with the earlier teammate actions in that possession as exposure.",
+   "sample": "Development: NBA 2022-23, 2023-24 and 2024-25 regular seasons. Confirmatory holdout: 2025-26 regular season, using only games from the complete period (from 2026-04-13). Exclude 2025-26 playoffs because they are partial as of 2026-06-14. Playoff games are excluded from the primary test and may be analysed as a secondary check. Exposure and outcome are built from raw play-by-play events in timestamp order, not from graph-derived outcome-linked labels.",
+   "power": "Not yet computed. Before analysis, run a simulation on the development seasons to find the smallest adjusted PPP difference detectable at 80% power with the expected number of exposed possessions. Report it. If the exposed cell is below about 1,000 possessions for the primary definition, report the result as underpowered.",
+   "controls": "Adjust for shooter identity (season-level random effect), defender matchup quality, shot distance and zone, period and clock, score margin (garbage-time filter), team pace, lineup and starter status, and possession number within the game. Build exposure only from events strictly before the PNR; do not use possession outcome, points, or any later event. Audit a random sample of DRIVE and PNR labels against manual or video labels to estimate misclassification rates and report them.",
+   "falsification": "Negative controls: (1) a DRIVE by a teammate after the PNR in the same possession should show no PPP association for the PNR; (2) non-DRIVE teammate actions (e.g., spot-up, post-up) preceding the PNR should show no effect unless a mechanism is pre-specified. A positive association in the placebo or post-PNR arms would indicate confounding or label artifact and would count against the primary result.",
+   "multiplicity": "Pre-register one primary test (adjusted DRIVE-before-PNR PPP difference, any teammate, same possession). Secondary sequence definitions (lag, teammate position, playoffs) are exploratory and reported with Holm correction across the family. Report all definitions tested.",
+   "decision_rule": "Supported only if: the primary adjusted difference is positive with a 95% CI excluding zero in the development seasons; the same sign and CI excluding zero replicate in the 2025-26 regular-season holdout; the post-PNR and non-DRIVE placebo arms show no comparable effect; label audit misclassification does not account for the effect size; and the effect is not explained when outcome-derived labels are removed. Otherwise report as uncertain or rejected, as appropriate. Report artifact if the effect disappears when labels are rebuilt from raw events.",
+   "data_version": "NBA stats API play-by-play for 2022-23, 2023-24 and 2024-25 regular seasons and playoffs; 2025-26 regular season from 2026-04-13 onward only; 2025-26 playoffs excluded. Rebuild DRIVE and PNR labels from raw ordered play-by-play in a versioned pipeline, with [source] database used only for cross-checking. Record the version and date of each file used."
+  }
+ },
+ "redactions": 3
+}

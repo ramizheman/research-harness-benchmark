@@ -1,0 +1,31 @@
+# EXP:APPA-003 | Within-game did_adapt toward SHOULD counters improves PPP
+- date: 2026-05-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 586 playoff game-team rows split into thirds; scheme inferred from early-third PT PPP vs season baseline; did_adapt if counter-PT share rises; compare early-to-late PPP delta.
+- hypothesis: Offenses that shift toward the counter play types for the inferred opponent scheme gain PPP later in the game.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-003; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPA-003; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF13 {record=APPA-003; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Doc calls this 'direct empirical support for the SHOULD logic'; later files in the same folder undercut it.
+- prespecified: no
+- produced: RES:APPA-003 {record=APPA-003; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-001; APPA-002
+- related_to: EXP:APPM-013 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF13; record=APPA-003; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\did_adapt_within_game_findings.md
+- title: Within-game did_adapt toward SHOULD counters improves PPP
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-003; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-003; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-003 | Result of APPA-003
+- failure_evidence: A1 falsification: no_signal cells (+0.1260) outperform adapters; selection on extreme early-third PPP causes mean reversion.
+- failure_type: C_artifact
+- power_info: n=239 vs 269
+- primary_result: 531 rows with inferred scheme; 249 adapted (46.9%); adapters +0.0701 (n=239) vs non-adapters +0.0121 (n=269), advantage +0.0580 PPP; DROP +0.1001, SWITCH -0.0436, HELP +0.0450.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

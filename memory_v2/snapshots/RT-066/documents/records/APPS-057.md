@@ -1,0 +1,31 @@
+# EXP:APPS-057 | SQ2 holdout protocol specified but not scored
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Engine SHA freeze 59a9be48; tuning 17 series cap_yy<=23; holdout 25 series. Protocol written; holdout scoring result not found in files read.
+- hypothesis: A frozen-engine hit rate on 25 holdout series (cap_yy>23) is the defensible SQ2 number, vs in-sample 69.8%.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPS-057 {record=APPS-057; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Confirms APPS-003 note that the holdout protocol exists without a result file.
+- prespecified: yes
+- produced: RES:APPS-057 {record=APPS-057; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-003
+- related_to: EXP:APPS-003 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-057; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\HOLDOUT_PROTOCOL.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\holdout_split.py
+- title: SQ2 holdout protocol specified but not scored
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-057; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPS-057; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPS-057; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-057 | Result of APPS-057
+- failure_evidence: Holdout was specified (SHA 59a9be48, 17/25 split) but no scored holdout output was located in this slice.
+- failure_type: A_unanswerable
+- power_info: planned holdout n=25 series
+- primary_result: No holdout hit-rate number found. Protocol states existing --full-calibrated 69.8% is in-sample until the holdout is run.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict abandoned
+- verdict: abandoned

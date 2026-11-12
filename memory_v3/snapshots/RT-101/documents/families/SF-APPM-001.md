@@ -1,0 +1,30 @@
+# FAM:SF-APPM-001 | Study family SF-APPM-001: Play-type mix alignment vs actual PPP (matchup residual)
+- observed_research_question: Play-type mix alignment vs actual PPP (matchup residual)
+- auto_outcome_status: supported
+- observed_hypothesis: Holdout games where a team's play-type mix is closer to the model's recommended mix score more efficiently.
+- observed_result: Raw gap aligned-deviated +5.18 ORtg; strength-controlled gap +3.27 ORtg (+0.0193 vs -0.0134 PPP residual). Model regret median +25.94 ORtg (non-negative by construction).
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Strength-controlled gap +3.27 ORtg persists after team/opponent residualization.
+- observed_sample_and_power: n=908 rows; no CI stated
+- observed_method: 908 holdout game-team rows (454 games), terciles of L1 distance actual vs recommended mix; actual PPP residualized on team offense and opponent defense means.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-001: '908 holdout game-team rows (454 games), terciles of l1 distance actual'
+- observed_notes: Observational; doc states regret is a tautology. _new/_prior files are identical reruns (only elapsed time differs).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-001: 2026-04-18 (mtime)
+- observed_member_records: APPM-001
+- observed_sources: APPM-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL.md
+- observed_sources: APPM-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL_new.md
+- observed_sources: APPM-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\MATCHUP_RESIDUAL_prior.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-018 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

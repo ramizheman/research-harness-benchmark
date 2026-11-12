@@ -1,0 +1,54 @@
+{
+ "blind_id": "R515d98e6d567",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.9,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "EXP:[prior work]",
+    "EXP:[prior work]",
+    "[prior work][prior work]",
+    "RES:[prior work]"
+   ],
+   "summary": "Previous research (EXP:[prior work], EXP:[prior work]) has investigated how offensive play-type mix changes in response to *defensive* lineup alterations, demonstrating the feasibility of measuring and analyzing 'play_type_share_mix' in relation to lineups. This suggests that the outcome variable is measurable and responsive to personnel changes. However, prior work ([prior work][prior work], RES:[prior work]) also identified a significant artifact (shooter-level confound) in a related analysis, highlighting the critical importance of robust controls, such as lineup fixed effects, to avoid spurious findings when attributing effects to personnel."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Many specific offensive fives (lineup combinations) will have limited possessions, especially when attempting to isolate the effect of a single player substitution. This could lead to low statistical power for detecting changes in shot mix for less common lineups."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "As highlighted by prior work ([prior work][prior work]), observed changes in shot mix could be confounded by individual player propensities (e.g., specific players having a fixed shot profile regardless of lineup) rather than being a true effect of the 'offensive five' as a collective. Robust controls, such as team-game-level fixed effects or within-team comparisons, are essential."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Analyzing data across three seasons (2022-23 to 2024-25) might introduce non-stationarity due to rule changes, coaching staff changes, or evolution of team strategies and player roles over time, which could obscure or distort personnel effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.6,
+   "rejected": 0.1,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing one or more players in a team's offensive five on the team's play-type mix (distribution of offensive play types) in a given game context, controlling for opponent, game state, and other confounding factors. Specifically, we are interested in whether this change is detectable.",
+   "unit": "Offensive possession within a game.",
+   "sample": "All non-garbage time possessions from NBA 2022-23, 2023-24, and 2024-25 regular seasons and playoffs. Possessions will be grouped by offensive lineup (the five players on court for the offensive team).",
+   "power": "To ensure useful power, analysis will focus on offensive fives with a minimum threshold of possessions (e.g., 250 possessions per lineup) within a season, or use a hierarchical model that allows for shrinkage of estimates for less-frequent lineups. The primary analysis will be within-team to control for team-specific effects.",
+   "controls": "The primary model will be a fixed-effects regression. To control for confounding, we will include: (1) Team-Game fixed effects to account for overall team strategy and opponent strength in a specific game. (2) Offensive Lineup fixed effects to capture the specific personnel combination. (3) Defensive Lineup fixed effects to account for the opponent's defensive personnel (as prior work shows defensive lineups affect offense mix). (4) Game state variables (e.g., score differential, quarter/period, time remaining). (5) Player-level fixed effects for individual players in the lineup to disentangle individual tendencies from lineup-specific effects, using a method robust to the 'shooter-level confound' identified in [prior work][prior work].",
+   "falsification": "A falsification test will involve creating placebo lineups by randomly shuffling players within a team (maintaining positional archetypes if possible) and testing if these placebo changes also 'move' the shot mix. Another falsification test could involve analyzing the effect of a change in offensive five on an outcome known not to be affected by personnel (e.g., a purely random event), or on other teams' play-type mix during the same game. Additionally, we will test whether individual player's shot tendencies (e.g., 3P% or FGA distribution) are stable across different lineups they are part of, and account for any observed instability.",
+   "multiplicity": "The 'shot mix' will be defined as the vector of shares for each derived play type (e.g., PNR, SPOT_UP, DRIVE). A multivariate regression or a set of regressions for each play type will be performed. If multiple play types are tested, appropriate corrections for multiple testing (e.g., Bonferroni, FDR) will be applied. The primary outcome will be the overall change in the play-type mix vector (e.g., measured by cosine similarity or Euclidean distance between vectors).",
+   "decision_rule": "The hypothesis will be considered supported if, after controlling for specified confounding factors and passing falsification checks, a statistically significant and substantively meaningful change in play-type mix is observed when the offensive five changes. 'Substantively meaningful' will be defined as a change greater than a pre-specified threshold (e.g., an average shift of X percentage points in the share of at least Y major play types, or a Z% change in the overall mix dissimilarity metric). P-values < 0.05 after multiplicity correction will be used for statistical significance.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs play-by-play and derived play-type possession records as of 2026-11-02."
+  }
+ },
+ "redactions": 14
+}

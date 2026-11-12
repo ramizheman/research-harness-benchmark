@@ -1,0 +1,33 @@
+# EXP:APPA-018 | Decision value test: kernel argmax vs NBA baseline (v1 leak, v2 fixed)
+- date: 2026-04-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 23,922 scored holdout possessions; decision regret, value added per 100, calibration; v2 fixes oracle leakage and adds feasibility filter.
+- hypothesis: Kernel model A play-type recommendations add value over a league-adjusted baseline on holdout.
+- knowable_in_advance: no
+- member_of: FAM:SF11 {record=APPA-018; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: v1 regret oracle used future (holdout) data; fixed in v2.
+- prespecified: no
+- produced: RES:APPA-018 {record=APPA-018; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-019
+- related_to: EXP:APPA-019 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-018; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_REPORT.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_REPORT_v2.md
+- title: Decision value test: kernel argmax vs NBA baseline (v1 leak, v2 fixed)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-018; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-018; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPA-018; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-018; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-018; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-018 | Result of APPA-018
+- failure_evidence: Baseline wins on 23,922 possessions in both versions.
+- failure_type: B_powered_null
+- power_info: 23,922 possessions, 240 matchups
+- primary_result: v1: A -4.51 pts/100 vs baseline; v2: -1.48 pts/100, regret 0.1648 vs 0.1556, A outperforms in 9/240 matchups; recommendations ~88% CUT.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

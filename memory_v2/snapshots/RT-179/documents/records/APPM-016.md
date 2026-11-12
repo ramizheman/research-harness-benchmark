@@ -1,0 +1,33 @@
+# EXP:APPM-016 | Possession-level SQ2 test: engine recommended PT (playoff series)
+- also_recorded_as: APPS-006
+- also_recorded_as: CHT-023
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 74 team-series pairs; Test A literal, Test B DiD vs RS, Test C two-way FE OLS on 504 cells.
+- hypothesis: Possessions on the engine's recommended PT score more than other PTs within the series, beyond inherent PT PPP.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-016; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-016 {record=APPM-016; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- prespecified: no
+- produced: RES:APPM-016 {record=APPM-016; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Possession-level SQ2 all RS games
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\POSSESSION_PPP_findings.md
+- title: Possession-level SQ2 test: engine recommended PT (playoff series)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-016; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-016; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-016; rule=keyword rule DATASET_RULES}
+- uses_method: METH:difference_in_differences {record=APPM-016; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-016; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-016 | Result of APPM-016
+- failure_evidence: Strictest FE test gamma +0.0088, p=0.71; A/B explained by engine picking high-PPP PTs.
+- failure_type: B_powered_null
+- power_info: 504 cells, SE 0.0239 (iid)
+- primary_result: A +0.140 PPP [0.084,0.196]; B DiD +0.090 [0.041,0.141]; C gamma +0.0088 SE 0.0239 p=0.7139.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

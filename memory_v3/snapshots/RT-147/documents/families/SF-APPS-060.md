@@ -1,0 +1,29 @@
+# FAM:SF-APPS-060 | Study family SF-APPS-060: Test 1: 8x8 action transition matched ATT matrix
+- observed_research_question: Test 1: 8x8 action transition matched ATT matrix
+- auto_outcome_status: rejected
+- observed_hypothesis: Predecessor play type A changes PPP of next play type B after exact matching, surviving BH-FDR and placebo.
+- observed_result: 1 of 64 survived matching+BH+placebo: CUT->PNR ATT=-0.0502*. Top unsigned ATT PUTBACK->PUTBACK +0.0615 CI[-0.060,+0.168] not sig. TRANSITION->DRIVE +0.0355 perm_p=0.0020 BH_adj_p=0.0640.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Pre-registered bar: 1/64 cells survived; no structural coaching prescription from isolated cells.
+- observed_sample_and_power: 64 tested pairs; pools capped at 60000
+- observed_method: 64 A->B cells. Exact match margin_bucket x period x season x offensive team. Cluster bootstrap 1000; perm 2000; placebo 1000; BH across 64. Min n=30.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPS-060: 'season x offensive team. cluster bootstrap 1000; perm 2000; placebo 1000; bh across 64. min n=30. 1 of 64 survived matching+bh+'
+- observed_notes: Directional row means: T=TRANSITION 6/8 next-pairs positive (mean ATT +0.0141); T+1=PNR 1/8 preceding positive.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-060: 2026-06-14 (mtime)
+- observed_member_records: APPS-060
+- observed_sources: APPS-060: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_1_transition_matrix.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-068 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-078 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-030 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

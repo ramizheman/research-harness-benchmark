@@ -1,0 +1,31 @@
+# EXP:APPA-052 | CUT feasibility cap: BEST-AVOID gap without CUT-heavy games
+- date: 2026-06-20
+- date_basis: doc
+- date_reliable: yes
+- design: 55-series trigger table + Neo4j H2 mix; exclude games with CUT share >15%.
+- extends: EXP:APPA-033 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-052; rule=date-ordered record link}
+- hypothesis: The BEST vs AVOID gap is inflated by games where CUT exceeds 15% of H2 mix.
+- knowable_in_advance: no
+- measures: VAR:play_type_share_mix {record=APPA-052; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-052 {record=APPA-052; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: This uses the ungated +0.620 55-series gap (stale relative to n-gated +0.375 / BEST-vs-continue +0.445). Robustness direction still holds on this CSV.
+- prespecified: no
+- produced: RES:APPA-052 {record=APPA-052; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-036; APPA-033
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-052; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: CUT feasibility cap: BEST-AVOID gap without CUT-heavy games
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-052; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-052; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPA-052; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-052 | Result of APPA-052
+- failure_evidence: Removing the 4 CUT-heavy games slightly strengthens the gap (+0.620 to +0.625).
+- failure_type: D_positive
+- power_info: 2,544 rows; 272 games
+- primary_result: All games BEST 1.473 vs AVOID 0.853 gap +0.620 MW p=0.0000 Spearman -0.316 n=2,544. CUT<=15%: +0.625 n=2,508. CUT>15%: +0.163 n.s. n=36. Only 4/272 games had CUT>15%.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

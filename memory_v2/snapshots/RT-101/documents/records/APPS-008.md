@@ -1,0 +1,35 @@
+# EXP:APPS-008 | Engine layer ablation L1-L4 with placebos
+- also_recorded_as: CHT-015
+- date: 2026-05-04
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; text mentions later date(s) 2026-05-07
+- date_reliable: no
+- design: 42 series; configs V0..V4, LOO A1-A4, FP/tier shuffles; 268 scheme cells / 213 PT cells; cluster bootstrap 10,000, Holm correction.
+- hypothesis: Each engine layer (PNR calibration, scheme fingerprint, tier correction, sequential conditioning) improves prediction of observed series PPP.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-008; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-008 {record=APPS-008; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Version 1 (May 4) reported L2 lift +0.172 dir_acc but a placebo beating V4; version 2 (May 7) added a scheme-neutral baseline that no layer beats. L1 and L4 contributed ~0 in both.
+- prespecified: no
+- produced: RES:APPS-008 {record=APPS-008; rule=record fields}
+- project: Strategy app
+- related_as_recorded: SQ2 decision quality hit rate
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\ablation_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\ablation_summary.md
+- title: Engine layer ablation L1-L4 with placebos
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-008; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-008; rule=keyword rule DATASET_RULES}
+- uses_method: METH:ablation {record=APPS-008; rule=keyword rule METHOD_RULES}
+- uses_method: METH:bootstrap_interval {record=APPS-008; rule=keyword rule METHOD_RULES}
+- uses_method: METH:calibration_scoring {record=APPS-008; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-008; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-008 | Result of APPS-008
+- failure_evidence: No forward config beats V0_NEUTRAL (all beat rates <0.5, CI excludes 0.5 above); placebo ties or beats V4 in the first version.
+- failure_type: B_powered_null
+- power_info: 213 PT cells, 42 series; CI width about +/-0.06
+- primary_result: May-7 PT-level vs V0_NEUTRAL: V4 beat 0.422 [0.365,0.480], V2 0.399 [0.338,0.459], FP_SHUFFLE 0.479 [0.412,0.544]; vs V0: V2 0.526 [0.469,0.585], V4 0.451. May-4 dir_acc: V4 0.205 vs A_SHUFFLE placebo 0.511 (gap -0.306).
+- record_stratum: rejected
+- record_substatus: verdict failed_gate, powered null with power information
+- verdict: failed_gate

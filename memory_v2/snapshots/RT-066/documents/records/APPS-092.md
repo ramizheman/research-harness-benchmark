@@ -1,0 +1,33 @@
+# EXP:APPS-092 | HasConn share vs pace (possessions per 48)
+- date: 2026-07-27
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Period-implied poss/48; n=28569 periods, 90 team-seasons. HasConn share with score-margin/period/opp FE, team-season FE, cluster SE. Play-mix: HasConn>=1 vs 0 within team-season n=73.
+- hypothesis: Connector presence slows pace (substituting half-court organization for transition).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-092; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-092; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-092 {record=APPS-092; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: HasConn->TRANSITION PPP was mix-licensed and null. Association not causal pace.
+- prespecified: no
+- produced: RES:APPS-092 {record=APPS-092; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-087
+- related_to: EXP:APPS-087 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-092; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-092; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\hasconn_pace_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\putback_transition_hasconn_report.md
+- title: HasConn share vs pace (possessions per 48)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-092; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-092; rule=keyword rule DATASET_RULES}
+
+# RES:APPS-092 | Result of APPS-092
+- failure_evidence: Pace beta p=0.0266 but within-ts correlation is 0; no stint clock so poss/48 is period-implied. Mix shifts are clearer than efficiency.
+- failure_type: E_unclear
+- power_info: n=28569 periods; mix n_ts=73
+- primary_result: beta(HasConn share -> poss/48)=-0.86 SE=0.38 t=-2.25 p=0.0266; within-ts corr=-0.002 p=0.782. Mix: TRANSITION -0.448 pp p=0.0013; PNR +0.980 p=0.00187; CUT +1.353 p=1.2e-11; DRIVE -0.542 p=0.0206; SPOT_UP -1.248 p=0.000315. PUTBACK +0.148 p=0.0579. TRANSITION PPP | HasConn adj -0.13 t=-0.06 p=0.948.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

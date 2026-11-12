@@ -1,0 +1,83 @@
+{
+ "blind_id": "R8efd0f0e325e",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "player absence spell",
+   "offensive reorganization (D_real: 1 - cosine similarity of play-type mix, spell vs pre-spell)",
+   "structural influence load L (L_pre)",
+   "points per possession change (spell vs pre-spell)",
+   "play-type mix and initiator redistribution",
+   "residual reorganization relative to L"
+  ],
+  "methodological_questions": [
+   "Does reorganization beyond what L predicts relate to the change in PPP across absence spells?",
+   "Is the reorganization metric mechanically tied to PPP through play-type PPP differences?",
+   "Is n=148 spells enough to detect a plausible correlation?",
+   "How are confounders handled: absent player quality, opponent strength, regression to the mean, and the L-star quality link?",
+   "Is the L-based prediction of reorganization reliable at spell level?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Shaper absence displaced the team fingerprint (D_A) more than usage-matched role-occupant absence (delta D_A +0.115, 96 pairs, p~7e-9). r(L, D_A)=+0.60 (+0.79 for shapers). [prior work] does not mention PPP."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Connector absence displaced offensive identity more than usage-matched absence (n=96 pairs; n=25 vs terminal). Auto-tagged risks: MECHANICAL_FLOOR and SAMPLE_SIZE_POWER. [prior work] reports no PPP outcome."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Real absences moved association structure (V1 confirmed, mean D_real minus null median +0.142). The leave-one-out simulation's prediction of magnitude failed: V2a Spearman +0.288, p=0.077, CI [-0.244,+0.667]; V2b partial +0.253, p=0.115. Limited by small sample (23 absences in the gate)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Destination fit score did not predict shaper portability (corr -0.09 and -0.39, n=24); failure type A_unanswerable, small sample."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Predicting the magnitude of absence-driven structural change from the leave-one-out simulation (V2)",
+    "why": "Small sample; wide CIs (e.g. [-0.244,+0.667]) and p>0.05. Recorded as limited by [prior work]."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "A small-n moderator (fit score) used to predict an outcome among 24 movers",
+    "why": "A_unanswerable: question not answerable with n=24 (SAMPLE_SIZE_POWER)."
+   }
+  ],
+  "evidence_establishes": [
+   "Absences produce displacement of the team play-type mix beyond a null (FAM:[prior work] V1; [prior work][prior work]; [prior work][prior work], all as recorded).",
+   "L tracks observed displacement across player-seasons (r=+0.60, [prior work][prior work]).",
+   "Small-n attempts to predict the magnitude of absence effects have been inconclusive (FAM:[prior work], [prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Any link between reorganization magnitude (raw or relative to L) and the change in PPP: none of the returned records report PPP change as an outcome of displacement.",
+   "Whether the reorganization metric is free of a mechanical tie to PPP.",
+   "Whether spell-level L-predicted reorganization is reliable enough to define a 'relative to L' residual."
+  ],
+  "own_inferences": [
+   "'Relative to L' is ambiguous. I read it as D_real minus the value predicted from L_pre (residual reorganization), with a raw D_real and an L-adjusted model as the alternatives.",
+   "L is probably correlated with the absent player's quality, which independently lowers PPP. A raw correlation of reorganization with PPP change would then be confounded.",
+   "D_real is built from play-type mix, and play types differ in PPP, so some association with PPP change is partly definitional. A mix-standardized PPP change is needed.",
+   "With n=148, a correlation of about |rho|=0.23 is detectable at 80% power (two-sided alpha 0.05). The PPP change per spell is noisy, which attenuates correlations.",
+   "Selecting spells of at least 15 games, with the pre-spell baseline taken from a possibly hot or cold period, invites regression to the mean in PPP change."
+  ],
+  "uncertainties": [
+   "The exact definition of 'relative to L' and of the spell and baseline windows.",
+   "Whether n=986 (units) and n=148 (spells) are nested, and how many spells overlap in the same team-season.",
+   "Whether PPP is computed with garbage-time exclusion and an opponent adjustment.",
+   "No returned record shows the PPP side of this relationship, so the effect size is unknown."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Prior work shows displacement is real and L-linked, so the predictor is measurable. Failed small-n magnitude predictions (FAM:[prior work], [prior work][prior work]) and the MECHANICAL_FLOOR/SAMPLE_SIZE_POWER tags in [prior work][prior work] moved me from plain 'proceed' to 'proceed_with_changes': a pre-registered residualized design with mechanical-link and confound controls, and a modest, interval-based decision rule."
+  }
+ },
+ "redactions": 28
+}

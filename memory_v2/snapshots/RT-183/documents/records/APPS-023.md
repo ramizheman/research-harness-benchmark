@@ -1,0 +1,31 @@
+# EXP:APPS-023 | System BEST vs constrained league mix (non-CUT matchup-specificity test)
+- date: 2026-05-29
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 633 triggers, 55 series. A=BEST counter; B=constrained mix (SPOT_UP 35%/PULL_UP 25%/CUT 15%/DRIVE 9%/PNR 8%/POST_UP 8%); C=naive pivot; D=AVOID. One-sided MW A>B.
+- hypothesis: Matchup-specific (non-CUT) BEST counters beat a feasibility-weighted league mix that ignores game state.
+- knowable_in_advance: yes
+- measures: VAR:play_type_share_mix {record=APPS-023; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-023 {record=APPS-023; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: CUT is both 52% of BEST and in the constrained mix at 15%, so all-BEST vs mix cannot isolate matchup intelligence. Authors reframed contribution as trigger timing, not counter-selection.
+- prespecified: no
+- produced: RES:APPS-023 {record=APPS-023; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-019; APPS-024
+- related_to: EXP:APPS-024 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-023; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\baseline_test_results.md
+- title: System BEST vs constrained league mix (non-CUT matchup-specificity test)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-023; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-023; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-023; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-023 | Result of APPS-023
+- failure_evidence: Key non-CUT test gap=+0.010, p=0.1709, n=136; H2H L3 non-CUT gap=+0.001, p=0.3277. Headline A vs B is CUT-driven.
+- failure_type: B_powered_null
+- power_info: n=136 non-CUT; n=47 L3 non-CUT
+- primary_result: All BEST vs mix: 1.481 vs 1.212, gap=+0.269, p=0.0000, n=283. Non-CUT BEST vs mix: 1.216 vs 1.206, gap=+0.010, p=0.1709, n=136. L3_MATCHUP non-CUT: gap=+0.001, p=0.3277, n=47. BEST vs AVOID gap=+0.692, p=0.0000, n=169. 147/283 BEST are CUT (51.9%).
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

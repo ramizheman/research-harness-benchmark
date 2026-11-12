@@ -1,0 +1,32 @@
+# EXP:APPA-014 | A4 sequence-context modifiers vs A3
+- date: 2026-04-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 240 matchups; same equilibrium framework.
+- hypothesis: Previous-outcome and repetition modifiers lift equilibrium PPP and diversify mixes.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPA-014; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPA-014; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPA-014; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-014 {record=APPA-014; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: V6 and V7 report the same headline.
+- prespecified: no
+- produced: RES:APPA-014 {record=APPA-014; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-011
+- related_to: EXP:APPA-011 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-014; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V6.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V7.md
+- title: A4 sequence-context modifiers vs A3
+- uses_method: METH:matched_control {record=APPA-014; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-014 | Result of APPA-014
+- failure_evidence: Identical mixes and exactly 0.0000 deltas suggest the modifiers had no effect (possibly inert in code), not a tested null.
+- failure_type: C_artifact
+- power_info: 240 matchups
+- primary_result: A4 +2.06 vs A3 +2.06; -0.00 pts/100; A4 beats A3 14/240; sample equilibrium mixes identical to A3.
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict null, mechanism C_artifact
+- verdict: null

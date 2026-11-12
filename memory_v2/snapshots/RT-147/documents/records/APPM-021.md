@@ -1,0 +1,32 @@
+# EXP:APPM-021 | Within-game tactical adaptation (halftime, crunch, post-run)
+- also_recorded_as: CHT-010
+- date: 2026-05-05
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 1,086,514 possessions / 5,187 games; H1 vs H2 by margin bucket; Q4 last 5 min |margin|<=5; post-run opponent PT.
+- hypothesis: Describe how play-type mix shifts by halftime margin, crunch time and after runs.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-021; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPM-021; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-021 {record=APPM-021; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- prespecified: no
+- produced: RES:APPM-021 {record=APPM-021; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Play-type label audit
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_adaptation_run_log.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_within_game_adaptation.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\adaptation_data.csv
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_game_adaptation_findings.md
+- title: Within-game tactical adaptation (halftime, crunch, post-run)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-021; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-021; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-021 | Result of APPM-021
+- failure_evidence: No inferential tests; OTHER label known to be noisy (PT audit).
+- failure_type: E_unclear
+- primary_result: OTHER +2.26 to +2.48pp in H2 in every bucket; crunch OTHER +6.08pp, PULL_UP +1.20pp at -0.045 PPP; post-run DRIVE +3.75pp, OTHER -6.72pp.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

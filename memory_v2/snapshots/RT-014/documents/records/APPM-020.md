@@ -1,0 +1,31 @@
+# EXP:APPM-020 | Within-series SHOULD vs DID alignment
+- date: 2026-05-16
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 100-104 (series,team) rows; G1 vs G2..N shift; direction-match and cosine vs prescription.
+- hypothesis: Teams that shift toward the engine's prescribed mix win more and improve PPP.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPM-020; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPM-020; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-020 {record=APPM-020; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: decision_context files with empty openers existed before analysis.
+- prespecified: no
+- produced: RES:APPM-020 {record=APPM-020; rule=record fields}
+- project: Strategy app
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_should_vs_did_data.csv
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_should_vs_did_findings.md
+- title: Within-series SHOULD vs DID alignment
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-020; rule=keyword rule DATASET_RULES}
+- uses_method: METH:difference_in_differences {record=APPM-020; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-020; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-020 | Result of APPM-020
+- failure_evidence: 96 of 104 rows had no vector prescription; 'Sample too small at this gate'.
+- failure_type: A_unanswerable
+- power_info: n=8 for vector test
+- primary_result: Shift toward rec PT: win rate 50.0% vs 50.0%; only 8 rows had a SHOULD vector (aligned 4/6 wins vs 1/2); A3 rec PT beat modal PT 87/94 (92.6%).
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

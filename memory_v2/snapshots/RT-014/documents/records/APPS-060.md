@@ -1,0 +1,33 @@
+# EXP:APPS-060 | Test 1: 8x8 action transition matched ATT matrix
+- also_recorded_as: CHT-034
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 64 A->B cells. Exact match margin_bucket x period x season x offensive team. Cluster bootstrap 1000; perm 2000; placebo 1000; BH across 64. Min n=30.
+- hypothesis: Predecessor play type A changes PPP of next play type B after exact matching, surviving BH-FDR and placebo.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-060; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-060 {record=APPS-060; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Directional row means: T=TRANSITION 6/8 next-pairs positive (mean ATT +0.0141); T+1=PNR 1/8 preceding positive.
+- prespecified: yes
+- produced: RES:APPS-060 {record=APPS-060; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-078; APPS-068
+- related_to: EXP:APPS-068 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-060; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_1_transition_matrix.md
+- title: Test 1: 8x8 action transition matched ATT matrix
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-060; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPS-060; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-060; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-060; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-060 | Result of APPS-060
+- failure_evidence: Pre-registered bar: 1/64 cells survived; no structural coaching prescription from isolated cells.
+- failure_type: B_powered_null
+- power_info: 64 tested pairs; pools capped at 60000
+- primary_result: 1 of 64 survived matching+BH+placebo: CUT->PNR ATT=-0.0502*. Top unsigned ATT PUTBACK->PUTBACK +0.0615 CI[-0.060,+0.168] not sig. TRANSITION->DRIVE +0.0355 perm_p=0.0020 BH_adj_p=0.0640.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

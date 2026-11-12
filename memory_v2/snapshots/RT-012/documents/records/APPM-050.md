@@ -1,0 +1,34 @@
+# EXP:APPM-050 | SCOUT LLM insight demos ORL vs DET G1
+- date: 2026-04-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Two prompts on game 0042500101 with derived tables; groundedness check against table values. Deterministic baseline suppressed from insight space.
+- hypothesis: A single-shot SCOUT agent can surface one non-obvious, table-grounded insight the deterministic stack missed.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-050; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-050 {record=APPM-050; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: v1 PPP 0.341 on 12 points / 35.2 partial possessions is a matchup-minutes PPP, not possession PPP. Deterministic layer: no opponent-specific edge.
+- prespecified: no
+- produced: RES:APPM-050 {record=APPM-050; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-049; APPM-012 ORL-DET leverage
+- related_to: EXP:APPM-012 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-050; rule=date-ordered record link}
+- related_to: EXP:APPM-049 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-050; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\SCOUT_ORL_vs_DET_0042500101.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\SCOUT_ORL_vs_DET_0042500101_v2.md
+- title: SCOUT LLM insight demos ORL vs DET G1
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPM-050; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Shot_level_data_with_expected_FG {record=APPM-050; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPM-050; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-050; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-050 | Result of APPM-050
+- failure_evidence: No scoring of insight quality beyond groundedness check; two runs produced unrelated insights.
+- failure_type: E_unclear
+- power_info: n=2 prompts on 1 game
+- primary_result: v1: Banchero vs T. Harris two-way edge (Banchero 12 pts ppp_in_matchup 0.341 on 35.2 partial poss; Harris 0 pts / 0.0 PPP on 32.1). v2: ORL outscored DET 31-27 in Q4 despite FT trips 2 vs 11. Retro headline (both): ORL PPP model 1.2364 vs obs 1.109 (all)/1.474 (classified); DET 1.2183 vs 0.981/1.507; ORL WP 59.0%; model correct YES.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

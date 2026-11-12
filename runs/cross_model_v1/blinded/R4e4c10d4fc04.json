@@ -1,0 +1,126 @@
+{
+ "blind_id": "R4e4c10d4fc04",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE preceding a PNR",
+   "pick-and-roll possession points (PPP)",
+   "play-type labeling from play-by-play data",
+   "derived possession records (initiator, play type, points)",
+   "teammate action sequencing and its effect on play outcomes"
+  ],
+  "methodological_questions": [
+   "Does a teammate DRIVE immediately preceding a PNR raise PNR points per possession, relative to matched PNR possessions without that preceding action?",
+   "Are the DRIVE and PNR labels, and the PPP outcome, reliable enough to support a sequencing test?",
+   "Is the PPP outcome derived from the same labeling pipeline that defines the predictor, creating label dependence?",
+   "How should sequence-level exposure counts and sample size be handled for PNR outcomes?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "The retrieval call returned zero records, so no earlier study by this project on this question, on teammate DRIVE sequencing, or on play-type label reliability is available in this setting."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a DRIVE before a PNR raises PNR PPP.",
+   "Whether the derived play-type labels are accurate, and how often DRIVE or PNR tags are misassigned.",
+   "Any effect size, direction, or variance for sequencing effects.",
+   "Whether the question has already been answered outside this project."
+  ],
+  "own_inferences": [
+   "The play-by-play is a plausible source for sequencing, since it records action types, players, clock, and score in order, so a DRIVE-to-PNR sequence within a possession can be reconstructed.",
+   "The derived possession graph is built from the same play-by-play, so the PNR and DRIVE tags and the PPP outcome may share upstream classification errors, and the test may partly measure the labeling pipeline.",
+   "The predictor is a sequence condition within a small subset of possessions, so exposure per team, player, or season may be sparse, and per-season estimates may be noisy.",
+   "A positive association could be produced by the defense's response, by shot-quality confounding, or by the lineup and matchup context in which DRIVEs and PNRs co-occur, not by the sequence itself."
+  ],
+  "uncertainties": [
+   "Exact frequency of teammate DRIVE-then-PNR sequences in the data is unknown.",
+   "Accuracy of the play-type classifier in the derived graph has not been audited in any retrieved record.",
+   "Whether the 2025-26 playoff data is complete at the time of testing is unknown (partial before 2026-06-21).",
+   "The retrieval tool may have had no records simply because no earlier work was stored, not because none exists."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "The retrieval returned no records, so no historical finding, failed approach, or prior result was available to alter the decision. The decision rests on the task statement and the data description alone."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "PPP and the DRIVE/PNR tags come from the same derived play-type graph, so the outcome and predictor share a labeling pipeline that must be audited before a contrast can be read as a basketball effect."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "No reliability estimate for the play-type labels is available; misclassified DRIVE or PNR tags would bias the contrast toward or away from zero."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Teammate DRIVE-then-PNR sequences may be rare per team-season, limiting precision for individual players or lineups."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was returned by retrieve_history, so no prior study is relied on and the question's status (answered or not) cannot be determined from this setting."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "PPP and the predictor both come from the derived play-type records, so a labeling artifact could create or hide the effect."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Misassigned DRIVE or PNR tags in the play-by-play-derived graph would attenuate or distort the estimate."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Defensive scheme, matchup quality, shot-clock state, score margin, lineup, and player quality may drive both DRIVE-then-PNR occurrence and PNR PPP."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Sequences may be sparse for many player pairs, leaving unstable per-pair estimates."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effect size is unknown; the number of qualifying sequences per season may be too small to detect a modest PPP difference."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Scanning many action pairs (DRIVE, SPOT_UP, HANDOFF, etc.) before PNR would inflate false positives if all are tested."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "If placebo sequences (e.g., DRIVE following PNR) show similar effects, the result may reflect general possession quality rather than sequencing."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Possession-level features taken from the full possession, including its outcome, would leak the result into the predictor."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type definitions, tracking, and offensive style may change across 2022-23 to 2025-26, so pooling seasons may mix different regimes."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.25,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within-possession difference in mean PNR PPP between PNR possessions preceded by a teammate DRIVE (same possession, prior action) and matched PNR possessions without that preceding action, conditional on covariates listed under controls.",
+   "unit": "PNR possession (ball-handler-initiated pick-and-roll possession), nested within team-game and player pair.",
+   "sample": "Development: 2022-23 to 2024-25 regular season and playoffs. Confirmation: 2025-26 regular season only (complete from 2026-04-13). Exclude 2025-26 playoffs until complete (2026-06-21) and exclude partial 2025-26 regular-season data before 2026-04-13.",
+   "power": "Before analysis, compute the number of qualifying DRIVE-then-PNR sequences per season and the minimum detectable PPP difference at 80% power and alpha 0.05 using the development sample; if the minimum detectable effect is larger than plausible, report the question as underpowered rather than rejected.",
+   "controls": "Ball handler and screener identity or skill proxies, defensive matchup and partial possession measures, shot-clock and score margin, period and clock, lineup and substitution-interval context, starter status, and season fixed effects. Use only information available before the PNR begins to avoid lookahead. Include random effects for player pair and team-game.",
+   "falsification": "(a) Placebo sequences: teammate DRIVE following a PNR, and teammate SPOT_UP or HANDOFF preceding a PNR; the DRIVE effect should exceed these. (b) Label audit: manually verify a random sample of DRIVE and PNR tags against raw play-by-play, and report misclassification rates before interpreting the contrast. (c) Re-run the outcome with a PPP definition built independently of the DRIVE tag.",
+   "multiplicity": "Pre-specify one primary contrast (DRIVE before PNR, PPP). Treat other action pairs as exploratory and correct for them (e.g., Holm) if reported as findings.",
+   "decision_rule": "Supported only if the primary contrast is positive with a 95% CI excluding zero in the development sample, the sign replicates in the 2025-26 regular-season confirmation sample, the effect exceeds the placebo contrasts, and the label audit shows acceptable misclassification. Rejected if the CI is tight around zero with adequate power. Otherwise report uncertain. Report artifact if the effect disappears after using an independently derived PPP or after the label correction.",
+   "data_version": "Per-game NBA stats API play-by-play, substitution intervals, starters, and defensive matchup files as stored in the derived play-type graph on 2026-06-14; record the exact graph build version and freeze it before analysis; use 2025-26 regular season only in the complete-data window."
+  }
+ },
+ "redactions": 0
+}

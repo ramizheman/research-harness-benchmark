@@ -1,0 +1,29 @@
+# FAM:SF-APPS-058 | Study family SF-APPS-058: Observed on-ball defensive scheme labels (ORL-DET G1)
+- observed_research_question: Observed on-ball defensive scheme labels (ORL-DET G1)
+- auto_outcome_status: untestable
+- observed_hypothesis: NBA matchup/PBP fields can label on-ball coverage (DROP/ICE/SWITCH) at usable rates.
+- observed_result: DET: 67 on-ball HC poss, 10 labeled (14.9%) ? DROP n=5 PPP=1.20, ICE_CANDIDATE n=5 PPP=0.80, OTHER n=57 PPP=1.42. ORL: 60 poss, 2 labeled (3.3%). switches_on unpopulated.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Confident label rates 14.9% and 3.3%; NBA matchups feed did not populate switches_on.
+- observed_sample_and_power: n=67/60 possessions, 10/2 labeled
+- observed_method: Single game 0042500101. Confident labels vs OTHER.
+- observed_verdict: failed_gate
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: ICE_CANDIDATE is unconfirmed without screen-contact tracking.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: Strategy app
+- observed_dates: APPS-058: 2026-04-20 (mtime)
+- observed_member_records: APPS-058
+- observed_sources: APPS-058: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\observed_defense_0042500101.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-079 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

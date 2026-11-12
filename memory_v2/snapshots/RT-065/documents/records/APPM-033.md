@@ -1,0 +1,31 @@
+# EXP:APPM-033 | Sequential conditioning premiums (CUT->PULL_UP etc.)
+- date: 2026-06-11
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Sequence premium analyses (details in scripts, not read).
+- hypothesis: Specific play-type sequences carry a PPP premium (e.g. CUT->PULL_UP +0.065, PUTBACK->TRANSITION +0.084).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-033; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-033 {record=APPM-033; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Date approximated from v8 structure doc era; scripts dated 2026-05-31.
+- prespecified: no
+- produced: RES:APPM-033 {record=APPM-033; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: Superstar suppression Q5c
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPM-033; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_sequential_premium.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_sequential_premium_by_player.py
+- title: Sequential conditioning premiums (CUT->PULL_UP etc.)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-033; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-033 | Result of APPM-033
+- failure_evidence: Slide notes 'Sequence premiums - Removed - doesn't hold up'; reason not stated in files read.
+- failure_type: E_unclear
+- primary_result: Premiums CUT->PULL_UP +0.065, PUTBACK->TRANSITION +0.084, Brown DRIVE->Tatum PNR +0.326 later removed: 'doesn't hold up'.
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict abandoned, mechanism E_unclear, no power information
+- verdict: abandoned

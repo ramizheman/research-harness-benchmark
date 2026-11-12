@@ -1,0 +1,31 @@
+# EXP:APPS-041 | PUTBACK suppression matched-pair isolation (star vs team)
+- also_recorded_as: CHT-033
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: PSM 1:3 ATT, caliper 0.05. Treated=just conceded PUTBACK. Covariates include off_margin (already reflects conceded points).
+- hypothesis: Conceding a PUTBACK causally suppresses the next offensive possession after matching on game state.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPS-041 {record=APPS-041; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: margin already includes the putback points, so unmatched H2/Q4 comparisons confound scoreboard state with aftershock.
+- prespecified: partial
+- produced: RES:APPS-041 {record=APPS-041; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-040; APPS-065
+- related_to: EXP:APPS-065 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-041; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\putback_matched_isolation.md
+- title: PUTBACK suppression matched-pair isolation (star vs team)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-041; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-041; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-041; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-041 | Result of APPS-041
+- failure_evidence: Raw putback suppression collapses once margin/state is matched; original finding was a score/context confound.
+- failure_type: C_artifact
+- power_info: n_treated team=15614, star=2481
+- primary_result: TEAM ATT=-0.0038 CI[-0.025,+0.015] perm p=0.890 n_t=15614. STAR ATT=+0.0040 [-0.049,+0.052] p=0.834 n_t=2481. STAR Q4 ATT=-0.1045 [-0.217,+0.010] p=0.032 (gradient does not survive matching as a FINDING).
+- record_stratum: artifact
+- record_substatus: mechanism C_artifact with verdict null
+- verdict: null

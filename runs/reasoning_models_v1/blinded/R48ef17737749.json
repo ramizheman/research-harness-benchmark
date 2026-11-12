@@ -1,0 +1,97 @@
+{
+ "blind_id": "R48ef17737749",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP after own play type X",
+   "AVOID labels for play types",
+   "own-sequence lag effects across consecutive possessions",
+   "derived play-type possession labels",
+   "possession-sequence dependence vs game-state, team and lineup confounding"
+  ],
+  "methodological_questions": [
+   "Is the opponent next-possession PPP shift after play X large enough to change AVOID labels?",
+   "Do own-sequence lags matter after matching and multiplicity control?",
+   "How much do label error and mechanical outcome-to-next-possession links (miss to transition, make to inbound, turnover to transition) inflate sequence effects?",
+   "What sample and multiplicity control are needed across play types and lags?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Opponent action at T and your offense at T+1, matched on defense and offense, 8x8 cells. 3/64 cells survived both matchings: SPOT_UP->TRANSITION ATT=-0.085, POST_UP->TRANSITION -0.083, PNR->DRIVE -0.058. All three also survived the prev_made control. Most of the 64 cells were null. PULL_UP->DRIVE was dropped as a defense-quality confound."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Own-sequence A->B 8x8 matched ATT matrix (exact match on margin bucket, period, season and offensive team; BH across 64; placebo). Only 1/64 survived: CUT->PNR ATT=-0.0502. Largest unsigned ATT, PUTBACK->PUTBACK +0.0615, was not significant. TRANSITION->DRIVE +0.0355 had BH-adjusted p=0.064. Recorded as an adequately powered null (B_powered_null); no structural coaching prescription from isolated cells."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Label audit overall FAIL: OTHER 20.2% vs <10% target, 40.8% low confidence, DRIVE foul-draw 1.7% vs 14-22% benchmark, most play types' PPP above benchmark band. Foul possessions leak into OTHER. Recorded as undermining adaptation findings."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Inferred labels could not separate real defensive adjustment from offense executing differently. Transition matrices were near-uniform, consistent with label noise. Limited by label or classification error."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Series-level AVOID share vs winning: game-level rho=-0.19 was inflated by team-quality confounding; series-level rho=-0.26, p=0.07, n=50 was underpowered (about 80 series needed). Recorded verdict: inconclusive."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring real adjustment from inferred play-type labels",
+    "why": "Label error; the label cannot separate adjustment from execution differences ([prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using derived play-type labels as reliable inputs",
+    "why": "Audit failed: labelling artifacts and foul leakage into OTHER (C_artifact; label error, leakage, small sample)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Relating AVOID share to outcomes across games or series",
+    "why": "Team-quality confounding and small n ([prior work], [prior work])."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Broad search for own-sequence A->B effects",
+    "why": "Adequately powered null: 1/64 cells survived matching, BH and placebo."
+   }
+  ],
+  "evidence_establishes": [
+   "In this project's matched analyses, sequence effects between consecutive possessions are mostly null across the 8x8 play-type cells ([prior work][prior work], [prior work][prior work]).",
+   "The few cells that survive are small, about -0.05 to -0.085 PPP ([prior work][prior work], [prior work][prior work]).",
+   "Derived play-type labels failed an audit, and the label error is documented ([prior work][prior work], [prior work][prior work]).",
+   "AVOID-share outcome analyses were confounded by team quality ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "The opponent PPP after you run X, in the specific direction posed (your play type X to the opponent's next possession). The retrieved tests cover the opponent-to-you direction and own-to-own sequences.",
+   "What size of shift counts as large enough to drive an AVOID label. No retrieved record defines the AVOID rule or its threshold.",
+   "Whether the three surviving cells reflect real sequence effects or residual label or mechanical artifacts, since labels failed audit and validation was same-pipeline only.",
+   "Whether results hold on 2025-26 data or in playoffs."
+  ],
+  "own_inferences": [
+   "Opponent next-possession PPP after your play X is likely tiny and mostly mechanical. Your miss, make or turnover determines the opponent's possession type (transition, inbound), so the effect is mostly mediated by your possession outcome rather than by the play type itself.",
+   "If AVOID thresholds are on the scale of 0.1 PPP or more, the observed shifts of 0.05-0.085 in only 3-4 of 64 cells probably cannot drive AVOID labels broadly.",
+   "The own-sequence lag question is largely answered by [prior work][prior work], so a new test adds value only for the opponent-response direction and for the AVOID-flip question.",
+   "Opponent PPP is a noisy outcome (about 1.1 PPP with a per-possession SD of about 1.0 or more), so detecting a 0.05 shift per cell needs thousands of possessions per cell."
+  ],
+  "uncertainties": [
+   "The AVOID definition and thresholds are unspecified.",
+   "The 2025-26 playoffs are partial as of 2026-06-19.",
+   "Label quality after any post-audit fixes is unknown.",
+   "Whether the APPS pipelines excluded garbage time or used the same possession-linking rules."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I would have leaned toward proceeding as posed. [prior work] show sequence effects are mostly null and small, labels are unreliable, and prior tests are confounded or underpowered. That narrows the plan to a threshold-anchored test with an outcome-mediation decomposition, label-quality gating, and an explicit null-compatible decision rule."
+  }
+ },
+ "redactions": 38
+}

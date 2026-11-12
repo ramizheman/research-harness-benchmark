@@ -1,0 +1,31 @@
+# EXP:APPS-027 | Adaptation quality vs talent as predictor of series wins
+- also_recorded_as: CHT-046
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 110 series-directions / 55 series. Logistic y=won on standardized talent_diff and adapt_diff.
+- hypothesis: pct_ran_BEST - pct_ran_AVOID predicts series wins after controlling for RS net-rating talent.
+- knowable_in_advance: yes
+- measures: VAR:win_probability_series_outcome {record=APPS-027; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-027 {record=APPS-027; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Authors' honest null: report as confounded with talent.
+- prespecified: no
+- produced: RES:APPS-027 {record=APPS-027; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-030
+- related_to: EXP:APPS-030 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-027; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\adaptation_talent_control.md
+- title: Adaptation quality vs talent as predictor of series wins
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-027; rule=keyword rule DATASET_RULES}
+- uses_method: METH:regression {record=APPS-027; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-027 | Result of APPS-027
+- failure_evidence: After talent control adapt p=0.275; n~55 series cannot separate coaching adaptation from roster quality.
+- failure_type: A_unanswerable
+- power_info: n=55 series / 110 directions
+- primary_result: corr(talent, adapt)=+0.124. Per-series logistic: talent_diff_z +0.737 p=0.0213; adapt_diff_z +0.328 p=0.2755. Team-in-series cluster: talent p=0.0095, adapt p=0.2449. Univariate adapt beta=+0.311 p=0.1128. LPM: talent +0.160 p=0.0046, adapt +0.072 p=0.2633, R2=0.142.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

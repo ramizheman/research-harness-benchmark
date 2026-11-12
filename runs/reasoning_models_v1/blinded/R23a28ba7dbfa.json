@@ -1,0 +1,162 @@
+{
+ "blind_id": "R23a28ba7dbfa",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive five (lineup) change",
+   "shot mix (distance bands, rim/3PA share, play type)",
+   "positive control / design sensitivity",
+   "substitution rotation intervals",
+   "shooter composition vs within-player behavior"
+  ],
+  "methodological_questions": [
+   "Does a pre-specified lineup-change design recover a shot-mix shift when the offensive five changes?",
+   "How to separate personnel effects from opponent, score, clock and game-context confounding?",
+   "Is the shift a mechanical composition effect (who shoots) or a change in how a given player shoots?",
+   "Is there enough exposure per five-man unit, and does the design avoid regression to the mean, multiple testing and placebo dependence?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Shot mix when the opposing rim big is off the floor (opponent lineup change, not the offensive five). Shifts were small: DRIVE +0.82pp, POST_UP +0.43pp, 3PA -1.79pp, rim <=4ft +0.12pp (SE 0.295), PPP +0.008 (t=+1.1). N=1.07M possessions. Recorded limits: small sample and SAMPLE_SIZE_POWER."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The PULL_UP exposure effect changed from -0.0255 with lineup FE to -0.0063 without. A same-shooter placebo on other play types gave -0.0075. Recorded as consistent with a shooter-level confound; CONFOUNDING and PLACEBO_DEPENDENCE flagged."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Opener recommendations ignored personnel: CUT targets were 3-10x the stretch ceiling in every team-game. Personnel constraints bind in play-type mix."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Opponent previous action to next-possession PPP, def-matched. Only 3/64 cells survived def-match, off-match and prev_made control; most were null. Used BH-FDR and placebo (same-pipeline validation only)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Detecting sub-1pp shot-mix shifts from a lineup-context change (opponent big off floor)",
+    "why": "Recorded as inconclusive and limited by small sample / SAMPLE_SIZE_POWER, despite N=1.07M possessions; verdict WEAK/SMALL."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Reading an exposure effect without controlling for lineup and shooter",
+    "why": "Apparent effect produced by a construction/selection flaw (C_artifact); effect shrank without lineup FE and the same-shooter placebo was similar, consistent with a shooter-level confound."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Optimizing play-type targets without regard to personnel",
+    "why": "C_artifact: the optimizer ignored personnel capacity."
+   }
+  ],
+  "evidence_establishes": [
+   "Shot-mix effects of opponent lineup context can be small (sub-1pp to about 2pp) and hard to resolve even with about 1M possessions (FAM:[prior work], inconclusive).",
+   "Lineup and shooter identity can produce apparent effects or remove them ([prior work][prior work], artifact), so personnel is a first-order determinant of play-type mix.",
+   "Play-type mix is constrained by who is on the floor (FAM:[prior work], artifact for the optimizer's claim).",
+   "A matched design with BH-FDR, placebo and control checks has been run on this data, with most cells null and a few surviving ([prior work][prior work], supported, same-pipeline validation only)."
+  ],
+  "evidence_does_not_establish": [
+   "No retrieved record directly tests whether swapping players in the offensive five moves shot mix, so the positive control itself is not already answered.",
+   "The retrieved records do not give the size of a personnel effect on shot mix or the exposure needed to detect it.",
+   "Nothing retrieved shows that this design, as opposed to the opponent-lineup design, has adequate sensitivity.",
+   "They do not separate composition (who shoots) from behavior change by a given shooter after a swap."
+  ],
+  "own_inferences": [
+   "A swap of players with very different roles (e.g. a big for a guard) should change the shares of rim attempts, threes and play type at least mechanically, so a properly built positive control will probably detect it. Failure to detect would point to an implementation or measurement problem rather than to personnel being irrelevant.",
+   "Detection of a mechanical composition effect is weak evidence about the design's ability to find subtle effects such as those in FAM:[prior work]. The claim should be scoped to large personnel swaps.",
+   "A dose-response check, with larger role differences giving larger shifts, is a stronger positive control than a simple significant shift.",
+   "Risk of artifact is mostly the confounds seen in [prior work][prior work] (shooter and lineup selection), so within-team, within-game contrasts and a placebo are needed."
+  ],
+  "uncertainties": [
+   "Distribution of five-man minutes and number of substitution events with single-player swaps are unknown.",
+   "The shot-mix metric (distance bins, rim share, 3PA share, play-type shares) is not yet fixed, and its reliability per stint is unknown.",
+   "Whether substitution-interval timing aligns exactly with play-by-play events.",
+   "Retrieved records are tangential; no direct precedent was returned, and I did not use follow-up searches."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The question looked like a trivially passing control. [prior work] ([prior work][prior work] artifact, FAM:[prior work] inconclusive) led me to proceed with changes: use within-game contrasts with lineup/player fixed effects, a placebo, a dose-response check, multiplicity control and pre-set power rather than a bare significance test."
+  },
+  "testability": {
+   "p_testable": 0.9,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Related work covers opponent-lineup shot mix, lineup/shooter confounding and personnel feasibility. None directly tests an offensive-five swap as a positive control, so the question is not answered."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Substitutions are not random: they respond to score, foul trouble, fatigue, opponent lineup, period and clock. Shooter identity and lineup co-vary (cf. [prior work][prior work])."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Swapping a big for a guard shifts shot mix by construction (composition), so detection is guaranteed for large role swaps and says little about the design's sensitivity to subtle effects."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Single-player swaps within a given five are sparse and stints are short (few possessions); FAM:[prior work] shows sub-1pp effects can stay inconclusive even at N=1.07M."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many five-man units have little minutes; pre/post windows after a swap contain few shots."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Stint-level shot-mix shares are noisy; the definition of mix (distance bands vs play type) affects results."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If swaps are triggered by cold or hot stretches, pre/post comparisons regress to the mean."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Conclusions depend on a valid placebo (e.g. same-role swaps, permuted swap times); cf. [prior work][prior work] placebo behavior."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many shot-mix dimensions and swap types create a multiplicity burden (cf. 3/64 surviving in [prior work][prior work])."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Post-swap shots must not be used to define the swap or the lineup label; windows must be defined from rotation intervals only."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Three seasons with changing league shot profiles; pooling needs season fixed effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.8,
+   "rejected": 0.02,
+   "untestable": 0.02,
+   "artifact": 0.06,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average within-team change in shot-mix shares (rim <=4ft share, 3PA share, mid-range share, mean shot distance; secondary: play-type shares) per possession when exactly one player in the offensive five is swapped for another, as a function of pre-specified role distance between the players. Primary contrast: large role swaps (big vs guard/wing).",
+   "unit": "Possession (or shot) nested in lineup stint, nested in team-game; inference clustered by team-game (or team-season).",
+   "sample": "All regular-season and playoff games 2022-23 to 2024-25. Stints from substitution rotation intervals; keep swap events where the other four players stay the same across adjacent stints. Exclude garbage time (pre-specified score/clock rule), end-of-period possessions, and stints under a minimum possession count fixed before analysis.",
+   "power": "Before analysis, count eligible swap events and possessions by role-distance tier. Detect a 3pp shift in rim or 3PA share for large role swaps with 80% power at alpha 0.05 (to be verified with the observed number of events and the intra-class correlation of mix). If a tier lacks power, report it as underpowered rather than null; small-role-distance tiers are expected to be underpowered, consistent with FAM:[prior work].",
+   "controls": "Within team-game contrasts; fixed effects for team, season, period, opponent and the four retained players; covariates for score margin, clock, and opponent lineup type (e.g. rim big on floor). Decompose the shift into composition (incoming/outgoing player's own shot profile from out-of-window data) and residual behavior change among the four teammates. Exclude foul-trouble/injury-driven swaps if flagged, or run as sensitivity. Estimate player shot profiles from separate games or earlier seasons to avoid leakage.",
+   "falsification": "(1) Placebo swaps: same-role replacements and permuted/fake swap times within the same team-game should give null shifts. (2) Dose-response: shift should grow with role distance. (3) Negative-control outcome unrelated to personnel (e.g. free-throw rate per possession, or the previous stint's mix). (4) Pre-trend check on the stint before the swap. The positive control is said to pass only if the primary effect is present, passes placebo and shows dose-response.",
+   "multiplicity": "Pre-specify 4 primary outcomes (rim share, 3PA share, mid-range share, mean distance); Holm correction over these. Secondary play-type shares under BH-FDR at 5%. Report all outcomes.",
+   "decision_rule": "Supported if the large-role-swap effect on rim or 3PA share is in the expected direction, with Holm-adjusted p<0.05, at least 2pp in magnitude, monotone across role-distance tiers, and nulls on placebo and negative-control outcomes. Artifact if the effect appears in placebos or vanishes with within-game and player fixed effects. Inconclusive if confidence intervals include both zero and the 2pp threshold. Interpret as a detectable-personnel-effect check only for large swaps, not as proof of sensitivity to sub-1pp effects.",
+   "data_version": "NBA stats API per-game files (play-by-play, rotation intervals, starters, box-score summary) for 2022-23 through 2024-25, regular season and playoffs, as available on 2026-11-02; freeze file hashes and the code commit before analysis. Derived play-type possession graph used only for secondary outcomes."
+  }
+ },
+ "redactions": 37
+}

@@ -1,0 +1,179 @@
+{
+ "blind_id": "Rec1b3299a9f1",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR fail as the conditioning event",
+   "PULL_UP shot as a defensive counter",
+   "league-wide counter strategy effect",
+   "play-type lift in points per possession (PPP) relative to baseline",
+   "unit-level consistency of counter effects (share of units with lift>0 and median lift>2pp)",
+   "play-type labels derived from play-by-play"
+  ],
+  "methodological_questions": [
+   "How is 'PNR fail' operationalised from the derived possession records, and what is the baseline for PULL_UP lift?",
+   "What is the unit (team-season defence, team-game, or matchup) and does the >=70% share and median >2pp threshold have a defined measurement scale (PPP vs. make rate)?",
+   "Is the unit-level lift sensitive to sample size per unit and to shot-quality and opponent confounding?",
+   "Do play-type labels (PNR, PULL_UP) derived from play-by-play have adequate accuracy and reliability for unit-level inference?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Descriptive RS vs playoff comparison of defensive PPP allowed and possession share across 25 teams (min 30 possessions per cell). Recorded: DRIVE allowed PPP 1.191 -> 0.923, PNR -0.139 with share +12.1pp, PULL_UP +0.341 with share -7.6pp. No inferential test; the PNR share jump may reflect tagging differences. Mechanism recorded as E_unclear; risks LABEL_ERROR and MECHANICAL_FLOOR recorded."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Shot-level PNR rates for 30 teams in 2024-25 (half-court shots roughly 5994-6581 per team), e.g. OKC 7.567%, IND 13.824%. Used as a calibration input for a PBP-proxy PNR model; later logs show calibrated PNR around 17.9-19.6% of possessions. No pass/fail gate. Shot-level and possession-level labels were explicitly not reconciled in [prior work]."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "TOV_FORCE matchup decomposition on four playoff games. Team-PT lifts were small (e.g. ORL vs DET PNR +1.2pp; POR vs SAS PNR -4.1pp); player-channel lifts were large on small n (e.g. Banchero on Huerter SPOT_UP +8.4pp with n_def=17, n_off=54). Recorded limitation: insufficient_exposure."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Within-game shift toward SHOULD counter play types (did_adapt) versus PPP change. Across several re-analyses adapters showed higher later PPP than non-adapters (e.g. +0.0701 vs +0.0121, lift +0.058; one run p=0.0199), with the SWITCH subgroup reversed. Recorded limitation: selection_or_regression_to_the_mean."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Player-channel matchup lift decomposition (defender x initiator x play type) on four playoff games",
+    "why": "Recorded as A_unanswerable with [prior work] and RISK:EXPOSURE_SPARSITY: cell n often 15-28 defensive possessions, primary-defender attribution includes helper steals, and there was no holdout or game-outcome check."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Using within-game adaptation toward counter play types as evidence that counters improve PPP",
+    "why": "Recorded status artifact; the adapter advantage is attributed to selection or regression to the mean, and the sign reverses for the SWITCH subgroup. The first-run effect (+0.0613) was not stable across re-analyses (+0.058 to +0.048)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Comparing PULL_UP and PNR shares between regular season and playoffs to infer defensive suppression",
+    "why": "Recorded as descriptive, with no inferential test; mechanism unclear (E_unclear); the PNR share jump of +12.1pp may reflect tagging differences rather than real behaviour; LABEL_ERROR and MECHANICAL_FLOOR risks recorded."
+   }
+  ],
+  "evidence_establishes": [
+   "Prior project work has not tested whether PULL_UP lift after PNR fail is positive across units; no record addresses the PNR-fail-to-PULL_UP conditional question.",
+   "PNR and PULL_UP shares derived from play-by-play differ by source and season context, and [prior work] flags possible tagging differences ([prior work][prior work], [prior work][prior work]).",
+   "Player-channel and small-cell matchup lifts are unstable at the cell sizes seen so far ([prior work][prior work]).",
+   "Within-game adaptation effects are vulnerable to selection and regression to the mean (FAM:[prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether PULL_UP lift after PNR fail is positive in a majority of defensive units.",
+   "Whether the median unit-level lift exceeds 2pp, or in what units (PPP or make-rate points) that threshold is defined.",
+   "The reliability of PNR-fail or PULL_UP labels from the derived records, beyond the calibration note in [prior work][prior work].",
+   "Any league-wide effect for the 2025-26 season or the playoffs, since no retrieved record covers those data."
+  ],
+  "own_inferences": [
+   "The question is testable in principle with team-season defensive units across 2022-23 to 2025-26 regular seasons (about 120 units), if PNR-fail and PULL_UP are defined from the derived possession records.",
+   "Unit-level lift with about 30 teams per season will have wide sampling error; the 70% share criterion is a noisy estimate with 30 units per season and may be more stable pooled over seasons.",
+   "The threshold '>2pp' is ambiguous: applied to PPP it is very large relative to typical PULL_UP PPP differences (approximately 0.3 to 0.4 PPP are reported in [prior work][prior work], which is a different contrast); applied to shooting percentage it needs a stated baseline."
+  ],
+  "uncertainties": [
+   "Records were returned as truncated excerpts ([prior work][prior work] and FAM:[prior work] cut mid-text); read_family was not called, so details beyond the excerpts are unknown.",
+   "No retrieved record gives the number of PNR-fail possessions per team per season, so power cannot be confirmed from retrieved evidence.",
+   "The meaning of 'PNR fail' (for example, turnover, no shot, or below-median PPP) is not defined in any record or in the task statement.",
+   "The data version for the 2025-26 playoffs is partial before 2026-06-21, and the question date is 2026-05-23."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Historical records show that prior attempts at counter-strategy effects (FAM:[prior work], [prior work][prior work]) produced artifacts or unanswerable results from selection, exposure sparsity and label attribution. This moved the decision from a straightforward test to proceed_with_changes: the design must pre-specify the PNR-fail definition, the unit, a baseline, a placebo, and an exposure floor, and must not rely on small player-channel cells. [prior work] do not contain a verdict on the question itself."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "BASE_RATE",
+     "text": "The PNR-fail to PULL_UP conditional rate may be small in many units, so the proportion of units with a positive lift may be near chance even if the effect exists."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Per-unit PNR-fail counts are unknown; cells in prior matchup work were 15-28 possessions ([prior work][prior work])."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "PNR and PULL_UP labels are derived from play-by-play and show tagging differences ([prior work][prior work], [prior work][prior work])."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Shot quality, opponent initiator and lineup effects are not controlled; adaptation effects show selection bias (FAM:[prior work])."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "No retrieved record tests whether PULL_UP lift after PNR fail is positive in at least 70% of units with median lift above 2pp. The related records are descriptive (SF-[prior work], SF-[prior work]), an unanswerable small-cell decomposition (SF-[prior work]), or an artifact from adaptation selection ([prior work]). They inform the design risks but do not answer the question."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Unit-level PNR-fail and PULL_UP counts may be too small per team-season; prior small-cell decomposition was unstable ([prior work][prior work])."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Derived play-type labels show tagging differences and calibration gaps ([prior work][prior work], [prior work][prior work])."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If PNR-fail is defined from the points outcome, the conditioning is on the outcome being tested."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Shot distance, shot quality, opponent scheme and lineup can drive PULL_UP PPP; adaptation evidence shows selection effects (FAM:[prior work])."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Units selected for extreme PNR-fail rates will regress toward the mean in later seasons (FAM:[prior work])."
+   },
+   {
+    "code": "MULTIPLICITY_TESTING",
+    "text": "Testing several play types and thresholds raises false-positive risk."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Using full-game or playoff outcomes to define the counter window would leak future information."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Scheme and play-type frequencies shift across seasons and between regular season and playoffs ([prior work][prior work])."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo play type or non-PNR baseline, any positive PULL_UP lift could be a general shot-profile effect."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "If PULL_UP is already a high-frequency shot, lift relative to baseline may be small and the 2pp threshold hard to reach."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.35
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Within each defensive unit, the difference in PPP (and separately, make rate in percentage points) on PULL_UP possessions that follow a PNR-fail possession, versus PULL_UP possessions that follow a non-PNR-fail possession against the same defence, adjusted for shot distance and opponent initiator.",
+   "unit": "Defensive team-season (30 teams per season), with a secondary defensive team-game unit for sensitivity analysis.",
+   "sample": "Regular-season possessions only, 2022-23 to 2025-26 (2025-26 regular season used only after it is complete from 2026-04-13). Playoffs excluded from primary analysis, reported as a secondary check. PNR-fail defined before analysis from derived possession records as a non-scoring PNR possession, with the definition pre-registered and a sensitivity variant using PPP below the league median.",
+   "power": "Compute before analysis: require at least a pre-set minimum of PNR-fail possessions per unit (e.g. 30) and report the bootstrap CI for the share of units with lift>0 and the median lift; if the minimum is not met for a unit, exclude it and report how many units were dropped.",
+   "controls": "Adjust for shot distance and zone, initiator identity, lineup or rotation interval, score margin and garbage time; use a shot-level regression with unit random effects; compare against a reference period to handle regression to the mean.",
+   "falsification": "Placebo: the same lift computed for non-PNR play types (e.g. ISO, SPOT_UP) and for PNR-fail defined on a random subset of possessions; a positive lift in placebo units invalidates the PNR-specific claim. Also a time-split replication: estimate in 2022-24 and test in 2024-26.",
+   "multiplicity": "One primary test (share of units with lift>0 and median >2pp); secondary thresholds and play types corrected with Holm adjustment across the family of tests.",
+   "decision_rule": "Supported only if (a) the share of units with lift>0 is at least 0.70 with a 95% bootstrap CI lower bound above 0.5, (b) the median unit lift exceeds 2pp with a CI lower bound above 0, (c) the placebo play types show no comparable lift, and (d) the time-split replication agrees in sign. Otherwise report uncertain or rejected as the data indicate; artifact if the effect disappears under the placebo or after controlling for shot quality.",
+   "data_version": "NBA regular seasons 2022-23 to 2025-26 from per-game play-by-play, substitution intervals and derived possession records; 2025-26 regular season is used only once complete (from 2026-04-13); 2025-26 playoffs excluded from primary analysis because the data is partial before 2026-06-21; data frozen at the question date for reproducibility."
+  }
+ },
+ "redactions": 61
+}

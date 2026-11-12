@@ -1,0 +1,34 @@
+# EXP:APPA-061 | L5 ablation: deterministic V4 vs LangGraph agent V5
+- date: 2026-05-05
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 20 series, 40 paired (slug, side) observations; 2,000 series-cluster bootstrap; Holm-Bonferroni on Wilcoxon regret and McNemar.
+- hypothesis: LangGraph agents (V5) improve play-type recommendations over the deterministic engine (V4).
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPA-061 {record=APPA-061; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Doc interpretation 'AGENTS DEGRADE QUALITY' is stronger than the tests (neither primary p<0.05 after Holm). Successful-override table lists only 2 rows with V5 rec='none'.
+- prespecified: partial
+- produced: RES:APPA-061 {record=APPA-061; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-062; APPA-009
+- related_to: EXP:APPA-009 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-061; rule=date-ordered record link}
+- related_to: EXP:APPA-062 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-061; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\L5_ABLATION_REPORT.md
+- title: L5 ablation: deterministic V4 vs LangGraph agent V5
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPA-061; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-061; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-061; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPA-061; rule=keyword rule METHOD_RULES}
+- uses_method: METH:ablation {record=APPA-061; rule=keyword rule METHOD_RULES}
+- uses_method: METH:bootstrap_interval {record=APPA-061; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-061 | Result of APPA-061
+- failure_evidence: Holm p=0.062 and McNemar p=0.118 on n=40; override hit 25% on 8 overrides; 0 player-level overrides scorable.
+- failure_type: A_unanswerable
+- power_info: n=40 pairs; 8 overrides
+- primary_result: Median regret V4 0.102 [0.067, 0.128] vs V5 0.067 [0.050, 0.100], Holm p=0.062. V5 beats V4 11/40 vs 4/40, McNemar p=0.118. Override 8/40 (20%); override hit rate 25.0% [0.000, 1.000]. Brittle precision 7.5%. Parse 40/40. Runtime 60.1s vs 349.6s (5.816x).
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

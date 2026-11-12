@@ -1,0 +1,31 @@
+# EXP:APPA-044 | Oracle player matchup specificity on BEST counters (Route step)
+- date: 2026-06-22
+- date_basis: doc
+- date_reliable: yes
+- design: _oracle_player_specificity.py; n=6,852 oracle BEST possessions; (off_team, play_type) cells.
+- hypothesis: The oracle BEST player for a counter play type varies by opponent, not a single team identity.
+- knowable_in_advance: no
+- member_of: FAM:SF-APPA-044 {record=APPA-044; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Valid on counter plays only; routing on suppressed plays was rejected in APPA-042.
+- prespecified: no
+- produced: RES:APPA-044 {record=APPA-044; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-042; APPA-045
+- related_to: EXP:APPA-042 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-044; rule=date-ordered record link}
+- related_to: EXP:APPA-045 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-044; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-044; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Oracle player matchup specificity on BEST counters (Route step)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-044; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-044; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-044; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-044 | Result of APPA-044
+- failure_evidence: 82% of cells vary the oracle player by opponent.
+- failure_type: D_positive
+- power_info: n=6,852 oracle BEST possessions; 78 cells
+- primary_result: 64/78 (82%) (off, PT) cells have >1 oracle player across opponents; 19/78 dominated by one player (>=90%); median oracle-player entropy 0.928.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

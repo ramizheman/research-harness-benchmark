@@ -1,0 +1,52 @@
+{
+ "blind_id": "R8a58b409c82a",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.9,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Previous research has established that PNR PPP varies significantly by player and team, and that PNR outcomes are influenced by the defense. There is also prior work on identifying 'initiators' for play types and classifying actions within a possession. However, no prior work directly addresses the specific hypothesis of a teammate DRIVE immediately preceding a PNR affecting its PPP, nor does it quantify the prevalence or impact of such sequences. The 'DRIVE' play type is a recent addition to the project's data, making earlier analysis less likely to cover this specific interaction."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "The specific sequence 'teammate DRIVE immediately preceding a PNR' might be rare, especially when considering individual players or specific team contexts. This could lead to insufficient sample size for robust conclusions, particularly if stratifying by initiator, screener, or other relevant factors."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The decision to execute a DRIVE before a PNR, or the PNR itself, could be influenced by game state, defensive scheme, or player matchups. Without controlling for these factors, any observed effect could be confounded by underlying strategic decisions or situational variables that influence both the preceding DRIVE and the PNR outcome."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "The PNR PPP metric has a mechanical floor at 0. While less likely to be an issue for a 'raises PPP' hypothesis, it's a general consideration for PPP metrics."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.4,
+   "untestable": 0.1,
+   "artifact": 0.05,
+   "uncertain": 0.05
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "The causal effect of a teammate DRIVE immediately preceding a PNR (within the same possession) on the PNR's Points Per Possession (PPP), holding other factors constant. Specifically, E[PNR PPP | DRIVE preceding PNR] - E[PNR PPP | No DRIVE preceding PNR].",
+   "unit": "The PNR play-type possession. Each observation is a single PNR play, characterized by its initiator, screener, and outcome.",
+   "sample": "All PNR play-type possessions from NBA regular season and playoff games for the 2022-23, 2023-24, 2024-25, and 2025-26 seasons (up to the date of data availability). Possessions will be filtered to include only those where a clear sequence of actions can be identified from the derived play-type records. This includes possessions where a DRIVE by a teammate (excluding the PNR initiator) occurs immediately prior to the PNR, and possessions where a PNR occurs without such a preceding DRIVE.",
+   "power": "A minimal detectable effect size will be calculated based on the observed variance of PNR PPP and the expected sample sizes for both treatment (DRIVE preceding PNR) and control (no DRIVE preceding PNR) groups. We will aim for 80% power to detect a 0.05 PPP difference at an alpha level of 0.05. If the sample size for the 'DRIVE preceding PNR' group is too small (e.g., fewer than 1000 observations), the study will be deemed underpowered for individual player analysis, but may still proceed for aggregate league-wide analysis.",
+   "controls": "Statistical control variables will include: game state (score differential, quarter/period), time on shot clock at PNR initiation, PNR initiator, PNR screener, opposing defense (e.g., identity of defenders, defensive scheme if available), team offense, and season. Player-specific and team-specific fixed effects will be considered to account for unobserved heterogeneity. Propensity score matching or inverse probability weighting will be explored to balance observable confounders if direct regression controls are insufficient.",
+   "falsification": "A falsification test will involve examining whether a teammate DRIVE *after* a PNR (within the same possession, which would be nonsensical for the hypothesis) shows a similar spurious effect on PNR PPP. We will also check if other preceding play types that are not expected to generate the hypothesized effect (e.g., an ISO or HANDOFF) show a similar 'boost' to PNR PPP, which would suggest a more general sequence effect rather than a specific DRIVE effect.",
+   "multiplicity": "No multiple comparisons are planned beyond the primary hypothesis test. If exploratory analyses are conducted (e.g., by player, team, or specific defensive matchups), these will be clearly separated and labeled as exploratory, with appropriate adjustments for multiple testing (e.g., Bonferroni correction or FDR) if formal inference is attempted.",
+   "decision_rule": "The hypothesis will be considered supported if the estimated coefficient for 'DRIVE preceding PNR' is positive and statistically significant (p < 0.05) in a well-controlled regression model, and if falsification tests do not reveal alternative explanations. The magnitude of the effect will also be considered for practical significance.",
+   "data_version": "Derived play-type possession records from [source] database, incorporating play-by-play data, for NBA 2022-23, 2023-24, 2024-25 (complete), and 2025-26 (partial, up to 2026-06-14) seasons. The 'DRIVE' play type, as defined in the glossary, will be identified using the most recent classification algorithms."
+  }
+ },
+ "redactions": 3
+}

@@ -1,0 +1,34 @@
+# EXP:APPS-020 | RS 2025-26 holdout n-gated BEST vs AVOID counter gap
+- date: 2026-06-21
+- date_basis: doc
+- date_reliable: yes
+- design: RS games 00225*, 1148 games, 2779 triggers, 11337 counter rows; 870/870 direction runs post-fix. Same counter_h2_n>=5 row-mean as PO.
+- extends: EXP:APPM-030 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=repeat-run family SF03; record=APPS-020; rule=date-ordered record link}
+- extends: EXP:APPS-018 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-020; rule=date-ordered record link}
+- extends: EXP:APPS-019 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-020; rule=date-ordered record link}
+- extends: EXP:APPS-034 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-020; rule=date-ordered record link}
+- extends: EXP:CHT-042 {direction=verified by dates; needs_review=no; origin=repeat-run family SF03; record=APPS-020; rule=date-ordered record link}
+- hypothesis: The same n-gated BEST vs AVOID ranking replicates on a regular-season 2025-26 holdout with Scout exclude_gids.
+- knowable_in_advance: no
+- member_of: FAM:SF03 {record=APPS-020; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Pre-fix leaky RS numbers (~+0.413 n-gated, routing regret +0.137, oracle 1.552) must not be cited. rs_validation_report header says 'Games: 0 RS games' but body has 11337 rows / 870 runs ? numbers copied from the stats tables.
+- prespecified: partial
+- produced: RES:APPS-020 {record=APPS-020; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-019
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\COHERENT_NUMBERS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\oracle_sensitivity.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\rs_holdout_25_26\rs_validation_report_clean.md
+- title: RS 2025-26 holdout n-gated BEST vs AVOID counter gap
+- uses_method: METH:correlation {record=APPS-020; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPS-020; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-020 | Result of APPS-020
+- failure_evidence: Replicates and slightly exceeds PO +0.375 at the same n-gate after leakage fix.
+- failure_type: D_positive
+- power_info: 796 BEST / 494 AVOID n-gated rows; 1148 games
+- primary_result: Canonical n-gated gap +0.422 (BEST 1.423 n=796 vs AVOID 1.001 n=494, p=0.0). Spearman rho=-0.3436, n=11337. Oracle BEST 1.498 (+0.497 vs AVOID); routing regret +0.124 (72.4% oracle>actual). rot8_n5 conservative regret +0.094 (oracle 1.508 vs actual 1.414, n=970).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

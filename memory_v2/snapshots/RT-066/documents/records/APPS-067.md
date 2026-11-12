@@ -1,0 +1,33 @@
+# EXP:APPS-067 | Opponent action T -> your offense T+1 (def-matched 8x8)
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 64 cells; def_tri matching primary; sensitivity match on own offense. BH-FDR+placebo+FT-clean. prev_made control.
+- hypothesis: The opponent's previous play type changes your next-possession PPP after matching on defensive team.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-067; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-067 {record=APPS-067; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Weight row-level patterns over single cells per the report. Offensive-team match is the sensitivity file.
+- prespecified: yes
+- produced: RES:APPS-067 {record=APPS-067; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-060
+- related_to: EXP:APPS-060 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-067; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\opponent_action_your_offense_defmatch.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\opponent_action_your_offense_offmatch.md
+- title: Opponent action T -> your offense T+1 (def-matched 8x8)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-067; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-067; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-067; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-067; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-067 | Result of APPS-067
+- failure_evidence: Three cells replicate under def-match, off-match, and prev_made control. Most of 64 are null.
+- failure_type: D_positive
+- power_info: 64 cells tested; 3 FINDING
+- primary_result: 3/64 FINDING cells survive both matchings: SPOT_UP->TRANSITION ATT=-0.085; POST_UP->TRANSITION -0.083; PNR->DRIVE -0.058 (all also survive +prev_made). PULL_UP->DRIVE dropped as defense-quality confound.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

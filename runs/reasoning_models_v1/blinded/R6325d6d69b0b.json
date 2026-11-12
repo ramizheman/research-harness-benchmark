@@ -1,0 +1,106 @@
+{
+ "blind_id": "R6325d6d69b0b",
+ "task_statement": "Research question (as posed on 2026-10-06, in the area of defensive suppression and counter strategy (best/avoid)):\nA defense's effect on opponents' H2-H1 change is a reliable team trait.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 120 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive second-half adjustment",
+   "opponent half-to-half scoring change",
+   "team defensive trait reliability",
+   "repeatability of defensive impact on opponent halves"
+  ],
+  "methodological_questions": [
+   "How to compute per-half opponent performance (points or offensive rating) and adjust for pace and garbage time?",
+   "How to isolate the defense's contribution from opponent quality, game script, and halftime margin?",
+   "Is the team-level effect on opponent H2-H1 change consistent across games within a season and across seasons?",
+   "What level of between-team variance is needed to declare the effect a 'reliable team trait'?",
+   "Can regression-to-the-mean artifacts be avoided when conditioning on first-half performance?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [
+   "No prior project research on defensive H2-H1 change as a team trait was available.",
+   "No historical evidence is available to guide effect-size expectations, confounder importance, or best measurement approaches."
+  ],
+  "own_inferences": [
+   "With four complete seasons of play-by-play data, the study can construct per-half opponent offensive ratings adjusted for home/away, rest, and game circumstances.",
+   "The primary threat to testability is confounding from game state (blowouts leading to garbage time, strategic shifts) and opponent offensive strength, which may be only partially controlled.",
+   "With only 30 NBA teams, the between-team variance component may be estimated with wide uncertainty, limiting power to detect a small-but-nonzero signal of team reliability.",
+   "Using a Bayesian hierarchical model and multiple seasons can mitigate some power concerns, but the trait may be weak and sensitive to roster/coaching changes.",
+   "A well-designed study can still provide informative bounds, but the probability of reaching a decisive conclusion is moderate."
+  ],
+  "uncertainties": [
+   "How large the true defensive signal is expected to be relative to game-level noise and other confounders.",
+   "Whether season-to-season team continuity in personnel and coaching is sufficient to reveal a stable trait.",
+   "How to optimally define garbage time and half-transition periods without introducing selection bias."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "The retrieval returned no prior studies. The decision is based entirely on methodological reasoning about the data, measurements, and potential confounds."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Opponent H2-H1 change is strongly influenced by game state, rest advantages, and opponent offensive identity; failure to fully adjust for these could mimic or mask a defensive trait."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "With only 30 teams per season, the between-team variance in H2-H1 effect will be imprecisely estimated, potentially yielding an inconclusive reliability estimate even if a true trait exists."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Half-level scoring (even per-possession) is inherently noisy; measurement error attenuates reliability estimates and requires very large game samples to overcome."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior project research was retrieved. It is unknown whether this specific question has been addressed elsewhere."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Game context (blowouts, back-to-back games, home/away, referee tendencies) and opponent quality may dominate the observed half-to-half variance, requiring extensive controls and potentially leaving residual confounding."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The number of independent team-level units (30 teams per season, 120 team-seasons total) may be insufficient to precisely estimate the between-team variance parameter, especially if the signal is small."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If the analysis conditions on first-half performance or selects extreme cases, regression to the mean could produce spurious second-half changes and inflate apparent defensive effects."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The metric (opponent H2-H1 change) is a difference score with inherently low reliability; attenuation may lead to falsely concluding that the trait is not reliable."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Over multiple seasons, coaching changes, roster turnover, and playing style evolution may cause a genuine team trait to appear unstable, reducing year-over-year correlations even if the trait is real for a given season."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.2,
+   "artifact": 0.1,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Team-specific random intercept in a mixed-effects model predicting opponent second-half offensive rating per 100 possessions, adjusted for opponent first-half offensive rating, opponent season-long offensive rating, home/away, rest days, and halftime point margin. The 'reliable trait' is quantified as the intra-class correlation (ICC) of these team intercepts across seasons and within seasons (split-half reliability).",
+   "unit": "team-season",
+   "sample": "All regular-season games from the 2022-23, 2023-24, 2024-25, and 2025-26 NBA seasons. Garbage-time possessions (defined as the last five minutes of the fourth quarter with a lead >15 points) are excluded. Only teams with at least 50 eligible games per season are included (natural exclusion for lockout or unusual schedule, not expected).",
+   "power": "Simulation-based power calculation using historical data: assuming a small between-team standard deviation of 0.5 points per 100 possessions, approximately 5000 games across 30 teams provide 80% power to reject the null of zero between-team variance at the 0.05 level with a Bayesian model; exact power depends on within-team sample size and true effect size.",
+   "controls": "Opponent first-half offensive rating (linear and quadratic), opponent full-season offensive rating (as a pre-game estimate of offensive strength), home/away indicator, days since last game (rest), halftime point margin (to control for game script effects), and opponent team fixed effects to absorb offense-specific tendencies. Additional sensitivity analyses will use only games with halftime margin within ±10 points.",
+   "falsification": "Randomly shuffle team assignments within each season to generate a null distribution of the between-team variance; compare the observed variance to this permutation distribution. Also, repeat the analysis for offensive half-to-half change (team's own offense) to test for a symmetrical team-level pattern that would suggest global game-script effects rather than a specific defensive trait.",
+   "multiplicity": "A single primary metric (opponent second-half offensive rating per 100 possessions adjusted as above) and a single reliability parameter (the variance of defense random intercepts) will be tested. No subgroup analyses or alternative metrics will be reported as primary.",
+   "decision_rule": "If the 95% credible interval for the defense random-intercept standard deviation excludes zero and the ICC is at least 0.05, the trait is considered 'reliable'. If the interval includes zero with a posterior probability >0.95, the null is rejected. Otherwise, the result is declared inconclusive.",
+   "data_version": "NBA 2022-23 through 2025-26 regular season play-by-play data (final versions as of 2026-10-06), with derived offensive ratings using possessions calculated from the play-by-play."
+  }
+ },
+ "redactions": 0
+}

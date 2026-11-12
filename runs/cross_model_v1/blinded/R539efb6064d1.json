@@ -1,0 +1,201 @@
+{
+ "blind_id": "R539efb6064d1",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "AVOID label construction",
+   "opponent next-possession points per possession (PPP)",
+   "own-sequence lag effects",
+   "derived possession records from play-by-play",
+   "foul-ending contamination of play-type PPP",
+   "label leakage from outcome-linked labels"
+  ],
+  "methodological_questions": [
+   "Can AVOID labels be defined without using the next-possession outcome they are meant to predict?",
+   "Is opponent next-possession PPP after play X estimated with enough exposure and stability to drive labels?",
+   "Do foul-ending and unmapped possessions bias play-type PPP and therefore AVOID labels?",
+   "Do own-sequence lags add signal beyond the immediate play, after multiplicity control?",
+   "What sample size per play type and star is needed for stable estimates?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit of OTHER/DRIVE foul leakage. OTHER possessions had 36% foul endings with inflated PPP (FOUL_BUCKET). DRIVE was 12pp below the foul benchmark (FOUL_LEAK). PNR showed a 22% foul rate. Only 335 of 50,668 possessions (0.7%) mapped to a real play type via initiation_type. Recorded verdict: artifact_found."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Suppression label was predicted from an outcome-selected construction. [prior work] states that apparent LLM skill was leakage, that the surviving [source] is small and noisy, and that engine misses reflect selection or override rather than missing graph facts. The margin of LLM over engine is described as literally zero after leakage removal. Risks recorded: LABEL_ERROR and RTM_SELECTION."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Defensive scheme change was inferred from labels: 319/523 within-game changes (61.0%), 298/440 cross-game changes (67.7%), 103/104 units and 52/52 series show a change, and transition matrices are near-uniform. [prior work] caveat is that the inferred label cannot separate real defensive adjustment from offense executing differently, and the near-uniform matrices are consistent with label noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Descriptive scan of whether a specific opponent play type on the preceding possession suppresses each star's next-possession PPP. PUTBACK was the top suppressor for 6+ stars (e.g. D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95; B. Beal d=-0.345, n=32; C. Holmgren d=-0.222, n=52). Other top suppressors were small (TRANSITION for A. Davis -0.058; POST_UP for N. Jokic -0.075; PULL_UP for A. Edwards -0.043). Sample was 30 stars, minimum n_after=30. Verdict recorded as descriptive. [prior work] notes that PUTBACK as a league-wide suppressor is the claim later tested as a mechanism in [prior work]/055, but those records were not retrieved."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using play-type labels from the initiation_type mapping and comparing PPP across play types without controlling for foul endings.",
+    "why": "Recorded as an artifact: OTHER PPP was inflated by 36% foul endings, DRIVE was 12pp below the foul benchmark, and initiation_type mapped only 0.7% of possessions to a real play type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Predicting suppression context or using a suppression label selected on the outcome as the target for an LLM or engine comparison.",
+    "why": "Recorded as an artifact: the label was mostly an RTM artifact, the apparent skill was leakage, and the remaining [source] is not statistically retrievable."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring defensive scheme changes from play-type-labelled sequences.",
+    "why": "Recorded as untestable: the inferred label cannot separate defensive adjustment from offensive execution differences, and near-uniform transition matrices suggest label noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "League-wide and star-level scans for play types that suppress the star's next-possession PPP, without multiplicity correction.",
+    "why": "Recorded as descriptive with E_unclear mechanism: no multiplicity correction, n_after of 32 to 95 for several PUTBACK cells versus thousands of baseline possessions, and no validation recorded."
+   }
+  ],
+  "evidence_establishes": [
+   "Play-type labels derived from the initiation_type mapping cover very little of the possession data (0.7% of 50,668 possessions in [prior work][prior work]), so labels built this way are not a usable basis for AVOID labels.",
+   "Foul endings systematically distort play-type PPP ([prior work][prior work]), so PPP contrasts by play type are confounded unless foul-ending possessions are handled.",
+   "Outcome-selected labels produce apparent predictive skill that disappears after leakage removal ([prior work][prior work]). An AVOID label defined from next-possession points is at risk of the same problem.",
+   "Inferred labels in this project have shown noise consistent with near-uniform transitions ([prior work][prior work]), so label reliability has not been established.",
+   "A descriptive scan found PUTBACK-after suppression effects of d about -0.2 to -0.35 for a few stars with n_after 30 to 95 ([prior work][prior work]). This is a candidate signal, not a tested result."
+  ],
+  "evidence_does_not_establish": [
+   "That opponent next-possession PPP after any play type is large enough to drive AVOID labels. No retrieved record tests this threshold or the labelling rule.",
+   "Whether own-sequence lags add signal. No retrieved record tests lagged effects with controls.",
+   "Any league-wide suppression effect. [prior work][prior work] is star-level, descriptive, and uncorrected, and the [prior work]/055 follow-up it mentions was not retrieved.",
+   "Whether the 2022-23 to 2025-26 data is stable enough across seasons to pool (drift risk noted in [prior work][prior work], not tested).",
+   "Whether the current graph-derived possession records are free of the foul and mapping problems documented in [prior work][prior work], because that audit used the initiation_type mapping rather than the current build."
+  ],
+  "own_inferences": [
+   "As posed, the question defines the AVOID label by the same next-possession PPP it is supposed to predict. Any association between that label and PPP is partly true by construction. This makes the question circular unless the label is defined from data that precede the outcome.",
+   "The historical records describe the same failure pattern in several settings (foul leakage, outcome-selected labels, label noise). A reformulated test therefore needs an outcome-blind labelling rule, a foul-handling rule, and a correction for the number of play types and lags examined.",
+   "A minimum viable question is narrower: among possessions with no foul endings and mapped play types, estimate opponent next-possession PPP by play type using labels fixed before the outcome, with pre-specified lags and empirical-Bayes shrinkage. That is a different question from the one posed."
+  ],
+  "uncertainties": [
+   "The retrieval returned only four records. [prior work][prior work] (named as a related repeat family in [prior work][prior work]) and [id] were not read, so any earlier result on the same question is unknown.",
+   "The [prior work]/055 follow-up cited in [prior work][prior work] was not retrieved. Its result is unknown.",
+   "The mapping rate of 0.7% in [prior work][prior work] may reflect an older build. The current data build's coverage of play types is not documented in the retrieved records.",
+   "The data catalog and glossary were not consulted, so field-level definitions (for example, how foul endings and partial possessions are coded) are unverified.",
+   "The stated 2025-26 regular-season and playoff data are partial or in progress on the decision date, which affects the sample and the stability of any estimate."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Before retrieval, the question looked testable with the per-game files and graph possession records. The retrieved records show that play-type labels have very low coverage in the earlier build (0.7%), that foul endings distort play-type PPP, that outcome-selected labels produce leakage artifacts, and that the one candidate effect (PUTBACK suppression) is descriptive, uncorrected, and based on small samples. Together these change the decision from proceeding with the posed AVOID-label test to not proceeding with it as posed. The narrower outcome-blind test in the design below is the only version I would run."
+  },
+  "testability": {
+   "p_testable": 0.25,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "AVOID labels are defined from next-possession PPP, so the label and the target are the same quantity and the association is partly true by construction."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Earlier play-type mapping covered 0.7% of 50,668 possessions ([prior work][prior work]), so the labels may not be measured reliably."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Inferred labels showed near-uniform transitions consistent with noise ([prior work][prior work]), and label-driven constructions have produced artifacts ([prior work][prior work])."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Star-level PUTBACK cells had n_after of 32 to 95 ([prior work][prior work]), too small for stable per-star estimates."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Earlier work by this project does not answer the posed question. It found foul-driven artifacts in play-type PPP (SF-[prior work]), outcome-selected leakage (SF-[prior work]), label noise in inferred defensive labels (SF-[prior work]), and a descriptive, uncorrected star-level PUTBACK suppression signal (SF-[prior work]). The mechanism follow-up in [prior work]/055 is referenced but was not retrieved, so the answer is only partly covered."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "AVOID labels defined from next-possession PPP make the test circular and leak the outcome into the predictor."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Labels or features built from possessions after play X would leak future information into the AVOID definition."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Foul endings inflate PPP for some play types (OTHER +36%) and deflate others (DRIVE -12pp), so play-type PPP comparisons are confounded by foul endings (SF-[prior work])."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type coverage was 0.7% in the earlier mapping (SF-[prior work]), and the current graph build's coverage is unverified."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Label noise can mimic or hide defensive or offensive effects (SF-[prior work]) and has been the basis of artifacts (SF-[prior work])."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many star by play-type cells have few post-suppressor possessions (n_after 30 to 95 in SF-[prior work])."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-star and per-play-type samples are small, and the effects in SF-[prior work] are about d = -0.2 to -0.35, which is hard to estimate reliably at these n."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "SF-[prior work] scanned all play types across 30 stars with no multiplicity correction; the top suppressor per star is selected from many candidates."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Stars and cells were selected on the basis of observed PPP differences, so the reported effects are likely inflated by regression to the mean (SF-[prior work], SF-[prior work])."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Pooling 2022-23 to 2025-26 and including partial 2025-26 data may mix regimes; SF-[prior work] is flagged for this risk."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Foul endings and possession-type base rates vary by play type and must be fixed before comparing PPP across types."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "If the effect depends on a chosen placebo or baseline definition, a shift in baseline could create or remove the apparent suppression."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "[source]-derived possession records and labels may have build or join errors; no validation was recorded for any retrieved family."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.15,
+   "untestable": 0.25,
+   "artifact": 0.4,
+   "uncertain": 0.15
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Minimum viable test, not the posed question: among possessions with no foul ending and a mapped play type, the difference in opponent next-possession PPP after play type X versus the star's or team's baseline, with labels fixed before the outcome. Own-sequence lags are reported as secondary, pre-specified lags only.",
+   "unit": "Possession. Each row is a possession with its immediately preceding opponent play type, the next-possession outcome, and lagged own-sequence features.",
+   "sample": "Regular season and playoffs, 2022-23 to 2024-25 as the primary sample, with 2025-26 held out (partial, so it is not used in the primary test). Exclude foul-ending and unmapped possessions, and report the excluded share by play type.",
+   "power": "Before analysis, compute the minimum detectable effect for each play type at the expected cell sizes. Report cells below the threshold as underpowered rather than as findings. Star-level estimates are reported only with empirical-Bayes shrinkage.",
+   "controls": "Adjust for shot-clock state, period, score margin, lineup, and rest. Use labels defined from pre-outcome data only. Record how many possessions are dropped for foul endings and mapping failures. Check the build against a manual audit sample before use.",
+   "falsification": "The effect is treated as spurious if it disappears under a placebo in which the preceding play type is replaced by a play type that occurs at the same frequency but has no mechanism (a shuffled-label placebo), or under a foul-excluded and mapping-validated rebuild.",
+   "multiplicity": "Pre-specify the set of play types and lags. Control the false discovery rate across play types and stars (Benjamini-Hochberg) and report corrected results. Treat the PUTBACK result in SF-[prior work] as a hypothesis to test, not as a finding.",
+   "decision_rule": "Claim a suppression effect only if the shrunken estimate for a play type is nonzero at the corrected threshold, survives the shuffled-label and foul-excluded checks, and replicates in the held-out season. Otherwise report the question as uncertain or artifact.",
+   "data_version": "Per-game NBA stats API files for 2022-23 to 2024-25 regular season and playoffs, with [source] possession records rebuilt and validated against a manual audit. Record the build version and the coverage rate of play-type mapping. The 2025-26 data is held out until complete (regular season complete from 2026-04-13; playoffs complete from 2026-06-21)."
+  }
+ },
+ "redactions": 83
+}

@@ -1,0 +1,74 @@
+{
+ "blind_id": "R0c8487c67176",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The definition of 'PNR fail' is not provided in the glossary or the available data schema. This term needs to be precisely defined from the raw play-by-play or derived play-type data. Without a clear and consistent definition, the core premise of the research question cannot be tested."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The term 'lift' is not explicitly defined. It likely refers to an increase in points per possession (PPP) or effective field goal percentage (eFG%) for PULL_UP shots following a PNR fail, compared to some baseline. The exact baseline and metric (e.g., PPP vs. eFG%) need to be specified for a reliable measurement."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "The requirement for 'lift > 0 in >= 70% of units' with a 'median lift > 2pp' across potentially many units (e.g., player-seasons or team-seasons) could lead to insufficient sample sizes for individual units, especially for the specific sequence of 'PNR fail' followed by a 'PULL_UP'. This could make it difficult to achieve useful statistical power for a substantial number of units, leading to an 'uncertain' outcome."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior research documents were found that directly address the specific hypothesis regarding PNR fail leading to PULL_UP as a league-wide counter with quantified lift metrics. While there is general research on PNR outcomes and shot selection, the precise framing of this question appears novel."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The central concept of 'PNR fail' is not an explicit field in the data. It would need to be derived from play-by-play events (e.g., a PNR initiated but not resulting in a shot by the ball handler or roll man within a certain time/distance, or leading to a turnover, or a heavily contested shot under specific conditions). This derivation is prone to errors and subjective interpretation, impacting the validity of the findings."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The 'lift' metric needs a clear definition, including the baseline against which the PULL_UP efficiency after a PNR fail is compared. Possible baselines could be: general PULL_UP efficiency, PULL_UP efficiency after a 'successful' PNR, or PULL_UP efficiency after other play types. The choice of baseline significantly affects the interpretation of 'lift'."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Many factors influence a player's decision to take a PULL_UP shot after a perceived PNR 'fail' and its success. These include defensive scheme, shot clock pressure, individual player skill, game situation, and the presence of other offensive options. Without careful control for these confounders, any observed 'lift' could be attributed to these external factors rather not the PNR failure itself."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Players might select a PULL_UP shot after a PNR fail for specific reasons (e.g., a defender playing too far back, creating space, or conversely, being forced into a tough shot). This selection bias could mean that PULL_UPs in these specific situations are inherently different (either easier or harder) than a general PULL_UP, leading to an artifactual 'lift' or suppression."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "For individual 'units' (e.g., player-seasons), the number of instances where a 'PNR fail' is immediately followed by a 'PULL_UP' might be low. This limits the statistical power to detect a true 'lift > 0' or 'median lift > 2pp' for a significant portion of these units, making it difficult to satisfy the '>= 70% of units' criterion with confidence."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If 'units' are defined as individual players or teams, evaluating 'lift > 0' for '>= 70% of units' involves performing multiple statistical tests. Without appropriate adjustments for multiple comparisons, the probability of false positives (Type I errors) increases substantially."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.1,
+   "untestable": 0.4,
+   "artifact": 0.2,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The average difference in points per possession (PPP) or effective field goal percentage (eFG%) for PULL_UP shots taken by a player immediately following a 'PNR fail' event, compared to the player's PULL_UP efficiency in a defined baseline scenario (e.g., all other PULL_UP attempts, or PULL_UP attempts following 'successful' PNRs). This lift would be calculated for each player-season unit.",
+   "unit": "Player-season. A 'unit' for the purpose of '>=70% of units' will be defined as an individual player in a specific season, requiring a minimum of 50 instances of 'PNR fail' followed by a 'PULL_UP' shot attempt to be included in the analysis.",
+   "sample": "All PNR possessions and subsequent PULL_UP shot attempts for the 2022-23, 2023-24, 2024-25, and 2025-26 NBA regular seasons and playoffs. Data will be sourced from derived play-type possession records and play-by-play data.",
+   "power": "A power analysis would be conducted assuming an alpha of 0.05 and a minimum detectable effect size for 'lift' (e.g., 2 percentage points in eFG%). The sample size required for each player-season unit to detect this effect with 80% power would be estimated. Units not meeting this minimum sample size would be excluded from the '>= 70% of units' calculation. Given the likely sparsity of 'PNR fail' followed by 'PULL_UP' events for many players, achieving sufficient power for 70% of units is a significant concern.",
+   "controls": "Player identity, defensive scheme (if derivable), shot clock remaining, game score differential, period, and home/away status. These would be included as covariates in a regression model or used for matching in a causal inference framework. Player skill (e.g., season-long PULL_UP efficiency) would be accounted for by using player-specific baselines.",
+   "falsification": "Compare the 'lift' observed for PULL_UP shots after PNR fail to the 'lift' observed for other shot types (e.g., drives to the rim, mid-range jumpers) after PNR fail, or to PULL_UP shots taken after 'successful' PNRs. If PULL_UP is a specific counter, its lift should be significantly higher than other options or baselines.",
+   "multiplicity": "For the '>= 70% of units' criterion, a hierarchical modeling approach or a false discovery rate (FDR) adjustment (e.g., Benjamini-Hochberg procedure) would be applied across the individual player-season tests to control for the increased probability of Type I errors.",
+   "decision_rule": "The hypothesis is supported if: 1) A robust, statistically significant 'lift > 0' (e.g., p < 0.05) is observed for PULL_UP shots after PNR fail compared to the defined baseline for at least 70% of qualified player-season units (those with sufficient sample size). 2) The median 'lift' across these qualified units is greater than 2 percentage points (pp) in the chosen metric (e.g., eFG% or PPP), with a credible interval for the median not overlapping 2pp. If these conditions are not met, the hypothesis is rejected or deemed untestable.",
+   "data_version": "NBA 2022-23 regular season and playoffs, NBA 2023-24 regular season and playoffs, NBA 2024-25 regular season and playoffs, NBA 2025-26 regular season (complete from 2026-04-13), NBA 2025-26 playoffs (complete from 2026-06-21)."
+  }
+ },
+ "redactions": 0
+}

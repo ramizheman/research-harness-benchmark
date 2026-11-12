@@ -1,0 +1,33 @@
+# EXP:APPA-011 | Matchup-aware A3 vs team kernel A2 at equilibrium
+- date: 2026-04-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Same 240 matchups; V2 coarse play types; V3 adds spatial sub-types; V3_SHUFFLED re-run (what was shuffled is not documented).
+- hypothesis: Player-vs-defender matchup modeling (A3) improves equilibrium PPP over team-level A2.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPA-011; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-011 {record=APPA-011; rule=audit/study_family_review.csv or singleton}
+- n_runs: 3
+- notes: V2 concluded 'MATCHUP MODEL HELPS'; V3 'UNDERPERFORMS'. Shuffled version gives similar numbers.
+- prespecified: no
+- produced: RES:APPA-011 {record=APPA-011; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-010; APPA-012
+- related_to: EXP:APPA-012 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-011; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V2.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V3.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V3_SHUFFLED.md
+- title: Matchup-aware A3 vs team kernel A2 at equilibrium
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-011; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-011; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPA-011; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-011 | Result of APPA-011
+- failure_evidence: Sign flips from +1.34 (V2) to -6.78 (V3) when spatial sub-types were added.
+- failure_type: E_unclear
+- power_info: 240 matchups
+- primary_result: V2: A3 +2.50 vs A2 +1.16 pts/100, A3 beats A2 147/240. V3: A2 +8.84, A3 +2.06, A3-A2 -6.78, A3 beats A2 71/240. V3_SHUFFLED: A2 +8.61, A3 +1.59, -7.02.
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict reversed, mechanism E_unclear
+- verdict: reversed

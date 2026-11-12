@@ -1,0 +1,32 @@
+# EXP:APPA-063 | Holdout play-type rank validation (LAYER_AUDIT)
+- date: 2026-04-18
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Train 523,517 possession sequences; 454 holdout games; 908 (game, team) rows; Spearman of predicted vs actual PT rank (PTs >=3 poss, >=4 common PTs); top-3 hit/lift; bottom-3 suppression.
+- hypothesis: Pre-game PT PPP ranking from training data correlates with actual efficiency ranking in held-out games.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-063; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-063 {record=APPA-063; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: This is the Spearman 0.54 recycled in generated TEAM_vs_TEAM reports. Team medians range NOP +0.727 to WAS +0.341.
+- prespecified: partial
+- produced: RES:APPA-063 {record=APPA-063; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-031; APPA-035
+- related_to: EXP:APPA-035 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-063; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LAYER_AUDIT.md
+- title: Holdout play-type rank validation (LAYER_AUDIT)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-063; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-063; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPA-063; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-063; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-063 | Result of APPA-063
+- failure_evidence: Doc caveat: top-3 lift partly reflects league-wide high-efficiency PTs (CUT, PUTBACK, TRANSITION); 10.5% of rows the model misleads (rho<0).
+- failure_type: C_artifact
+- power_info: 908 game-team rows; 454 games
+- primary_result: Median rho +0.539 (IQR +0.245 to +0.750); 62.4% rho>0.4; 88.4% rho>0; 10.5% rho<0. Top-3 median hit 100%; >=2/3 hits 78.9%; median lift +0.4261 PPP; 90.8% positive lift. Bottom-3 median suppression 66.7%. MAE cited in later reports 0.0922 PPP.
+- record_stratum: supported
+- record_substatus: mechanism C_artifact
+- verdict: supported

@@ -1,0 +1,32 @@
+# EXP:APPA-066 | TOV_FORCE matchup decomposition on four playoff games
+- date: 2026-04-20
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 11 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 4 games (ORL-DET, PHI-BOS, PHX-OKC, POR-SAS); Dean-Oliver additive lift from 1.05M recency-weighted possessions; defender cell n>=15.
+- hypothesis: TOV_FORCE as a top-3 lever can be decomposed into defender x initiator x PT channels with positive matchup lift.
+- knowable_in_advance: yes
+- measures: VAR:turnovers {record=APPA-066; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-066 {record=APPA-066; rule=audit/study_family_review.csv or singleton}
+- n_runs: 4
+- notes: POR vs SAS team-level lifts are all negative, so the top-3 TOV_FORCE lever is coming from sparse player cells, not team PT rates.
+- prespecified: no
+- produced: RES:APPA-066 {record=APPA-066; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-067; APPA-059
+- related_to: EXP:APPA-067 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-066; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HOW_TO_FORCE_TOVS.md
+- title: TOV_FORCE matchup decomposition on four playoff games
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-066; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-066; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-066; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-066; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-066 | Result of APPA-066
+- failure_evidence: Player-channel n often 15-28 defensive possessions; primary_defender attribution includes helper steals; no holdout or game-outcome check.
+- failure_type: A_unanswerable
+- power_info: 4 games; cell n often 15-54
+- primary_result: Team-PT lifts are small (ORL vs DET PNR +1.2pp; POR vs SAS all PT lifts negative, e.g. PNR -4.1pp) while player-channel lifts are large on small n (Banchero on Huerter SPOT_UP +8.4pp, n_def=17 / n_off=54; Dort on Coffey SPOT_UP +12.0pp, n=25/16; Booker on Wiggins PULL_UP +14.8pp).
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

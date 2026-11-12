@@ -1,0 +1,186 @@
+{
+ "blind_id": "R1dc00b72183b",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "AVOID label defined from opponent next-possession PPP",
+   "opponent next-possession points per possession after play X",
+   "own-sequence lag effects",
+   "derived play-type possession records from play-by-play",
+   "label validity and data quality"
+  ],
+  "methodological_questions": [
+   "Can an AVOID label be defined without using the opponent next-possession PPP it is meant to explain?",
+   "Do play-type labels (initiation_type mapping, OTHER, DRIVE, PNR) match independent benchmarks for volume, foul rate and identity before PPP is compared?",
+   "How are foul-ending possessions handled so they do not inflate or deflate PPP by play type?",
+   "What sample size and reliability are needed per play type and per lag?",
+   "Does selecting play types or lags on observed PPP create regression-to-the-mean or selection bias?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Play-type labeling audit found foul leakage: OTHER possessions had 36% foul endings with inflated PPP, DRIVE was 12pp below the foul benchmark, PNR showed a 22% foul rate, and only 335 of 50,668 possessions (0.7%) mapped to a real play type via initiation_type. Verdict recorded as artifact_found."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Play-type label accuracy and distribution audit failed overall: OTHER was 20.2% against a <10% target, 40.8% of labels were low confidence, DRIVE foul-draw was 1.7% against a 14-22% benchmark, most play types had PPP above the benchmark band, and MIA identity checks failed. Verdict recorded as tool_eval_fail; foul possessions leak into OTHER."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Suppression label was mostly a regression-to-the-mean artifact because it was selected on the outcome. Apparent skill was leakage, the surviving effect was small and noisy, and the recorded margin was described as literally zero after leakage correction. The retrieved text was truncated; the full record was not read."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Inferred defensive-scheme-change labels showed near-universal change (61.0% within game, 67.7% across games, 99.0% of units) with near-uniform transition matrices. [prior work] states the inferred label cannot separate real defensive adjustment from the offense executing differently, and the pattern is consistent with label noise."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Comparing play-type PPP using initiation_type-based labels without foul handling",
+    "why": "Foul-ending possessions inflated OTHER PPP by 36% and distorted DRIVE and PNR foul rates; only 0.7% of possessions mapped to a real play type."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Play-type label distribution and accuracy audit as a precondition for adaptation findings",
+    "why": "Audit failed: OTHER share exceeded target, many labels were low confidence, foul possessions leaked into OTHER, and identity checks failed, so [prior work] states the labels have systematic issues."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Predicting suppression from a label selected on the outcome",
+    "why": "The label was selected on the outcome, producing an apparent effect that was mostly regression-to-the-mean artifact; the remaining [source] was not statistically retrievable."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Measuring defensive scheme change from inferred labels",
+    "why": "The inferred label could not separate defensive adjustment from offensive execution, and near-uniform transitions were consistent with label noise."
+   }
+  ],
+  "evidence_establishes": [
+   "Earlier play-type labels from this project's play-by-play derivation failed validation: foul-ending possessions leaked into OTHER and DRIVE, the initiation_type mapping covered only 0.7% of possessions, and identity checks failed ([prior work][prior work], [prior work][prior work]).",
+   "An outcome-selected label produced apparent effects that were mostly artifacts ([prior work][prior work]). An AVOID label defined from opponent next-possession PPP is at risk of the same problem.",
+   "Inferred labels in related work could not separate defensive adjustment from offensive execution ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "No retrieved record tests opponent next-possession PPP after play X, or any AVOID-label threshold, directly.",
+   "No retrieved record tests own-sequence lag effects.",
+   "No retrieved record gives a power calculation or effect-size threshold for per-play-type PPP.",
+   "Whether the label problems are fixed in the current graph database build is not shown by these records.",
+   "The full text of [prior work][prior work] was truncated in retrieval and was not read."
+  ],
+  "own_inferences": [
+   "The AVOID label as posed is defined by the outcome it is meant to explain, so any association between play X and the label would be partly mechanical.",
+   "Foul handling and label validity must be resolved before any PPP comparison, because the same play-type labels produced foul-driven PPP inflation in earlier audits.",
+   "Own-sequence lags raise the same selection and multiple-comparison concerns as opponent lags, and would need a pre-specified lag set.",
+   "A useful test would need labels built and validated without reference to next-possession points, then a held-out season for the effect estimate."
+  ],
+  "uncertainties": [
+   "Whether the current graph database labels differ materially from those audited in the retrieved records.",
+   "Actual per-play-type possession counts and exposure in the 2022-23 to 2025-26 data.",
+   "The effect size of PPP differences needed to justify an AVOID label, which is not stated in the question.",
+   "Whether the 2025-26 playoffs data as of 2026-06-19 is complete (it is recorded as partial before 2026-06-21)."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieved records show that play-type labels failed validation and that outcome-selected labels produced artifacts. This moved the decision from a direct test of the AVOID label to do_not_proceed as posed, with a validation-first minimum viable test."
+  },
+  "testability": {
+   "p_testable": 0.2,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The AVOID label is defined from opponent next-possession PPP, the same outcome it is meant to explain, so any association is partly mechanical."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Earlier audits recorded foul leakage into OTHER and DRIVE, 0.7% initiation_type mapping coverage, and failed identity checks; label validity is not established."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Selecting play types or lags that look extreme on observed PPP will inflate apparent effects through regression to the mean."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "No power calculation exists for per-play-type, per-lag PPP contrasts; rare play types may be underpowered."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No retrieved record answers the AVOID-label question. Related records show play-type labels failed validation, outcome-selected labels produced artifacts, and inferred defensive-change labels were not separable from offensive execution."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The AVOID label uses next-possession PPP, which is the outcome of the test; the label and the effect are not independent."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Foul-ending possessions leak into OTHER and DRIVE, and only 0.7% of possessions map to a real play type; foul-driven PPP inflation was recorded."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Play-type or lag definitions built from the same possession's later events could leak future information into the label."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Choosing the most extreme play types or lags on observed PPP inflates apparent effects."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-play-type and per-lag cells may be small; no power analysis is recorded."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Multiple play types and multiple lags would be tested without a pre-specified correction."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Opponent lineup, score margin, clock, and possession context may drive next-possession PPP independent of play X."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Under a low base rate of AVOID-worthy play types, false positives may dominate."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Team strategy and rules shift across 2022-23 to 2025-26, so pooled estimates may mix regimes."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without placebo play types or shuffled labels, a pattern could be produced by the labeling process itself."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.03,
+   "rejected": 0.02,
+   "untestable": 0.2,
+   "artifact": 0.5,
+   "uncertain": 0.25
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Validation-first: (a) label validity of play-type and foul-handling rules against independent benchmarks; (b) if (a) passes, the difference in opponent next-possession PPP after play X versus a matched baseline, with labels defined without the outcome.",
+   "unit": "Possession (opponent next possession after each play X; own-sequence lags as separate pre-specified units).",
+   "sample": "Complete regular seasons 2022-23, 2023-24, 2024-25 and 2025-26 (complete from 2026-04-13). Exclude 2025-26 playoffs as of 2026-06-19 because it is partial; do not use it until complete (2026-06-21). Playoffs 2022-23 to 2024-25 only as a separate, pre-registered sensitivity analysis.",
+   "power": "Not yet computed. Before analysis, compute minimum detectable PPP difference per play type and lag at 80% power, and require a minimum possession count per cell. Cells below the threshold are reported as underpowered, not tested.",
+   "controls": "Exclude or model foul-ending possessions separately; control for score margin, clock, period, opponent lineup and team strength; use initiation_type-validated labels only; lag definitions use only information available before the opponent possession.",
+   "falsification": "Placebo play types with no expected effect, shuffled play-type labels within game, and a negative-control outcome (for example, offensive rebound rate) must show no effect before the AVOID claim is accepted.",
+   "multiplicity": "Pre-specify the play-type set and lag set; apply Holm or Benjamini-Hochberg correction across play types and lags.",
+   "decision_rule": "Proceed to an AVOID label only if (1) label validation passes pre-specified thresholds on foul rate, OTHER share and identity checks, (2) the effect survives out-of-sample on a held-out season, (3) it exceeds the pre-registered PPP threshold after correction, and (4) placebo and shuffle controls show no comparable effect. Otherwise report as artifact or uncertain.",
+   "data_version": "NBA stats API per-game files as of 2026-06-19: complete 2022-23 to 2025-26 regular seasons; 2025-26 regular season complete from 2026-04-13; 2025-26 playoffs excluded until complete (2026-06-21); graph database derived play-type records must be rebuilt and validated for this version."
+  }
+ },
+ "redactions": 37
+}

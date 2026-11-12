@@ -1,0 +1,61 @@
+{
+ "blind_id": "R8901614b6f6d",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does a teammate's drive preceding a pick-and-roll (PNR) possession lead to an increase in points per possession (PPP) for that PNR?",
+  "retrieval_summary": {
+   "prior_findings": [],
+   "failed_experiments": [],
+   "limitations": [],
+   "unresolved": []
+  },
+  "evidence_use": "No prior research records were retrieved for this specific question. This means there are no existing findings to support or reject, no documented failed experiments to learn from, no known methodological limitations from previous attempts, and no unresolved questions within the project's history. Therefore, the assessment proceeds as if this is a novel inquiry, requiring a full design and risk assessment without the benefit of past internal project work.",
+  "testability": {
+   "p_testable": 0.8,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior work on this specific research question was found in the project's history."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "The observed effect might be confounded by other game state variables (e.g., score differential, time on shot clock, specific players involved, defensive scheme, shot clock pressure) that influence both the decision to drive and the subsequent PNR effectiveness. Without proper controls, it will be challenging to isolate the causal effect of the drive."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "While PNRs are common, the specific sequence of a 'teammate DRIVE preceding a PNR' within the same possession might be less frequent. If the definition of 'preceding' is too narrow or the sequence is rare, the sample size for the treatment group might be insufficient to detect a small but meaningful effect on PNR PPP with adequate statistical power."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The 'DRIVE' and 'PNR' play types are derived labels from play-by-play data, processed into a graph database. While robust, any potential misclassification, ambiguity, or [source] cases in defining what constitutes a 'DRIVE' or 'PNR' (especially in complex, fast-paced sequences) could affect the accuracy of the treatment and control group assignments and thus the reliability of the findings."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "The decision to initiate a drive or a PNR, and the sequence in which they occur, is not random. Teams and players might strategically opt for a drive before a PNR in specific situations (e.g., when the defense is already scrambling or a specific defender is out of position). This non-random selection could bias the observed outcomes, making it appear as if the drive causes higher PPP when it's actually a response to a favorable situation that also benefits the PNR."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "The average causal effect of a teammate's drive preceding a PNR on the PNR's points per possession (PPP). Specifically, E[PPP_PNR | Teammate_Drive_Precedes_PNR] - E[PPP_PNR | No_Teammate_Drive_Precedes_PNR], after controlling for relevant confounding factors.",
+   "unit": "Each individual PNR possession.",
+   "sample": "All PNR possessions from the NBA 2022-23, 2023-24, 2024-25, and 2025-26 (complete regular season and playoffs) seasons. A 'teammate drive preceding a PNR' is defined as a drive by any player on the offensive team that occurs within the same possession and before the PNR action is initiated. The time window between the end of the drive and the start of the PNR will be examined and potentially constrained (e.g., within 4 seconds) to ensure proximity. The control group will consist of PNR possessions where no teammate drive occurred within the same possession prior to the PNR, subject to the same time window constraint if applied.",
+   "power": "Assuming an average PNR PPP of approximately 0.85 with a standard deviation of about 1.2 (to be confirmed via initial data exploration), detecting a minimum effect size of 0.05 PPP difference with 80% power at an alpha level of 0.05 would require approximately 2000 PNR possessions in both the 'preceded by drive' and 'not preceded by drive' groups. Given multiple seasons of NBA data, this sample size is expected to be achievable for common PNR sequences.",
+   "controls": "To mitigate confounding, a multiple regression model will be used. Control variables will include: game state (score differential, quarter, time remaining in quarter), shot clock remaining at PNR initiation, the identity of the PNR ball-handler, the identity of the PNR screener, team identities (offensive and defensive), defensive scheme (if derivable), and potentially the outcome of the action immediately preceding the PNR (if not a drive). Propensity score matching or inverse probability weighting (IPW) on observed covariates could be explored as a robustness check or primary method if significant selection bias is evident.",
+   "falsification": "A key falsification test will involve examining if drives occurring *after* a PNR initiation within the same possession (which should not causally affect the PNR's outcome) show a similar 'effect' on the PNR's PPP. If a significant 'effect' is observed in this falsification test, it would suggest the presence of unaddressed confounding variables or measurement artifacts rather than a true causal link from the preceding drive.",
+   "multiplicity": "No multiple testing corrections are anticipated as this is a single, focused research question with one primary hypothesis.",
+   "decision_rule": "The hypothesis will be supported if the estimated coefficient for the 'teammate drive preceding PNR' variable is positive and statistically significant (p < 0.05) in the controlled regression model, and the falsification test does not yield a similar 'effect' for drives occurring after PNR initiation, indicating the absence of a spurious correlation.",
+   "data_version": "NBA 2022-23 to 2025-26 complete seasons (regular season and playoffs). Derived play-type possession records from [source] database, supplemented by raw play-by-play, substitution, starters, defensive matchup, and box-score data from the NBA stats API."
+  }
+ },
+ "redactions": 2
+}

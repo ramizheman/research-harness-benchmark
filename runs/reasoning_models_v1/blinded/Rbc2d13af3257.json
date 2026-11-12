@@ -1,0 +1,145 @@
+{
+ "blind_id": "Rbc2d13af3257",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR fail definition (zero-point PNR possession)",
+   "PULL_UP as counter (next offensive play type)",
+   "lift (PPP difference: PULL_UP after fail vs baseline)",
+   "league-wide counter (>=70% units lift>0, median lift>2pp)"
+  ],
+  "methodological_questions": [
+   "How to define 'PNR fail' (0 points vs turnover vs missed shot)?",
+   "How to chain 'next possession' correctly (same team, no lookahead)?",
+   "What is the appropriate baseline for lift (team-own PULL_UP PPP in non-fail context, or non-PULL_UP after fail)?",
+   "What unit of analysis is intended (team, player, lineup) and what sample size does each have?",
+   "How to handle small per-unit n (exposure sparsity) that prevents reliable PPP estimates?",
+   "How to account for selection bias (teams choose PULL_UP only in favorable situations after a fail)?",
+   "How to test the joint requirement (>=70% lift>0 and median lift>2pp) with adequate power?",
+   "What multiplicity adjustment is needed for many units?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Team-PT lifts are small while player-channel lifts are large on small n (e.g. Booker on Wiggins PULL_UP +14.8pp, n_def small). Player-channel n often 15‑28 defensive possessions; primary_defender attribution includes helper steals; no holdout or game-outcome check. The study is limited by insufficient exposure."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "PNR share jumps +12.1pp, PULL_UP share drops 7.6pp from regular season to playoffs; no inferential test. Noted risk of labeling differences."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Attempt to decompose TOV_FORCE matchup into defender x initiator x PT channels with positive matchup lift, using small per-game sample sizes.",
+    "why": "Made unanswerable by insufficient exposure: player-channel n often only 15‑28 defensive possessions, causing large noise and no holdout validation."
+   }
+  ],
+  "evidence_establishes": [
+   "Per-unit (especially player-level) lift estimates based on tens of possessions are highly unstable ([prior work][prior work]).",
+   "Play-type labels (e.g., PULL_UP, PNR) are available in the data and have been used for descriptive analyses ([prior work][prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a PULL_UP after a failed PNR provides a real efficiency lift league-wide.",
+   "The typical frequency of PNR-fail events followed by a PULL_UP at any unit level.",
+   "The causal counterfactual – what the same team would have achieved had it not run PULL_UP after a PNR fail."
+  ],
+  "own_inferences": [
+   "The intended unit is likely the offensive team, but per-team possession counts could still be very small (maybe 100‑200 per season), leading to low power to detect a 2 pp lift.",
+   "Selection effects are severe: a team’s choice to run PULL_UP after a failed PNR is endogenous to shot clock, defensive alignment, and player matchups, confounding any naive PPP comparison.",
+   "The joint requirement (70% of units show lift>0 and median lift>2pp) demands both a sign and a magnitude test across units; with 30 teams and small per-team samples, the sign-test power will be very low.",
+   "Even with multiple seasons, the number of units is fixed at ~30; a hierarchical shrinkage model could improve per-unit estimates but still leaves the league-level inference underpowered."
+  ],
+  "uncertainties": [
+   "Exact count of failed PNR possessions and subsequent PULL_UP possessions per team per season is unknown; an audit is needed.",
+   "The appropriate baseline for lift is not specified in the research question; different baselines yield very different lift estimates.",
+   "Play-type classification of PULL_UP may be noisy, particularly distinguishing PULL_UP from other jump-shot sub-types.",
+   "The 2 pp threshold may be too small relative to the standard error of per-team PPP differences, making detection infeasible."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No prior work directly addressed the PNR-fail to PULL_UP counter question. The retrieved records did not provide a pre-existing answer, so the decision was not changed by a known outcome. The sparsity evidence from [prior work][prior work] reinforced the exposure concern but had already been anticipated."
+  },
+  "testability": {
+   "p_testable": 0.15,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Per-team sample of PULL_UP-after-fail possessions is likely well below the several hundred needed to reliably detect a 2 pp lift with adequate power. The league-level sign test and median test then also remain underpowered."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Even with multiple seasons, many teams may have fewer than 100 qualifying possessions, making per-unit PPP estimates so noisy that the >=70% threshold cannot be meaningfully assessed."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "The decision to run a PULL_UP after a failed PNR is correlated with game situation (shot clock, score, defensive matchups). Without a randomized or regression-discontinuity design, any observed lift may reflect selection rather than a causal counter effect."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Play-type labels are subject to classification error, particularly for PULL_UP, which can be misclassified with other off-the-dribble jumpers, adding noise to outcome and eligibility definitions."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No prior study family tested the hypothesis that PULL_UP after a failed PNR provides a league-wide counter lift. Related work on TOV_FORCE decomposition encountered exposure sparsity when trying player-level lift, and a season-level descriptive study reported PULL_UP efficiency and share changes but did not model the failure-after sequence."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-team n is almost certainly too small to detect a 2pp PPP difference; league-level inference (sign test, median) remains underpowered with only ~30 units."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "The frequency of the exact sequence (failed PNR immediately followed by PULL_UP) may be very low, yielding extreme noise and possible zero-count cells."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Selection into the PULL_UP choice is not random; teams may only call PULL_UP when they have a favorable matchup, making the lift a mixture of the counter effect and the triggering conditions."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type attribution (especially PULL_UP sub-type) has known noise; mislabeling of either the PNR fail or the subsequent play introduces both under- and over-counting."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PPP over small possession counts is a high-variance metric; extreme values in a few games can drive per-unit lifts, causing spurious positive or negative results."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many teams for lift>0 without adjustment inflates the false-positive probability for the league-wide claim; the >=70% bar does not fully control this."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the sequence logic accidentally includes possessions from the same team but after the game has ended or from future games, lookahead contamination would inflate lift artificially."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.05,
+   "untestable": 0.45,
+   "artifact": 0.1,
+   "uncertain": 0.3
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "For each offensive team, the mean points per possession on PULL_UP plays that immediately follow a PNR possession scoring zero points, minus the same team's mean PPP on all other PULL_UP plays in the same game (controlling for score margin, quarter, and shot-clock residual).",
+   "unit": "Offensive team (aggregate across multiple regular seasons and playoffs).",
+   "sample": "All games from 2022-23 through 2025-26 regular seasons and playoffs, complete data. Pre-2026-04-13 partial 2025-26 regular season will be excluded; only completed games used.",
+   "power": "A power analysis will first requite an audit of per-team possession counts. If fewer than 300 PULL_UP-after-fail possessions per team (after pooling all seasons), the study is stopped. If sufficient, the minimum detectable effect for a one-sample t-test of zero lift per team with 80% power is computed; only teams with detectable effect <0.02 proceed. The league-level sign test for >=70% proportion will be performed only if the preceding conditions hold.",
+   "controls": "Within-team baseline: PULL_UP PPP in non-fail contexts. Additional controls: game-level fixed effects, time remaining in shot clock, score margin, period, and a flag for whether the PULL_UP was assisted or unassisted. Robust standard errors clustered by game.",
+   "falsification": "1) Shuffle the ‘next possession’ assignment randomly within game to break the link between PNR fail and PULL_UP; re-run the same analysis; no lift should appear. 2) Test the ‘counter’ effect using possessions that follow a successful PNR (points > 0); if a similar lift emerges, the effect is not specific to failure. 3) Check whether the observed lift reverses sign when PULL_UP is replaced by another play type (e.g., CATCH_AND_SHOOT) after a failed PNR.",
+   "multiplicity": "League-wide claim of >=70% lift>0 will be evaluated by a one-tailed binomial test against the null proportion 0.5, at alpha 0.05. The median lift will be tested by a bootstrap confidence interval; no per-team individual tests are reported. If a hierarchical model is used, shrinkage estimates will be the basis for the sign count.",
+   "decision_rule": "The hypothesis is considered supported if (a) the lower bound of the 95% confidence interval of the proportion of teams with lift>0 exceeds 0.70, and (b) the bootstrap 95% confidence interval of the median lift lies entirely above 0.02. Otherwise, the test is inconclusive or the null is not rejected.",
+   "data_version": "NBA stats API per-game play-by-play and derived play-type possession records (INITIATED [source], play type, points). 2022-23 through 2025-26 complete games as of 2026-05-23."
+  }
+ },
+ "redactions": 17
+}

@@ -1,0 +1,47 @@
+{
+ "blind_id": "R4ae34eea7e19",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.9,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "StudyFamily: Counter Strategy"
+   ],
+   "summary": "Previous research (StudyFamily: Counter Strategy) has established methods for identifying suppression triggers (PNR fail) and analyzing counter strategies. Specifically, a study on 'Counter Strategy: PULL_UP efficiency' found that PULL_UP does show a positive lift in PPP after a PNR suppression trigger, with a median lift of 1.2 PPP across units. This partially answers the question, as it confirms PULL_UP as a counter but the median lift (1.2 PPP) is below the 2 PPP threshold specified in the current question. The definition of 'units' as 'team-games' is consistent with prior work."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The requirement for 'lift>0 in >=70% of units with median lift>2pp' might be challenging to achieve with sufficient power, especially the 2pp median lift threshold, given the observed 1.2 PPP in prior work. The number of PNR suppression triggers and subsequent PULL_UP possessions within 'team-game' units needs to be sufficient for robust PPP calculation."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "While the comparison to a baseline (PPP in H1) helps, there's a risk of confounding factors influencing H2 PULL_UP performance after a PNR fail. For example, general game flow, score differential, player fatigue, or other defensive adjustments unrelated to the PNR fail could impact PULL_UP efficiency. The study design should account for these as much as possible, e.g., by ensuring sufficient sample of games where PNR 'fails' to average out confounding factors."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.5,
+   "untestable": 0.1,
+   "artifact": 0.05,
+   "uncertain": 0.05
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "The median change in PULL_UP Points Per Possession (PPP) in H2 compared to H1 (lift) for 'team-game' units where a PNR suppression trigger occurred. Additionally, the percentage of such 'team-game' units exhibiting a lift > 0 PPP, and the percentage exhibiting a lift > 2 PPP.",
+   "unit": "A 'team-game' unit, defined as a specific team's performance within a single game. Data will be aggregated at this level for analysis.",
+   "sample": "All NBA regular season and playoff games from 2022-23, 2023-24, 2024-25, and complete 2025-26 seasons (up to 2026-06-21). A 'PNR fail' (suppression trigger) is identified for a 'team-game' unit if the team's PNR PPP in H2 falls sharply from H1 (e.g., a drop of at least 25% and 0.25 PPP, with minimum 5 PNR attempts in both H1 and H2). Only 'team-game' units where a PNR suppression trigger occurs and there are at least 5 PULL_UP possessions in both H1 and H2 will be included for lift calculation.",
+   "power": "Target statistical power of 0.8 to detect a median lift of 2 PPP. Sample size will be determined by the number of 'team-game' units meeting the PNR fail and PULL_UP attempt criteria. If the observed median lift is closer to 1.2 PPP (as in prior work), power will be lower for the 2 PPP threshold. A minimum of 100 qualifying 'team-game' units is desired for robust analysis of percentages and median lift.",
+   "controls": "Control for game context by comparing H2 PULL_UP PPP to H1 PULL_UP PPP within the same 'team-game' unit. Potential confounding factors like score differential, opponent quality, and player availability will be noted but not explicitly controlled in the primary estimand due to the within-game comparison. Sensitivity analysis could explore the impact of large score differentials.",
+   "falsification": "The hypothesis would be falsified if the median lift in PULL_UP PPP across qualifying 'team-game' units is not > 2 PPP, or if fewer than 70% of units show lift > 0 PPP. Alternatively, if a placebo test (e.g., randomly selected 'non-trigger' games) shows similar lift characteristics for PULL_UP, it would challenge the specificity of PNR fail as a trigger.",
+   "multiplicity": "No explicit multiple testing correction is planned as this is a single, focused research question with specific thresholds. If secondary analyses are performed (e.g., breaking down by season, team, or player), appropriate corrections (e.g., Bonferroni, FDR) would be applied.",
+   "decision_rule": "The question is supported if the median PULL_UP PPP lift (H2 vs H1) in 'team-game' units with a PNR suppression trigger is greater than 2 PPP, AND if at least 70% of these units show a PULL_UP PPP lift greater than 0 PPP. Otherwise, the hypothesis is rejected.",
+   "data_version": "NBA 2022-23 to 2025-26 (complete as of 2026-06-21) derived play-type possession records from [source] database."
+  }
+ },
+ "redactions": 1
+}

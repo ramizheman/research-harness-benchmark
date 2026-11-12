@@ -1,0 +1,42 @@
+# EXP:APPA-009 | Series adaptation experiment: static vs rolling vs adversarial-agent predictors
+- date: 2026-05-05
+- date_basis: doc
+- date_reliable: yes
+- design: 12 playoff series, 4-6 game transitions each (68 transitions); composite accuracy, L1 PT distance, direction/magnitude hit rates, agent hypothesis precision.
+- hypothesis: Adversarial LLM agents predict next-game play-type mix better than static and rolling baselines.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPA-009; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-009 {record=APPA-009; rule=audit/study_family_review.csv or singleton}
+- n_runs: 12
+- notes: Updated after reading the remaining 9 series files. Agent arm still looks broken rather than tested; rolling vs static is a real comparison.
+- prespecified: unknown
+- produced: RES:APPA-009 {record=APPA-009; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-008
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_BATCH.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_bos_mia_2223.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_bos_nyk_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_lac_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_min_2324.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_okc_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_gsw_hou_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_nyk_2324.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_nyk_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_okc_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_lal_hou_2526.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_min_okc_2425.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_phi_bos_2526.md
+- title: Series adaptation experiment: static vs rolling vs adversarial-agent predictors
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPA-009; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-009; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-009; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPA-009; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-009 | Result of APPA-009
+- failure_evidence: Agent Dir%/Mag% 0.0 in all 12 series and empty Agent predictions sections in most transitions; the few listed hypotheses (e.g. lal_hou 0/2) never scored as hits.
+- failure_type: C_artifact
+- power_info: 4-6 transitions per series; 68 total
+- primary_result: Rolling beats or ties static in all 12 (e.g. bos_mia 0.835 vs 0.748; den_okc tie agents=rolling 0.859). Agents below rolling in 11/12. Agent Dir%/Mag% 0.0 and L1 scheme 0.000 in every series. Hypothesis precision 0/0 in 9 series, 0/1 (den_min_2324, ind_nyk_2425), 0/2 (lal_hou_2526).
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict null, mechanism C_artifact
+- verdict: null

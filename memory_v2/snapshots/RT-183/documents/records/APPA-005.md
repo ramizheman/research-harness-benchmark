@@ -1,0 +1,31 @@
+# EXP:APPA-005 | Defensive scheme change within game and across games (inferred labels)
+- also_recorded_as: APPS-054
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: A1 vote-rule scheme inference from opponent PT PPP; 523 comparable within-game cells; 440 consecutive game pairs; heavy-PT conditioning (>=5pp).
+- hypothesis: Playoff defenses change scheme within games and between games, especially after the opponent ran a play type heavily.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-005; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-005 {record=APPA-005; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Reverse-inferred labels from PPP outcomes; late-third votes use min_n_per_pt=2.
+- prespecified: no
+- produced: RES:APPA-005 {record=APPA-005; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-001
+- related_to: EXP:APPA-001 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-005; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\DEFENSIVE_ADAPTATION_findings.md
+- title: Defensive scheme change within game and across games (inferred labels)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-005; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-005; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-005 | Result of APPA-005
+- failure_evidence: Doc caveat: inferred label cannot separate real defensive adjustment from offense executing differently; near-uniform transition matrices consistent with label noise.
+- failure_type: A_unanswerable
+- power_info: 523 cells; 440 pairs
+- primary_result: Within-game change 319/523 (61.0%); cross-game change 298/440 (67.7%); 103/104 units (99.0%) and 52/52 series show a change; transition matrices near-uniform.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

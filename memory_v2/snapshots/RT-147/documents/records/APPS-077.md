@@ -1,0 +1,31 @@
+# EXP:APPS-077 | Star-specific 8x8 transition matrices (30 stars)
+- also_recorded_as: CHT-036
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 30 stars x 64 cells=1920; 883 estimated (n_t>=30). BH-within-star + placebo + FT-clean.
+- hypothesis: Teammate DRIVE -> star PNR (inferrer-only) is a recurring setup; other star transitions are structural if they FIND in 3+ stars.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPS-077 {record=APPS-077; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Per-star .md files are the cell dumps; summary is the experiment record.
+- prespecified: yes
+- produced: RES:APPS-077 {record=APPS-077; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-060; APPS-066
+- related_to: EXP:APPS-060 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-077; rule=date-ordered record link}
+- related_to: EXP:APPS-066 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-077; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\star_matrix_summary.md
+- title: Star-specific 8x8 transition matrices (30 stars)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-077; rule=keyword rule DATASET_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-077; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-077 | Result of APPS-077
+- failure_evidence: Pre-registered hypothesis untestable (insufficient inferrer-only n) and unreplicated; 2 isolated FINDING cells expected at ~5% of 883 tests.
+- failure_type: A_unanswerable
+- power_info: 883 matched cells of 1920
+- primary_result: Pre-reg DRIVE->PNR: all NULL/WEAK (SGA ATT=-0.222 BH_p=0.433). FINDING cells: 2 (Curry CUT->DRIVE +0.460 n=66 LOW_CONFIDENCE; Leonard SPOT_UP->POST_UP -0.360 n=137). Zero transition types FIND in 3+ stars. WEAK: 36.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

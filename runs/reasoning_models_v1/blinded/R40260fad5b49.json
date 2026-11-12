@@ -1,0 +1,153 @@
+{
+ "blind_id": "R40260fad5b49",
+ "task_statement": "Research question (as posed on 2026-06-16, in the area of defensive suppression and counter strategy (best/avoid)):\nAdhering to a suppression-conditional recommended mix predicts winning.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 54 series\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "recommended play-type mix",
+   "adherence (alignment) to recommended mix",
+   "winning (game or series)"
+  ],
+  "methodological_questions": [
+   "Defining a suppression-conditional recommended mix from play-by-play and defensive matchup data",
+   "Measuring adherence to a dynamic recommended mix (e.g., gap between observed and recommended play-type distributions)",
+   "Testing whether adherence predicts win/loss at the game or series level",
+   "Controlling for team quality and other confounders",
+   "Assessing sample-size adequacy for series-level analysis"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Holdout games where a team's play-type mix is closer to the model's recommended mix score more efficiently: raw gap aligned-deviated +5.18 ORtg; strength-controlled gap +3.27 ORtg (+0.0193 vs -0.0134 PPP residual). Model regret median +25.94 ORtg. n=908 rows, no CI stated. High confidence (0.95). Addresses RQC:[id]."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Series-level AVOID share vs winning: game-level rho=-0.19 p=0.008 (inflated n, team-quality confound). Series-level rho=-0.26 p=0.07 (n=50, underpowered; ~80 series needed for p<0.05). Low AVOID-share bin 52.6% vs 25-50% bin 37.0%. Verdict inconclusive."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Execution conformance of observed mix vs recommended plan: avg |delta| on leverage buckets 4.5pp to 24.0pp; 4 of 8 sides best matched opener #3, not rank-1. Single-game horizon, no outcome comparison, CUT and PNR muted for tagger floor. Verdict descriptive."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Audit of LLM adaptation-analysis batch: 706 findings with n<5; series winners LLM-inferred (no actual data lookup); MIA-BOS G7 score invented; point costs are LLM arithmetic. Master '9/10' rule built from LLM inference on inference."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Series-level test of AVOID share vs winning",
+    "why": "Confounding by team quality (good teams both disciplined and winning) and insufficient sample size (n=50, need ~80 for p<0.05)"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Descriptive conformance assessment without outcome test",
+    "why": "MECHANICAL_FLOOR (play types muted for defender), single-game horizon, no win outcome comparison"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "LLM-based claim that adaptation predicts winning",
+    "why": "Artifact: fabricated data, no actual series winner lookup, LLM inference on inference"
+   }
+  ],
+  "evidence_establishes": [
+   "Alignment to a recommended mix (not necessarily suppression-conditional) predicts offensive efficiency at the team-game level (SF-[prior work]).",
+   "A related but different adherence metric (AVOID share) was confounded by team quality and underpowered at the series level (SF-[prior work]).",
+   "Conformance gap between observed and recommended play-type mixes can be measured, though simple comparisons may suffer from mechanical floors (SF-[prior work]).",
+   "Entirely artifact-based claims about adaptation predicting winning have occurred and must be avoided (SF-[prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "Whether adherence to a suppression-conditional recommended mix specifically predicts game or series wins.",
+   "Whether controlling for team and opponent strength can fully remove the confounding observed in SF-[prior work].",
+   "The optimal method for defining a suppression-conditional recommended mix from the available data.",
+   "The practical effect size or statistical power for a win/loss outcome."
+  ],
+  "own_inferences": [
+   "A game-level test of the relationship between adherence and winning is more promising than a series-level test because of the much larger sample, but independence violations (games within series, within season) require clustering.",
+   "The positive evidence on efficiency (SF-[prior work]) suggests a necessary condition for winning is plausible, but winning adds opposing-team scoring and late-game strategy that may dilute or confound the effect.",
+   "If the suppression-conditional recommended mix is derived from the same data used to test it (e.g., in-sample model), lookahead leakage could create an artifactual association."
+  ],
+  "uncertainties": [
+   "The precise definition of 'suppression-conditional recommended mix' is not given – it must be operationalised from defensive matchup minutes and play-by-play shooting context.",
+   "Whether the model that generates the recommended mix can be trained without using future information or leaking opponent identity.",
+   "Sample size for series-level analysis is only 54 series, likely insufficient for adequate power if the effect is small.",
+   "Whether the adherence metric will have enough variation to be predictive beyond simple team quality differences."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "SF-[prior work] demonstrates that mix alignment predicts efficiency, encouraging a test of winning. SF-[prior work] shows that naive series-level tests of a similar construct are underpowered and confounded, motivating a game-level design with strong team-quality controls. Together they shift the plan from a simple series correlation to a game-level regression with pre-registered adherence metric and lookahead safeguards."
+  },
+  "testability": {
+   "p_testable": 0.65,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Better teams may both adhere more to a recommended mix and win more, creating a spurious association that must be controlled with team/opponent strength or fixed effects."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 54 playoff series are available; a series-level test would be severely underpowered unless the effect is very large. A game-level analysis is feasible."
+    },
+    {
+     "code": "LEAKAGE_LOOKAHEAD",
+     "text": "If the suppression-conditional recommended mix is computed from future data (e.g., using the whole season to derive defensive suppression parameters), it will incorporate information not available at the time of the game."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "SF-[prior work] found that adherence to a recommended mix predicts offensive efficiency, a likely precursor to winning. SF-[prior work] showed that a naive series-level test of a related adherence metric against winning failed because of confounding and low power. SF-[prior work] demonstrated feasibility of measuring the conformance gap. The current question extends the evidence by focusing on a suppression‑conditional mix and winning, which remains partly unanswered."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Team quality (offensive and defensive talent) could drive both adherence and winning; failing to control for it may produce a small but spurious positive result (as in SF-[prior work])."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Series-level analysis with n=54 is underpowered for a binary outcome; a game-level analysis is needed but may have inflated Type I error if clustering is not handled properly."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If the suppression-conditional model uses defensive matchup data from games that occur after the target game, adherence will be contaminated by the outcome."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The adherence metric (e.g., L1 distance between observed and recommended play-type frequencies) may be noisy within a single game, especially for low-frequency play types."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If many adherence metrics (different distance functions, play-type groupings, suppression definitions) are tested, the primary result must be pre-registered to avoid inflated false-positive rate."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.05,
+   "untestable": 0.3,
+   "artifact": 0.1,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The effect of a team's adherence to its suppression-conditional recommended play-type mix on the probability of winning the game, controlling for team and opponent quality.",
+   "unit": "Team-game observations (each game contributes two rows, one per team).",
+   "sample": "All regular-season and playoff games for the 2022-23, 2023-24, 2024-25, and 2025-26 seasons for which play-by-play and defensive matchup data are complete and the game-end score is available (approx. 4,500 team-game rows).",
+   "power": "Assuming a small effect (odds ratio ~1.1–1.2 per standard deviation increase in adherence), a logistic regression with 4,500 observations and clustered standard errors should provide >80% power at α=0.05; exact power to be verified via simulation with a pre-registered minimal detectable effect size.",
+   "controls": "Team and opponent fixed effects (or random effects) to account for persistent quality differences; control for point spread in-game? Actually, the outcome is win/loss. Could include pre-game team strength proxies (Elo, net rating) to avoid overparameterization. Also control for home-court advantage and rest days.",
+   "falsification": "1) Test that adherence measured from a random play-type mix (or a mix recommended for a different opponent) does not predict winning. 2) Demonstrate that the estimated effect is not solely driven by the top few teams after residualization.",
+   "multiplicity": "Pre-register a single primary adherence metric (e.g., Euclidean distance between observed and recommended play-type usage frequency vectors, where each component is a play type such as P&R handler, isolation, post-up, etc., curated via factor analysis). All other metrics reported as secondary.",
+   "decision_rule": "Statistical significance at p<0.05 after cluster-robust standard errors (clustered at the team-season level). Report magnitude as odds ratio with 95% confidence interval. Pre-registered threshold for practical significance: OR>1.05 after controls.",
+   "data_version": "NBA 2022-23 through 2025-26 per-game play-by-play, substitution, defensive matchup, and box-score data as described. The suppression-conditional recommended mix model will be trained on pre-2022-23 data (e.g., 2018-19 through 2021-22) to avoid lookahead, with its predictions frozen before any test."
+  }
+ },
+ "redactions": 33
+}

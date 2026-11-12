@@ -1,0 +1,27 @@
+# FAM:SF-APPA-032 | Study family SF-APPA-032: Execution conformance scoring ORL vs DET
+- observed_research_question: Execution conformance scoring ORL vs DET
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Measure how closely each team executed the recommended opener.
+- observed_result: ORL avg leverage |d| 12.6pp, scores 86.3/87.4; DET 7.7pp, 82.3/92.3; DET matched opener #3.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: 1 game
+- observed_method: One game, 2 offenses; leverage-weighted conformance scores.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: DET note says it 'nailed the high-leverage moves' while PULL_UP was +10.2pp over the recommendation.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-032: 2026-04-20 (mtime)
+- observed_member_records: APPA-032
+- observed_sources: APPA-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EXECUTION_CONFORMANCE_ORL_DET_v2.md
+- observed_sources: APPA-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EXECUTION_CONFORMANCE_ORL_DET_v3.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-017 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}

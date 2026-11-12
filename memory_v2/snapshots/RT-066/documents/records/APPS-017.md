@@ -1,0 +1,33 @@
+# EXP:APPS-017 | Execution conformance of observed mix vs recommended plan
+- date: 2026-04-20
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 11 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Single 2025-26 playoff G1s, 4 games x 2 offenses; leverage-weighted gap between observed and recommended mix.
+- hypothesis: Teams' observed play-type mix in a game matches the model's recommended opener.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPS-017; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-017 {record=APPS-017; rule=audit/study_family_review.csv or singleton}
+- n_runs: 8
+- prespecified: no
+- produced: RES:APPS-017 {record=APPS-017; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Opener leverage decomposition
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_ORL_vs_DET_0042500101.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_PHI_vs_BOS_0042500111.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_PHX_vs_OKC_0042500141.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_POR_vs_SAS_0042500151.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\execution_conformance_ORL_DET_0042500101.md
+- title: Execution conformance of observed mix vs recommended plan
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-017; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-017; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-017; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-017 | Result of APPS-017
+- failure_evidence: CUT and PNR muted for tagger floor; single-game horizon; no outcome comparison.
+- failure_type: E_unclear
+- power_info: ~100 possessions per game
+- primary_result: Avg |delta| on leverage buckets 4.5pp to 24.0pp; 4 of 8 sides best matched opener #3, not rank-1.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

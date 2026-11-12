@@ -1,0 +1,32 @@
+# EXP:APPS-012 | Defensive PPP allowed and possession share, RS vs playoffs
+- date: 2026-05-08
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 25 defensive teams, min 30 poss per cell; RS vs playoff PPP allowed and opponent possession share by PT.
+- hypothesis: Playoff defenses suppress DRIVE more than RS defenses (both lower PPP allowed and lower share).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-012; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-012; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-012 {record=APPS-012; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: The PNR share jump (5.4% to 17.6%) is suspicious given the documented PNR tagger floor; flagged, not verified.
+- prespecified: no
+- produced: RES:APPS-012 {record=APPS-012; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Regular season vs playoff PPP by play type
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_def_style_rs_vs_playoff.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\def_style_rs_playoff_run.log
+- title: Defensive PPP allowed and possession share, RS vs playoffs
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-012; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-012; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-012; rule=keyword rule DATASET_RULES}
+
+# RES:APPS-012 | Result of APPS-012
+- failure_evidence: No inferential test; PNR share jump of +12.1pp may reflect tagging differences.
+- failure_type: E_unclear
+- power_info: 25 teams
+- primary_result: DRIVE allowed 1.191 -> 0.923 (-0.268), share 21.2% -> 18.2%; PNR -0.139, share +12.1pp; PULL_UP +0.341, share -7.6pp.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

@@ -1,0 +1,126 @@
+{
+ "blind_id": "R8b60d1f0e954",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup effects",
+   "shot mix",
+   "personnel effects",
+   "matchup effects"
+  ],
+  "methodological_questions": [
+   "detecting personnel effects",
+   "design sensitivity",
+   "measurement of lineup changes"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Offenses attack the rim more when the opponent has no big on the floor, with small but significant shifts in drive, post-up, and 3‑point attempts; overall effect inconclusive due to limited precision."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Lag‑1 play‑type effects disappear when game‑state controls are added, indicating the observed effect was an artifact of construction."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Opener recommendations were infeasible when personnel constraints were applied; the optimization ignored personnel."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The PULL_UP decline with exposure was largely explained by shooter‑level confounding rather than lineup effects."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "opener feasibility analysis",
+    "why": "C_artifact (apparent effect produced by a construction flaw) and limited by small sample and base rate issues."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "exposure-effect diagnostic for PULL_UP",
+    "why": "C_artifact and confounding; effect shrank to noise after removing lineup fixed effects."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "lag‑1 play‑type analysis",
+    "why": "C_artifact due to construction/labeling flaw; effect disappeared with controls."
+   }
+  ],
+  "evidence_establishes": [
+   "There is empirical evidence that lineup changes can shift shot mix (e.g., rim-based attacks increase when rim bigs are absent), but measured effects have been small and sometimes inconclusive; design sensitivity has been demonstrated in prior work."
+  ],
+  "evidence_does_not_establish": [
+   "The causal effect of changing the offensive five on overall shot mix with sufficient power; the magnitude and direction of the effect remain uncertain; endogeneity and confounding cannot be ruled out."
+  ],
+  "own_inferences": [
+   "The question is testable with the available data, but requires careful design to mitigate endogeneity and small‑effect issues; the prior study (FAM:[prior work]) suggests feasibility but also highlights sample‑size and precision limitations."
+  ],
+  "uncertainties": [
+   "Whether lineup changes are exogenous or correlated with unobserved game state; measurement error in lineup definitions; variability across seasons; potential non‑stationarity of team strategies."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Prior evidence shows both feasibility and pitfalls, prompting a design that includes controls for game state, opponent lineup, and team fixed effects to reduce bias."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Small sample sizes for specific lineup change events may reduce power."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Endogeneity of lineup changes with game state and opponent strategy."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior work examined how opponent lineup changes (absence of rim bigs) influence shot mix, finding small but significant shifts, yet results were inconclusive due to limited precision."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Limited number of unique offensive lineup change events may reduce statistical power."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Lineup changes may be driven by game context, creating endogeneity with shot mix."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Accuracy of substitution rotation intervals and derived lineup labels may affect measurement reliability."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.25,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Difference‑in‑differences of shot‑mix proportions before and after an offensive lineup change within a team, controlling for opponent lineup and game state.",
+   "unit": "individual possession",
+   "sample": "All possessions from 2022‑23 to 2024‑25 seasons where an offensive five changed, with at least 5 possessions before and after the change.",
+   "power": "Target 80% power to detect a 0.5pp shift in drive or 3‑point attempts (α=0.05, two‑sided), assuming within‑team variance from prior data.",
+   "controls": "Team fixed effects, opponent lineup composition, game clock, point differential, period, and opponent defensive matchups; include opponent lineup fixed effects to adjust for opponent adaptation.",
+   "falsification": "Apply placebo tests by assigning random lineup change dates within games; test for shot‑mix shifts on those dates—should be null if identification is valid.",
+   "multiplicity": "Adjust p‑values for the four primary shot‑mix categories (drive, post‑up, 3‑point, overall shot‑percentage) using Holm‑Bonferroni or false discovery rate control.",
+   "decision_rule": "Reject null if adjusted p<0.05 for at least one shot‑mix category; otherwise fail to reject.",
+   "data_version": "NBA 2024‑25 regular season and playoffs (per‑game play‑by‑play, substitution intervals, derived possession records)."
+  }
+ },
+ "redactions": 13
+}

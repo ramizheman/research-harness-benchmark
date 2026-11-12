@@ -1,0 +1,263 @@
+{
+ "model": {
+  "provider": "openrouter",
+  "model": "openai/gpt-oss-20b",
+  "temperature": 0.7,
+  "max_tokens": 8192,
+  "extra": {
+   "response_format": {
+    "type": "json_object"
+   }
+  },
+  "price_per_million": {
+   "input": 0.03,
+   "output": 0.13,
+   "source": "openrouter.ai/models, checked 2026-11-11"
+  }
+ },
+ "task_id": "RT-112",
+ "condition": "A",
+ "seed": 2,
+ "run_id": "cross_model_v1|openrouter:openai/gpt-oss-20b|RT-112|A|s2",
+ "model_name": "openrouter.ai:openai/gpt-oss-20b",
+ "task_hash": "90a8c66a6cf73f319e1b0242d7ebb36db3f2cc3f4c5684f4a7c0b8bf1fbbf04b",
+ "snapshot_fact_hash": "796452d2a294ceadb606236829be6d47308bdf8705a6fbb4a2f52eafc551f300",
+ "config_hash": "110432f2efc762ecf8c3c4570ce0eb678244a9140c60228ed109270be560068c",
+ "code_hash": "0d0acb15e1d208f86449c3f5d1a59cedeb871302f0b6224236982af30b1ccb1f",
+ "error": "",
+ "finished": "2026-11-11T12:30:57",
+ "final": {
+  "research_concepts": [
+   "lineup effects",
+   "shot mix",
+   "personnel effects",
+   "matchup effects",
+   "NBA offensive lineup changes"
+  ],
+  "methodological_questions": [
+   "how to isolate effect of offensive lineup change on shot mix",
+   "control for defensive lineup changes",
+   "handle selection bias in lineup changes",
+   "measurement reliability of shot mix",
+   "statistical power for detecting personnel effects"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [],
+  "own_inferences": [
+   "The data set provides a rich per-game, per-possession record of lineup changes, shot outcomes, and defensive matchups, but the observational nature of lineup changes introduces substantial selection bias that must be addressed with careful design choices. The sheer volume of games across three seasons offers a large sample, yet the sparsity of certain lineup combinations and the non-random timing of changes mean that any causal interpretation will rely on strong assumptions."
+  ],
+  "uncertainties": [
+   "Whether the available data capture all relevant confounders such as injury status, coach strategy changes, or opponent adjustments; the reliability of the derived shot mix metrics; the adequacy of the sample size for underrepresented lineup combos."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No prior evidence was retrieved; decision relies entirely on the analysis of the data characteristics and methodological considerations."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Lineup changes are driven by game context (e.g., injury, strategy, rest), which may correlate with shot mix changes."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Certain lineup combinations appear rarely, limiting the precision of effect estimates for those personnel."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Derived shot mix metrics may be noisy due to limited possession counts per lineup change."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "Only games where a lineup change occurs are observed, potentially biasing the sample."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing multiple shot mix categories increases the chance of false positives."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior studies were retrieved that directly address the effect of changing the offensive five on shot mix within the NBA context."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Non-random lineup changes may be correlated with unobserved factors affecting shot mix."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Some offensive lineup combinations occur infrequently, limiting statistical power."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot mix metrics derived from a small number of possessions may be unreliable."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Only games with lineup changes are included, potentially biasing the sample."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Multiple outcome categories (e.g., 3PT, mid-range, layup) increase the risk of Type I error."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.1,
+   "untestable": 0.4,
+   "artifact": 0.1,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average treatment effect on shot mix of an offensive lineup change, measured as the difference in the proportion of shot types (3PT, mid-range, paint) in the 12 possessions immediately following the change, relative to a counterfactual period without the change.",
+   "unit": "possession (or 12-possession block) following a lineup change",
+   "sample": "All possessions in the 2022-23, 2023-24, and 2024-25 NBA regular season and playoffs where an offensive lineup change was recorded, excluding games where a defensive lineup change occurred simultaneously",
+   "power": "Target 80% power to detect a 3% shift in 3PT proportion, requiring at least ~5000 lineup change events after accounting for clustering by team and season",
+   "controls": "Fixed effects for team, opponent, period, and game context (score differential, time remaining). Include defensive lineup composition as covariates, and prior shot mix (last 6 possessions) as a lagged control.",
+   "falsification": "Run the same event study on defensive lineup changes to confirm no systematic change in offensive shot mix when only defense changes. Also test on periods where an offensive lineup change is simulated but no actual change occurs (e.g., pre- vs post- period with identical lineup).",
+   "multiplicity": "Apply Holm-Bonferroni correction across the three shot mix categories to maintain family-wise error rate at 0.05",
+   "decision_rule": "Reject null of no change if adjusted p-value < 0.05 for any shot mix category; otherwise accept null.",
+   "data_version": "2026-11-02"
+  }
+ },
+ "stop_reason": "final",
+ "api_error": "",
+ "model_versions": [
+  "openai/gpt-oss-20b"
+ ],
+ "turns": 2,
+ "tool_calls": [
+  {
+   "name": "retrieve_history",
+   "args": {
+    "research_concepts": [
+     "lineup effects",
+     "shot mix",
+     "personnel effects",
+     "matchup effects",
+     "NBA lineup analysis"
+    ],
+    "methodological_questions": [
+     "control for defensive lineup",
+     "measurement reliability of shot mix",
+     "selection bias in lineup changes",
+     "time-varying confounding",
+     "impact of substitution timing",
+     "power for detecting personnel effects",
+     "handling missing lineup data"
+    ],
+    "query": "NBA lineup personnel effect on shot mix lineup changes"
+   },
+   "result_chars": 31,
+   "result_tokens_est": 7,
+   "latency_seconds": 0.0,
+   "returned_ids": [],
+   "trace": {
+    "note": "no historical memory in this condition"
+   }
+  }
+ ],
+ "n_tool_calls": 1,
+ "memory_tool_calls": 0,
+ "protocol": 3,
+ "repair_turns": 0,
+ "gate_turns": 0,
+ "preliminary_answers": 0,
+ "correction_turns": 0,
+ "final_precorrection": null,
+ "initial_citation_problems": [],
+ "parse_recoveries": [
+  "bare output object"
+ ],
+ "usage": {
+  "input_tokens": 2687,
+  "output_tokens": 2071,
+  "cost_usd": 0.000261086,
+  "cost_known": true
+ },
+ "wall_seconds": 14.92,
+ "system_prompt": "You are a basketball analytics researcher deciding whether and how a research question should be studied.\nYou work only from the task statement and the tools listed below. Do not assume facts you have not seen.\n\nThe work has two stages, in this order.\nStage 1, retrieval:\n1. Read the research objective and the data description.\n2. Identify the research concepts and methodological questions the task raises.\n3. Retrieve historical evidence by calling retrieve_history.\nIn stage 1 do not assess the question, predict outcomes or decide. Your only stage-1 reply is the retrieve_history call.\nStage 2, assessment, after the retrieval result is returned:\n4. Summarise the relevant historical findings and failed approaches.\n5. State what the historical evidence does and does not establish.\n6. Assess whether the research question is testable.\n7. Identify methodological risks and potential confounders.\n8. Make the final research decision.\n9. Explain whether and how the historical evidence changed the decision.\nThe stage-2 output format is given together with the retrieval result.\n\nEvidence rules: keep what a retrieved record states (historical_evidence and failed_approaches, each citing the\nidentifier of a returned record and its status exactly as recorded) separate from your own inference and from\nuncertainty or missing information. Cite only identifiers returned by a tool, and never describe an earlier study that\nno tool returned. In some settings retrieval returns no records; then state that no historical evidence was available.\n\nTools:\n- retrieve_history(research_concepts, methodological_questions, query): the prescribed retrieval step. Returns the most relevant consolidated study-family records of earlier research by this project that are available in this setting, with their identifiers; returns an empty list when none are available.\n- glossary(): definitions of basketball and project terms used in task statements.\n- data_catalog(): the fields available in each per-game data file.\n\nProtocol: every reply is exactly one JSON object and nothing else.\nTo call a tool: {\"action\": \"tool\", \"tool\": \"<name>\", \"args\": {...}}\nTo finish (stage 2 only): {\"action\": \"final\", \"output\": <object following the stage-2 schema>}\nYou may call at most 12 tools; then you must finish. Check that every opening brace has a closing brace.\n\nRisk codes (use only these): SAMPLE_SIZE_POWER, EXPOSURE_SPARSITY, MEASURE_RELIABILITY, RTM_SELECTION, OUTCOME_DERIVED_LABEL, LEAKAGE_LOOKAHEAD, MECHANICAL_FLOOR, BASE_RATE, CONFOUNDING, LABEL_ERROR, PLACEBO_DEPENDENCE, MULTIPLE_TESTING, IMPLEMENTATION_BUG, DRIFT_NONSTATIONARITY\n",
+ "messages": [
+  {
+   "role": "user",
+   "content": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.\n\nStage 1. Reply only with the retrieval call: {\"action\": \"tool\", \"tool\": \"retrieve_history\", \"args\": {\"research_concepts\": [\"...\"], \"methodological_questions\": [\"...\"], \"query\": \"...\"}}"
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\":\"tool\",\"tool\":\"retrieve_history\",\"args\":{\"research_concepts\":[\"lineup effects\",\"shot mix\",\"personnel effects\",\"matchup effects\",\"NBA lineup analysis\"],\"methodological_questions\":[\"control for defensive lineup\",\"measurement reliability of shot mix\",\"selection bias in lineup changes\",\"time-varying confounding\",\"impact of substitution timing\",\"power for detecting personnel effects\",\"handling missing lineup data\"],\"query\":\"NBA lineup personnel effect on shot mix lineup changes\"} }"
+  },
+  {
+   "role": "user",
+   "content": "TOOL_RESULT retrieve_history:\n{\"results\": [], \"n_results\": 0}\n\nStage 2. Using the retrieval result above (follow-up tools are allowed within the tool budget), complete steps 4 to 9\nand reply with the final action. Output schema (all fields required):\n{\n \"research_concepts\": [\n  \"concept\"\n ],\n \"methodological_questions\": [\n  \"question\"\n ],\n \"historical_evidence\": [\n  {\n   \"id\": \"identifier of a record returned by a tool\",\n   \"status_as_recorded\": \"outcome status exactly as stated in the record (supported | rejected | inconclusive | untestable | artifact | not a hypothesis test | no result recorded)\",\n   \"finding\": \"what the record states, in its own terms\"\n  }\n ],\n \"failed_approaches\": [\n  {\n   \"id\": \"identifier of a returned record\",\n   \"what_failed\": \"approach\",\n   \"why\": \"failure mechanism or limitation as recorded\"\n  }\n ],\n \"evidence_establishes\": [\n  \"what the retrieved evidence establishes for this question\"\n ],\n \"evidence_does_not_establish\": [\n  \"what it leaves open or cannot show\"\n ],\n \"own_inferences\": [\n  \"your inference, not stated in any record\"\n ],\n \"uncertainties\": [\n  \"uncertainty or missing information\"\n ],\n \"historical_effect\": {\n  \"changed_decision\": \"yes | no | no_historical_evidence\",\n  \"explanation\": \"whether and how the historical evidence changed the decision\"\n },\n \"testability\": {\n  \"p_testable\": \"number in [0,1]: probability the question can be answered with the stated data at useful power\",\n  \"blocking_constraints\": [\n   {\n    \"code\": \"one of RISK_CODES\",\n    \"text\": \"string\"\n   }\n  ]\n },\n \"prior_work\": {\n  \"already_answered\": \"yes | partly | no | unknown\",\n  \"cited\": [\n   \"identifiers of prior work relied on\"\n  ],\n  \"summary\": \"string\"\n },\n \"risks\": [\n  {\n   \"code\": \"one of RISK_CODES\",\n   \"text\": \"string\"\n  }\n ],\n \"predicted_outcome\": {\n  \"supported\": \"probability\",\n  \"rejected\": \"probability\",\n  \"untestable\": \"probability\",\n  \"artifact\": \"probability\",\n  \"uncertain\": \"probability\"\n },\n \"decision\": \"proceed | proceed_with_changes | do_not_proceed\",\n \"design\": {\n  \"estimand\": \"string\",\n  \"unit\": \"string\",\n  \"sample\": \"string\",\n  \"power\": \"string\",\n  \"controls\": \"string\",\n  \"falsification\": \"string\",\n  \"multiplicity\": \"string\",\n  \"decision_rule\": \"string\",\n  \"data_version\": \"string\"\n }\n}\nField guidance:\n- historical_evidence and failed_approaches: only records returned by a tool, with the status as recorded; empty lists\n  if nothing relevant was returned.\n- testability.p_testable: probability that the question can be answered with the stated data at useful statistical power.\n- prior_work.already_answered: whether retrieved earlier work already answered substantially the same question.\n  Use \"unknown\" if no earlier work was retrieved. List identifiers you relied on in prior_work.cited.\n- predicted_outcome: probabilities (summing to 1) of what a competent test of the question as posed would conclude:\n  supported, rejected (adequately powered null), untestable (cannot be tested with this data), artifact (apparent\n  effect produced by a flaw), uncertain (inconclusive or inadequately tested).\n- decision: proceed, proceed_with_changes (state the changes in design), or do_not_proceed.\n- design: a pre-registration-quality plan even if the decision is do_not_proceed (then describe the minimum viable test)."
+  },
+  {
+   "role": "assistant",
+   "content": "{\"research_concepts\":[\"lineup effects\",\"shot mix\",\"personnel effects\",\"matchup effects\",\"NBA offensive lineup changes\"],\"methodological_questions\":[\"how to isolate effect of offensive lineup change on shot mix\",\"control for defensive lineup changes\",\"handle selection bias in lineup changes\",\"measurement reliability of shot mix\",\"statistical power for detecting personnel effects\"],\"historical_evidence\":[],\"failed_approaches\":[],\"evidence_establishes\":[],\"evidence_does_not_establish\":[],\"own_inferences\":[\"The data set provides a rich per-game, per-possession record of lineup changes, shot outcomes, and defensive matchups, but the observational nature of lineup changes introduces substantial selection bias that must be addressed with careful design choices. The sheer volume of games across three seasons offers a large sample, yet the sparsity of certain lineup combinations and the non-random timing of changes mean that any causal interpretation will rely on strong assumptions.\"],\"uncertainties\":[\"Whether the available data capture all relevant confounders such as injury status, coach strategy changes, or opponent adjustments; the reliability of the derived shot mix metrics; the adequacy of the sample size for underrepresented lineup combos.\"],\"historical_effect\":{\"changed_decision\":\"no_historical_evidence\",\"explanation\":\"No prior evidence was retrieved; decision relies entirely on the analysis of the data characteristics and methodological considerations.\"},\"testability\":{\"p_testable\":0.5,\"blocking_constraints\":[{\"code\":\"CONFOUNDING\",\"text\":\"Lineup changes are driven by game context (e.g., injury, strategy, rest), which may correlate with shot mix changes.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Certain lineup combinations appear rarely, limiting the precision of effect estimates for those personnel.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"Derived shot mix metrics may be noisy due to limited possession counts per lineup change.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Only games where a lineup change occurs are observed, potentially biasing the sample.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Testing multiple shot mix categories increases the chance of false positives.\"}]},\"prior_work\":{\"already_answered\":\"unknown\",\"cited\":[],\"summary\":\"No prior studies were retrieved that directly address the effect of changing the offensive five on shot mix within the NBA context.\"},\"risks\":[{\"code\":\"CONFOUNDING\",\"text\":\"Non-random lineup changes may be correlated with unobserved factors affecting shot mix.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Some offensive lineup combinations occur infrequently, limiting statistical power.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"Shot mix metrics derived from a small number of possessions may be unreliable.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Only games with lineup changes are included, potentially biasing the sample.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Multiple outcome categories (e.g., 3PT, mid-range, layup) increase the risk of Type I error.\"}],\"predicted_outcome\":{\"supported\":0.2,\"rejected\":0.1,\"untestable\":0.4,\"artifact\":0.1,\"uncertain\":0.2},\"decision\":\"proceed_with_changes\",\"design\":{\"estimand\":\"Average treatment effect on shot mix of an offensive lineup change, measured as the difference in the proportion of shot types (3PT, mid-range, paint) in the 12 possessions immediately following the change, relative to a counterfactual period without the change.\",\"unit\":\"possession (or 12-possession block) following a lineup change\",\"sample\":\"All possessions in the 2022-23, 2023-24, and 2024-25 NBA regular season and playoffs where an offensive lineup change was recorded, excluding games where a defensive lineup change occurred simultaneously\",\"power\":\"Target 80% power to detect a 3% shift in 3PT proportion, requiring at least ~5000 lineup change events after accounting for clustering by team and season\",\"controls\":\"Fixed effects for team, opponent, period, and game context (score differential, time remaining). Include defensive lineup composition as covariates, and prior shot mix (last 6 possessions) as a lagged control.\",\"falsification\":\"Run the same event study on defensive lineup changes to confirm no systematic change in offensive shot mix when only defense changes. Also test on periods where an offensive lineup change is simulated but no actual change occurs (e.g., pre- vs post- period with identical lineup).\",\"multiplicity\":\"Apply Holm-Bonferroni correction across the three shot mix categories to maintain family-wise error rate at 0.05\",\"decision_rule\":\"Reject null of no change if adjusted p-value < 0.05 for any shot mix category; otherwise accept null.\",\"data_version\":\"2026-11-02\"} }"
+  }
+ ],
+ "log": [
+  {
+   "turn": 0,
+   "stage": 1,
+   "reply": "{\"action\":\"tool\",\"tool\":\"retrieve_history\",\"args\":{\"research_concepts\":[\"lineup effects\",\"shot mix\",\"personnel effects\",\"matchup effects\",\"NBA lineup analysis\"],\"methodological_questions\":[\"control for defensive lineup\",\"measurement reliability of shot mix\",\"selection bias in lineup changes\",\"time-varying confounding\",\"impact of substitution timing\",\"power for detecting personnel effects\",\"handling missing lineup data\"],\"query\":\"NBA lineup personnel effect on shot mix lineup changes\"} }",
+   "usage": {
+    "input_tokens": 876,
+    "output_tokens": 397,
+    "cost_usd": 8.186e-05,
+    "model_version": "openai/gpt-oss-20b"
+   },
+   "parse_error": "",
+   "parse_recovery": "",
+   "tool": {
+    "name": "retrieve_history",
+    "args": {
+     "research_concepts": [
+      "lineup effects",
+      "shot mix",
+      "personnel effects",
+      "matchup effects",
+      "NBA lineup analysis"
+     ],
+     "methodological_questions": [
+      "control for defensive lineup",
+      "measurement reliability of shot mix",
+      "selection bias in lineup changes",
+      "time-varying confounding",
+      "impact of substitution timing",
+      "power for detecting personnel effects",
+      "handling missing lineup data"
+     ],
+     "query": "NBA lineup personnel effect on shot mix lineup changes"
+    },
+    "result_chars": 31,
+    "result_tokens_est": 7,
+    "latency_seconds": 0.0,
+    "returned_ids": [],
+    "trace": {
+     "note": "no historical memory in this condition"
+    }
+   }
+  },
+  {
+   "turn": 1,
+   "stage": 2,
+   "reply": "{\"research_concepts\":[\"lineup effects\",\"shot mix\",\"personnel effects\",\"matchup effects\",\"NBA offensive lineup changes\"],\"methodological_questions\":[\"how to isolate effect of offensive lineup change on shot mix\",\"control for defensive lineup changes\",\"handle selection bias in lineup changes\",\"measurement reliability of shot mix\",\"statistical power for detecting personnel effects\"],\"historical_evidence\":[],\"failed_approaches\":[],\"evidence_establishes\":[],\"evidence_does_not_establish\":[],\"own_inferences\":[\"The data set provides a rich per-game, per-possession record of lineup changes, shot outcomes, and defensive matchups, but the observational nature of lineup changes introduces substantial selection bias that must be addressed with careful design choices. The sheer volume of games across three seasons offers a large sample, yet the sparsity of certain lineup combinations and the non-random timing of changes mean that any causal interpretation will rely on strong assumptions.\"],\"uncertainties\":[\"Whether the available data capture all relevant confounders such as injury status, coach strategy changes, or opponent adjustments; the reliability of the derived shot mix metrics; the adequacy of the sample size for underrepresented lineup combos.\"],\"historical_effect\":{\"changed_decision\":\"no_historical_evidence\",\"explanation\":\"No prior evidence was retrieved; decision relies entirely on the analysis of the data characteristics and methodological considerations.\"},\"testability\":{\"p_testable\":0.5,\"blocking_constraints\":[{\"code\":\"CONFOUNDING\",\"text\":\"Lineup changes are driven by game context (e.g., injury, strategy, rest), which may correlate with shot mix changes.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Certain lineup combinations appear rarely, limiting the precision of effect estimates for those personnel.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"Derived shot mix metrics may be noisy due to limited possession counts per lineup change.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Only games where a lineup change occurs are observed, potentially biasing the sample.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Testing multiple shot mix categories increases the chance of false positives.\"}]},\"prior_work\":{\"already_answered\":\"unknown\",\"cited\":[],\"summary\":\"No prior studies were retrieved that directly address the effect of changing the offensive five on shot mix within the NBA context.\"},\"risks\":[{\"code\":\"CONFOUNDING\",\"text\":\"Non-random lineup changes may be correlated with unobserved factors affecting shot mix.\"},{\"code\":\"EXPOSURE_SPARSITY\",\"text\":\"Some offensive lineup combinations occur infrequently, limiting statistical power.\"},{\"code\":\"MEASURE_RELIABILITY\",\"text\":\"Shot mix metrics derived from a small number of possessions may be unreliable.\"},{\"code\":\"RTM_SELECTION\",\"text\":\"Only games with lineup changes are included, potentially biasing the sample.\"},{\"code\":\"MULTIPLE_TESTING\",\"text\":\"Multiple outcome categories (e.g., 3PT, mid-range, layup) increase the risk of Type I error.\"}],\"predicted_outcome\":{\"supported\":0.2,\"rejected\":0.1,\"untestable\":0.4,\"artifact\":0.1,\"uncertain\":0.2},\"decision\":\"proceed_with_changes\",\"design\":{\"estimand\":\"Average treatment effect on shot mix of an offensive lineup change, measured as the difference in the proportion of shot types (3PT, mid-range, paint) in the 12 possessions immediately following the change, relative to a counterfactual period without the change.\",\"unit\":\"possession (or 12-possession block) following a lineup change\",\"sample\":\"All possessions in the 2022-23, 2023-24, and 2024-25 NBA regular season and playoffs where an offensive lineup change was recorded, excluding games where a defensive lineup change occurred simultaneously\",\"power\":\"Target 80% power to detect a 3% shift in 3PT proportion, requiring at least ~5000 lineup change events after accounting for clustering by team and season\",\"controls\":\"Fixed effects for team, opponent, period, and game context (score differential, time remaining). Include defensive lineup composition as covariates, and prior shot mix (last 6 possessions) as a lagged control.\",\"falsification\":\"Run the same event study on defensive lineup changes to confirm no systematic change in offensive shot mix when only defense changes. Also test on periods where an offensive lineup change is simulated but no actual change occurs (e.g., pre- vs post- period with identical lineup).\",\"multiplicity\":\"Apply Holm-Bonferroni correction across the three shot mix categories to maintain family-wise error rate at 0.05\",\"decision_rule\":\"Reject null of no change if adjusted p-value < 0.05 for any shot mix category; otherwise accept null.\",\"data_version\":\"2026-11-02\"} }",
+   "usage": {
+    "input_tokens": 1811,
+    "output_tokens": 1674,
+    "cost_usd": 0.000179226,
+    "model_version": "openai/gpt-oss-20b"
+   },
+   "parse_error": "",
+   "parse_recovery": "bare output object",
+   "citation_problems": []
+  }
+ ]
+}

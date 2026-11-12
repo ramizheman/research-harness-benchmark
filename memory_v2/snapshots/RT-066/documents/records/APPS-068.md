@@ -1,0 +1,37 @@
+# EXP:APPS-068 | Possession Control Index incremental R2 over ORtg (PCI is DRtg proxy)
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 120 team-seasons. Models A baseline / B PCI-only / C full. OOS test 2025-26. Diagnostic Net~ORtg+leakage vs +offcontrol.
+- hypothesis: PCI (halfcourt PPP + second-chance - TO - transition leakage) explains Net Rating beyond ORtg, Pace, and FGA/poss.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-068; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:net_rating_ORtg {record=APPS-068; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-068 {record=APPS-068; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: Net Rating already contains DRtg, so adding a leakage term that correlates 0.89 with DRtg must lift R2.
+- prespecified: partial
+- produced: RES:APPS-068 {record=APPS-068; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-059
+- related_to: EXP:APPS-059 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-068; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\pci_feature_importance_summary.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\pci_validation.py
+- title: Possession Control Index incremental R2 over ORtg (PCI is DRtg proxy)
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-068; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-068; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-068; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Shot_level_data_with_expected_FG {record=APPS-068; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-068; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPS-068; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPS-068; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-068 | Result of APPS-068
+- failure_evidence: Headline PCI gain is leakage tracking DRtg (+0.89); offensive-control dR2=+0.005. Baseline omitted defense by construction (Net=ORtg-DRtg).
+- failure_type: C_artifact
+- power_info: n=120 team-seasons; OOS 2025-26 30 teams
+- primary_result: A R2=0.763 OOS 0.761; C R2=0.902 OOS 0.919; dR2=+0.139. Offensive-control components add +0.005 R2 beyond ORtg. Net~ORtg+leakage R2=0.948. corr(leakage, DRtg)=+0.894. PCI univariate r=+0.863 vs ORtg +0.866.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

@@ -1,0 +1,37 @@
+# EXP:APPM-055 | Three-level counter ranking: population vs team-specific vs matchup
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Full graph then playoff-only ranking. First run: 946,166 possessions / 5,164 games / 887 directed matchups, 56 pairs. Later rerun: 959,223 possessions / 5,226 games. Playoff ranking: 42,787 possessions / 74 matchups.
+- hypothesis: The best counter after a suppressed play type is stable from population (L1) to team (L2) to matchup (L3); otherwise the playsheet should not use a league default.
+- knowable_in_advance: yes
+- measures: VAR:three_point_attempts_or_luck {record=APPM-055; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-055 {record=APPM-055; rule=audit/study_family_review.csv or singleton}
+- n_runs: 3
+- notes: Knowable: small n on CUT/TRANSITION counters is visible in the rank tables. L1 best-counter identity changed between the 946k and 959k pulls for suppressed CUT (PNR 1.216 vs PULL_UP 1.231).
+- prespecified: no
+- produced: RES:APPM-055 {record=APPM-055; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-054 playoff pair sustainability
+- related_to: EXP:APPM-054 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-055; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_right_counter_ranking.py
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_right_counter_ranking_out.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_results_2425.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_out.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_out2.txt
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_sustainability.py
+- title: Three-level counter ranking: population vs team-specific vs matchup
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-055; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-055; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-055; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPM-055; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-055 | Result of APPM-055
+- failure_evidence: L2 disagrees with L1 on multiple MIA suppressions; playoff ranking also disagrees with L1 (DRIVE counter CUT vs SPOT_UP). CUT/TRANSITION bests often rest on n_mu=5-15.
+- failure_type: E_unclear
+- power_info: L1 n_mu 5 to 696; playoff n_matchups 4 to 44
+- primary_result: L1 (first run): after DRIVE best=CUT 1.261 vs PNR 1.132 (spread +0.129, CUT n_mu=5 PIVOT_WINS); after PNR best=TRANSITION 1.271 (n=35); after PULL_UP best=CUT 1.370 (n=5). L2 MIA disagrees with L1 on DRIVE (L2 best=PNR not CUT, gap=+0.125), PNR (DRIVE not TRANSITION), POST_UP, PULL_UP, SPOT_UP. Playoff right-counter: after DRIVE best=SPOT_UP 1.150 vs non_pivot 1.098 (n=26); after PNR best=DRIVE 1.151 vs 1.161 (n=35); after SPOT_UP best=PULL_UP 1.302 (n=4). Later L1 (2425 file): after CUT best=PULL_UP 1.231 (n=23 PIVOT_WINS) not PNR.
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

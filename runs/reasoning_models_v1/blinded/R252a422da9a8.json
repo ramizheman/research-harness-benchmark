@@ -1,0 +1,115 @@
+{
+ "blind_id": "R252a422da9a8",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive five lineup change",
+   "shot mix",
+   "personnel effects",
+   "design validation",
+   "within-game comparison"
+  ],
+  "methodological_questions": [
+   "How to measure shot mix in a way that is stable and interpretable?",
+   "How to isolate the effect of offensive lineup changes from concomitant changes in defense, game state, and season trends?",
+   "What statistical test or model is appropriate to compare shot distributions before and after a lineup change?",
+   "How to handle small sample sizes for specific lineup combinations while having power to detect an effect?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No historical evidence from this project was retrieved."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a relationship between offensive lineup changes and shot mix is detectable with available data.",
+   "Which specific shot-mix metrics are most sensitive to personnel changes.",
+   "How large a sample is required to achieve adequate power.",
+   "Whether the research question has already been answered by prior work in this project."
+  ],
+  "own_inferences": [
+   "The question implicitly aims to validate a measurement design by demonstrating that when the offensive five changes, shot mix changes; this serves as a sensitivity check that the design is not inert.",
+   "The available play-by-play and possession data permit identification of lineup stints, shot locations, play types, and substitution times, allowing a within-game observational comparison.",
+   "Confounding by defensive lineup, game state (score, period), fatigue, and coaching strategy is a serious threat, and without careful control apparent effects may be artifacts.",
+   "Power may be adequate if aggregating over many substitution events, but testing many specific lineup pairs or shot-mix dimensions risks multiple testing and diluted power.",
+   "Exposure sparsity for rare lineups means a design focusing on common substitution patterns or aggregating by player archetypes is more feasible."
+  ],
+  "uncertainties": [
+   "The exact definition of 'shot mix' is not specified (e.g., 3pt frequency, shot-distance distribution, play-type proportions).",
+   "The expected effect size is unknown; if personnel-driven shot-mix shifts are small relative to in-game variation, even a large dataset may not yield a conclusive result.",
+   "The degree of overlap between offensive and defensive lineup changes in typical substitutions is unclear, which affects the ability to isolate the offensive five.",
+   "The appropriate level of aggregation (per lineup, per substitution event, per player) has not been established."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was available from the retrieval, so the decision is based entirely on methodological assessment and knowledge of the data."
+  },
+  "testability": {
+   "p_testable": 0.45,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Defensive lineup, game score, period, and rest tend to change simultaneously with offensive substitutions, making it difficult to isolate the offensive personnel effect without a strong quasi-experimental design."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Shot mix is a multi-dimensional construct; choosing a specific metric (e.g., 3-point rate, mid-range frequency, share of play types) may not capture the full shift, and measurement error in classifying play types could mask effects."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Many specific five-man lineups appear only briefly, and restricting to common lineups reduces the external validity of the design validation."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior work from this project was retrieved."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Substitutions often change both offensive and defensive personnel; game state (score, time) also influences shot selection, potentially creating a spurious association between lineup change and shot mix."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The number of independent lineup changes may be insufficient to detect small or moderate differences in shot mix after accounting for clustering and multiple comparisons."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If testing several dimensions of shot mix (e.g., shot distance, play type, clock use) or many specific lineups, the probability of false positives increases."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type classification derived from play-by-play may have lower reliability for some actions (e.g., transition vs. half-court), introducing noise that attenuates effect estimates."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If shot mix is defined using future shots after a lineup change, care must be taken to avoid including shots that occurred before the substitution was complete or shots from a subsequent change."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Shot mix may be highly stable game-to-game, making it hard to reject a null not because personnel don’t matter but because the baseline variation is small."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.2,
+   "artifact": 0.15,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing at least one offensive player during a non-garbage-time substitution on the subsequent offensive five’s shot-mix distribution, while holding defensive lineup constant or conditioning on it.",
+   "unit": "A substitution event: a change in the offensive five that persists for at least one full possession, with a stable defensive five during the pre- and post-change windows.",
+   "sample": "All non-garbage-time (score margin < 25 in 1st–3rd quarter, < 20 in 4th) substitutions from the 2022-23, 2023-24, and 2024-25 regular seasons where both pre- and post-change lineups play at least 3 possessions with the same defensive opponent lineup.",
+   "power": "Power analysis will be conducted based on observed within-game shot-mix variance of the chosen primary metric. A minimum detectable effect size will be estimated, and a sequential testing procedure will ensure adequate power before concluding an absence of effect.",
+   "controls": "Defensive lineup (indicator variables for each defender), game score margin, period, seconds remaining in shot clock, possession number within stint, home/away, and rest days for key offensive players.",
+   "falsification": "Test for pre-existing trends in shot mix in the possessions immediately before the substitution; a null effect on the 'change' when no offensive substitution occurs but defensive change occurs; and a placebo test using shot mix of the defensive team, which should not be directly affected by the offensive five change.",
+   "multiplicity": "Define a primary shot-mix metric a priori (e.g., 3-point attempt rate or rim-attempt frequency). Secondary dimensions will be tested with Holm-Bonferroni correction. If exploring many lineup-specific effects, shrinkage estimators (hierarchical models) will be used.",
+   "decision_rule": "The primary test uses a linear mixed model with substitution-event random effects and fixed effects for pre/post indicator and the listed controls. A significance level of 0.05 for the pre/post indicator, with a pre-registered minimum effect size of practical interest; if the confidence interval excludes zero and contains effects of plausible direction, the hypothesis is supported. If the confidence interval is narrow around zero, it is rejected. Otherwise, inconclusive.",
+   "data_version": "2022-23, 2023-24, and 2024-25 regular season play-by-play and derived play-type possession records from the NBA stats API, as of the project’s fixed data snapshot on 2026-11-02."
+  }
+ },
+ "redactions": 0
+}

@@ -1,0 +1,32 @@
+# FAM:SF-APPS-061 | Study family SF-APPS-061: Test 2: PUTBACK Q4 star-suppression IVW trend
+- observed_research_question: Test 2: PUTBACK Q4 star-suppression IVW trend
+- auto_outcome_status: supported
+- observed_hypothesis: Star PPP after conceding a putback declines monotonically Q1->Q4.
+- observed_result: Q1 ATT=+0.0671 to Q4 -0.1394. IVW slope=-0.0649/qtr (z=-2.98, one-sided p=0.0014). Placebo p=0.0028. RS Q4 -0.1262 [-0.2240,-0.0284] n_t=465; close -0.1949; playoffs Q4 CI[-0.444,+0.138] n_t=55 underpowered. CA p=0.0378.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Trend clears IVW, placebo, and Q4 CI excludes 0 in RS/close. Mechanism unresolved (Test 3 null) and playoff subset underpowered.
+- observed_sample_and_power: n_t Q1=705 Q4=520; playoffs n_t=55
+- observed_method: Matched ATT by quarter; IVW trend; quarter-shuffle placebo 5000x; Cochran-Armitage P(score). Treated=2481, control capped 60000.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPS-061: 'matched att by quarter; ivw trend; quarter-shuffle placebo 5000x; cochran-armitage p(score). treated=2481, control cap'
+- observed_notes: Console verdict said WEAK SIGNAL; header said FINDING (qualified). Recorded as supported-with-qualifications; Test 3 shows load is not the mechanism.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-061: 2026-06-14 (mtime)
+- observed_member_records: APPS-061
+- observed_sources: APPS-061: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_2_putback_trend.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-041 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-062 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-028 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

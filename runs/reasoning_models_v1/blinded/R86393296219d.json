@@ -1,0 +1,133 @@
+{
+ "blind_id": "R86393296219d",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "absence spell (run of consecutive missed games, main studies used at least 15)",
+   "offensive reorganization / displacement D_real (1 - cosine similarity of teammates' play-type mix before vs during absence)",
+   "structural influence load L (L_pre, measured from pre-absence games)",
+   "change in points per possession (PPP) during absence",
+   "play-type mix and initiator redistribution",
+   "regression to the mean and absent-player quality as confounders"
+  ],
+  "methodological_questions": [
+   "Does displacement beyond what L_pre predicts (D_real relative to L_pre) predict the change in team PPP during an absence spell?",
+   "Is D_real reliable at the possession counts available per spell, or does cosine distance have a sampling-noise floor that scales inversely with possessions?",
+   "Is the link between reorganization and PPP mechanical, because play types differ in baseline PPP, so any mix shift changes expected PPP?",
+   "Is n=148 spells powered (minimum detectable rho is about 0.23 at 80% power, two-sided alpha .05, before clustering and covariate loss)?",
+   "How should absent-player quality, usage, opponent, schedule, replacement lineup and regression to the mean be handled?",
+   "What does 'relative to L' mean operationally: ratio D_real/L_pre, residual of D_real on L_pre, or an interaction?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. retrieve_history returned zero records, so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this or a related question was tested before, and with what status.",
+   "Whether D_real is reliable at the possession counts per spell.",
+   "Whether L_pre predicts displacement or PPP change.",
+   "Which approaches have already failed."
+  ],
+  "own_inferences": [
+   "The glossary defines L (structural influence load, L_pre), D_real and absence spells, but gives no results. The question most plausibly asks whether D_real scaled by or conditioned on L_pre predicts the PPP change. This is my reading; the task statement does not fix it.",
+   "The 148 spells are probably the analysis unit and n=986 a larger pool (possibly player-seasons or games). I could not verify this.",
+   "Absent-player quality is a strong confounder: better players have higher L and also cause larger PPP drops, which can create a correlation with no causal role for reorganization.",
+   "Cosine distance between two finite-sample mixes is biased upward at small possession counts. D_real would then partly measure sample size, and sample size also affects PPP noise.",
+   "Play-type PPP differs by type (e.g. TRANSITION vs POST_UP). A mix shift can therefore mechanically move PPP, so the test must use composition-adjusted PPP to avoid a tautology.",
+   "Spells overlap in teams and seasons, share teammates and often share a pre-period baseline. Observations are not independent, so effective n is below 148.",
+   "If the PPP change is measured against a pre-period chosen after strong or weak form, regression to the mean will bias it."
+  ],
+  "uncertainties": [
+   "Exact definition of 'relative to L' and of the PPP-change baseline.",
+   "Possessions per spell and the distribution of spell lengths.",
+   "Whether the 148 spells include the 2025-26 partial or complete data and playoffs.",
+   "Classifier (inferrer) error rates in play-type labels, which would feed noise into D_real.",
+   "No [prior work], so no known effect size to set the power target."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so the decision rests on the task statement, the glossary and my own reasoning. I could not use prior results or failed approaches, and I assume the question has not been answered."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "148 spells give 80% power only for |rho| of about 0.23 or more, before clustering and covariates. Partial effects of reorganization beyond quality and L would likely be smaller and undetectable."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "D_real at sparse per-spell possession counts has a noise floor and upward bias. Without a split-half reliability check and a null-distribution correction, a null or a spurious correlation cannot be interpreted."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved. The glossary mentions earlier project papers (Structural Influence; Detecting Defensive Suppression) but gives no findings for this question, so whether it was answered is unknown."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "n=148 spells with a minimum detectable rho of about 0.23. Clustering by team/player and adding covariates will raise the detectable effect."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "D_real depends on possessions per spell and on play-type classifier accuracy. Low reliability attenuates correlations toward zero."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Finite-sample cosine distance never reaches zero. Spells with fewer possessions show larger D_real, and fewer possessions also mean noisier PPP. This can create a spurious negative or positive association, so a possession-matched null floor is needed."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Absent-player quality, usage, L_pre, replacement quality, opponent strength, schedule, pace, injuries to others and trades drive both reorganization and PPP. Mix-composition effects on PPP are mechanical."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If absences or baselines are selected on recent form, the PPP change regresses toward the mean. Players hurt after hot stretches inflate apparent drops."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If play-type labels or the initiator mapping use outcome information (e.g. made shots resolve the type), D_real and PPP are not independent. This must be checked in the classifier."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "L_pre and the baseline must use only games before the spell. Using full-season data or post-absence games to define L or the baseline would leak."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Choices of the 'relative to L' form, the PPP baseline, the possession filter and the season subset create forking paths unless fixed in advance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "League play-type mix and PPP shift across 2022-26. Team rosters change during long spells, and RS vs PO differ."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Most 15-game absences may show small D_real and PPP change near zero. The distribution of both is unknown."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.2,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.35
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Association between standardized reorganization beyond structural load, defined as the residual of D_real on L_pre (primary), and the composition-adjusted change in team PPP (during-spell minus pre-spell), after adjusting for absent-player quality and opponent strength. A secondary ratio form D_real/L_pre is reported but not used for the decision rule. This is associational, not causal.",
+   "unit": "Absence spell (team, absent player, consecutive missed games, at least 15 as in the main studies), n=148 assumed to be the primary unit. The 986 are not used as the primary unit until their identity is confirmed.",
+   "sample": "All qualifying spells in 2022-23 through 2025-26 (RS primary, PO excluded or analyzed separately). Garbage time is excluded. Spells are required to have a minimum number of pre-spell and during-spell possessions, fixed before looking at the outcome. L_pre uses only pre-absence games. Spells where the player returns or the roster changes by trade within the window are flagged and a sensitivity analysis is run without them.",
+   "power": "n=148 gives 80% power for |rho| of about 0.23 at alpha .05 two-sided. Clustering by team and player will reduce this, so the effective MDE is stated after computing design effects. Partial associations below about |0.25| are called inconclusive, not rejected. Rejected is claimed only if the 95% CI excludes |rho| of 0.25 or larger.",
+   "controls": "Absent-player quality (e.g. minutes, usage, a pre-spell box-score or on/off composite), L_pre, possessions in each period (to deal with the noise floor), opponent strength, pace, replacement quality, days since the spell began, season and RS/PO. PPP change is composition-adjusted by holding the pre-spell play-type mix fixed, or by decomposing PPP change into mix and within-type components. Mixed model with team random effects or cluster-robust SEs; RTM is handled by regressing on pre-spell PPP and using a baseline from at least a fixed number of games.",
+   "falsification": "(1) Possession-matched permutation: shuffle game labels between pre and during periods within team to build a null D_real and subtract it, so D_real counts only excess reorganization. (2) Placebo spells: pseudo-absences for the same team with a non-absent player of similar L_pre and the same game count, expecting no association. (3) Split-half reliability of D_real within spells. (4) Check that the association vanishes when the PPP change is computed on the mix component only versus within-type component, to separate mechanical from real effects. (5) Confirm no outcome information enters play-type labels.",
+   "multiplicity": "One primary test (residual-D form, composition-adjusted PPP change, RS). All others are labeled secondary and Holm-corrected across the secondary family. Specifications are fixed in the pre-registration before any outcome is examined.",
+   "decision_rule": "Supported if the primary partial correlation (or standardized slope) has a one-sided-direction-free 95% CI excluding zero, survives the permutation-null and placebo checks, and the sign is the same across at least three of four seasons. Rejected if the CI lies within |rho| below 0.25 with D_real reliability above a preset threshold (e.g. split-half r at least 0.5). Artifact if the raw association disappears after the noise-floor correction, composition adjustment or quality controls. Otherwise inconclusive. If reliability is below the threshold, report untestable.",
+   "data_version": "Per-game NBA stats API files and the derived play-type graph database as of 2026-11-01: 2022-23 to 2024-25 RS and PO, 2025-26 RS complete (from 2026-04-13) and 2025-26 PO complete (from 2026-06-21). Classifier version and spell-list hash are frozen and recorded before analysis."
+  }
+ },
+ "redactions": 1
+}

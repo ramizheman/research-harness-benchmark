@@ -1,0 +1,35 @@
+# EXP:APPS-087 | Connector tangible impact: star shielding, TO, lineup lift
+- date: 2026-07-27
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 61 star-season pairs >=80 poss w/wo CONNECTOR. HasConn M1 regressions. Lineup lift talent-controlled and held-4 swap n=296. Wilcoxon battery n=73.
+- hypothesis: Connector presence shields stars (higher TS, lower TO) and lifts lineup ORtg beyond talent.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-087; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:net_rating_ORtg {record=APPS-087; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-087 {record=APPS-087; rule=audit/study_family_review.csv or singleton}
+- n_runs: 3
+- notes: Wilcoxon agrees with means on the nulls (BOTH_NULL) and on TO (BOTH_SIG, higher TO with HasConn).
+- prespecified: no
+- produced: RES:APPS-087 {record=APPS-087; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-086
+- related_to: EXP:APPS-086 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-087; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-087; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_offense_median_wilcoxon_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_tangible_impact_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\lineup_lift_diagnostics_report.md
+- title: Connector tangible impact: star shielding, TO, lineup lift
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-087; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-087; rule=keyword rule DATASET_RULES}
+- uses_method: METH:regression {record=APPS-087; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-087 | Result of APPS-087
+- failure_evidence: PPP/TS/eFG shielding null; TO rate rises with connectors. Lineup ORtg lift is a talent confound (p=0.51 after TALENT; swap p=0.565).
+- failure_type: B_powered_null
+- power_info: n=61 star pairs; 73 team-seasons; 296 held-4 swaps; 428 lineups
+- primary_result: Star dTS +0.05 pp p=0.937; dTO +0.74 pp p=0.00364 (wrong sign for shielding). Star-init TO~HasConn beta=+0.34 pp p=0.439. HasConn on-off PPP BOTH_NULL (mean -0.041 p=0.939, median +0.528 p=0.731, n=73). Frequent-conn lineup ORtg lift LOO +1.559 p=0.0184 but talent-controlled beta +0.915 p=0.51 n=428. Held-4 swap dORtg +0.427 p=0.565 n=296.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

@@ -1,0 +1,133 @@
+{
+ "blind_id": "Raea1ffd2592d",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "drive",
+   "pick and roll",
+   "points per possession",
+   "preceding play effect"
+  ],
+  "methodological_questions": [
+   "causal effect of preceding play type on subsequent PPP",
+   "temporal sequencing in play-by-play",
+   "measurement reliability of PPP"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "A specific opponent play type on the preceding possession suppresses each star's next-possession PPP relative to that star's baseline. PUTBACK is the top suppressor for 6+ stars; other suppressors include TRANSITION and POST_UP."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Specific opposing lineups, defenders, play types and preceding opponent play types suppress star efficiency; rank‑1 suppressor varies across players."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "After a suppression trigger, teams keep running the suppressed play at near‑H1 volume and lose several points per event."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "DRIVE PPP is materially higher in regular season than playoffs, so an RS‑calibrated optimizer over‑recommends DRIVE."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "absence of multiple‑comparison control",
+    "why": "no multiplicity correction; small n_after (32–95) for several PUTBACK cells versus thousands of baseline possessions."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "unclear mechanism; rank‑1 deltas within 1–2 SE with no multiple‑comparison control; other artifacts flagged."
+   }
+  ],
+  "evidence_establishes": [
+   "Preceding play type can influence PPP in subsequent possession."
+  ],
+  "evidence_does_not_establish": [
+   "The specific effect of a teammate DRIVE preceding a PNR on the PNR’s PPP has not been examined."
+  ],
+  "own_inferences": [
+   "A test is feasible with the available seasons of NBA play‑by‑play data, but requires careful control for confounding by player, team, defensive matchup, and game context."
+  ],
+  "uncertainties": [
+   "Exact number of DRIVE‑preceding‑PNR sequences; heterogeneity of effect across star vs non‑star players; potential non‑stationarity across seasons."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "No prior study answered this exact question; the retrieved evidence only informs that preceding play can matter."
+  },
+  "testability": {
+   "p_testable": 0.75,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Player, team, and defensive matchup characteristics may confound the exposure–outcome association."
+    },
+    {
+     "code": "DRIFT_NONSTATIONARITY",
+     "text": "The relationship may vary across seasons or game contexts."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "Testing many preceding play types increases type‑I error risk."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "PPP is derived from possession reconstructions and may contain misclassification."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior studies showed that preceding play type can suppress or enhance a player’s subsequent PPP, but none specifically examined DRIVE preceding a PNR."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Player, team, defensive matchup, and game context may confound the effect."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Effect may shift across seasons or game phases."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing multiple exposure types can inflate false‑positive rates."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PPP may be mis‑measured due to possession reconstruction errors."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.05,
+   "artifact": 0.2,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average causal effect of a teammate DRIVE preceding a pick‑and‑roll possession on that pick‑and‑roll’s points per possession (PPP).",
+   "unit": "individual possession",
+   "sample": "All PNR possessions with a recorded preceding play type in NBA play‑by‑play data from the 2022‑23 to 2025‑26 seasons.",
+   "power": "Based on the large sample size (tens of thousands of PNR possessions) and estimated effect size from prior suppression studies (~0.1–0.3 PPP), 80% power at α=0.05 is achievable; formal power calculation to be performed pre‑analysis.",
+   "controls": "Include fixed effects for player, team, opponent, defensive matchup, period, score differential, and game location; adjust for season and time within game; use robust standard errors clustered at the team‑player level.",
+   "falsification": "Test whether DRIVE preceding a non‑PNR possession (e.g., a POST_UP) affects its PPP; expect no systematic effect if the effect is specific to DRIVE→PNR sequences.",
+   "multiplicity": "Control false discovery rate across all tested preceding play types using Benjamini–Hochberg; pre‑register the primary hypothesis (DRIVE→PNR) and secondary hypotheses (other play types).",
+   "decision_rule": "If the estimated coefficient for DRIVE→PNR is statistically significant (p<0.05 after FDR) and not driven by outliers, we consider the hypothesis supported; if not significant with adequate power, we reject; if insufficient events or model diagnostics fail, we mark untestable.",
+   "data_version": "NBA play‑by‑play and possession reconstruction files for seasons 2022‑23 through 2025‑26 (complete for 2025‑26 as of 2026‑04‑13)."
+  }
+ },
+ "redactions": 15
+}

@@ -1,0 +1,34 @@
+# EXP:APPS-085 | Connector teammate-path quality Q_p split-half reliability
+- date: 2026-07-26
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Odd/even game_id split; n=102 connectors with both halves; on&off >=80 poss/half, teammate-init on >=50. Spearman-Brown; ANOVA ICC.
+- hypothesis: Connector quality Q_p (teammate-initiated on-off PPP gap) is a stable player-season attribute.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-085; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-085 {record=APPS-085; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: L(p)/shape nulls are not just attenuation of a large true effect (true r<=0.25 could still be missed).
+- prespecified: no
+- produced: RES:APPS-085 {record=APPS-085; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-086; APPS-090
+- related_to: EXP:APPS-086 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-085; rule=date-ordered record link}
+- related_to: EXP:APPS-090 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-085; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-085; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_qp_reliability_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_qp_variance_audit_report.md
+- title: Connector teammate-path quality Q_p split-half reliability
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-085; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-085; rule=keyword rule METHOD_RULES}
+- uses_method: METH:split_half_reliability {record=APPS-085; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-085 | Result of APPS-085
+- failure_evidence: Split-half r=0.215 / SB 0.355 is too low to treat Q_p as a stable scoutable trait; most variance is within-player half-to-half.
+- failure_type: A_unanswerable
+- power_info: n=102 connectors
+- primary_result: Pearson r(Q_a,Q_b)=+0.215 p=0.0297; Spearman rho=+0.242. Spearman-Brown Q~0.355, S~0.278. Sign agreement 65.7% (67/102) binomial p=0.000996. ICC(player-season)=0.216 (78.4% within). Attenuation: even a perfect predictor max |r| with Q_p ~0.595; true r=0.30 attenuates to 0.179 (often undetectable).
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict failed_gate
+- verdict: failed_gate

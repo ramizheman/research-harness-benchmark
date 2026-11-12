@@ -1,0 +1,168 @@
+{
+ "blind_id": "Rf5c8c63560e6",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE preceding a pick-and-roll (PNR)",
+   "PNR points per possession (PPP)",
+   "play-type labeling from play-by-play",
+   "foul-ending leakage in play-type PPP",
+   "sequential X->Y play-type premiums",
+   "derived play-type possession records"
+  ],
+  "methodological_questions": [
+   "Can a teammate DRIVE before a PNR be identified reliably and without outcome-derived labels?",
+   "Is any PPP difference causal, or does it reflect possession context, shot clock, lineup, and player quality?",
+   "Is the universal claim ('any' teammate drive) testable, or only an average effect with heterogeneity?",
+   "Do foul endings and labeling flaws inflate or deflate PNR and DRIVE PPP?",
+   "Is there enough exposure for DRIVE->PNR sequences at player-pair level and at pooled level?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Labeling audit: PNR shows a 22% foul rate and DRIVE sits 12pp below the foul benchmark (FOUL_LEAK). OTHER PPP is inflated by 36% foul endings. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type. [prior work]'s verdict is artifact_found."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Descriptive scan of same-player and teammate X->Y sequence premiums above Y's baseline. Same-player L. Doncic DRIVE->PNR is +0.309 (n=53). D. Bane DRIVE->PNR is -0.324 (n=70, t=-2.7). The failure mechanism is recorded as E_unclear, and the limits are label/classification error and small sample. The teammate DRIVE->PN... entry (J. Brown->J. Tatum) is cut off in the returned text."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Season stability of sequential suppressors: only 2/30 stars were stable. Negative teammate sequence Giannis->Lillard DRIVE->PNR is -0.263 (n=31). Recorded as an adequately powered null (B_powered_null), with small-sample limits (min n=20/cell) and the SAMPLE_SIZE_POWER risk."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Defensive PPP allowed by play type, regular season vs playoffs. The PNR share jump of +12.1pp may reflect tagging differences. Recorded risks are LABEL_ERROR and MECHANICAL_FLOOR, and [prior work] has no inferential test."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Treating play-type PPP differences (including DRIVE and PNR) as real efficiency using the derived labels",
+    "why": "Recorded as C_artifact: foul-ending leakage and a labeling construction flaw. initiation_type maps only 0.7% of possessions to a real play type."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Cell-level teammate X->Y premiums as evidence of sequence effects",
+    "why": "Recorded limits are label/classification error and small sample. Mechanism unclear (E_unclear); most cells were not distinguishable from baseline."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Expecting player-level sequential effects to be stable across seasons",
+    "why": "Adequately powered null (B_powered_null) with small cells (min n=20) and the SAMPLE_SIZE_POWER risk."
+   }
+  ],
+  "evidence_establishes": [
+   "[prior work][prior work] records that play-type labels in this data have foul-ending and mapping flaws that can produce artifactual PPP differences, including for PNR and DRIVE.",
+   "FAM:[prior work] and [prior work][prior work] record teammate DRIVE->PNR cells with both positive and negative premiums (for example Bane -0.324 and Giannis->Lillard -0.263 are negative), so no uniform positive effect appears at the cell level.",
+   "The earlier cell-level work is limited by small samples and label error, and it was descriptive or about stability, not a pooled test of this claim."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the pooled average PNR PPP after a teammate DRIVE differs from PNR PPP without one.",
+   "Whether any difference survives control for shot clock, lineup, and player quality, and whether it is causal.",
+   "Whether the DRIVE->PNR sequence definition can be built free of outcome-derived or foul-leaked labels.",
+   "The truncated teammate DRIVE->PNR entries in FAM:[prior work] and [prior work][prior work] were not read in full."
+  ],
+  "own_inferences": [
+   "'Any teammate DRIVE raises PNR PPP' is a universal claim. The cell-level negatives in the retrieved records suggest it would fail as stated, but those cells are noisy and may be label artifacts. The testable version is an average effect plus heterogeneity.",
+   "Conditioning on a PNR occurring after a drive selects possessions where the drive did not end in a shot or foul. This can bias the comparison, and foul leakage may push in either direction.",
+   "A drive late in the shot clock mechanically shortens the PNR window and changes its quality, so shot-clock state must be handled.",
+   "Because the label comes from play-by-play, the drive may be identified partly from the possession outcome; this must be checked before analysis.",
+   "Pooled data across 3+ seasons likely gives adequate power for an average effect, but not for player-pair effects."
+  ],
+  "uncertainties": [
+   "How the derived records order DRIVE and PNR within a possession, and whether a PNR can be tagged after a drive within one possession.",
+   "How many DRIVE->PNR possessions exist after excluding fouls and ambiguous labels.",
+   "Whether labeling rules changed across seasons.",
+   "Whether the 0.7% initiation_type mapping applies to the current database build."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without history I might have proceeded with a direct comparison. [prior work] on foul leakage, label error, and small cells push the decision to proceed with changes: reframe the universal claim as an average effect with heterogeneity, require a label audit first, handle foul endings explicitly, and avoid player-pair cells."
+  },
+  "testability": {
+   "p_testable": 0.55,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "If DRIVE or PNR labels cannot be reconstructed without outcome-derived or foul-leaked information, the comparison is invalid. Audit this first."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Player-pair or per-team cells are too small (earlier cells were n~30-70). Only the pooled test is feasible."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Earlier work gives descriptive cell-level teammate DRIVE->PNR premiums with mixed signs and documents labeling/foul artifacts. It does not answer the pooled question."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels have a documented 0.7% initiation_type mapping and foul leakage ([prior work][prior work]); sequence ordering may be mislabeled."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If PNR or DRIVE tags use possession outcomes (fouls, shots), the PPP comparison is partly circular."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Drive-then-PNR possessions differ in lineup, ball handler, defense, score state, and shot clock from standalone PNRs."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Conditioning on a drive that did not end the possession selects a non-random subset of possessions."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Elapsed shot clock and possession length constrain the PNR outcome after a drive."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Per-player or per-pair cells are underpowered, as in FAM:[prior work] and [prior work][prior work]."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing 'any' teammate drive across many players or pairs inflates false positives."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Labeling and play style may change across seasons."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "The drive must be defined using only information before the PNR starts."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.15,
+   "untestable": 0.1,
+   "artifact": 0.3,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average difference in PNR PPP between possessions where a teammate (not the PNR ball handler) DRIVE immediately precedes the PNR, and matched PNR possessions with no preceding drive. Heterogeneity is reported as a spread, not tested per pair. The universal 'any' claim is treated as falsified if the pooled effect is non-positive or if substantial subgroups (by season) show negative effects.",
+   "unit": "PNR possession",
+   "sample": "Discovery: 2022-23 to 2024-25 regular season and playoffs, plus 2025-26 regular season once complete. Hold-out: 2025-26 regular season. Exclude 2025-26 playoffs as incomplete on 2026-06-14 (complete from 2026-06-21). Exclude possessions with ambiguous labels, garbage time, and end-of-period possessions.",
+   "power": "Before analysis, count eligible DRIVE->PNR possessions. Proceed only if the pooled sample can detect about 0.05 PPP at 80% power (SD about 1.1 per possession implies roughly 3,000+ per arm, to be confirmed). No player-pair inference.",
+   "controls": "Label audit first: verify the drive precedes the PNR using clock and event order only, and that foul endings are handled consistently. Report PPP with and without free-throw possessions and fouls. Match or regress on shot-clock at PNR start, lineup quality, ball handler, screener, opponent defense, score margin, period, and season. Use cluster-robust errors by game or team.",
+   "falsification": "Placebo 1: a drive by the PNR ball handler himself (same-player, as in FAM:[prior work]) should differ. Placebo 2: shuffled drive labels within game, ball handler, and shot-clock bins. Placebo 3: the effect should vanish if the drive is defined after the PNR. Check a negative control on other play types.",
+   "multiplicity": "One primary pooled test. Season and heterogeneity analyses are labeled secondary with Holm correction; no per-player or per-pair hypothesis tests.",
+   "decision_rule": "Supported if the pooled effect is positive with CI excluding 0 in discovery and replicated in the 2025-26 hold-out, and passes the placebo and audit checks. Rejected if the CI excludes a practically meaningful effect (> 0.05 PPP). Artifact if the effect disappears or reverses after excluding fouls or ambiguous labels. Otherwise inconclusive.",
+   "data_version": "Per-game NBA stats API files and the derived play-type graph database, as of 2026-06-14. Freeze the data snapshot and label-generation code before analysis. Record the build date. Use 2025-26 regular season only (complete from 2026-04-13); exclude 2025-26 playoffs."
+  }
+ },
+ "redactions": 34
+}

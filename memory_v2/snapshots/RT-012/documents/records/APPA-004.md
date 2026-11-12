@@ -1,0 +1,32 @@
+# EXP:APPA-004 | DID-ADAPT case study NYK vs PHI 2025-26 series
+- date: 2026-05-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 4 games x 2 teams = 8 team-game rows with three-thirds A1 method; series-level SHOULD vs DID cosine (A2).
+- hypothesis: Within-game and within-series adaptation toward engine counters coincides with better PPP in one series.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-004; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:three_point_attempts_or_luck {record=APPA-004; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-004 {record=APPA-004; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Same selection issue as APPA-003 applies.
+- prespecified: no
+- produced: RES:APPA-004 {record=APPA-004; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-003
+- related_to: EXP:APPA-003 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-004; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\DID_ADAPT_NYK_vs_PHI_2526.md
+- title: DID-ADAPT case study NYK vs PHI 2025-26 series
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-004; rule=keyword rule DATASET_RULES}
+- uses_method: METH:case_study {record=APPA-004; rule=keyword rule METHOD_RULES}
+- uses_method: METH:difference_in_differences {record=APPA-004; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-004 | Result of APPA-004
+- failure_evidence: n=8 team-game rows; series SHOULD vector missing.
+- failure_type: A_unanswerable
+- power_info: n=8
+- primary_result: Adapters 4/8 rows; mean dPPP adapters +0.0327 vs non-adapters -0.2987. A2 could not be computed: no SHOULD vector in correction_log.json.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

@@ -1,0 +1,155 @@
+{
+ "blind_id": "Re08c61a12686",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive five-man lineup changes",
+   "shot mix",
+   "personnel effects",
+   "lineup stability",
+   "offensive lineup design"
+  ],
+  "methodological_questions": [
+   "How to identify causal effect of offensive lineup on shot mix?",
+   "What confounding factors affect lineup change studies?",
+   "What is the required sample size to detect shot mix changes from lineup swaps?",
+   "How to separate offensive and defensive influences on shot distribution?",
+   "Can shot mix changes serve as a manipulation check for lineage effects?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Offenses attack the rim more when the opponent has no big on the floor: DRIVE +0.82pp (SE 0.25), POST_UP +0.43pp (SE 0.18), 3PA -1.79pp (SE 0.31), rim ≤4ft +0.12pp (t=+0.4), PPP +0.008 (t=+1.1). Sample N=1.07M possessions."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "The PULL_UP-specific decline with exposure is defensive adaptation rather than shooter selection/lineup artifact. With lineup FE: slope holding shot fixed -0.0255 (0.0061); shooter's earlier scored -0.1044 vs not scored +0.0693. No lineup FE: -0.0063 (0.0036); placebo other play types -0.0075 (0.0017)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "Rank-1 openers are within what the top-8 rotation can sustain. 8/8 rank-1 openers CUT-centered and INFEASIBLE; worst gaps +9.6 to +15.9pp; CUT target 14-18% vs ceiling 2-6%."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Connector presence shields stars (higher TS, lower TO) and lifts lineup ORtg beyond talent. Star dTS +0.05 pp p=0.937; dTO +0.74 pp p=0.00364 (wrong sign). Star-init TO~HasConn beta=+0.34 pp p=0.439. HasConn on-off PPP BOTH_NULL (mean -0.041 p=0.939, median +0.528 p=0.731, n=73)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Attempt to detect a defensive adaptation effect on pull-up shooting without accounting for shooter-level confound and lineup fixed effects.",
+    "why": "C_artifact (apparent effect produced by a construction, selection or labelling flaw). Effect shrinks from -0.0255 to -0.0063 without lineup FE and the same-shooter placebo on other play types is -0.0071/-0.0075, consistent with shooter-level confound."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Optimizer recommendations that target specific play-type frequencies for opening lineups without considering personnel feasibility.",
+    "why": "C_artifact (apparent effect produced by a construction, selection or labelling flaw). All rank-1 openers were CUT-centered and exceeded the stretch cap by +9.6 to +15.9 pp for every team."
+   }
+  ],
+  "evidence_establishes": [
+   "Shot mix can shift detectably in response to lineup changes (even opponent lineup), but shifts are often small (FAM:[prior work]).",
+   "Confounding by shooter talent and game context can create spurious lineup effects on shot selection; including lineup fixed effects reduces bias but does not eliminate it ([prior work][prior work]).",
+   "Apparent lineup-level effects on performance metrics can be due to talent confounds rather than a causal effect of the lineup composition ([prior work][prior work]).",
+   "Optimization targets based purely on shot-mix objectives can be infeasible when personnel constraints are ignored (FAM:[prior work])."
+  ],
+  "evidence_does_not_establish": [
+   "No study tested the specific hypothesis that changing the offensive five causes a change in the offense's shot mix, holding other factors constant.",
+   "The studies did not use the same 2022-25 NBA seasons or the same data pipeline.",
+   "The effect sizes for shot mix changes induced by own-lineup changes are unknown; the historical evidence only covers opponent-driven changes and confounded observational designs.",
+   "Whether a pre-registered quasi-experimental design can overcome endogeneity and detect a meaningful signal remains untested."
+  ],
+  "own_inferences": [
+   "The question may be trivially true (different players take different shots), so the meaningful challenge is to detect a causal signal above noise and confounds.",
+   "A naive pre-post substitution comparison of shot mix will likely produce artifacts, as shown by the pull-up and connector studies.",
+   "A design that uses player fixed effects, opponent lineup controls, and a pre-specified composite shot mix index can mitigate confounding but still faces risks from unobserved time-varying confounders.",
+   "The large sample of three seasons and detailed substitution data make it feasible to power the study if effect sizes are similar to the −1.8 pp 3PA shift observed in FAM:[prior work]."
+  ],
+  "uncertainties": [
+   "The specific design intended by the researchers (randomization, optimization, or natural experiment).",
+   "The operational definition of shot mix (which shot types, at what granularity) and how personnel effects will be quantified.",
+   "The expected magnitude of the effect; without a prior estimate power calculations are speculative.",
+   "Whether shifts in shot mix due to own-lineup changes are larger or smaller than those induced by opponent adjustments."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The historical evidence of confounding artifacts ([prior work][prior work]) and talent-driven null results ([prior work][prior work]) made me realize that a naive before-after comparison of shot mix after lineup changes would likely be confounded and produce artifacts. Therefore, I changed from a potential 'proceed' to 'proceed_with_changes', requiring pre-registered controls (player fixed effects, opponent lineup, composite outcome) and placebo tests."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "CONFOUNDING",
+     "text": "Substitutions are endogenous: they correlate with score, time, fatigue, and recent performance, making it difficult to isolate the causal effect of the lineup change on shot mix."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Rare lineups or short stints may have too few possessions to estimate shot mix reliably. Even with three seasons, the power to detect small shifts in secondary shot categories may be low."
+    },
+    {
+     "code": "MULTIPLE_TESTING",
+     "text": "If many shot categories are tested separately without a pre-specified composite index, false positive rates will be inflated."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Play-type and shot-type classifications derived from play-by-play may contain errors that attenuate true effects."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work has not directly tested whether changing the offensive five moves shot mix. It has established that shot-mix shifts exist (opponent-driven), confounds are strong, and artifacts are common in lineup-level analyses, motivating a cautious design."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Endogenous substitutions and simultaneous changes in opponent lineup, score, and game script can bias estimates of the personnel effect."
+   },
+   {
+    "code": "ARTIFACT",
+    "text": "Without adequate controls, observed effects may replicate the artifact patterns seen in SF-[prior work] (shooter-level confound) or [prior work] (infeasible targets)."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Power may be insufficient for rare shot types, and the overall effect size is unknown."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing many shot-type outcomes increases false positive risk if not corrected."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot classification errors from play-by-play parsing could dilute true effects."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.3
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of changing the offensive five-man lineup (substituting players) on the offense's shot-type mix in subsequent possessions, controlling for game context and opponent lineup.",
+   "unit": "per-possession shot type (e.g., 3PA flag, rim attempt flag) or possession-level shot distance category.",
+   "sample": "All offensive possessions from 2022-23 through 2024-25 where the offensive five changed during a game, excluding end-of-quarter/shot-clock violations, garbage time (total possessions after the change vs. equal-length window before).",
+   "power": "Based on FAM:[prior work], a composite shot mix index may need ~1M possessions for a 0.2 SD shift. With ~1.5M eligible lineup-change possessions across three seasons, power >80% for a primary composite index. Secondary outcomes will have lower power; a simulation using actual substitution patterns is required before finalizing.",
+   "controls": "Score margin, time remaining, period, days since last game, home/away, offensive and defensive team season fixed effects, opponent defensive lineup measured by average defensive rating of the five defenders on the floor, and player fixed effects (including an indicator for the specific substitution pair).",
+   "falsification": "Placebo test 1: Re-insert the same offensive five after a brief time-out or quarter break (no actual personnel change) and compare shot mix before vs. after; any observed effect suggests regression to the mean or time trends. Placebo test 2: Show that pre-change shot mix does not predict the direction of upcoming lineup changes, reducing concern about reverse causality.",
+   "multiplicity": "Primary outcome: a single pre-registered composite shot mix index (first principal component of the possession-level shot type vector, or a weighted sum based on league-wide 2021-22 variances). Secondary outcomes: individual shot types (3PA, rim attempts, midrange) tested with Holm-Bonferroni correction.",
+   "decision_rule": "Reject the null hypothesis that the coefficient on the change in lineup composite shot propensity (mean shot propensity of incoming minus outgoing five) is zero at α=0.05, with a one-sided test expecting a positive coefficient. Interpret effect size relative to league average variation.",
+   "data_version": "NBA stats API snapshots as of 2026-11-02, covering 2022-23, 2023-24, 2024-25 regular seasons and playoffs."
+  }
+ },
+ "redactions": 29
+}

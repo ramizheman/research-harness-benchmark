@@ -1,0 +1,124 @@
+{
+ "blind_id": "Reeac69a5d47a",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "DRIVE",
+   "PNR",
+   "PPP",
+   "teammate preceding play",
+   "points per possession",
+   "play-type labeling",
+   "sequential suppression"
+  ],
+  "methodological_questions": [
+   "causal effect of teammate DRIVE on teammate PNR PPP",
+   "confounding by possession context and team strategy",
+   "measurement reliability of play-type labels and PPP calculation",
+   "sample size and exposure sparsity",
+   "derived outcome validity (PPP)",
+   "selection bias (RTM)"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "For Giannis Antetokounmpo to Lillard’s PNR, DRIVE->PNR produced a decrease in PPP of -0.263 (n=31). The study found only 2/30 stars had stable top suppressors and identified several negative teammate pairs, indicating that DRIVE preceding a teammate PNR can suppress PPP rather than raise it."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "DRIVE PPP is materially higher in regular season than playoffs (1.198 vs 0.912). While not directly about teammate sequences, it shows that DRIVE PPP varies by competition level, implying context matters."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Using star-level top suppressor analysis to infer teammate effects",
+    "why": "Limited sample size (small n per cell) led to underpowered tests (RISK:SAMPLE_SIZE_POWER)."
+   }
+  ],
+  "evidence_establishes": [
+   "There is documented evidence that for at least one teammate pair (Giannis->Lillard) a DRIVE preceding a PNR reduces PPP, suggesting that the effect of DRIVE on teammate PPP is not universally positive. The data also show that DRIVE PPP differs between regular season and playoffs, indicating contextual variation."
+  ],
+  "evidence_does_not_establish": [
+   "It does not establish that all teammate DRIVE precedences raise PPP, nor does it provide a generalizable estimate of the effect across all teams and contexts. The evidence is limited to a few observed pairs and is not sufficiently powered to rule out positive effects in other contexts."
+  ],
+  "own_inferences": [
+   "The exposure (teammate DRIVE before a teammate PNR) may be relatively rare, especially when conditioning on specific teammates, leading to sparse cells. Confounding is likely: teams that employ frequent DRIVE may also employ different defensive or offensive schemes that affect PNR PPP. Posession labeling (PPP) is derived from possession classification, which may vary across contexts, introducing measurement error. The preceding DRIVE may also serve as a signal of transition or mismatch, implying that the observed effect could be driven by situational factors rather than a causal relationship."
+  ],
+  "uncertainties": [
+   "Exact frequency of DRIVE->PNR sequences in the dataset; potential mislabeling of play types; unobserved variables that influence both DRIVE usage and PNR PPP; how to control for context (offense, defense, period, score differential)."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieved evidence demonstrates that, contrary to the hypothesis, some teammate pairs experience a negative effect of DRIVE before a teammate PNR on PPP. This challenges the plausibility of a universal positive effect and highlights the need to account for context and confounding. Consequently the decision to proceed was revised to a more cautious approach."
+  },
+  "testability": {
+   "p_testable": 0.45,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Limited number of DRIVE->PNR sequences for specific teammate pairs leads to low power."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "DRIVE preceding a teammate PNR may be infrequent, resulting in sparse data cells."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "PPP is a derived outcome dependent on possession classification, which can vary across contexts."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Team strategy, defensive matchups, and situational factors may confound the relationship."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work identified negative sequential suppressor effects between certain teammate pairs (e.g., Giannis->Lillard), indicating that DRIVE preceding a teammate PNR can reduce PPP. However, the evidence was limited and not generalizable."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Few DRIVE->PNR sequences for many teammate pairs."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "DRIVE preceding a teammate PNR is relatively rare, leading to sparse data."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PPP is derived from possession classification which may be inconsistent across contexts."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team strategy, defensive matchups, and situational variables may confound the observed association."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.55,
+   "untestable": 0.1,
+   "artifact": 0.05,
+   "uncertain": 0.15
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Average causal effect of teammate DRIVE preceding a teammate PNR on that PNR’s PPP, conditional on possession context and team fixed effects.",
+   "unit": "POSSession-level (team and possession).",
+   "sample": "All possessions from 2022-23 through 2025-26 seasons where a teammate DRIVE precedes a teammate PNR, excluding playoff vs regular season if insufficient overlap.",
+   "power": "Target 80% power to detect an effect size of ±0.1 PPP, requiring at least 200 DRIVE->PNR sequences per key teammate pair or aggregated across comparable pairs.",
+   "controls": "Include possession context variables (offense possession type, defense matchup, period, score differential, transition indicator), team fixed effects, and game-level fixed effects. Use propensity score weighting or matching on these covariates to balance pre-treatment characteristics.",
+   "falsification": "Test the effect of DRIVE preceding a teammate non-PNR possession (e.g., a teammate 3PT) on PPP to confirm specificity. Additionally, test the effect of a teammate DRIVE preceding a teammate PNR on an irrelevant outcome (e.g., turnover rate) to detect residual confounding.",
+   "multiplicity": "Apply Bonferroni correction for the number of teammate pairs tested; report primary effect aggregated across all pairs and secondary effects for top 5 frequent pairs.",
+   "decision_rule": "Reject null if p<0.01 for aggregated effect; reject null for pair-specific effects only if p<0.001 after correction.",
+   "data_version": "Per-game play-by-play and possession-level data from the NBA stats API for seasons 2022-23 to 2025-26, including derived possession records with play-type labels and PPP."
+  }
+ },
+ "redactions": 8
+}

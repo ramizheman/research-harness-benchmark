@@ -1,0 +1,38 @@
+# EXP:APPA-024 | Alignment regression: shift toward engine recommendation vs series ORtg
+- also_recorded_as: APPS-007
+- also_recorded_as: CHT-022
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 68 (team, series) pairs; Pearson/Spearman, bootstrap CI, OLS with mix-shift control; provisional tuning/holdout split.
+- hypothesis: Teams whose playoff mix shifted toward the engine's recommended PT have higher series ORtg residuals.
+- knowable_in_advance: yes
+- measures: VAR:net_rating_ORtg {record=APPA-024; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPA-024; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-024 {record=APPA-024; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Conflicts with the CASE_STUDIES claim of a +3.3 ORtg alignment effect.
+- prespecified: no
+- produced: RES:APPA-024 {record=APPA-024; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-031
+- related_to: EXP:APPA-031 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-024; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ALIGNMENT_REGRESSION_findings.md
+- title: Alignment regression: shift toward engine recommendation vs series ORtg
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPA-024; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-024; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-024; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPA-024; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPA-024; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-024; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-024; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-024 | Result of APPA-024
+- failure_evidence: n=68 with CI width ~0.49 on r; doc says sample thin.
+- failure_type: A_unanswerable
+- power_info: n=68; 95% CI [-0.283, +0.209]
+- primary_result: Pearson r -0.032, CI [-0.283, +0.209]; Spearman -0.067; OLS beta -5.33 (SE 19.64); clean subset r -0.079 (n=54); tuning fold +0.135, holdout -0.125.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

@@ -1,0 +1,138 @@
+{
+ "blind_id": "R29eb302ed0e1",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling",
+   "AVOID labels",
+   "opponent next-possession PPP after a play type",
+   "own-sequence lags (the team's own earlier possessions)",
+   "derived play-type possession records",
+   "play-by-play data quality",
+   "transition and turnover carryover"
+  ],
+  "methodological_questions": [
+   "Is the opponent's next-possession PPP after play X large enough, after adjustment, to justify an AVOID label?",
+   "Do own-team lagged possessions add information beyond the current play type and game context?",
+   "Is the derived play-type label reliable enough, and do the rarer play types have enough exposure?",
+   "How can outcome-derived labels, leakage, regression to the mean, and confounding by how play X ended, opponent quality, lineup and score state be separated from a true effect of play X?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing. retrieve_history returned an empty list, so no historical evidence was available."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this question, or a close variant, was tested before.",
+   "Whether any earlier approach failed, or why.",
+   "What threshold, definition or data pitfalls earlier work found for AVOID labels.",
+   "Any effect size for next-possession PPP carryover or own-sequence lags."
+  ],
+  "own_inferences": [
+   "The opponent's next possession is mechanically linked to how play X ended. After a made basket the opponent faces a set defense. After a live-ball turnover or long rebound it faces transition. After a defensive rebound it starts a normal possession. A naive comparison by play type will therefore mostly measure the mix of endings, not a property of the play.",
+   "If AVOID labels are built from outcomes such as next-possession PPP, the labeling is outcome-derived. The test would then be partly circular unless the label is fixed on one data split and evaluated on another.",
+   "Typical per-possession PPP SD is about 1.1 to 1.2. Detecting a 0.03 PPP difference at 80% power and alpha 0.05 needs about 23,000 possessions per arm. A 0.05 difference needs about 8,000 per arm. Game-level clustering raises these numbers. Only the common play types (pick-and-roll ball handler, isolation, spot-up and similar) will reach such counts. Rare play types will be underpowered.",
+   "Own-sequence lags are confounded by fatigue, lineup and substitution patterns, score state, game pace and opponent adjustments. Lag effects are likely small relative to these confounders.",
+   "The statement is vague. 'Large enough' and 'similarly matter' have no threshold. A pre-registered minimum effect size is needed, for example 0.03 to 0.05 PPP after adjustment, or a stated fraction of the between-play-type PPP spread."
+  ],
+  "uncertainties": [
+   "The meaning of 'AVOID label' is not defined in the task, and I did not check the glossary. Its construction, such as the threshold and whether it already uses next-possession PPP, matters for circularity.",
+   "The accuracy of the derived play-type labels and of possession segmentation in [source] database is unknown.",
+   "Next-possession links across period ends, timeouts, free-throw trips and substitutions may be recorded inconsistently.",
+   "The 2025-26 playoffs are partial as of 2026-06-19 and complete only from 2026-06-21, so the data would change mid-study.",
+   "No prior results are available to calibrate effect sizes."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so the decision rests on first-principles assessment of the task and data. No earlier finding or failed approach shaped it."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "If AVOID labels are derived from outcomes including next-possession PPP, evaluating them on the same data is circular. Labels must be fixed on a separate split, or the claim recast as an effect estimate."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Many play types will have too few possessions to detect a 0.03 to 0.05 PPP carryover. The test must be limited to play types above a pre-set minimum count."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "How play X ended (turnover, miss, make) mechanically sets the opponent's next-possession type. This must be conditioned on or decomposed."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved, so it is unknown whether this question was addressed. No claim of prior answers is made."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Ending type of play X (live-ball turnover, long rebound, made shot, foul) drives opponent transition and next-possession PPP. Opponent quality, lineup, score state, period and pace also confound. Condition on the ending, then compare within ending strata."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "AVOID labels built from outcomes such as the PPP of play X or of the opponent's next possession risk circularity and selection of extremes."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Play types flagged AVOID because of an extreme observed carryover will regress toward the mean. Estimate with shrinkage, and validate on held-out seasons."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "About 8,000 to 23,000 possessions per arm are needed, plus a game-clustering adjustment, to detect 0.03 to 0.05 PPP."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Rare play types and rare lag patterns will have thin data. Set a minimum n before any test."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-type labels derived from play-by-play are noisy, and misclassification biases effects toward zero. Audit a sample by hand or against video."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Errors in possession linking across timeouts, period ends, offensive-rebound continuations and and-one or free-throw possessions corrupt the 'next possession' definition."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Lag features must use only earlier possessions. The label and the features must not share the same outcome possession."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many play types, lags and strata create a forking-path problem. Fix the family and correct with Holm or FDR."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type frequencies and efficiency change across seasons, and playoffs differ from the regular season. Pooling needs season effects."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Opponent next-possession PPP has a baseline that depends on how the possession starts. The comparison must be against an ending-matched baseline, not the league PPP."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.05,
+   "artifact": 0.3,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "For play type X, the adjusted difference in the opponent's next-possession points per possession, relative to an ending-matched reference set of plays by the same team. This is estimated within ending strata of X (made FG, defensive rebound after a miss, live-ball turnover, dead-ball turnover). A second estimand is the incremental predictive value of own-sequence lags (the team's previous 1 to 3 possessions' play types and outcomes) for its own PPP, beyond the current play type and game context. The pre-registered practical threshold for 'large enough' is an adjusted carryover of at least 0.03 PPP, with the 95% interval excluding 0.01. The same threshold is used for lags.",
+   "unit": "Possession pair (play X possession, opponent's next possession), clustered by game and by team-season. Own-lag analysis uses the team's possession with its lagged predecessors.",
+   "sample": "Development: 2022-23 and 2023-24, regular season and playoffs. Validation: 2024-25. Final holdout: the complete 2025-26 regular season, plus the 2025-26 playoffs only after they are complete (from 2026-06-21). The 2025-26 playoffs are excluded from any analysis run before then. Include play types with at least 5,000 possessions in the development data. Exclude possessions with an ambiguous next-possession link (period end, timeout-split, technical or flagrant free-throw trips). Report the exclusion share.",
+   "power": "Per-possession SD about 1.15. A 0.03 PPP difference at 80% power and alpha 0.05 needs about 23,000 possessions per arm, or about 8,300 for 0.05. Inflate by the design effect from game clustering, and compute the actual figure from the development ICC before locking. Play types that fail the minimum detectable effect are reported as untestable, not as null.",
+   "controls": "Ending type of X; opponent and own team strength (rolling or prior-season net rating); lineup or on-court player strength; score margin and period; time remaining; pace; home or away; season fixed effects; regular season versus playoffs; clock and shot-clock start state of the next possession. Use a mixed model with random effects for team, game and offense/defense matchups, or regression with cluster-robust SEs by game. Apply empirical-Bayes shrinkage to play-type effects. Fix label definitions on the development split. Lag features use strictly earlier possessions.",
+   "falsification": "(1) Placebo: shuffle play-type labels within ending strata and game, and expect zero effect. (2) Negative-control outcome: the opponent's possession two or more steps later should show no carryover. (3) Temporal reversal: the play type of X should not 'predict' the PPP of the opponent possession before X. (4) Label audit: check hand-coded play types on a random sample, and compare effects between high-confidence and low-confidence labels. (5) Stability: the effect sign and magnitude must replicate in 2024-25 and the 2025-26 regular season.",
+   "multiplicity": "The family is the set of play types meeting the minimum n times the endings strata times the lags (1 to 3). Use Holm for the confirmatory carryover tests and Benjamini-Hochberg FDR at 0.10 for the exploratory lag screen. State the number of tests before looking at the validation data.",
+   "decision_rule": "Supported for play X if, within ending strata, the shrunken adjusted carryover is at least 0.03 PPP in both the development and validation seasons, with the Holm-adjusted 95% CI excluding 0.01 and passing the placebo and negative-control checks. Rejected if the CI sits wholly below 0.03 with adequate power. Artifact if the effect disappears after conditioning on ending type, or if placebo or temporal-reversal checks are nonzero. Untestable or inconclusive if the minimum detectable effect exceeds 0.05 PPP, or if label audit error is too high. Own-sequence lags matter only if they improve out-of-sample prediction and show an adjusted effect of at least 0.03 PPP. An AVOID label is justified only by a supported effect on held-out data, never by in-sample ranking.",
+   "data_version": "Per-game NBA stats API files and the derived play-type graph database as of 2026-06-19. Lock a hash or snapshot ID. Seasons 2022-23 to 2024-25 are complete. The 2025-26 regular season is complete (from 2026-04-13). The 2025-26 playoffs are partial and excluded until complete (from 2026-06-21), then used only as a final confirmation with a re-snapshot. Any later re-derivation of the play-type labels must be versioned and rerun."
+  }
+ },
+ "redactions": 1
+}

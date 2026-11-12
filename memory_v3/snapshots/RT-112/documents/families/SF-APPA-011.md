@@ -1,0 +1,31 @@
+# FAM:SF-APPA-011 | Study family SF-APPA-011: Matchup-aware A3 vs team kernel A2 at equilibrium
+- observed_research_question: Matchup-aware A3 vs team kernel A2 at equilibrium
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Player-vs-defender matchup modeling (A3) improves equilibrium PPP over team-level A2.
+- observed_result: V2: A3 +2.50 vs A2 +1.16 pts/100, A3 beats A2 147/240. V3: A2 +8.84, A3 +2.06, A3-A2 -6.78, A3 beats A2 71/240. V3_SHUFFLED: A2 +8.61, A3 +1.59, -7.02.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Sign flips from +1.34 (V2) to -6.78 (V3) when spatial sub-types were added.
+- observed_sample_and_power: 240 matchups
+- observed_method: Same 240 matchups; V2 coarse play types; V3 adds spatial sub-types; V3_SHUFFLED re-run (what was shuffled is not documented).
+- observed_verdict: reversed
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: V2 concluded 'MATCHUP MODEL HELPS'; V3 'UNDERPERFORMS'. Shuffled version gives similar numbers.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-011: 2026-04-15 (mtime)
+- observed_member_records: APPA-011
+- observed_sources: APPA-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V2.md
+- observed_sources: APPA-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V3.md
+- observed_sources: APPA-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V3_SHUFFLED.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-012 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPA-012 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-004 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

@@ -1,0 +1,39 @@
+# EXP:APPA-036 | Suppression tier ranking: BEST vs AVOID / BEST vs continue
+- date: 2026-06-21
+- date_basis: doc
+- date_reliable: yes
+- design: Triggers H1/H2 n>=5, drop >=0.25; 25-series (290 triggers), 55-series (633 triggers) and RS 2025-26 holdout (2,779 triggers); row-mean H2 PPP by tier.
+- extends: EXP:APPA-037 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPA-040 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPA-041 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPA-048 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPA-052 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPM-030 {direction=verified by dates; needs_review=no; origin=repeat-run family SF03; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:APPS-019 {direction=verified by dates; needs_review=no; origin=repeat-run family SF03; record=APPA-036; rule=date-ordered record link}
+- extends: EXP:CHT-042 {direction=verified by dates; needs_review=no; origin=repeat-run family SF03; record=APPA-036; rule=date-ordered record link}
+- hypothesis: After an H1 suppression trigger, BEST-tier counters score more in H2 than AVOID counters or continuing the suppressed play.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-036; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF03 {record=APPA-036; rule=audit/study_family_review.csv or singleton}
+- n_runs: 3
+- notes: Pre-fix leaky gap ~+0.488 and the 25-series sample was not rerun after the Scout leakage fix. BEST is what teams actually ran (selection effect).
+- prespecified: partial
+- produced: RES:APPA-036 {record=APPA-036; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-037
+- related_to: EXP:APPS-020 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF03; record=APPA-036; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-036; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Suppression tier ranking: BEST vs AVOID / BEST vs continue
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-036; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPA-036; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-036; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-036 | Result of APPA-036
+- failure_evidence: Gap survives the leakage fix but shrinks to +0.100 with within-play-type fixed effects.
+- failure_type: D_positive
+- power_info: 633 PO / 2,779 RS triggers
+- primary_result: 25-series BEST-AVOID +0.581, MW p=5.16e-24; 55-series ungated +0.548, n-gated +0.375; BEST vs continue +0.445 PO / +0.584 RS; robustness: CUT removed +0.279, n>=10 +0.221, within-PT fixed effects +0.100; RS Spearman -0.344; INSUFF 55.7-57.3% of rows.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

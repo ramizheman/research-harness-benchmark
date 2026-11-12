@@ -1,0 +1,33 @@
+# EXP:APPA-064 | G5 blog replay: LP opener vs realized mix SAS-OKC
+- date: 2026-05-26
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: One game scored post hoc against historical H2H baselines (replay uses PlayTypeInferrer + PNR proxy). Live blog is the in-game feed of the same game.
+- hypothesis: The LP-equilibrium opener (CUT) and AVOID (PNR) match realized efficiency in WCF Game 5 SAS @ OKC (0042500315).
+- knowable_in_advance: yes
+- measures: VAR:play_type_share_mix {record=APPA-064; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-064 {record=APPA-064; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Live blog has no post-game accuracy table; the scored assessment is only in G5_BLOG_REPLAY.md.
+- prespecified: no
+- produced: RES:APPA-064 {record=APPA-064; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-033; APPA-063
+- related_to: EXP:APPA-033 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-064; rule=date-ordered record link}
+- related_to: EXP:APPA-063 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-064; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\G5_BLOG_REPLAY.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LIVE_BLOG_SAS_OKC_G5.md
+- title: G5 blog replay: LP opener vs realized mix SAS-OKC
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-064; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-064; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-064; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-064 | Result of APPA-064
+- failure_evidence: One game; CUT opener was high-PPP on tiny volume (SAS n=9, OKC n=1) while both teams ran PULL_UP as the modal PT.
+- failure_type: A_unanswerable
+- power_info: 1 game; SAS 87 / OKC 82 callable poss
+- primary_result: Final SAS 114-OKC 127. SAS CUT 9 poss 1.67 vs H2H 1.59 CORRECT; SAS PNR 22 poss 0.95 vs 0.94 MIXED (LP AVOID). OKC CUT 1 poss 2.00 vs 1.69 CORRECT but 1% mix vs plan. OKC PNR 19 poss 1.26 vs 1.11 (AVOID but above H2H). Live: both teams ~65-71% PULL_UP, CUT 1-5%.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

@@ -1,0 +1,34 @@
+# EXP:APPM-028 | Live trigger timing: early vs late detection
+- date: 2026-06-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 228 trigger events (2024-26 playoffs); rest-of-game PPP by tier; early (<=12 H2 poss) vs late.
+- hypothesis: Earlier suppression triggers leave time to act and yield better BEST-counter outcomes.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-028; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPM-028; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF04 {record=APPM-028; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Weak evidence: single p=0.03 with n=57.
+- prespecified: no
+- produced: RES:APPM-028 {record=APPM-028; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Counter-tier validation Test 1
+- related_to: EXP:APPS-028 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF04; record=APPM-028; rule=date-ordered record link}
+- related_to: EXP:APPS-029 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF04; record=APPM-028; rule=date-ordered record link}
+- related_to: EXP:CHT-038 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF04; record=APPM-028; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\OVERNIGHT_SUMMARY.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_run_live_trigger_validation.py
+- title: Live trigger timing: early vs late detection
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-028; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPM-028; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-028 | Result of APPM-028
+- failure_evidence: rho 0.2859, p=0.031 (n=57).
+- failure_type: D_positive
+- power_info: n=57 BEST obs
+- primary_result: Tier Spearman rho -0.2066 p=1e-06 n=557; BEST-AVOID gap early 0.701 (26 triggers) vs late 0.415 (202); rho 0.2859 p=0.031 n=57.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

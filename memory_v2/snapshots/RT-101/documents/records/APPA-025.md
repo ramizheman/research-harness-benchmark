@@ -1,0 +1,34 @@
+# EXP:APPA-025 | Agent sequential adaptation test (costly-hit / matchup-hit)
+- also_recorded_as: APPS-048
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 6 series-team units; agent output scored on costly-hit and matchup-hit.
+- hypothesis: An LLM agent given possession sequences identifies costly PTs and the series-specific top net-swing PT.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPA-025 {record=APPA-025; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Costly PTs are the same league-wide (77-88% of units), so the costly-hit benchmark is easy.
+- prespecified: partial
+- produced: RES:APPA-025 {record=APPA-025; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-026
+- related_to: EXP:APPA-026 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-025; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\AGENT_SEQ_ADAPTATION_findings.md
+- title: Agent sequential adaptation test (costly-hit / matchup-hit)
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPA-025; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-025; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-025; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-025; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPA-025; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-025; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-025 | Result of APPA-025
+- failure_evidence: n=6; agent emphasized CUT in 6/6, consistent with generic advice.
+- failure_type: A_unanswerable
+- power_info: n=6
+- primary_result: Parse 6/6; costly-hit 100%; matchup-hit 100%; CUT emphasized 6/6.
+- record_stratum: not_a_test
+- record_substatus: tool_eval_pass
+- verdict: tool_eval_pass

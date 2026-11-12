@@ -1,0 +1,28 @@
+# FAM:SF-APPS-005 | Study family SF-APPS-005: Within-series should-vs-did hit rate (leverage_argmax contamination)
+- observed_research_question: Within-series should-vs-did hit rate (leverage_argmax contamination)
+- auto_outcome_status: artifact
+- observed_hypothesis: Teams' in-series play-type choices matched what the engine said they should do and this predicted success.
+- observed_result: ~92.6% hit rate
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: 'Engine used leverage_argmax fallback -> inflated CUT-style picks; ~92.6% hit rate'.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Should-vs-did comparison from _analyze_series_learning.py (findings file at repo root, not read).
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Date is mtime of the deprecated README; original findings file is outside this slice.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-005: 2026-06-10 (mtime)
+- observed_member_records: APPS-005
+- observed_sources: APPS-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\README.md
+- observed_sources: APPS-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\deprecated\README.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-087 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

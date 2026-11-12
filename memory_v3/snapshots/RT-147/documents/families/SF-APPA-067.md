@@ -1,0 +1,27 @@
+# FAM:SF-APPA-067 | Study family SF-APPA-067: TOV_FORCE 3-ply adversarial surviving lift
+- observed_research_question: TOV_FORCE 3-ply adversarial surviving lift
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Raw R1 TOV-force channel lifts survive opponent re-route or PT-shift (R2) and our follow-the-ball counter (R3).
+- observed_result: R1 lifts shrink ~50%+: ORL Banchero/Huerter +8.4 to net +3.7pp; DET Green/Anthony +7.0 to +3.5; PHI Harris/Vucevic +12.0 to +6.0; BOS Holiday/Council +6.1 to +2.8; PHX Booker/Wiggins +14.8 to +7.5; OKC Dort/Coffey +12.0 to +5.8; POR Lillard/McLaughlin +5.2 to +2.6; SAS Jones/Wesley +10.3 to +4.6. Many R3 cells used n<10 surrogates.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Net lift is model-implied, not observed in the games; R3 often additive surrogate at n<10.
+- observed_sample_and_power: 4 games; 8 offense-defense sides
+- observed_method: Same 4 games; opponent min over re-route (top-3 alts) and PT-shift (>=200 opp poss); net surviving lift after R3. Direct cell if n>=10 else additive surrogate.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: R2 is almost always re-route (not PT-shift) because shifting 20% of mix leaves 80% of the R1 channel intact.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-067: 2026-04-20 (mtime)
+- observed_member_records: APPA-067
+- observed_sources: APPA-067: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HOW_TO_FORCE_TOVS.md
+- observed_sources: APPA-067: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HOW_TO_FORCE_TOVS_ADVERSARIAL.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-010 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-060 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

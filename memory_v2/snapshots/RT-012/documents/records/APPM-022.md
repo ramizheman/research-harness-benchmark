@@ -1,0 +1,32 @@
+# EXP:APPM-022 | Superstar suppression profiles (incl. Q5c sequential triggering)
+- date: 2026-05-05
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; text mentions later date(s) 2026-05-06, 2026-05-30
+- date_reliable: no
+- design: Initiator possessions for 4 then ~30 stars (gate >=15); Q5c ranks opponent prior-PT by target PPP for 14 players; reruns 2026-05-06 and 2026-05-30.
+- hypothesis: Specific opposing lineups, defenders, play types and preceding opponent play types suppress star efficiency.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-022; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-022 {record=APPM-022; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- prespecified: no
+- produced: RES:APPM-022 {record=APPM-022; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Sequential premium (removed)
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_superstar_suppression.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_q5c_expanded.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_suppression_run_log.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\superstar_suppression_findings.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\suppression_data.csv
+- title: Superstar suppression profiles (incl. Q5c sequential triggering)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-022; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-022; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-022 | Result of APPM-022
+- failure_evidence: Rank-1 deltas mostly within 1-2 SE with no multiple-comparison control; OTHER artifact flagged in doc.
+- failure_type: E_unclear
+- power_info: SE per cell reported
+- primary_result: Q5c verdict 'rank-1 suppressor varies meaningfully across players'; e.g. Jokic after opp POST_UP 1.1271 (-0.0675, SE +/-0.0500, n=480); Curry forced POST_UP -0.209.
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

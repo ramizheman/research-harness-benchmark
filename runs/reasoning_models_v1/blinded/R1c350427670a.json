@@ -1,0 +1,125 @@
+{
+ "blind_id": "R1c350427670a",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "offensive lineup composition",
+   "shot mix (rim rate, three-point rate, midrange share, zone distribution)",
+   "personnel effects",
+   "five-man unit changes via substitutions",
+   "positive control / design sensitivity",
+   "substitution rotation intervals",
+   "defensive matchup confounding"
+  ],
+  "methodological_questions": [
+   "Does a change in the offensive five (single-player swap) shift shot mix by more than expected from noise and confounders?",
+   "Can a personnel-swap result serve as a valid positive control showing the lineup/matchup design can detect personnel effects?",
+   "How can lineup change be separated from game state, opponent defense, time-in-game, fatigue, and coaching adjustments?",
+   "What possession and shot counts per swap are required for reliable shot-mix measurement?",
+   "How should the swapped player's own shot profile be handled so the control is not tautological?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [
+   "Whether prior project work has tested personnel effects on shot mix",
+   "Whether any earlier design showed sensitivity to personnel effects",
+   "Whether substitution-based lineup comparisons in this data suffer known failure modes",
+   "Any effect size, variance, or exposure benchmarks for shot-mix shifts after lineup changes"
+  ],
+  "own_inferences": [
+   "The claim is close to a truism: replacing a player on the floor with someone who has a different shot profile (e.g., a rim-running big for a spot-up wing) mechanically changes the shot mix because the swapped player's shots are attributed to him. Detecting this mostly shows that player shot profiles differ, not that a lineup/matchup design can detect subtle interaction (synergy) effects.",
+   "As a positive control it is weak unless the effect is defined as the change in teammates' shot mix, or as the change beyond the additive prediction from individual player profiles; otherwise it is mechanical and almost guaranteed to be 'supported' (MECHANICAL_FLOOR).",
+   "A positive control proves sensitivity only for effects of similar size and mechanism to the control. A large mechanical shot-mix shift says nothing about power for small lineup or matchup effects on efficiency.",
+   "Substitutions are non-random: they correlate with score, fouls, fatigue, quarter clock, opponent unit, and coach intent, so naive pre/post comparisons are confounded.",
+   "Three seasons of play-by-play give a large number of substitution events, so for large, mechanical contrasts power is likely adequate. Power for within-team, teammate-only, or specific-swap effects is thinner, since many five-man units have few possessions.",
+   "Shot-mix proportions from short stints (a few possessions) are noisy, and selection of swaps by recent shot results could induce regression to the mean."
+  ],
+  "uncertainties": [
+   "No retrieved history, so unknown whether earlier project work covered this or hit pitfalls.",
+   "The intended meaning of 'shot mix' (zone, distance bins, shot type, play type) and of 'changing the five' (any substitution vs. single-player swap vs. unit-level change) is not specified.",
+   "Unknown whether the positive control is meant to validate a downstream matchup/lineup design, and with what target effect size.",
+   "Data field details (e.g., reliability of shot distance, lineup reconstruction from rotation intervals vs. play-by-play) have not been checked in this session."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so no historical evidence was available and the decision rests on my own reasoning about the task statement alone."
+  },
+  "testability": {
+   "p_testable": 0.85,
+   "blocking_constraints": [
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "Swapping a player with a different shot profile mechanically alters shot mix; a test that does not remove the swapped player's own shots, or compare to an additive expectation, cannot discriminate lineup effects from composition arithmetic."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Substitutions are endogenous to game state, opponent lineup, foul trouble, fatigue and coach tactics, which independently shift shot mix."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved; I do not know whether this has been studied by the project. I make no claim about prior studies."
+  },
+  "risks": [
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Shot mix shifts by construction when the personnel differ in shot profile. The 'detection' is nearly guaranteed and weakly informative about design sensitivity to subtle effects."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Substitution timing correlates with score margin, period, clock, opponent unit, foul trouble and rest; defensive matchups change simultaneously with offensive lineup changes."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Stints around a given swap can be short (few possessions and shots), so shot-share estimates have high variance. Pooling across swaps is necessary."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Shot-mix proxies (distance bins, zone, shot type) vary in reliability. Distance recorded in play-by-play may be coarse or have tracking error, and lineup reconstruction from substitution events can be misaligned at period boundaries and for simultaneous substitutions."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If swaps or players are selected based on extreme prior shot mix or recent shooting, regression to the mean will produce apparent effects."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo (e.g., swapping players with matched shot profiles, or random pseudo-swaps at non-substitution times), any observed shift cannot be attributed to the personnel change specifically."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many shot-mix metrics, zone bins, teams, and swap types invite spurious findings unless metrics and contrasts are fixed in advance."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "League-wide shot mix and team schemes change across 2022-23 to 2024-25, and within seasons, so pooling needs season and team fixed effects."
+   },
+   {
+    "code": "IMPLEMENTATION_BUG",
+    "text": "Errors in reconstructing the five on the floor from rotation intervals, starters and substitutions (e.g., stoppage substitutions, ejections, free throws) can misassign shots to lineups."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.7,
+   "rejected": 0.03,
+   "untestable": 0.04,
+   "artifact": 0.13,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Primary: change in the shot-mix of the four retained teammates (rim-attempt share, three-point attempt share, midrange share per team FGA, by team-possession) after a single-player swap, relative to the additive expectation from the incoming and outgoing player's own historical shot profiles and matched controls. Secondary: unit-level shot-mix change including the swapped player (the mechanical contrast), reported explicitly as a manipulation check, not as proof of detecting subtle lineup effects.",
+   "unit": "Single-player-swap event (a substitution changing exactly one player in the offensive five), with outcomes aggregated over the pre- and post-swap windows within the same game and team; analyses are clustered by team-season and game.",
+   "sample": "All regular-season and playoff games 2022-23 to 2024-25. Include swaps where both pre- and post-windows contain at least a pre-set minimum of FGA (e.g., 8 FGA each side; threshold fixed in advance), excluding garbage time (e.g., score margin beyond a pre-set cutoff in late 4th), end-of-period heaves, and multi-player substitutions. Use first 2022-23 and 2023-24 for tuning the shot-profile and window parameters, and hold out 2024-25 for confirmatory testing.",
+   "power": "Compute before analysis from the observed number of eligible swaps and the empirical variance of window-level shot shares via simulation or bootstrap by game. Define the minimum effect of interest (e.g., 2 percentage points in rim or three-point share for teammates) and require at least 80% power for it in the 2024-25 holdout. If power for teammate-only effects is below 80%, report the result as inconclusive instead of supported. The mechanical unit-level contrast is expected to be well powered and is not used to claim sensitivity to smaller effects.",
+   "controls": "Mixed-effects or regression with swap-level covariates: score margin, period and game clock, opponent lineup archetype or defensive matchup minutes, rest/fatigue (minutes played by the swapped players), home/away, foul counts, season, team fixed effects. Use the incoming and outgoing players' prior-game (out-of-sample, leakage-free) shot profiles to compute expected shift. Use the same-game, same-team, time-matched windows. Use empirical-Bayes shrinkage on shot shares to reduce noisy small-window variance and RTM.",
+   "falsification": "(1) Placebo swaps: pseudo-events at random times without substitution, matched on period and clock, should show ~0 shift. (2) Matched-profile swaps: swapping players whose historical shot profiles are similar should yield near-zero shift in unit shot mix. (3) Shuffle swap labels within team-season; the observed effect should disappear. (4) Verify lineup reconstruction against box-score minutes and plus-minus. (5) Check that the observed unit-level shift is predicted in sign and size by the additive profile model; failure to exceed it for teammates means no evidence of lineup synergies.",
+   "multiplicity": "Pre-specify three primary outcomes (rim share, three-point share, midrange share; two independent given shares sum to one) and one primary contrast (teammate deviation from additive expectation). Control FDR (Benjamini-Hochberg) or Holm across them; all zone-level, team-level and swap-type subgroup analyses are labeled exploratory.",
+   "decision_rule": "Supported (design shows detectable personnel effect) only if the unit-level shift exceeds placebo and matched-profile swap controls with a pre-set effect size and adjusted p < 0.05 in the 2024-25 holdout, the lineup reconstruction audit passes, and the result replicates in direction in the tuning seasons. Claims about teammate or synergy effects require the teammate deviation from additive expectation to be nonzero after multiplicity control; otherwise report that only the mechanical composition effect was detected. If placebo swaps also show shifts, classify as artifact. If power is insufficient, classify as inconclusive.",
+   "data_version": "NBA stats API per-game files (play-by-play, substitution rotation intervals, starters, defensive matchup minutes, box-score summary) and the derived play-type possession graph, for 2022-23, 2023-24 and 2024-25 regular season and playoffs, as available on 2026-11-02; snapshot hash and extraction date to be logged, and the swap definition, windows, thresholds and holdout split frozen before analysis."
+  }
+ },
+ "redactions": 0
+}

@@ -1,0 +1,31 @@
+# EXP:APPM-023 | Recency-weighted priors seed sanity check
+- date: 2026-04-20
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 11 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Compare pooled/OLS vs recency HL=1/OLS vs recency HL=0.5/per_team on 4 games.
+- hypothesis: Win probabilities from the decision context favor the higher seed in 4 2025-26 R1 matchups.
+- knowable_in_advance: yes
+- member_of: FAM:SF-APPM-023 {record=APPM-023; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Per_team calibrator chosen on val R2 0.242 though holdout R2 earlier was 0.0213.
+- prespecified: no
+- produced: RES:APPM-023 {record=APPM-023; rule=record fields}
+- project: Strategy app
+- related_as_recorded: More training seasons A/B
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\STRATEGY_V2_RESULTS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_regen_dc_recency.log
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_regen_dc_recency.py
+- title: Recency-weighted priors seed sanity check
+- uses_dataset: DS:NCAA_tournament_and_ratings_data {record=APPM-023; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPM-023; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-023; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-023 | Result of APPM-023
+- failure_evidence: Equal-weight pooling of 4 seasons diluted 2025-26 rosters, producing the wrong favorite.
+- failure_type: C_artifact
+- power_info: n=4 games
+- primary_result: Pooled: ORL 59%/DET 41% (8 seed favored); fixed: DET 86%/ORL 14%; all 4 now favor higher seed.
+- record_stratum: artifact
+- record_substatus: verdict artifact_found
+- verdict: artifact_found

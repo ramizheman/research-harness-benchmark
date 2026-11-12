@@ -1,0 +1,32 @@
+# EXP:APPA-049 | Sequential pair premium and defensive aftershock (8/8 PTs)
+- date: 2026-05-31
+- date_basis: doc
+- date_reliable: yes
+- design: own_seq_ec; n=458,604 opp possessions; all-games vs playoffs split; premium = Y PPP after X vs Y H2 baseline.
+- extends: EXP:APPA-050 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-049; rule=date-ordered record link}
+- hypothesis: After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline, and every PT has a defensive aftershock.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-049; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF07 {record=APPA-049; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Team-level 1-2 punch table includes tiny-n cells (BKN n=16, CHI n=18) marked sig at |t|>=2.0.
+- prespecified: no
+- produced: RES:APPA-049 {record=APPA-049; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-050; APPA-053
+- related_to: EXP:APPA-053 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-049; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-049; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Sequential pair premium and defensive aftershock (8/8 PTs)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-049; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-049; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-049; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-049 | Result of APPA-049
+- failure_evidence: 8/8 play types replicate in both all-games and playoffs.
+- failure_type: D_positive
+- power_info: n=458,604 opp possessions
+- primary_result: A2 aftershock 8/8 PTs replicate all-games and playoffs (CUT +0.119 n=21,398 / PO +0.131 n=1,145 through TRANSITION +0.135 n=26,262 / +0.126 n=1,529). Top pair premiums: PUTBACK->TRANSITION +0.084 n=565; CUT->PULL_UP +0.065 n=2,620.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

@@ -1,0 +1,30 @@
+# FAM:SF-PAP-019 | Study family SF-PAP-019: Destination fit score predicts shaper portability
+- observed_research_question: Destination fit score predicts shaper portability
+- auto_outcome_status: untestable
+- observed_hypothesis: Shaper roles travel when the destination lacks a structurally similar incumbent.
+- observed_result: corr(fit,Delta)=-0.09; corr(fit,portable)=-0.39; high-travel/high-fit cell 33% portable (n=6) vs 58% base
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=24 shaper movers
+- observed_sample_and_power: n=24
+- observed_method: fit=-decoy_sim, 24 shaper movers; minutes-weighted crowding variant.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Sign is opposite to hypothesis.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-019: 2026-08-08 (doc)
+- observed_member_records: PAP-019
+- observed_sources: PAP-019: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper.tex
+- observed_sources: PAP-019: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\travel_fit_screen.csv
+- observed_sources: PAP-019: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- observed_sources: PAP-019: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\travel_fit_screen.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-056 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:minutes_playing_time {basis=keyword rules on member records}

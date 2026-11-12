@@ -1,0 +1,124 @@
+{
+ "blind_id": "R3044d896c740",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "lineup changes (offensive five substitutions)",
+   "shot mix distribution",
+   "personnel effects on shot selection",
+   "design validation for detecting offensive unit influence"
+  ],
+  "methodological_questions": [
+   "Can we isolate the effect of changing only the offensive five while holding the defensive five constant?",
+   "What is the natural game-to-game and stint-to-stint variability in shot mix for a fixed offensive unit?",
+   "How many possessions are needed per stint for reliable shot-mix estimation?",
+   "How to control for game-state confounders (score, time, period, opponent, fatigue) when comparing stints?",
+   "Is the effect size of a personnel change on shot mix large enough to be detected with available sample sizes?",
+   "What statistical test (global distributional difference) is most appropriate and robust to low-frequency shot types?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "No historical evidence was available; the retrieval returned zero records."
+  ],
+  "evidence_does_not_establish": [
+   "No prior work from this project has tested whether an offensive-only substitution changes shot mix, nor validated the design for detecting personnel-driven effects on shot distribution."
+  ],
+  "own_inferences": [
+   "The question can be reframed as a validation study: if the data infrastructure can detect a shift in shot distribution when the offensive unit changes (defense held constant), it demonstrates sensitivity to personnel effects.",
+   "The primary confound is simultaneous defensive substitutions; these must be filtered out to isolate the offensive effect.",
+   "Shot mix must be operationalized as a multinomial distribution over shot-type categories derivable from play-by-play actionType/subType and shot distance.",
+   "A paired pre-post substitution comparison within the same game and same defensive unit provides a within-game control, mitigating many between-game confounds.",
+   "Stints with very few possessions will produce noisy shot-mix estimates, requiring minimum-possession filters that reduce sample size but improve reliability.",
+   "A permutation-based null distribution, built from periods where the offensive five did not change (placebo), can assess whether observed shifts exceed natural variability.",
+   "Three seasons of data (2022-23 through 2024-25) likely provide adequate statistical power if the effect is modest, but power will be limited by the number of offense-only substitutions with sufficient possessions."
+  ],
+  "uncertainties": [
+   "The magnitude of any true personnel-driven shift in shot mix is unknown; the effect could be too small to detect even with the full dataset.",
+   "The exact definition of 'shot mix' is not specified in the prompt; it could refer to shot distance categories, shot type (e.g., jump shot, layup), or even play-type mix derived from [source] database, which would change the analysis.",
+   "It is unclear whether the study intends to test a single global hypothesis or explore individual player/lineup effects, which would inflate multiplicity.",
+   "The extent to which offensive substitutions occur without a corresponding defensive change is unknown; filtering could severely reduce event counts.",
+   "Game-state influences (e.g., end-of-shot-clock heaves, intentional fouls) might confound pre-post comparisons if not carefully addressed."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was available to influence the decision; the assessment relies solely on the research question, available data, and general methodological considerations."
+  },
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "The number of offense-only substitutions (defensive five unchanged) with sufficient possessions per stint may be too small to detect a modest effect, risking an underpowered null result."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Simultaneous defensive substitutions are a strong confound; unless filtered, any observed shot-mix change could be driven by the defense. Even when filtered, residual confounds from game state (score, time, period, opponent tactics) may remain."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Shot-type classification from play-by-play may have misclassifications, particularly for ambiguous action types, adding noise that could obscure a true signal."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Some shot-type categories (e.g., dunks, non-paint 2s) occur infrequently; their proportions will be estimated with high variance, potentially destabilizing a multivariate test."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier studies on this specific question were retrieved by the system; it is unknown whether similar validation has been attempted internally."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Filtering to offense-only substitutions with at least N possessions pre and post may leave a small number of events, reducing power to detect a true shift in shot mix."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Unobserved game-state variables (e.g., defensive scheme adjustment, player fatigue, score differential) influence shot selection and may co-vary with the decision to substitute."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Play-by-play action descriptions can be inconsistent across arenas and seasons; inferring shot categories (e.g., floaters vs. pull-ups) introduces measurement error."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Rare shot types (e.g., dunks, corner threes) produce zero-cell issues in stint-level distributions, complicating chi-squared or divergence measures."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Exploratory slicing by team, lineup, or specific personnel would inflate false positives unless a pre-registered global test is used and all other analyses are labeled secondary."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Defining 'pre' and 'post' stints using substitution time stamps must ensure that the possession containing the substitution is correctly assigned and not split in a way that leaks information."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "If the analysis pools across an entire three-year period, long-term strategic trends in shot selection could masquerade as a personnel effect, though within-game comparisons mitigate this."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.2,
+   "artifact": 0.05,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The difference in multinomial shot-type distribution between the final stint of an offensive five-man unit and the immediately following first stint of a new offensive five-man unit, when the defensive five remains constant.",
+   "unit": "A pair of contiguous stints (pre-substitution, post-substitution) within the same game, same opponent, same defensive personnel.",
+   "sample": "All regular-season games from the 2022-23, 2023-24, and 2024-25 NBA seasons. Exclude garbage time (Q4 minutes when the absolute score difference exceeds 20 points) and any period where possession data is incomplete. Include only substitution events where (a) the offensive team changes exactly the players on the floor, (b) the defensive team makes no substitution between those two stints, (c) each stint contains at least 5 offensive possessions for that team. Duplicate events (e.g., staggered multi-player subs) will be collapsed into one transition. The resulting dataset will be cleaned to remove events where the substitution was likely due to injury or foul trouble (manually identify if description available, otherwise retain but note).",
+   "power": "We will compute observed effect size using a pre-registered pilot from the 2022-23 season only. If the effect size (Cramer's V or earth mover's distance) is non-zero, we will estimate the minimum number of events N needed for 80% power at alpha=0.05 using a paired permutation test. We will then verify that the remaining two seasons provide at least 1.2×N events; if not, we will pool all three seasons and report achieved power. The primary analysis will be on the holdout set (2023-24 and 2024-25) if the pilot sets a threshold; otherwise, a pooled analysis with adjusted significance.",
+   "controls": "Primary confound control is the requirement that the defensive five does not change. Additional controls: include fixed effects for game (to absorb opponent and venue), period, and the interaction of period and score margin (binned). Sensitivity analyses will exclude the first possession after a substitution (to allow the offense to set up) and weight possessions by the time left on the shot clock to account for end-of-clock desperation shots. We will also report results stratified by whether the substitution was a single-player change or a full-lineup swap (multiple players), as effect magnitudes may differ.",
+   "falsification": "We will construct a placebo distribution by randomly pairing stints where the offensive five remained unchanged (same 10 players) and computing the same shot-mix difference statistic. The observed distribution for actual substitutions should be significantly larger (one-tailed test). Additionally, we will test the null of no effect using a permutation test that randomly reassigns the 'pre' and 'post' labels within each event. Both tests must be satisfied to claim a detectable shift.",
+   "multiplicity": "The primary hypothesis is a single global test of distributional inequality (energy statistic or chi-squared). No family-wise adjustment is required. Any per-player or per-lineup analyses will be clearly labeled as secondary and will use false discovery rate control.",
+   "decision_rule": "We reject the null of no shift in shot mix if the p-value from the permutation test (comparing actual pre-post differences to the placebo null distribution) is below 0.05. To conclude the design can detect personnel effects, we require a statistically significant shift and an effect size (Cramer's V) above a pre-registered minimum of 0.05 (small but non-zero). If the null is retained, we will assess achieved power; if low, the result is inconclusive.",
+   "data_version": "NBA stats API per-game files as of 2026-11-02: pbp, rotation, matchups, summary, starters for 2022-23, 2023-24, 2024-25 seasons. Derived play-type possession records from the project's graph database will be used only for descriptive correlation with shot mix; the primary analysis uses raw pbp shot actions."
+  }
+ },
+ "redactions": 1
+}

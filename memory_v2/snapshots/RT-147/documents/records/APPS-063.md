@@ -1,0 +1,33 @@
+# EXP:APPS-063 | Test 4: foul-trouble sequencing after star 2nd Q1/Q2 foul
+- date: 2026-06-14
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 2104 qualifying events. Exact match period x margin x season x offensive team. FT possessions excluded after first-pass artifact.
+- hypothesis: Opponent PPP rises on the next 1-3 possessions after a star's 2nd personal foul in Q1/Q2.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-063; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:free_throws_fouls {record=APPS-063; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPS-063; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF15 {record=APPS-063; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: a 2nd foul is often a shooting foul, so lag-1 includes FT trips unless excluded. On-floor vs benched not verifiable.
+- prespecified: yes
+- produced: RES:APPS-063 {record=APPS-063; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-061
+- related_to: EXP:APPS-061 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-063; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_4_foul_trouble.md
+- title: Test 4: foul-trouble sequencing after star 2nd Q1/Q2 foul
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-063; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-063; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPS-063; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-063 | Result of APPS-063
+- failure_evidence: Headline +0.204 was FT-possession coding; clean lag-1 +0.049 does not clear the pre-specified bars.
+- failure_type: C_artifact
+- power_info: n_treated lag-1=2101
+- primary_result: Including FT: lag-1 ATT=+0.204 CI[+0.163,+0.245] (artifact: FT share 41.8% vs 9.9%). Excluding FT: lag-1 +0.0486 [-0.0060,+0.0991] perm p=0.0655; lag-2 -0.0192; lag-3 -0.0272. No lag clears CI+perm+placebo.
+- record_stratum: artifact
+- record_substatus: mechanism C_artifact with verdict null
+- verdict: null

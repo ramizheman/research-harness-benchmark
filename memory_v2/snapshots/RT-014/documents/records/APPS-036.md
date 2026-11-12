@@ -1,0 +1,30 @@
+# EXP:APPS-036 | Player-level BEST vs AVOID PPP gap (initiators, 55-series)
+- date: 2026-05-31
+- date_basis: doc
+- date_reliable: yes
+- design: trigger_table_clean.csv; gate n>=10 per tier to report. League aggregate players with n>=15 each tier.
+- hypothesis: The team-level BEST vs AVOID gap holds when H2 possessions are filtered to initiating player.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-036; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-036 {record=APPS-036; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Player samples are thin; Brunson BEST n=8 below gate. Related to APPS-015 tendency tables but this is PPP gap not mix share.
+- prespecified: no
+- produced: RES:APPS-036 {record=APPS-036; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-015; APPS-019
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\player_tier_gap\player_tier_gap_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\player_tier_gap_run.log
+- title: Player-level BEST vs AVOID PPP gap (initiators, 55-series)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-036; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-036; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-036; rule=keyword rule DATASET_RULES}
+
+# RES:APPS-036 | Result of APPS-036
+- failure_evidence: Pooled player gap +0.427 in the same direction as the team gap; most star cells are below the n>=30 gate.
+- failure_type: D_positive
+- power_info: 38/94 players at n>=15; only 3 at n>=30 both tiers
+- primary_result: Mean gap (n>=10 each tier) +0.427 PPP. Mean BEST 1.347 (38 players) vs AVOID 0.920 (94 players). Stars mean gap +0.542 (n=15) vs role +0.428 (n=16). Only 3 players clear n>=30 both tiers (all BOS: White +0.864, Brown +0.466, Tatum +0.391).
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

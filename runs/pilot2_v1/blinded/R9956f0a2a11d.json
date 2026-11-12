@@ -1,0 +1,88 @@
+{
+ "blind_id": "R9956f0a2a11d",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does the opponent's next-possession points per possession (PPP) after a specific play type, or the team's own subsequent possession performance, significantly influence the assignment of 'AVOID' labels to that play type?",
+  "retrieval_summary": {
+   "prior_findings": [
+    {
+     "id": "HYP:[prior work]",
+     "status": "supported",
+     "summary": "After the opponent runs play type X, the next offensive play type Y scores above Y's unconditional H2 baseline, and every play type has a defensive aftershock. This implies that the performance of subsequent possessions (both own and opponent's, through defensive aftershock) can be influenced by preceding plays."
+    },
+    {
+     "id": "[prior work][prior work]",
+     "status": "supported",
+     "summary": "The opponent's previous play type changes your next-possession PPP after matching on defensive team, further supporting the existence of sequential effects on PPP."
+    }
+   ],
+   "failed_experiments": [
+    {
+     "id": "[prior work][prior work]",
+     "status": "rejected",
+     "summary": "The hypothesis that running play type X raises the same team's next 1-5 possession PPP vs a matched baseline (action memory) was invalidated, suggesting that positive own-sequence effects are not universally observed or that the specific hypothesis was too strong."
+    },
+    {
+     "id": "[prior work][prior work]",
+     "status": "rejected",
+     "summary": "The hypothesis that predecessor play type A changes PPP of next play type B after exact matching, surviving BH-FDR and placebo, was contradicted. This suggests that sequential effects on PPP might not hold under strict matching conditions."
+    }
+   ],
+   "limitations": [],
+   "unresolved": []
+  },
+  "evidence_use": "The retrieved history indicates that sequential effects on Points Per Possession (PPP) – both for the opponent's next possession and the team's own subsequent possessions – are a known area of research within the project. Some specific hypotheses regarding these effects have been supported (e.g., HYP:[prior work], [prior work][prior work]), while others have been rejected (e.g., [prior work][prior work], [prior work][prior work]). This confirms that the independent variables (next-possession PPP, own-sequence lags) are meaningful and testable. However, none of the retrieved records address the 'AVOID' labels or how they are assigned, meaning the core relationship between sequential PPP and 'AVOID' labels is entirely novel and has no prior findings or methodological guidance. This necessitates a foundational approach to understanding the 'AVOID' label mechanism.",
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "HYP:[prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Prior work has established the existence and variability of sequential effects on Points Per Possession (PPP) after certain play types, for both the opponent's next possession and the team's own subsequent possessions. However, no prior research directly links these sequential PPP outcomes to the assignment of 'AVOID' labels for play types. The mechanism for 'AVOID' label generation is not documented in the retrieved history."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The 'AVOID' label is a derived label, and its generation process is not specified. Without understanding how these labels are assigned, there is a significant risk of misinterpreting correlations as causation or discovering an artifact of the labeling process itself. This is the primary blocking constraint."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The relationship between next-possession performance and AVOID labels could be confounded by other factors influencing both the play type choice/outcome and the subsequent possession's performance (e.g., game state, opponent's strategy, player quality, team's overall offensive/defensive strength). These factors could also implicitly influence the AVOID label generation."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The reliability and consistency of 'play-type possession records' and the 'AVOID' labels are critical. Inaccurate or inconsistent labeling of play types or assignment of AVOID labels could lead to erroneous conclusions."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Specific play types, especially those with 'AVOID' labels, might have limited occurrences, potentially leading to low statistical power for detecting effects, particularly when segmenting data by team, player, or specific game situations."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.25,
+   "rejected": 0.25,
+   "untestable": 0.2,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect or correlation strength of opponent next-possession Points Per Possession (PPP) and own-sequence PPP (at various lags) on the probability or magnitude of a play type being assigned an 'AVOID' label. A crucial precursor is to understand the 'AVOID' label generation process.",
+   "unit": "Play type instances (defined by initiator and play type) across all NBA teams and seasons.",
+   "sample": "All play-type possession records from NBA 2022-23, 2023-24, 2024-25 regular seasons and playoffs, and complete portions of 2025-26 regular season and playoffs. Data will be aggregated to the play-type level (e.g., 'LeBron James Post-Up') for analysis, but individual instances will be used to calculate lagged PPP metrics.",
+   "power": "The study aims for 80% power to detect a medium effect size (e.g., R-squared of 0.10 in a regression model) for the influence of next-possession PPP on AVOID labels, assuming sufficient variability in both the independent and dependent variables. Sample size will be driven by the total number of distinct play-type instances observed. A preliminary power analysis will be conducted once the distribution of 'AVOID' labels and play type frequencies is understood.",
+   "controls": "Control for relevant game context variables such as quarter, score differential, time remaining, home/away status, opponent strength, and the identity of the team executing the play. If possible, control for the 'expected' PPP of the play type itself to isolate the effect of *subsequent* possessions. Crucially, if the 'AVOID' label generation process is known, any inputs to that process that are correlated with lagged PPP will be included as controls.",
+   "falsification": "A falsification test could involve examining if random permutations of next-possession PPP values or own-sequence PPP values show a similar relationship with AVOID labels. If the AVOID label generation mechanism is fully understood, a strong falsification test would be to demonstrate that the identified factors are *not* explicitly part of that mechanism, if the hypothesis is that these factors *implicitly* drive the labels. Conversely, if they are explicit inputs, the test would be to confirm their explicit role.",
+   "multiplicity": "Given that multiple lags will be tested (e.g., next possession, two possessions later) and potentially multiple play types, a Bonferroni correction or False Discovery Rate (FDR) adjustment will be applied to p-values to account for multiple comparisons.",
+   "decision_rule": "The hypothesis will be considered 'supported' if statistically significant (p < 0.05 after multiplicity adjustment) and substantively meaningful effects (e.g., standardized regression coefficients > 0.1) are observed for opponent next-possession PPP or own-sequence lags in predicting AVOID labels, consistent with the hypothesized direction. Prior to this, the 'AVOID' label generation process must be understood to properly interpret the findings.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 (complete), NBA 2025-26 (partial, up to 2026-06-19 for playoffs and 2026-04-13 for regular season)."
+  }
+ },
+ "redactions": 21
+}

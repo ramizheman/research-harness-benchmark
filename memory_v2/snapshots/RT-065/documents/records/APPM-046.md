@@ -1,0 +1,34 @@
+# EXP:APPM-046 | Matchup app reports TEAM_vs_TEAM (M-Z)
+- date: 2026-04-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 62 generated reports (MEM 1, MIN 7, NYK 4, OKC 1, ORL 19, PHI 8, PHX 7, POR 7, SAS 1, TOR 7). Sample opened: MIN vs DEN has modeled PPP and scheme-stress numbers but no post-game outcome check.
+- hypothesis: (App output) pregame matchup reports.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-046; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPM-046; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-046 {record=APPM-046; rule=audit/study_family_review.csv or singleton}
+- n_runs: 62
+- notes: Updated copy of APPM-041 after opening a sample. Confirmed app output (excluded as an evaluation unless it checks a prediction). PREGAME_* files are the same class.
+- prespecified: no
+- produced: RES:APPM-046 {record=APPM-046; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-041
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MEM_vs_POR_20260514_233535.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIN_vs_DEN_20260422_215604.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\ORL_vs_DET_20260425_131827.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PHI_vs_BOS_20260422_212310.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\TOR_vs_CLE_20260422_220105.md
+- title: Matchup app reports TEAM_vs_TEAM (M-Z)
+- uses_method: METH:correlation {record=APPM-046; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-046; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-046; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-046 | Result of APPM-046
+- failure_evidence: Generated coaching reports; no hypothesis tested against realized outcomes.
+- failure_type: E_unclear
+- primary_result: MIN vs DEN sample: modeled MIN 1.286 vs season-avg 1.131 (Delta +0.155); DEN 1.288 vs 1.185 (Delta +0.103); DEN projected to neutralize 0.2829 PPP of MIN 0.0191 PPP gain. Spearman 0.54 on 454 holdout games restated; no game-outcome evaluation in the report.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

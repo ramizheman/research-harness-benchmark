@@ -1,0 +1,29 @@
+# FAM:SF-CHT-029 | Study family SF-CHT-029: Persistent Impact Score Level 1 gate
+- observed_research_question: Persistent Impact Score Level 1 gate
+- auto_outcome_status: artifact
+- observed_hypothesis: Play-type actions have decaying cross-possession memory (lag-1 effect >= lag-2; not just score margin or team quality).
+- observed_result: FAIL decay-sanity: DRIVE lifts +0.015,+0.020,+0.018,+0.021,+0.020 (flat). Within-team: DRIVE lag-1 +0.015 to -0.002. Cohen d ~0.01-0.03; p~0 from n>150k. Callable play-type horizons = 0.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Flat non-decaying lifts collapse under within-team baseline; team-quality confound.
+- observed_sample_and_power: n>150k per lag; 915,570 possessions
+- observed_method: 915,570 possessions after OT/garbage exclusion; PNR inferrer-only; MWU + controlled OLS; within-team diagnostic.
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned. Gate stopped Level 2 by design.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-029: 2026-06-14 (transcript)
+- observed_member_records: CHT-029
+- observed_sources: CHT-029: 1b9f0f61-d051-4b7b-8eef-8d1253cf67e2
+- observed_sources: CHT-029: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\sequence_memory\output\persistent_impact_level1.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-073 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-030 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

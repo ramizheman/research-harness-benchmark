@@ -1,0 +1,141 @@
+{
+ "blind_id": "R43f82d8812f4",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "play-type labeling (rule-based classifier from play-by-play)",
+   "AVOID counter tier (lowest-ranked counter after a suppression trigger)",
+   "opponent next-possession PPP after own play type X",
+   "own-sequence lags (own previous possessions' play types and outcomes)",
+   "possession sequencing and carryover",
+   "derived-label data quality"
+  ],
+  "methodological_questions": [
+   "How is 'large enough to drive AVOID labels' defined, and is next-possession PPP an input to the AVOID ranking or only correlated with it?",
+   "How much of any opponent next-possession effect is mediated by the outcome of X (make, miss with defensive rebound, turnover leading to transition)?",
+   "How should possession order be defined from play-by-play, including dead-ball, period-boundary and and-one cases?",
+   "How to separate play-type effects from team strength, matchup, score state, lineup and garbage time?",
+   "What effect size is practically relevant, and is power sufficient at the trigger/matchup level that AVOID labels use?",
+   "How reliable is the rule-based play-type labeling, and can label error masquerade as a carryover effect?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [
+   "Nothing: retrieve_history returned an empty list (n_results = 0), so no historical evidence was available for this question."
+  ],
+  "evidence_does_not_establish": [
+   "Whether this question, or any part of it, was previously tested, rejected, found to be an artifact or found untestable.",
+   "Whether next-possession PPP or lag features are used in building AVOID ranks.",
+   "Any known failure mode or pitfall from earlier project work on sequence or carryover effects."
+  ],
+  "own_inferences": [
+   "The glossary defines AVOID as the lowest-ranked counter in a matchup-ranked list, so some counter is always lowest. 'Drive AVOID labels' is therefore partly a ranking-mechanics question, and the ranking construction is not described in the task or data catalog.",
+   "Opponent next-possession PPP depends heavily on how X ends: a made basket gives a half-court opponent possession, a miss with a defensive rebound gives transition, and a turnover gives a high-PPP opponent possession. Raw differences across play types will mostly reflect outcome and pace mix, not a causal carryover from X.",
+   "Possession-level data are large enough to estimate small PPP shifts (about 0.02 to 0.03) for common play types. They are not large enough at the team x play type x matchup x trigger level where AVOID labels are assigned.",
+   "Own-sequence lags are likely to show small autocorrelation after controlling for team, game state and lineup; apparent lag effects can come from shared game context (pace, fatigue, lineup, score state) and from classifier rules that depend on neighbouring events.",
+   "The question as posed is not falsifiable until 'large enough' and 'drive' are given operational thresholds."
+  ],
+  "uncertainties": [
+   "The exact AVOID ranking algorithm and its inputs are unknown, and the label outputs are not listed as available data.",
+   "The 2025-26 playoffs are partial on 2026-06-19 and complete only on 2026-06-21, so they cannot be used in a pre-registered analysis.",
+   "Classifier label accuracy is unknown; the Inferrer step may infer play types from text, which could correlate with adjacent events.",
+   "The base rate of triggers and AVOID assignments is unknown."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "Retrieval returned no records, so the decision rests on the task statement, the glossary and my own reasoning. The decision (proceed with changes, with a narrowed and operationalized question) is not informed by earlier project results, and the absence of records does not show the question is new or untested."
+  },
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "AVOID is the lowest rank, so at least one counter is always AVOID regardless of effect size. 'Drives AVOID' must be tested against a rank-permutation null, not by whether a lowest-ranked item exists."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "AVOID labels exist only after H1-to-H2 suppression triggers within matchups. Per team-play-type-matchup cells, next-possession PPP will have very few observations."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The AVOID label and the next-possession PPP may both derive from the same possession outcomes, so any association could be built in. This needs verification of the ranking inputs."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier work was retrieved, so whether the question was previously answered is unknown. No historical evidence was available."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Next-possession PPP depends on the outcome of X (make, miss, turnover), pace, score state, lineup, opponent strength and home court. Outcome of X is a mediator, so adjusting for it changes the estimand and must be reported both ways."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If AVOID ranks are computed from PPP outcomes that include the next possession, label and predictor are mechanically linked."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Rank-based tiers always assign a lowest tier; the association with any feature needs a permutation null."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Rule-based play types come from play-by-play text and neighbouring events. Misclassification that correlates with sequence position can create spurious lag effects."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Per-possession PPP is noisy (SD about 1.2 points); team-level play-type PPP in a game is noisier still."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Detecting 0.02 PPP between two groups needs roughly 55k possessions per group; rare play types and trigger-level cells fall well short."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Triggers and AVOID assignments are rare events at team-game-play-type level."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Triggers are selected on a sharp H1-to-H2 PPP drop, so regression to the mean affects subsequent PPP. Lags conditioned on trigger selection inherit this bias."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "Opponent next-possession outcomes occur after the decision point where a counter would be chosen; they cannot be used as inputs to a prospective label, and the sequence order must be defined carefully (period boundaries, and-ones, dead balls, offensive rebounds)."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many play types, lags and matchups create a large number of comparisons."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Rules, pace and classifier versions may differ across seasons 2022-23 to 2025-26."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "Without the base rate of triggers and AVOID assignments, 'large enough to drive' cannot be calibrated."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.25,
+   "uncertain": 0.2
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Primary: for each play type X, the adjusted difference in opponent next-possession PPP after an own possession of type X versus all other own possessions, with and without adjustment for X's outcome category (made FG/FT-ending, missed with defensive rebound, turnover, other). Secondary: the incremental predictive value of own-sequence lags (play types and outcomes of the previous 1 to 3 own possessions) for own-possession PPP beyond team, opponent, lineup and game-state controls. Linkage to AVOID: before any outcome analysis, obtain and document the AVOID ranking algorithm and inputs, then test whether adding next-possession PPP and lag features changes AVOID assignment beyond a rank-permutation null.",
+   "unit": "Possession (ordered within game) for the primary and secondary estimands; team x play type x game trigger for the AVOID-linkage test, with matchup clustering.",
+   "sample": "Exploration: 2022-23 and 2023-24 regular seasons. Confirmation: 2024-25 regular season, then 2025-26 regular season (complete from 2026-04-13) as a second hold-out. Playoffs analysed only as a pre-labeled secondary set from 2022-23 to 2024-25. 2025-26 playoffs are excluded: partial on 2026-06-19 and complete only from 2026-06-21. Exclude garbage time, end-of-period possessions under a fixed clock rule, and possessions straddling period boundaries.",
+   "power": "Practical threshold fixed in advance: a PPP shift of at least 0.03 for the opponent next possession (about 25k possessions per group at SD 1.2, alpha 0.05, power 0.8; 0.02 needs about 55k). Analyse only play types with at least 30k possessions per season set; report minimum detectable effect for each. The trigger-level AVOID test is analysed descriptively with confidence intervals, and a minimum cell size is declared before the run. If fewer than 200 triggers per tier are available, the AVOID-linkage test is labelled untestable and not interpreted.",
+   "controls": "Offensive and defensive team strength (prior-season or leave-one-game-out ratings), home court, score margin and period, clock, lineup or on-court players where available, pace, X outcome (mediator, reported separately), and season fixed effects. Mixed model with team-game random effects and cluster-robust SEs by game. For lag analyses, include game-level random effects and a pace and fatigue proxy. For triggers, include a regression-to-the-mean control using H1 PPP and shrinkage estimates.",
+   "falsification": "Placebo 1: shuffle possession order within game and quarter and repeat the lag analysis; the effect should vanish. Placebo 2: use lead (next) own-possession play type as a pseudo-lag to detect shared-context bias. Placebo 3: permute AVOID ranks within matchup to establish the mechanical-floor null. Check classifier sensitivity by re-running with a strict subset of high-confidence labels. Negative control: a play type that cannot affect the opponent's next possession, such as events after a dead ball with a long gap, should show no effect.",
+   "multiplicity": "Primary family: one test per play type (8 labels) for the outcome-adjusted next-possession effect, controlled with Holm-Bonferroni at 0.05. Lag analyses form a separate family with a pre-specified lag set (1 to 3) and Benjamini-Hochberg FDR of 0.10. Everything else is labelled exploratory.",
+   "decision_rule": "Support 'large enough to drive AVOID' only if: (1) the outcome-adjusted opponent next-possession PPP effect for at least one play type is at least 0.03 in absolute value with CI excluding zero in both the 2024-25 and 2025-26 RS confirmations; (2) it survives the placebo and shuffle tests; and (3) AVOID assignment differs from the rank-permutation null when the term is included. If only the unadjusted effect is present, classify as outcome-mediated artifact. If CIs include effects below 0.03 and exceed the MDE, classify as rejected. If cells are below the pre-set size, classify as untestable.",
+   "data_version": "Per-game NBA stats API play-by-play, rotation, matchup and box-score files and the derived play-type possession graph database for 2022-23 to 2024-25 and the 2025-26 regular season, frozen at a recorded snapshot and classifier version on or before 2026-06-19. Record the classifier version and the AVOID ranking code version; the 2025-26 playoffs are excluded as incomplete."
+  }
+ },
+ "redactions": 0
+}

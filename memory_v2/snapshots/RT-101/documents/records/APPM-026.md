@@ -1,0 +1,31 @@
+# EXP:APPM-026 | Counter-tier validation Test 1 (BEST vs AVOID, 2025-26 and 2024-25 playoffs)
+- date: 2026-06-19
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 10 series 2025-26 (n=519 obs) and 15 series 2024-25 (n=634); Spearman tier rank vs PPP, Kruskal-Wallis, Mann-Whitney.
+- hypothesis: Pre-game BEST-tier counters outscore AVOID-tier counters after suppression triggers.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPM-026; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-026 {record=APPM-026; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: AVOID_OVERRIDE tier reclassifies AVOID by rest-of-game PPP (outcome-based), so smart-vs-AVOID comparisons are circular; INSUFF_EVIDENCE 220/519 and 324/634.
+- prespecified: no
+- produced: RES:APPM-026 {record=APPM-026; rule=record fields}
+- project: Strategy app
+- related_as_recorded: BEST-AVOID OOS gap (presentation)
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\OVERNIGHT_SUMMARY.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_overnight_batch.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_run_10series_validation.py
+- title: Counter-tier validation Test 1 (BEST vs AVOID, 2025-26 and 2024-25 playoffs)
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-026; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPM-026; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-026 | Result of APPM-026
+- failure_evidence: BEST > AVOID p=0.0 in both seasons.
+- failure_type: D_positive
+- power_info: n=519 / 634
+- primary_result: 2025-26 rho -0.3246 (n=519), BEST 1.460 vs AVOID 0.845; 2024-25 rho -0.2625 (n=634), BEST 1.424 vs AVOID 0.799; KW H 158.7/158.96.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

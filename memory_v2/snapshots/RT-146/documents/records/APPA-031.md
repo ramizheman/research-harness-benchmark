@@ -1,0 +1,37 @@
+# EXP:APPA-031 | Case studies: alignment with engine mix vs ORtg (+3.3 claim)
+- date: 2026-04-18
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 908 holdout game-team pairs; terciles of L1 distance; 6 illustrative cases with kernel unconstrained vs +/-5pp coachable vs calibrated (10-feature residual calibrator val R2 +0.1244) and 4 named-scheme robustness.
+- hypothesis: Games where the team mix was closest to the engine recommendation score more after strength adjustment.
+- knowable_in_advance: unclear
+- measures: VAR:net_rating_ORtg {record=APPA-031; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:play_type_share_mix {record=APPA-031; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-031 {record=APPA-031; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Contradicted by series-level alignment regression r=-0.032 (APPA-024). Coachable caps still +14.3 to +28.0 ORtg, which are model-internal not observed. Full file now read.
+- prespecified: no
+- produced: RES:APPA-031 {record=APPA-031; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-024; APPA-033; APPA-063
+- related_to: EXP:APPA-033 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-031; rule=date-ordered record link}
+- related_to: EXP:APPA-063 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-031; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CASE_STUDIES.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LAYER_AUDIT.md
+- title: Case studies: alignment with engine mix vs ORtg (+3.3 claim)
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPA-031; rule=keyword rule DATASET_RULES}
+- uses_method: METH:calibration_scoring {record=APPA-031; rule=keyword rule METHOD_RULES}
+- uses_method: METH:case_study {record=APPA-031; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPA-031; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPA-031; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-031; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-031 | Result of APPA-031
+- failure_evidence: No CI or test reported for +3.3; in-game PT ranking used as rho target shares outcome data; 3 of 6 cases are labeled honest counter-examples; every kernel rec is CUT-heavy.
+- failure_type: E_unclear
+- power_info: 908 game-team pairs; 6 cases
+- primary_result: Closest vs most-deviated tercile +3.3 ORtg adjusted (raw +5.2); Spearman rho >0.4 in 62% of games. Cases: GSW-LAL rho 1.00 coachable +28.0 ORtg; MIA-BOS rho 0.80 aligned residual +27.9; NYK-LAL rho 0.80 coachable +25.0; CLE-PHX rho -0.80; LAL-GSW rho 0.90 residual +12.3 despite deviation; MIN-DEN rho 0.10 L1=0.99 residual -29.8.
+- record_stratum: supported
+- record_substatus: mechanism E_unclear
+- verdict: supported

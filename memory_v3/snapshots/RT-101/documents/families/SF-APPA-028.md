@@ -1,0 +1,31 @@
+# FAM:SF-APPA-028 | Study family SF-APPA-028: Agent Test C: 3-agent halftime debate vs optimizer counter
+- observed_research_question: Agent Test C: 3-agent halftime debate vs optimizer counter
+- auto_outcome_status: untestable
+- observed_hypothesis: The LLM debate adds value over the deterministic optimizer counter.
+- observed_result: Agreement 2/5 (40%); disagreements 3: debate wins 1, optimizer 1, tie 1; mean H2 PPP optimizer 1.812 vs debate 1.683.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=5 triggers, 3 disagreements.
+- observed_sample_and_power: n=5
+- observed_method: 5 suppression triggers; agreement and H2 PPP when they disagree.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Debate decision text and picked PT disagree in some rows (e.g. picked POST_UP while decision says SPOT_UP or CUT), suggesting a parsing bug.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Strategy app
+- observed_dates: APPA-028: 2026-06-16 (mtime)
+- observed_member_records: APPA-028
+- observed_sources: APPA-028: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\AGENT_TEST_C_optimizer_vs_debate.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:implementation_bug {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:IMPLEMENTATION_BUG {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-027 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-027 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-015 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

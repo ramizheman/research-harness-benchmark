@@ -1,0 +1,32 @@
+# EXP:APPS-081 | Absence-validation gate and confirmatory (structure moves; dose ns)
+- date: 2026-07-12
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Gate n_null=150 n_rep=120 core=23. Confirmatory n_null=500 n_perm=5000 player_seasons=23 franchises=18 flagged underpowered.
+- hypothesis: Player absence moves offensive structure (V1) and the size of the move tracks a simulated dose (V2).
+- knowable_in_advance: yes
+- member_of: FAM:SF20 {record=APPS-081; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: Knowable: <20 franchises was the underpowered flag written into the confirmatory output.
+- prespecified: yes
+- produced: RES:APPS-081 {record=APPS-081; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-080
+- related_to: EXP:APPS-080 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-081; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-081; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\absence_full_result.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\absence_gate_result.txt
+- title: Absence-validation gate and confirmatory (structure moves; dose ns)
+- uses_dataset: DS:Player_absence_spells {record=APPS-081; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-081; rule=keyword rule METHOD_RULES}
+- uses_method: METH:simulation {record=APPS-081; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-081 | Result of APPS-081
+- failure_evidence: V1 confirmed but V2 dose-response ns with n=23 player-seasons / 18 franchises explicitly underpowered; no re-run per ?9.
+- failure_type: A_unanswerable
+- power_info: n=23 player-seasons, 18 franchises
+- primary_result: Gate PASS (G2 frac_above_median=0.913; G3 rho=+0.099). Confirmatory V1(a) 16/23 above p95 binomial_p=2.67e-16; V1(b) mean_diff=+0.142 CI[+0.103,+0.187] CONFIRMED. V2a rho=+0.288 p=0.0770 CI[-0.244,+0.667]; V2b partial rho=+0.253 p=0.1152 NOT. VERDICT PARTIAL/NEGATIVE UNDERPOWERED <20 franchises.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

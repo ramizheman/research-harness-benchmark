@@ -1,0 +1,36 @@
+# EXP:APPM-045 | Playoff G1 retrospective: plan conformance vs outcome (opened RETRO files)
+- date: 2026-04-20
+- date_basis: doc
+- date_reliable: yes
+- design: 4 Game 1s / 8 team-games; avg |delta| on leverage buckets vs result; headline modeled vs observed PPP and winner.
+- hypothesis: Teams running closer to the model opener portfolio perform better, and pre-game favorite/PPP direction matches the game.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPM-045; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPM-045; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-045 {record=APPM-045; rule=audit/study_family_review.csv or singleton}
+- n_runs: 4
+- notes: Updated copy of APPM-024 after opening the four RETRO_ files. ORL favorite at 59% uses the older pooled prior (STRATEGY_V2 later flipped DET to 86%).
+- prespecified: no
+- produced: RES:APPM-045 {record=APPM-045; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPM-024; APPM-025; Personnel feasibility of CUT openers
+- related_to: EXP:APPM-025 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPM-045; rule=date-ordered record link}
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PLAYOFF_RETRO_SUMMARY_2026-04-20.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_ORL_vs_DET_0042500101.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_PHI_vs_BOS_0042500111.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_PHX_vs_OKC_0042500141.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_POR_vs_SAS_0042500151.md
+- source: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_batch_playoff_retros.py
+- title: Playoff G1 retrospective: plan conformance vs outcome (opened RETRO files)
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-045; rule=keyword rule DATASET_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-045; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-045; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-045 | Result of APPM-045
+- failure_evidence: Four games is not enough evidence to claim the plans work in a statistical sense (doc). Winner-picking 4/4 is a weak test (favorites were large).
+- failure_type: A_unanswerable
+- power_info: n=8 team-games
+- primary_result: Winner direction 4/4 YES. ORL PPP 1.2364 vs 1.109 (all)/1.474 (classified), DET 1.2183 vs 0.981/1.507, ORL WP 59.0% won 112-101. PHI 1.2143 vs 0.875/1.137, BOS 1.3185 vs 1.230/1.538, PHI WP 11.1% lost 91-123. PHX 1.2254 vs 0.903/1.273, OKC 1.2758 vs 1.266/1.566, PHX WP 26.7% lost 84-119. POR 1.2248 vs 1.021/1.225, SAS 1.2591 vs 1.144/1.521, POR WP 33.5% lost 98-111. Conformance: PHX 24.0pp drift lost by 35; PHI 4.5pp closest lost by 32. 5/8 team-games closest to opener #2-#4.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

@@ -1,0 +1,32 @@
+# EXP:APPM-017 | Possession-level SQ2 test: proxy engine on all RS games
+- also_recorded_as: APPS-055
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Proxy engine on 4,082 qualifying team-games; Tests A/B/C; 16,921 cells for FE OLS.
+- hypothesis: A matchup-conditioned PT picker has possession-level signal at team-game level.
+- knowable_in_advance: yes
+- member_of: FAM:SF37 {record=APPM-017; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Positive for proxy only; does not validate production engine.
+- prespecified: no
+- produced: RES:APPM-017 {record=APPM-017; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Possession-level SQ2 test (playoff series)
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\POSSESSION_PPP_ALL_GAMES_findings.md
+- title: Possession-level SQ2 test: proxy engine on all RS games
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-017; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-017; rule=keyword rule DATASET_RULES}
+- uses_method: METH:difference_in_differences {record=APPM-017; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-017; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-017; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-017 | Result of APPM-017
+- failure_evidence: Proxy fidelity 16.5% (<70%); in-sample contamination of RS aggregates; iid SEs.
+- failure_type: E_unclear
+- power_info: n=16,921 cells
+- primary_result: C gamma +0.0714 SE 0.0057 p=0.0000; B DiD +0.062 [0.051,0.073]; proxy agrees with production engine 13/79 = 16.5%.
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

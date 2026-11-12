@@ -1,0 +1,34 @@
+# EXP:APPS-032 | CUT depletion / decay hypothesis (feasibility, not efficiency)
+- date: 2026-05-28
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 311 playoff games, 12361 H2 CUT/SPOT_UP/DRIVE possessions. Decay curve, switch-point vs SPOT_UP, depletion-adjusted Spearman, DP policy vs static.
+- hypothesis: CUT PPP decays across successive H2 runs, so the playsheet should rotate off CUT to SPOT_UP.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPS-032; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-032 {record=APPS-032; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Actionable output was constrained mix tables replacing single-label BEST:CUT.
+- prespecified: no
+- produced: RES:APPS-032 {record=APPS-032; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-023
+- related_to: EXP:APPS-023 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-032; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\CUT_DEPLETION_FINDINGS.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\depletion_validation.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\dp_policy_validation.md
+- title: CUT depletion / decay hypothesis (feasibility, not efficiency)
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-032; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-032; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-032; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-032; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-032 | Result of APPS-032
+- failure_evidence: No efficiency cliff; constraint is opportunity (~3-5 CUT per half). DP was built on fabricated decay.
+- failure_type: B_powered_null
+- power_info: 311 games; CUT runs 6+ essentially unobserved
+- primary_result: CUT PPP stable 1.60-1.71 for runs 1-5 (all n>=14); runs 6+ n=4/2/0. 62.0% of team-halves never crossed below SPOT_UP (n=405). Depletion-adjusted rho -0.0415 vs baseline -0.2737 (degraded 0.2322). DP -6.7 pts/100 vs static ? invalidated.
+- record_stratum: rejected
+- record_substatus: verdict reversed, powered null with power information
+- verdict: reversed

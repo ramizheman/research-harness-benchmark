@@ -1,0 +1,31 @@
+# EXP:APPM-003 | Residual calibration A/B (global/linear/OLS/per-team)
+- date: 2026-04-17
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: Blended A3 evaluator trained on 523,517 sequences; calibrators fit on VAL (690 cells), scored on HOLDOUT (520 cells); with and without 30-game recency half-life.
+- hypothesis: A residual calibrator fit on VAL improves out-of-sample R2 of the equilibrium matchup evaluator.
+- knowable_in_advance: unclear
+- member_of: FAM:SF-APPM-003 {record=APPM-003; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Absolute R2 remains ~0.03; per-team calibrator overfits val (0.24 -> 0.02).
+- prespecified: no
+- produced: RES:APPM-003 {record=APPM-003; rule=record fields}
+- project: Strategy app
+- related_as_recorded: VARIANCE_DIAG.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\RESIDUAL_HL30.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\RESIDUAL_REPORT.md
+- title: Residual calibration A/B (global/linear/OLS/per-team)
+- uses_method: METH:calibration_scoring {record=APPM-003; rule=keyword rule METHOD_RULES}
+- uses_method: METH:holdout_backtest_or_replay {record=APPM-003; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPM-003; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPM-003; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-003 | Result of APPM-003
+- failure_evidence: OLS holdout R2 +0.0323 vs baseline -0.1981.
+- failure_type: D_positive
+- power_info: val 690 / holdout 520 cells
+- primary_result: Holdout R2 baseline -0.1981 -> OLS +0.0323 (net lift +0.2305); HL30 variant baseline -0.1587 -> OLS +0.0321. Per-team R2 val +0.2449 but holdout +0.0213.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

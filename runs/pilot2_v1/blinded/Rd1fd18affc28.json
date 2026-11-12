@@ -1,0 +1,114 @@
+{
+ "blind_id": "Rd1fd18affc28",
+ "task_statement": "Research question (as posed on 2026-11-02, in the area of lineup and matchup effects):\nChanging the offensive five itself moves shot mix, showing the design can detect personnel effects.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_question": "Does changing the offensive lineup (the 'offensive five') lead to a detectable change in the team's shot mix?",
+  "retrieval_summary": {
+   "prior_findings": [
+    {
+     "id": "EXP:[prior work]",
+     "status": "supported",
+     "summary": "When the opponent changes its lineup (e.g., goes small with 0 vs 1 rim-bigs), the offense changes its mix and points per possession (PPP). This suggests that shot mix is sensitive to personnel changes, albeit from the defensive side."
+    },
+    {
+     "id": "EXP:[prior work]",
+     "status": "supported",
+     "summary": "Offenses attack the rim more when the opponent has no big on the floor, indicating adaptation in shot mix based on opposing personnel."
+    },
+    {
+     "id": "[prior work][prior work]",
+     "status": "uncertain",
+     "summary": "Play-type mix after a player absence was nearly identical to the pre-absence mix. This finding is directly relevant but its status is uncertain, suggesting either no strong effect or difficulty in detection."
+    }
+   ],
+   "failed_experiments": [
+    {
+     "id": "RES:[prior work]",
+     "status": "artifact",
+     "summary": "An observed effect shrank significantly and was attributed to a 'shooter-level confound' when lineup fixed effects were not included, indicating an artifact due to unaddressed confounding."
+    },
+    {
+     "id": "[prior work][prior work]",
+     "status": "artifact",
+     "summary": "Confirmed that an effect was an artifact, consistent with a shooter-level confound, emphasizing the need for robust controls like lineup fixed effects."
+    },
+    {
+     "id": "RES:[prior work]",
+     "status": "untestable",
+     "summary": "An experiment attempting to detect an offensive H2-change trait was found untestable due to insufficient power (r=-0.001, needing ~0.18 for detection), highlighting challenges in detecting subtle offensive changes."
+    }
+   ],
+   "limitations": [
+    {
+     "id": "RES:[prior work]",
+     "text": "The risk of confounding, specifically 'shooter-level confound', when analyzing player or lineup effects without proper fixed effects or controls."
+    },
+    {
+     "id": "RES:[prior work]",
+     "text": "Difficulty in achieving sufficient statistical power to detect subtle offensive changes, leading to untestable hypotheses due to low signal-to-noise ratio or sparse data."
+    }
+   ],
+   "unresolved": [
+    {
+     "id": "[prior work][prior work]",
+     "text": "Whether play-type mix truly changes after a player absence remains uncertain."
+    }
+   ]
+  },
+  "evidence_use": "The retrieved information provides mixed signals and crucial warnings. Prior findings (EXP:[prior work], EXP:[prior work]) suggest that shot mix *is* responsive to personnel changes, albeit from the opponent's side, which lends indirect support to the idea that a team's own offensive personnel could also influence it. However, [prior work][prior work], which is directly relevant to our question (player absence implies lineup change), found an uncertain effect, suggesting that such changes might be subtle or hard to detect. More importantly, the failed experiments (RES:[prior work], [prior work][prior work]) highlight a significant risk of confounding ('shooter-level confound') and underscore the necessity of robust controls, such as fixed effects, in the design. RES:[prior work] warns about the risk of `EXPOSURE_SPARSITY` and `SAMPLE_SIZE_POWER` for detecting subtle offensive changes, reinforcing the need for careful sample selection and power considerations. The absence of a clear 'supported' finding for a team's *own* offensive lineup changing shot mix means this is still an open question for the project.",
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "EXP:[prior work]",
+    "EXP:[prior work]",
+    "RES:[prior work]",
+    "[prior work][prior work]",
+    "RES:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "While prior work indicates that opponent lineup changes can affect offensive shot mix, and one uncertain finding suggests player absence may not strongly affect play-type mix, the specific question of how a team's *own* offensive lineup changes affect shot mix has not been definitively answered. Methodological pitfalls related to confounding and low power have been identified in similar research."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many unique five-player offensive lineups will have limited minutes played across seasons, making it difficult to gather sufficient data to reliably estimate their characteristic shot mixes and detect statistically significant changes."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Changes in shot mix are highly susceptible to confounding by factors such as opponent defensive scheme, game state (score, clock), coaching strategy, and individual player hot/cold streaks. Isolating the pure 'offensive five' effect is challenging, as highlighted by prior 'shooter-level confound' findings."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Defining and reliably measuring 'shot mix' for short lineup intervals can be unstable. The granularity of shot locations and the minimum possessions required for a stable estimate will impact the validity of the measure."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Given the potential subtlety of lineup effects on shot mix and the sparsity of data for many specific lineups, there is a risk of insufficient statistical power to detect true effects, leading to untestable or null results, as observed in previous research on offensive changes."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.25,
+   "rejected": 0.3,
+   "untestable": 0.25,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of a discrete change in the offensive five-player lineup on the team's distribution of shot attempts by location (e.g., restricted area, paint non-RA, mid-range, 3-point), controlling for game context, opponent, and individual player tendencies.",
+   "unit": "Offensive possession. Data will be aggregated at the offensive lineup interval level.",
+   "sample": "All offensive possessions from NBA 2022-23, 2023-24, and 2024-25 regular seasons and playoffs. The analysis will focus on transitions between different offensive five-player lineups. A minimum threshold for possessions per lineup interval (e.g., 50 or 100 possessions) will be applied to ensure reliable shot mix estimation, potentially using a hierarchical model to pool information for sparse lineups.",
+   "power": "A power analysis will be conducted to determine the minimum detectable effect size for changes in shot mix categories, considering the observed variance in shot mix within lineup intervals. The analysis will acknowledge the challenge of `EXPOSURE_SPARSITY`. Techniques like shrinkage estimation or empirical Bayes for lineup-specific effects will be considered to mitigate low power for rare lineups.",
+   "controls": "To address confounding (e.g., 'shooter-level confound'), a panel data approach with fixed effects will be employed. This will include team-game fixed effects to control for opponent, game state, and overall team strategy, as well as player-level fixed effects for the 10 players on the court (5 offensive, 5 defensive) to account for individual player tendencies and skill levels. Additionally, a difference-in-differences approach comparing shot mix before and after a lineup change, within the same game context, will be considered.",
+   "falsification": "A falsification test will involve analyzing 'changes' in shot mix during periods where the offensive five remains constant but other factors (e.g., defensive lineup, game state, or quarter) change. If significant 'effects' are detected under these conditions, it would indicate that the model is picking up confounding factors rather than true offensive personnel effects. Another test could analyze random permutations of lineup changes.",
+   "multiplicity": "Given that shot mix will be broken down into multiple categories (e.g., 2-point, 3-point, restricted area, mid-range) and potentially multiple lineup changes are examined, False Discovery Rate (FDR) control (e.g., Benjamini-Hochberg procedure) will be applied to adjust p-values for multiple comparisons.",
+   "decision_rule": "The hypothesis will be considered supported if a statistically significant and practically meaningful change (e.g., >2 percentage points change in a primary shot category) in at least one key shot mix category is consistently observed following a change in the offensive five, after controlling for confounding factors and adjusting for multiplicity. The effect should be robust across different model specifications and pass falsification tests. If no such change is detected or if the effect is not robust, the hypothesis will be rejected or deemed untestable/uncertain.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25 regular season and playoffs play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play."
+  }
+ },
+ "redactions": 28
+}

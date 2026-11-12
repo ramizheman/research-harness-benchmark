@@ -1,0 +1,33 @@
+# EXP:APPA-041 | Post-trigger pickup toward BEST and alignment vs series wins
+- date: 2026-06-19
+- date_basis: doc
+- date_reliable: yes
+- design: 55 series, 272 games, 633 triggers, 110 series-directions; H1 to H2 BEST/AVOID share pickup; Spearman of %BEST/%AVOID vs series won.
+- extends: EXP:APPA-024 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-041; rule=date-ordered record link}
+- extends: EXP:APPS-031 {direction=verified by dates; needs_review=no; origin=repeat-run family SF05; record=APPA-041; rule=date-ordered record link}
+- hypothesis: After suppression, teams shift H2 mix toward BEST-tier counters, and running BEST (vs AVOID) predicts series wins.
+- knowable_in_advance: no
+- measures: VAR:play_type_share_mix {record=APPA-041; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPA-041; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF05 {record=APPA-041; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: IND counterexample: 18.6% BEST follow, 71.4% series win rate (7 series-directions). Pickup is the behavioral claim; alignment is a second test in the same coaching section.
+- prespecified: no
+- produced: RES:APPA-041 {record=APPA-041; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-036; APPA-024
+- related_to: EXP:APPM-031 {direction=unknown (date intervals overlap); needs_review=yes; origin=repeat-run family SF05; record=APPA-041; rule=date-ordered record link}
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-041; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Post-trigger pickup toward BEST and alignment vs series wins
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-041; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPA-041; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-041 | Result of APPA-041
+- failure_evidence: Average BEST pickup ~0; alignment vs winning not significant at n=110. Teams already run ~29% AVOID in H1.
+- failure_type: B_powered_null
+- power_info: 591 triggers; n=110 series-directions
+- primary_result: 591/633 triggers with BEST defined: 51.6% shifted more toward BEST, 22.4% used more AVOID; avg best_pickup +0.0024 pp; BEST share 10.0% to 10.2%; AVOID 8.9% to 9.5%. %BEST vs won rho=+0.131 p=0.17 n=110; %AVOID vs won rho=-0.098 p=0.31. H2 mix BEST 11.3% / AVOID 7.8% / INSUFF 55.8% volume.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

@@ -1,0 +1,31 @@
+# EXP:APPA-007 | Absence validation V2: leave-one-out load predicts real displacement
+- date: 2026-07-12
+- date_basis: doc
+- date_reliable: yes
+- design: Same pre-registered 23 player-seasons; Spearman with franchise permutation (5000) and cluster bootstrap (2000); post-hoc diagnostics.
+- hypothesis: Fragility leave-one-out load L_pred rank-correlates with real displacement D_real (raw and size-partial).
+- knowable_in_advance: yes
+- measures: VAR:structural_influence_load_L {record=APPA-007; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF20 {record=APPA-007; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Prereg itself said <20 franchises means underpowered, and the user skipped the full-pool sweep that could have added franchises. Diagnostics also point to a substantive absorption/cascade failure mode.
+- prespecified: yes
+- produced: RES:APPA-007 {record=APPA-007; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPA-006; Fragility study
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPA-007; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ABSENCE_VALIDATION_PREREGISTRATION.md
+- title: Absence validation V2: leave-one-out load predicts real displacement
+- uses_dataset: DS:Player_absence_spells {record=APPA-007; rule=keyword rule DATASET_RULES}
+- uses_method: METH:bootstrap_interval {record=APPA-007; rule=keyword rule METHOD_RULES}
+- uses_method: METH:correlation {record=APPA-007; rule=keyword rule METHOD_RULES}
+- uses_method: METH:placebo_or_permutation_test {record=APPA-007; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-007 | Result of APPA-007
+- failure_evidence: 18 franchises below ~20-franchise floor; CI width ~0.9; gate already warned weak (+0.099).
+- failure_type: A_unanswerable
+- power_info: n=23, 18 franchises; CI [-0.244, +0.667]
+- primary_result: Gate G3 Spearman +0.099. V2a Spearman +0.288, p=0.077, CI [-0.244, +0.667] FAIL; V2b partial +0.253, p=0.115, CI [-0.262, +0.615] FAIL. Diagnostics: H_code ruled out (rho=0.933); dropping 2 absorption cases rho=+0.444 (n=21).
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict failed_gate
+- verdict: failed_gate

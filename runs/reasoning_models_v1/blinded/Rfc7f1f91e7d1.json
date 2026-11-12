@@ -1,0 +1,155 @@
+{
+ "blind_id": "Rfc7f1f91e7d1",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate drive preceding PNR",
+   "sequential possession play types",
+   "PNR PPP efficiency",
+   "play-type labeling reliability",
+   "causal sequence effects"
+  ],
+  "methodological_questions": [
+   "How to define a preceding possession and ensure no lookahead bias?",
+   "Can PPP on a single play type be reliably measured from labeled play-by-play?",
+   "How to control for game state confounding in observational sequential data?",
+   "What is the expected sample size for teammate‑drive‑then‑PNR sequences?",
+   "How to handle multiplicity when aggregating across all players?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Found a negative teammate DRIVE→PNR premium: Giannis→Lillard -0.263 (n=31). Only 2/30 stars showed stable top suppressors across seasons."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Described opponent plays before star possessions (e.g., PUTBACK as top suppressor) with n_after=32‑95; flagged DRIFT_NONSTATIONARITY risk."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Observed both positive (e.g., L. Doncic DRIVE→PNR +0.309, n=53) and negative (e.g., D. Bane DRIVE→PNR -0.324, n=70) same‑player and teammate DRIVE→PNR premiums. Noted small samples and label/classification errors."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "OTHER 36% foul endings inflate PPP; DRIVE 12 pp below foul benchmark; PNR 22% foul rate. Only 0.7% of possessions map to a real play type via initiation_type."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Test of season‑to‑season stability of top suppressors",
+    "why": "B_powered_null; only 2/30 stars met the 75%‑same‑top‑suppressor rule; limited by small sample (SAMPLE_SIZE_POWER)."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Identifying reliable positive teammate sequential premiums",
+    "why": "Small samples and label/classification error prevented robust inference; effect signs and sizes varied widely across sequences."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Assuming play‑type PPP differences reflect real efficiency",
+    "why": "Apparent effects produced by labeling and foul‑leakage artifacts (C_artifact)."
+   }
+  ],
+  "evidence_establishes": [
+   "A specific teammate DRIVE→PNR case (Giannis→Lillard) shows a negative, not positive, premium in observed data.",
+   "Across players, DRIVE→PNR premiums range from substantially positive to substantially negative, with no consistent sign.",
+   "Play‑type labels derived from play‑by‑play contain systematic artefacts: foul leakage inflates OTHER PPP, depresses DRIVE PPP, and PNR has a high foul‑ending share that may bias its PPP.",
+   "Small within‑pair sample sizes (n ≈ 30–70) limit the precision of individual sequence estimates."
+  ],
+  "evidence_does_not_establish": [
+   "Whether the negative Giannis→Lillard case reflects a true causal effect or a labelling/contextual artifact.",
+   "Whether an overall league‑wide average of DRIVE→PNR sequences would be positive, zero, or negative after correcting for label errors.",
+   "Causal direction: a preceding drive could be confounded with defensive disruption or game script that simultaneously affects PNR efficiency.",
+   "The expected sample size when pooling all teammates and the power for detecting a small overall effect."
+  ],
+  "own_inferences": [
+   "The blanket claim that any teammate DRIVE preceding a PNR raises PNR PPP is likely false because at least one counterexample already exists in the data.",
+   "Even if the true average effect were slightly positive, the known foul‑leakage artefact (DRIVE PPP depressed, PNR PPP potentially inflated) could create a spurious positive gap that would be mistaken for a real sequence effect.",
+   "The research question as stated is too broad; a more precise hypothesis would need to specify the conditioning set (same‑team, prior offensive possession) and account for defender identity, game state, and season.",
+   "Without a validated re‑labelling of play types that corrects for foul leakage, any PPP‑based sequential analysis using these labels will be at high risk of artefact."
+  ],
+  "uncertainties": [
+   "How many total teammate‑DRIVE‑then‑PNR possessions exist across the available seasons; the base rate may be low enough to compromise power if conditioning on additional covariates.",
+   "The extent to which a well‑controlled difference‑in‑differences design (comparing PNR PPP within the same team/game context) can remove confounding, given the sequential nature of the exposure.",
+   "Whether a manually audited subset of labels could salvage the analysis; the required effort is unknown.",
+   "Whether the foul‑leakage pattern is stable across seasons or evolving (DRIFT_NONSTATIONARITY)."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without retrieval I might have considered the question plausible and designed a straight‑forward test. [prior work] revealed a concrete negative counter‑example (Giannis→Lillard, SF‑APPA‑058), pervasive label artefacts (SF‑CHT‑025), and wide heterogeneity of DRIVE→PNR premiums ([prior work]). Together they show the question is likely false or artefact‑driven, so proceeding with the current data would be misleading."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play‑type labels have known foul‑leakage biases that distort DRIVE and PNR PPP measurements; without validation the exposure and outcome are unreliable."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "A preceding teammate DRIVE may be correlated with defensive breakdowns, game script, or player quality that also affect subsequent PNR efficiency, making causal attribution difficult."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The proportion of PNR possessions immediately preceded by a teammate DRIVE may be low, leading to wide standard errors or unstable estimates when additional confounders are controlled."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "A specific negative teammate DRIVE→PNR premium was observed (SF‑APPA‑058), contrary to the claim that any such sequence raises PNR PPP. [prior work] showed mixed premiums across players. SF‑CHT‑025 demonstrated that PPP‑based play‑type comparisons are compromised by foul leakage, casting doubt on sequential PPP effects derived from the standard labels."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "DRIVE PPP is depressed and PNR PPP may be inflated by uncorrected foul endings; any observed positive sequential premium could be a pure labeling artefact."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game state (score, period, clock, opponent defensive rating) jointly influences whether a DRIVE is attempted and the success of a subsequent PNR, biasing naïve comparisons."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Aggregate sample may still be adequate, but when conditioning on team, season, and game context the effective number of DRIVE‑then‑PNR sequences could fall below the level needed for precise estimation."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If the analysis is later split by player or team, corrections will be required; the blanket claim 'any teammate' invites a multiple‑comparison problem."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play‑type frequencies and foul rates may shift across seasons in ways that affect the test statistic."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.1,
+   "rejected": 0.2,
+   "untestable": 0.3,
+   "artifact": 0.3,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The average causal effect on PNR PPP of the immediately preceding offensive possession being a teammate DRIVE (as labelled in the NBA play‑by‑play), relative to it being any other play type or no labelled play, under a conditional independence assumption given observables.",
+   "unit": "One offensive possession that is labelled as a pick‑and‑roll.",
+   "sample": "All PNR possessions in the 2022‑23 through 2025‑26 regular seasons and playoffs for which the previous team possession can be identified and has a valid play‑type label (excluding possessions ending in technical free throws, end‑of‑quarter heaves, and garbage‑time defined as final 2 minutes with score differential > 12).",
+   "power": "We could have roughly 8 000–12 000 PNR possessions with a preceding label, of which ~6% (≈500–700) are preceded by a teammate DRIVE. This yields 80% power to detect a true effect size of d ≈ 0.12–0.15 (about 0.12–0.15 PPP) in a two‑sided test at α = 0.05, assuming intra‑team clustering. However, this estimate assumes no additional variance from label error or model adjustment; actual power is likely lower.",
+   "controls": "Fixed effects for team, season, month, and game location; linear controls for period, seconds remaining, score margin, and opponent defensive rating (lagged 10‑game average). Player random intercepts for both the PNR initiator and the teammate who drove.",
+   "falsification": "1) Test whether the DRIVE‑preceding effect also appears when the previous possession is an opponent DRIVE (should be null if causal). 2) Replace DRIVE with a different preceding play type (e.g., POST‑UP, HANDOFF) and check for a similar ‘premium’—if multiple play types show a positive association, it suggests a general sequence‑confounding mechanism rather than a DRIVE‑specific effect.",
+   "multiplicity": "The primary test is a single coefficient (prev_teammate_drive) in the full‑sample regression; no subgroup multiplicity adjustments are planned in the confirmatory stage. All secondary splits (by player, team) would be clearly labelled as exploratory and corrected via the Benjamini‑Hochberg procedure.",
+   "decision_rule": "Reject the null of zero effect if the coefficient on ‘prev_teammate_drive’ is positive and its two‑sided p‑value (cluster‑robust by team‑season) is less than 0.05. Additionally, require that the point estimate remains ≥ 0.02 PPP when restricting to a manually validated subset of 500 randomly sampled sequences where both the DRIVE and PNR labels have been confirmed by a human auditor.",
+   "data_version": "NBA API play‑by‑play and derived possession graph as of 2026‑06‑14, covering the 2022‑23, 2023‑24, 2024‑25, and 2025‑26 (regular and playoffs) seasons, with the initiation‑type mapping of [prior work]‑CHT‑025 applied to flag suspect labels."
+  }
+ },
+ "redactions": 21
+}

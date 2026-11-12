@@ -1,0 +1,32 @@
+# EXP:APPA-037 | Suppression is not regression to mean: matched-control excess
+- date: 2026-05-29
+- date_basis: doc
+- date_issues: text mentions later date(s) 2026-07-11
+- date_reliable: no
+- design: Playoff 55-series: 633 triggers, opponent same-PT same-game control (534 pairs) plus EB shrinkage. Full graph then H1-PPP-balanced caliper match, cluster-robust by game, blowout filter; Z1 OT exclusion and Z2 c_h2_n>=5 applied 2026-07-11.
+- hypothesis: The H1-to-H2 PPP drop after a trigger exceeds the drop of a matched control, beyond what RTM predicts.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-037; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF01 {record=APPA-037; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Deck slide 3 still cites legacy +0.628 / n=9,900. Code audit Z1 (OT in H2, 4,674 poss) and Z2 (control c_h2_n unconstrained) were HIGH severity and then corrected in the paper-locked numbers. Shrinkage excess +0.495 (80%) recommended off the slide.
+- prespecified: no
+- produced: RES:APPA-037 {record=APPA-037; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-036
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-037; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: Suppression is not regression to mean: matched-control excess
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-037; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-037; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-037; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-037; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-037 | Result of APPA-037
+- failure_evidence: Excess drops from +0.625 unconstrained to +0.408 when balanced on H1 PPP, but the cluster CI excludes 0; Z1+Z2 moved excess only +0.004 vs pre-fix +0.404.
+- failure_type: D_positive
+- power_info: 848 game clusters, eff. n ~1,088; PO 534 pairs
+- primary_result: PO C: excess +0.680 [0.619, 0.740], n=534, t=22.11; RTM pred 0.097 of 0.626 drop (15.5%), excess 0.529. Full graph unconstrained +0.628 n=9,900 then Z1+Z2 +0.625 n=9,111. H1-balanced caliper 0.10 +0.408 [0.378, 0.438], 1,136 pairs / 848 clusters, perm p<0.0002; blowout |margin|<=20 +0.412 [0.380, 0.443] n=997. Caliper 0.05/0.15/0.20/0.30 excess 0.403/0.397/0.398/0.412.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

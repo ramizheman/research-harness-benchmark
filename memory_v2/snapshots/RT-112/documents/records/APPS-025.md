@@ -1,0 +1,31 @@
+# EXP:APPS-025 | Adapt vs continue matched-pair overall-offense excess (post-hoc)
+- also_recorded_as: CHT-066
+- date: 2026-07-26
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Exploratory, not pre-registered. Group A continue n=11064; Group B adapt n=810 (adapt rate 6.8%). Same-game opponent control, 0.10 H1-PPP caliper, game-cluster-robust SE.
+- hypothesis: Teams that abandon a suppressed play type (h2_n<=1) show a smaller matched-pair overall six-PT H1->H2 excess decline than teams that continue (h2_n>=5).
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-025; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-025 {record=APPS-025; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Not a causal test of pivoting; outcome is six-PT aggregate PPP because suppressed-PT H2 PPP is undefined for abandoners.
+- prespecified: no
+- produced: RES:APPS-025 {record=APPS-025; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-021; APPS-026
+- related_to: EXP:APPS-026 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-025; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\adapt_vs_continue_matched_results.md
+- title: Adapt vs continue matched-pair overall-offense excess (post-hoc)
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-025; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-025; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-025 | Result of APPS-025
+- failure_evidence: Group B caliper-0.10 CI includes 0 (p=0.386, n=255 clusters=242); Group B is a reconstructed post-hoc cohort, not a validated successful-adaptation sample.
+- failure_type: A_unanswerable
+- power_info: B n=255 pairs / 242 games at primary caliper
+- primary_result: Caliper 0.10: A excess +0.076 [+0.068,+0.084] n=3421 p=0; B excess +0.014 [-0.019,+0.046] n=255 p=0.386. Gap B-A = -0.062. Caliper sweep B CIs include 0 except 0.15.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

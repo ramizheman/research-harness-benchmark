@@ -1,0 +1,32 @@
+# EXP:APPA-055 | All play types x Q1-Q4 gradient on 30 stars
+- date: 2026-06-03
+- date_basis: doc
+- date_reliable: yes
+- design: Possession-weighted league delta of star PPP vs own-quarter baseline; no n floor; 30 stars x 9 opp PTs.
+- extends: EXP:APPA-050 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-055; rule=date-ordered record link}
+- extends: EXP:APPA-054 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPA-055; rule=date-ordered record link}
+- extends: EXP:APPA-056 {direction=verified by dates; needs_review=no; origin=related field; record=APPA-055; rule=date-ordered record link}
+- hypothesis: Only PUTBACK shows a fatigue signature (near-zero Q1 suppression compounding to Q4) across the full 30-star panel.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-055; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-055 {record=APPA-055; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Section Q n>=30 gate gave Q1 -0.009 to Q4 -0.289; no-floor weighted gives the same qualitative story.
+- prespecified: no
+- produced: RES:APPA-055 {record=APPA-055; rule=record fields}
+- project: Defensive Suppression
+- related_as_recorded: APPA-054; APPA-056
+- reported_in: PAPER:Detecting_Defensive_Suppression_published {record=APPA-055; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- title: All play types x Q1-Q4 gradient on 30 stars
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-055; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-055; rule=keyword rule DATASET_RULES}
+
+# RES:APPA-055 | Result of APPA-055
+- failure_evidence: On the full 30-star weighted panel, only PUTBACK is near-zero in Q1 and heavy in Q4.
+- failure_type: D_positive
+- power_info: 30 stars; PUTBACK Q4 n=531 poss
+- primary_result: PUTBACK Q1 d=-0.001 to Q4 d=-0.233, Q1->Q4 -0.232 (Q1 poss 722 / Q4 531). Other PTs suppress in Q1 already; largest other gradient DRIVE -0.060. CUT reverses +0.020. TRANSITION -0.053.
+- record_stratum: supported
+- record_substatus: mechanism D_positive
+- verdict: supported

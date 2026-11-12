@@ -1,0 +1,34 @@
+# EXP:APPM-014 | Play-type label accuracy / distribution audit
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: ~1.07M possessions; compare volume, foul-draw, PPP to benchmark bands; team identity and known-game checks.
+- hypothesis: Inferred play-type labels match benchmark volumes, foul rates, PPP and known team identities.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPM-014; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:free_throws_fouls {record=APPM-014; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-014 {record=APPM-014; rule=audit/study_family_review.csv or singleton}
+- n_runs: 2
+- notes: Undermines OTHER-based findings elsewhere.
+- prespecified: partial
+- produced: RES:APPM-014 {record=APPM-014; rule=record fields}
+- project: Strategy app
+- related_as_recorded: Within-game adaptation; superstar suppression
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PT_ACCURACY_DIAGNOSTIC.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PT_DISTRIBUTION_AUDIT.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_pt_accuracy_diagnostic.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_run_pt_audit.py
+- title: Play-type label accuracy / distribution audit
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-014; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-014; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPM-014; rule=keyword rule METHOD_RULES}
+
+# RES:APPM-014 | Result of APPM-014
+- failure_evidence: 'play type labels have systematic issues that undermine adaptation findings'; foul possessions leak into OTHER.
+- failure_type: C_artifact
+- power_info: n=1,073,607-1,078,047 possessions
+- primary_result: Audit overall FAIL: OTHER 20.2% vs <10% target; 40.8% low confidence; DRIVE foul-draw 1.7% vs 14-22% benchmark; most PTs PPP above benchmark band; MIA identity checks fail.
+- record_stratum: not_a_test
+- record_substatus: tool_eval_fail
+- verdict: tool_eval_fail

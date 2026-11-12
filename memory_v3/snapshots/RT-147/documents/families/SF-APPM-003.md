@@ -1,0 +1,27 @@
+# FAM:SF-APPM-003 | Study family SF-APPM-003: Residual calibration A/B (global/linear/OLS/per-team)
+- observed_research_question: Residual calibration A/B (global/linear/OLS/per-team)
+- auto_outcome_status: supported
+- observed_hypothesis: A residual calibrator fit on VAL improves out-of-sample R2 of the equilibrium matchup evaluator.
+- observed_result: Holdout R2 baseline -0.1981 -> OLS +0.0323 (net lift +0.2305); HL30 variant baseline -0.1587 -> OLS +0.0321. Per-team R2 val +0.2449 but holdout +0.0213.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: OLS holdout R2 +0.0323 vs baseline -0.1981.
+- observed_sample_and_power: val 690 / holdout 520 cells
+- observed_method: Blended A3 evaluator trained on 523,517 sequences; calibrators fit on VAL (690 cells), scored on HOLDOUT (520 cells); with and without 30-game recency half-life.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-003: '17 sequences; calibrators fit on val (690 cells), scored on holdout (520 cells); with and without 30-game recency half-life. ho'
+- observed_notes: Absolute R2 remains ~0.03; per-team calibrator overfits val (0.24 -> 0.02).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-003: 2026-04-17 (mtime)
+- observed_member_records: APPM-003
+- observed_sources: APPM-003: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\RESIDUAL_HL30.md
+- observed_sources: APPM-003: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\RESIDUAL_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-062 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}

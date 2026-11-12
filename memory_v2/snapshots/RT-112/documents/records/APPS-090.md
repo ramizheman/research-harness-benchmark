@@ -1,0 +1,33 @@
+# EXP:APPS-090 | Connector diet x destination structural-gap match
+- date: 2026-07-27
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: 198 movers with complete diet+gap; taxonomy CONNECTOR n=19; travel-check n=40. match_score=cosine(diet, gap). Primary outcomes portability delta / embedded / d_mpg / d_hhi_top, not PPP.
+- hypothesis: Diet-matching to a destination's thin initiation jobs predicts better post-move outcomes than mismatch.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPS-090; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPS-090; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-090 {record=APPS-090; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Knowable: 15.7% match rate leaves n_match=5 in the taxonomy CONNECTOR cell.
+- prespecified: no
+- produced: RES:APPS-090 {record=APPS-090; rule=record fields}
+- project: When a Hub Sits (Paper 2)
+- related_as_recorded: APPS-084
+- related_to: EXP:APPS-084 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-090; rule=date-ordered record link}
+- reported_in: PAPER:When_a_Hub_Sits_manuscript {record=APPS-090; rule=project field}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_diet_gap_match_report.md
+- title: Connector diet x destination structural-gap match
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-090; rule=keyword rule DATASET_RULES}
+- uses_method: METH:correlation {record=APPS-090; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPS-090; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-090 | Result of APPS-090
+- failure_evidence: Connector subsets n=19/40; all-movers binary delta p=0.0283 does not replicate as a continuous Spearman and is not the licensed connector test.
+- failure_type: A_unanswerable
+- power_info: n=19 taxonomy connectors; n=198 all movers
+- primary_result: Binary match rate 15.7%. Taxonomy CONNECTOR delta match vs mis med +0.540 vs +0.069 p=0.156 n=5/14. Travel-check delta p=0.413. All-movers delta p=0.0283 (med +0.160 vs +0.053) but Spearman(match_score, delta)=-0.034 p=0.631 n=198. Connector-only Spearmans all ns.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict null
+- verdict: null

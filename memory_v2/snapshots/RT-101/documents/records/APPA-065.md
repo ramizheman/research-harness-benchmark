@@ -1,0 +1,35 @@
+# EXP:APPA-065 | Freeform agent sequential demo: MIA vs BOS 2023 G7
+- date: 2026-05-23
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 12 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: One Game 7 (0042200307); MIA 75 poss in thirds of 25; Markov-1 after make/miss; BOS next-PPP aftershock; 7-game PT table.
+- hypothesis: An agent given only possession sequences can recover a conditional decision tree and series-level adaptation in one high-stakes game.
+- knowable_in_advance: yes
+- measures: VAR:PPP_points_per_possession {record=APPA-065; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:net_rating_ORtg {record=APPA-065; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-065 {record=APPA-065; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Demo explicitly does not claim engine recovery (separate Test A). Series score G7 103-84 MIA in Boston.
+- prespecified: no
+- produced: RES:APPA-065 {record=APPA-065; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-025; APPA-009
+- related_to: EXP:APPA-009 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-065; rule=date-ordered record link}
+- related_to: EXP:APPA-025 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-065; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FREEFORM_AGENT_DEMO_BOS_MIA_2023.md
+- title: Freeform agent sequential demo: MIA vs BOS 2023 G7
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPA-065; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPA-065; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPA-065; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-065; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPA-065; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-065 | Result of APPA-065
+- failure_evidence: Most tree cells n=3-10; doc states branches are hypotheses until validated across series.
+- failure_type: A_unanswerable
+- power_info: 1 game; 75 MIA possessions; cells n=3-10
+- primary_result: MIA thirds ORtg 108.0 / 136.0 / 156.0. After missed PNR (n=10) next PULL_UP 40%. POST_UP aftershock: BOS next-PPP 1.40 (miss n=5) and 1.50 (make n=4) vs PULL_UP make 0.00 (n=5). G4 POST_UP 0.40; G6 PNR 0.60; G7 PNR volume 10 to 18, PPP 0.60 to 1.06.
+- record_stratum: untestable
+- record_substatus: mechanism A_unanswerable with verdict inconclusive
+- verdict: inconclusive

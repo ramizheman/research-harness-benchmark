@@ -1,0 +1,33 @@
+# EXP:APPS-070 | H1 usage as predictor of H2 suppression (distribution shift)
+- date: 2026-06-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only; 9 records share this modification date (possible bulk edit or sync)
+- date_reliable: no
+- design: 8873 team-games, 37067 cells (>=4 poss both halves). Test A slope; Test B matched HIGH vs LOW H1 usage; Test C multinomial which-type-suppressed.
+- hypothesis: First-half reliance on a play type predicts second-half suppression after controlling for H1 PPP / mean reversion.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-070; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-070 {record=APPS-070; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Headline: no robust evidence H1 reliance predicts H2 suppression.
+- prespecified: partial
+- produced: RES:APPS-070 {record=APPS-070; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-077; APPS-010
+- related_to: EXP:APPS-010 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-070; rule=date-ordered record link}
+- related_to: EXP:APPS-077 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPS-070; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\distribution_shift.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\distribution_shift.md
+- title: H1 usage as predictor of H2 suppression (distribution shift)
+- uses_dataset: DS:Box_score_and_traditional_stats {record=APPS-070; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-070; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPS-070; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-070 | Result of APPS-070
+- failure_evidence: Matched ATT does not survive BH; predictive lift over mean reversion is only +0.039 (0.550 vs 0.511). Bulk of H2 suppression is RTM.
+- failure_type: B_powered_null
+- power_info: n=8873 team-games; Test C test n=1008
+- primary_result: Test B: all BH-adjusted null/WEAK (PNR ATT=+0.0313 BH_p=0.0658 WEAK; others NULL). Test C top-1 acc=0.550 vs mean-reversion baseline 0.511 (+0.039) vs most-used 0.239. Test A PULL_UP slope -0.0581 p=0.0030; CUT -0.0917 p=0.0410; PNR +0.0562 p=0.0005 (wrong sign for suppression).
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

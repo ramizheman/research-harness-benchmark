@@ -1,0 +1,123 @@
+{
+ "blind_id": "R27e01eb80bd7",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "DRIVE",
+   "PNR",
+   "PPP"
+  ],
+  "methodological_questions": [
+   "Does a teammate DRIVE preceding a PNR possession increase the PNR possession's points per possession?",
+   "Is the effect robust to labeling artifacts and confounding variables?",
+   "What sample size is required for adequate power?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "artifact",
+    "finding": "OTHER play type PPP inflated 36% by fouls; DRIVE PPP 12pp below foul benchmark; PNR shows 22% foul rate; initiation_type mapping only 0.7% of possessions"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Negative effect DRIVE->PNR –0.263 PPP with n=31, but only 2/30 stars had stable suppressors across seasons; limited by small sample"
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Positive effect DRIVE->PNR +0.309 PPP with n=53, but result reported as a descriptive premium rather than a hypothesis test"
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Negative effect test",
+    "why": "Small sample (n=31) and limited power ([prior work])"
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Labeling audit",
+    "why": "Artifact due to labeling leakage and foul-induced PPP inflation"
+   }
+  ],
+  "evidence_establishes": [
+   "Labeling leakage can distort PPP for DRIVE and PNR possessions",
+   "There is evidence of both positive and negative sequential effects in prior work but limited by sample size and methodological clarity"
+  ],
+  "evidence_does_not_establish": [
+   "A definitive causal effect direction for DRIVE preceding PNR on PPP",
+   "Whether the observed effects are due to true play-type dynamics or residual confounding"
+  ],
+  "own_inferences": [
+   "The conflicting prior findings suggest the effect may be small and sensitive to labeling and contextual factors"
+  ],
+  "uncertainties": [
+   "Exact sample sizes for individual cells in the prior studies; detailed matching procedures; potential unmeasured confounders such as defensive pressure or game tempo"
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The evidence reveals labeling artifacts and small, conflicting sample sizes, prompting a redesign to address these risks rather than proceeding unchanged"
+  },
+  "testability": {
+   "p_testable": 0.65,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Limited sample size for DRIVE->PNR cells; need larger sample or aggregation across seasons"
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Potential labeling leakage and foul-induced PPP inflation for DRIVE and PNR"
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Possible confounders such as defensive matchup minutes, game context, and foul rates"
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "FAM:[prior work]"
+   ],
+   "summary": "Prior studies have reported both positive and negative sequential premiums for DRIVE preceding PNR, but these findings are based on limited samples and may be confounded by labeling artifacts"
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Limited number of DRIVE->PNR cells (n≈31–53) reduces power"
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Labeling leakage and foul-induced PPP inflation compromise measurement reliability"
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Unmeasured contextual variables (defensive matchup, game tempo) may bias estimates"
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "Difference in mean PPP for PNR possessions with a preceding teammate DRIVE versus matched control PNR possessions",
+   "unit": "possession",
+   "sample": "All PNR possessions across 2022–2025 seasons with a preceding teammate DRIVE, matched to PNR possessions preceded by non‑DRIVE or other play types on the same team, controlling for game context",
+   "power": "80% power to detect a 0.2 PPP difference at α=0.05 (two‑sided) assuming σ≈0.5 PPP",
+   "controls": "Game clock, period, score differential, defensive matchup minutes, foul rate, team offensive rating",
+   "falsification": "Test DRIVE preceding other possession types (e.g., POST_UP, TRANSITION) to see if the effect is specific to PNR; also test non‑teammate DRIVE preceding PNR as a placebo",
+   "multiplicity": "Apply Holm–Bonferroni correction across all tested sequential pairs; pre‑register primary hypothesis only",
+   "decision_rule": "Reject null if p<0.05 after correction; otherwise fail to reject",
+   "data_version": "NBA 2022‑23 to 2025‑26 regular season and playoffs data (complete through 2026‑04‑13)"
+  }
+ },
+ "redactions": 15
+}

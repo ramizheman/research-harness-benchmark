@@ -1,0 +1,167 @@
+{
+ "blind_id": "R82acdf2119a1",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "opponent next-possession PPP (T+1) after a play type",
+   "AVOID play-type labels",
+   "own-team sequential lag effects (previous own possession's play type)",
+   "derived play-type label reliability",
+   "possession sequencing from play-by-play"
+  ],
+  "methodological_questions": [
+   "Is the opponent's T+1 PPP shift after play X large enough to change an AVOID label relative to a direct-PPP label?",
+   "Do own-sequence lags predict own PPP after controlling for team quality, lineup, score and game state?",
+   "Are the derived play-type labels and possession sequencing reliable enough to support the analysis?",
+   "How should sparse cells, multiplicity and regression to the mean be handled?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Extended Possession Value (direct PPP plus opponent T+1 suppression): 4 of 8 play types had a 'real' downstream effect (CUT +0.0220, TRANSITION +0.0145, SPOT_UP +0.0124, POST_UP +0.0194). DRIVE was not real (+0.0024). [prior work] states downstream effects are small (~0.01-0.02 PPP) relative to direct PPP gaps, and the player list is mostly non-FINDING after BH."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Superstar sequential suppression: PUTBACK is the top suppressor of a star's next-possession PPP for 6+ stars (e.g. D. Mitchell d=-0.294, n_after=95). [prior work] notes no multiplicity correction and n_after of 32-95 for several PUTBACK cells against thousands of baseline possessions. Its risk tag is DRIFT_NONSTATIONARITY."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "inconclusive",
+    "finding": "Play-type label backfill verification ended FAIL. PNR share was 28.7% (band 20-28%), PULL_UP 7.9%, and team identity failed. 2024-25 PULL_UP shares were 0-2% for many teams, and 82.8% of PNR labels were proxy_calibrated. The failure mechanism is recorded as C_artifact, limited by label or classification error."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Defensive scheme change after an opponent ran a play type heavily, using inferred labels. Transition matrices were near-uniform and consistent with label noise. [prior work] says the inferred label cannot separate real defensive adjustment from the offense executing differently."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Per-star next-possession suppression tables with no multiplicity control",
+    "why": "Small n_after (32-95) for several PUTBACK cells against thousands of baseline possessions, with no multiplicity correction (as recorded)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Backfilled and proxy-calibrated play-type labels used as ground truth",
+    "why": "Label distributions and team identity failed verification. 2024-25 PULL_UP is near zero for many teams (label or classification error)."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring behavioural change (defensive scheme) from sequence-conditioned inferred labels",
+    "why": "Label noise and an unanswerable question given the data; near-uniform transition matrices (as recorded)."
+   }
+  ],
+  "evidence_establishes": [
+   "[prior work][prior work] records that measured opponent T+1 effects are small, about 0.01-0.02 PPP, relative to direct PPP gaps. After BH correction only some play types show a downstream effect, and DRIVE shows none.",
+   "[prior work][prior work] records that cell-level suppression estimates for specific players and play types rest on small samples and are uncorrected for multiplicity.",
+   "[prior work][prior work] records that the play-type labels have failed verification for some categories and seasons (PNR, PULL_UP, team identity)."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a 0.01-0.02 PPP downstream shift actually flips any AVOID label. The retrieved records do not define the AVOID threshold or its margin.",
+   "Whether own-sequence lags (the team's own previous possession's play type) matter. No retrieved record tests them.",
+   "Whether the downstream effects are causal or reflect outcome paths such as turnover to transition or offensive rebound to putback.",
+   "Whether any retrieved result survives validated labels or out-of-sample holdout. All records show validation as NOT_RECORDED."
+  ],
+  "own_inferences": [
+   "Under the recorded effect sizes, 'large enough to drive AVOID labels' is likely false for most play types. It would hold only for labels whose PPP sits within about 0.02 of the AVOID cutoff.",
+   "The opponent-T+1 effect is partly mechanical. Your turnover gives the opponent transition, a make puts them against a set defense, and a miss or rebound changes the next possession type. A play-type effect estimated without conditioning on these paths mixes play type with outcome.",
+   "The own-lag claim needs an exact definition. T-1 is the opponent's possession, so own lag means T-2. It also needs team quality, lineup and game-state controls, otherwise it picks up team and lineup heterogeneity.",
+   "Label noise is likely to attenuate effects toward zero and to create spurious structure in some seasons, such as the 2024-25 PULL_UP gap."
+  ],
+  "uncertainties": [
+   "The AVOID label definition, threshold and current label counts are not given in the task.",
+   "Which play types and seasons have validated labels is unknown.",
+   "The full texts of [prior work][prior work] and [prior work][prior work] were truncated, so their controls are unknown.",
+   "Partial 2025-26 data (playoffs incomplete on 2026-06-19) is a moving target.",
+   "Possession ordering around dead balls, period boundaries and offensive rebounds may not be uniform across sources."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "Without [prior work] I would have treated this as a plain effect-size test. [prior work] show the downstream effect is small relative to direct PPP gaps and that prior sequence studies suffered from small samples, no multiplicity control and unreliable labels. That shifts the design toward a margin-based question (does the label flip?), restriction to validated labels, and multiplicity control. It also pushes me to expect a rejection of 'large enough' rather than support."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "LABEL_ERROR",
+     "text": "Play-type labels failed verification for some categories and seasons (PNR, PULL_UP, 2024-25). Only validated play types can be tested."
+    },
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The AVOID threshold is undefined in the task. The question is not testable until it is fixed ex ante from the label definition."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "Opponent T+1 downstream effects have been estimated at the play-type level (small, ~0.01-0.02 PPP) and at the star level (uncorrected, small n). The AVOID-label flip question and own-sequence lags were not directly tested in the retrieved records. Label reliability problems are recorded."
+  },
+  "risks": [
+   {
+    "code": "LABEL_ERROR",
+    "text": "Backfilled and proxy-calibrated labels failed verification, so effects can be attenuated or produced by label noise."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "The next opponent possession depends mechanically on how your possession ended (make, miss, turnover, rebound), so T+1 PPP is not a clean play-type effect."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "If AVOID is derived from PPP outcomes, flips in the label can reflect regression and noise rather than a real downstream effect."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Team quality, lineup, score, clock, pace and opponent defense drive both the play type chosen and the next-possession PPP. Own-lag effects are especially exposed."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Cells for rare play types or player-level cuts are small (n_after 32-95 in [prior work][prior work])."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Many play types, lags and subgroups are being tested, and [prior work][prior work] applied no correction."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "Play types or players selected for extreme labels will regress toward the mean on a fresh sample."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Effects and label behaviour vary by season, and 2024-25 label problems are recorded."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Without a placebo (for example, a shuffled or lead lag), any sequence association cannot be read as a play-type effect."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.08,
+   "rejected": 0.47,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.25
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "(a) For each validated play type X, the adjusted mean difference in opponent T+1 PPP after X versus after other play types, reported as a total effect and as an effect conditional on how the possession ended. (b) The number of AVOID labels that flip when the label is based on direct PPP plus the estimated T+1 effect, compared with direct PPP alone. (c) The own-lag effect of the play type at T-2 (own previous possession) on own PPP at T.",
+   "unit": "Possession pair (own possession of play type X, then the opponent's immediately following possession) within a game. Own-lag unit is the own possession pair (T-2, T).",
+   "sample": "Complete seasons 2022-23, 2023-24 and 2024-25 (regular season and playoffs) as development. Regular-season 2025-26, complete from 2026-04-13, is the untouched holdout. 2025-26 playoffs are excluded because they are incomplete as of 2026-06-19. Exclude possessions that cross a period boundary, end a period, or whose next possession is not contiguous in the play-by-play. Restrict to play types and seasons that pass label validation, and drop or flag PULL_UP and PNR where verification failed.",
+   "power": "Fix the AVOID cutoff and its margin ex ante. Compute the minimum detectable shift per cell from the PPP variance (about 1.2-1.3 per possession, SD of roughly 1.1-1.2). Detecting 0.02 PPP at 80% power needs about 15,000 pairs per arm or more. Run only cells above that threshold and report all others as underpowered, not null.",
+   "controls": "Offense and defense team fixed effects, lineup or on-court player strength, score margin, period and clock, home court, season, and the previous possession's outcome type. Use mixed or cluster-robust regression with game clustering. Also estimate within-game contrasts, comparing the same game and teams across play types.",
+   "falsification": "Placebo lags: use T+2 and the lead possession (opponent's possession before X) as pseudo-treatments; both should show near-zero effects. Add a label-shuffle test within team-game. Repeat on high-confidence labels only and with the label error rate varied. Confirm that findings replicate in the 2025-26 regular-season holdout.",
+   "multiplicity": "BH at FDR 5% across all play type by lag cells. Report effect sizes with CIs. No per-player cuts in the confirmatory set; they are exploratory only.",
+   "decision_rule": "Supported only if, in the development seasons and the 2025-26 holdout, the BH-adjusted T+1 effect exceeds the pre-set margin (e.g. 0.03 PPP or the AVOID margin, to be fixed before analysis) for at least one validated play type, placebos are null, and at least one AVOID label flips with the conditional effect. Rejected if CIs exclude the margin with adequate power (consistent with [prior work][prior work]'s ~0.01-0.02). Otherwise inconclusive or untestable.",
+   "data_version": "Freeze play-by-play files and the derived possession graph as of the start date. Record the label-version hash and validation results. 2025-26 regular season is complete as of 2026-04-13. 2025-26 playoffs are excluded as partial before 2026-06-21. Any re-labelling invalidates the pre-registration."
+  }
+ },
+ "redactions": 43
+}

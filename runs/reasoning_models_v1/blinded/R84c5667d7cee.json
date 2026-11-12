@@ -1,0 +1,150 @@
+{
+ "blind_id": "R84c5667d7cee",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "teammate DRIVE play type",
+   "PNR (pick and roll) play type",
+   "points per possession (PPP)",
+   "possession-level sequential dependence",
+   "play-type labeling from NBA play-by-play"
+  ],
+  "methodological_questions": [
+   "Reliability and consistency of DRIVE and PNR play-type labels across seasons and teams",
+   "Correct identification of the immediately preceding possession (handling timeouts, fouls, quarters, etc.)",
+   "Confounding by game state, defense, rest, and substitution patterns",
+   "Sample size and statistical power for the DRIVE->PNR transition across the available data",
+   "Heterogeneity across player pairs and potential artifact due to small-cell noise"
+  ],
+  "historical_evidence": [
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "supported",
+    "finding": "After the opponent runs any play type X, the next offensive play type Y scores above Y's unconditional half-to-half baseline; PNR has a positive defensive aftershock of +0.127 (n=51,194). This is about opponent-to-offense sequences, not teammate sequences."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "rejected",
+    "finding": "Only 2/30 stars had a stable top sequential suppressor across seasons. Negative teammate pair observed: Giannis->Lillard DRIVE->PNR -0.263 (n=31). Small N and null stability indicate large noise."
+   },
+   {
+    "id": "FAM:[prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Exploratory study of same-player and teammate sequential premiums. Notable DRIVE->PNR pairs: L. Doncic (same-player) DRIVE->PNR +0.309 (n=53); D. Bane (same-player) DRIVE->PNR -0.324 (n=70, t=-2.7); J. Brown->J. Tatum teammate DRIVE->PNR +0.326 (n=43) later shown to be a placebo artifact ([prior work]). Most cells under n=50 and unadjusted for multiplicity."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "After specific opponent play types, star players' next-possession PPP drops (PUTBACK is top suppressor for several stars). No assessment of teammate preceding play."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "FAM:[prior work]",
+    "what_failed": "Exploratory sequential premium analysis without multiplicity correction and with small sample cells; specific positive teammate DRIVE->PNR pair later identified as a placebo artifact ([prior work]).",
+    "why": "Small sample (min n=30), no multiplicity correction, mixed signs across pairs, evidence that apparent premiums can be artifact."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Attempted to find season-stable suppressor relationships; failed because only 2/30 stars had stable top suppressor, due to insufficient sample and high noise.",
+    "why": "Minimum n=20 per cell, small sample leading to null stability result."
+   }
+  ],
+  "evidence_establishes": [
+   "Specific DRIVE->PNR teammate sequences exist in the data, but observed premiums are inconsistent in sign (positive in some pairs, negative in others) and small in magnitude.",
+   "Large positive teammate sequential premiums are prone to being placebo artifacts (J. Brown->J. Tatum DRIVE->PNR +0.326 n=43 later shown artifact).",
+   "There is a general positive aftershock for PNR after opponent play types (from [prior work]), but not after teammate actions."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a generic 'any teammate DRIVE' raises PNR PPP on average across all players and contexts; no prior study tested that exact unconditional aggregate hypothesis.",
+   "The effect size, if any, net of confounders such as defensive matchups, rest, and game state.",
+   "Whether the apparent variability across pairs reflects real interaction or noise."
+  ],
+  "own_inferences": [
+   "The proposed hypothesis is testable by aggregating all possessions where a teammate DRIVE immediately precedes a PNR and comparing the PNR PPP to a baseline of PNR possessions without a preceding teammate DRIVE, controlling for confounding factors.",
+   "Prior evidence suggests the effect is likely null or negative on average, given the negative and artifact examples, so a directional hypothesis (raises) is optimistic.",
+   "Exploratory sequence studies suffer from multiple testing, but a single aggregate test could mitigate that."
+  ],
+  "uncertainties": [
+   "Play-type label reliability for DRIVE and PNR across different seasons and teams.",
+   "Correct identification of the 'preceding possession' with no intervening events (timeout, free throws, end of quarter).",
+   "The degree of confounding by defensive lineup, fatigue, score differential, and coaching decisions.",
+   "Whether a positive aggregate effect exists but is masked by Simpson's paradox across player pairs."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The historical evidence of negative and artifactual DRIVE->PNR premiums, plus the instability of sequential effects, shifted the assessment from 'likely testable effect' to 'high risk of artifact and directional error', leading to a more conservative design with two-tailed testing and rigorous falsification if proceeding."
+  },
+  "testability": {
+   "p_testable": 0.6,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "The number of PNR possessions immediately preceded by a teammate DRIVE may be modest (estimated ~2,000-4,000 per season). While total N across four seasons could reach ~10,000, power to detect a small effect (e.g., 0.03-0.05 PPP) may be borderline if heterogeneity is high."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Teammate DRIVE may correlate with game-state variables (fast-break context, defensive disorganization, fatigued defense) that also influence subsequent PNR PPP, making isolation of a causal sequential effect difficult."
+    },
+    {
+     "code": "PLACEBO_DEPENDENCE",
+     "text": "Prior work ([prior work]) found a similar positive teammate DRIVE->PNR premium that was later identified as a placebo artifact, raising concern that any observed effect could be spurious."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "FAM:[prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "[prior work] and SF-[prior work] explored sequential premiums including DRIVE->PNR pairs, finding mixed signs and artifacts, but did not test the generic aggregate hypothesis of 'any teammate DRIVE raises PNR PPP'."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The effective sample size of DRIVE->PNR sequences across all players and seasons may be adequate but depends on aggregation strategy; player-level analyses would be underpowered."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Play-type labels (DRIVE, PNR) derived from play-by-play action types may misclassify ambiguous possessions, causing measurement error."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Post-DRIVE defensive disorganization, substitution patterns, and rest intervals may confound the PNR PPP."
+   },
+   {
+    "code": "PLACEBO_DEPENDENCE",
+    "text": "Prior artifact (Brown->Tatum DRIVE->PNR) and the general difficulty of isolating sequential effects in observational data raise concern that any positive result may not be robust."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Play-type frequencies and defensive strategies change across seasons and within the 2025-26 season (partial data), potentially causing temporal confounding."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If the analysis is disaggregated by player or pair, multiplicity will be high, requiring stringent correction that reduces power."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.3,
+   "untestable": 0.05,
+   "artifact": 0.55,
+   "uncertain": 0.05
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Average treatment effect of a preceding teammate DRIVE on the PPP of the immediately following team PNR possession, relative to all other PNR possessions, controlling for confounders.",
+   "unit": "A team possession classified as PNR.",
+   "sample": "All NBA regular-season and playoff possessions from 2022-23 through 2025-26 where the offense runs a PNR and the preceding possession by the same team is identifiable. Exclude possessions with timeouts, free-throw sequences, or end-of-quarter gaps between, and exclude garbage-time (score diff >20 in Q4).",
+   "power": "Estimate: ~20,000 PNR possessions overall per season; ~2,000-4,000 immediately preceded by teammate DRIVE. Over four seasons, n ~8,000-16,000 in the treatment group. Power >80% to detect an effect of ~0.03 PPP (SD ~0.17) with a two-tailed alpha=0.05, assuming moderate between-possession correlation.",
+   "controls": "Fixed effects for player (PNR initiator), opposing team defense, quarter, score differential (binned), rest days, and indicator for home/away. Cluster standard errors at the team-game level.",
+   "falsification": "Test (a) whether the effect disappears when using a pseudo-preceding possession (a randomly chosen prior possession of the same team), (b) whether the effect is present when the DRIVE is replaced by any other play type not believed to have a causal link, (c) whether the effect is reversed when testing preceding DRIVE on non-PNR possessions.",
+   "multiplicity": "Single hypothesis test (aggregate all teammate DRIVE->PNR sequences). If exploratory disaggregation by player or team, apply Benjamini-Hochberg FDR correction.",
+   "decision_rule": "Two-tailed t-test of the coefficient on the indicator variable 'preceded_by_teammate_DRIVE' in the controlled regression, with alpha=0.05. Reject null of zero effect if |t| > 1.96. Infer 'raises' only if coefficient positive and significant, but recommend two-tailed given prior evidence of mixed signs.",
+   "data_version": "NBA stats API play-by-play derived possession records, 2022-23 through 2025-26, as of 2026-06-14, with play-type labels from the project's graph database (DRIVE, PNR)."
+  }
+ },
+ "redactions": 18
+}

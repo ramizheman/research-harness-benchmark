@@ -1,0 +1,59 @@
+{
+ "blind_id": "Rb45b4f4a7f53",
+ "task_statement": "Research question (as posed on 2026-11-01, in the area of player absence and offensive reorganization):\nHow much the offense reorganizes (relative to L) predicts the change in points per possession.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): n=986; n=148, mde rho; 148 spells\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]",
+    "RQC:[id]"
+   ],
+   "summary": "Previous research has explored the relationship between player absence, offensive reorganization (specifically displacement, D_real), and changes in team performance (e.g., PPP). Several research question clusters (e.g., [id], [id], [id]) touch upon player absence, team structural changes, and offensive efficiency. Work related to 'structural influence (load, L)' and 'displacement (D_real)' has been conducted, examining how these metrics relate to each other and to team PPP. The current question refines this by asking how much reorganization *relative to L* predicts PPP change, which implies a specific interaction or comparison between the predicted structural change (L_pre) and the actual observed reorganization (D_real). While the components have been studied, this specific composite relationship is a novel aspect."
+  },
+  "risks": [
+   {
+    "code": "CONFOUNDING",
+    "text": "Player absence is not a random event. The reason for absence (e.g., injury severity, rest, suspension), the characteristics of the absent player (e.g., star vs. role player, position), and opponent strength can all confound the relationship between observed reorganization and PPP change. Teams might also adapt their offensive structure for reasons other than the absent player's structural influence."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The stated unit count of 148 spells, while moderate, might be insufficient to detect nuanced effects or interactions, especially after applying filtering criteria (e.g., minimum spell duration) and controlling for multiple confounding variables. A formal power analysis is required to confirm if the achievable MDE is practically meaningful."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The key independent variable 'offense reorganizes (relative to L)' needs precise operationalization. If it involves a difference or ratio between D_real and L_pre, the reliability, validity, and interpretability of this derived metric must be carefully considered, as errors in its components could propagate."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.4,
+   "rejected": 0.3,
+   "untestable": 0.1,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of the discrepancy between actual offensive reorganization (D_real) and predicted structural influence (L_pre) on the change in team points per possession (PPP) during player absence spells. Specifically, we will estimate the regression coefficient of a composite variable (e.g., D_real - L_pre, or D_real / L_pre) on the change in team PPP.",
+   "unit": "Player absence spell. An absence spell is defined as a run of at least 5 consecutive games a player misses. Each spell is treated as an independent observation. Players must have played at least 15 games prior to the spell for L_pre to be reliably calculated, and the spell itself must contain at least 5 games for D_real and PPP_change calculation.",
+   "sample": "All player absence spells from the NBA 2022-23, 2023-24, 2024-25, and complete 2025-26 regular seasons and playoffs. Data from partial seasons (2025-26 regular season before 2026-04-13 and playoffs before 2026-06-21) will be excluded to ensure complete context for calculating pre-absence metrics and within-absence spell metrics. The sample will be further restricted to spells where L_pre and D_real can be reliably calculated.",
+   "power": "Target a minimum detectable effect size (MDE) for the primary regression coefficient that is practically meaningful (e.g., a change of 0.02 PPP for a one-standard-deviation change in the reorganization metric). A formal power analysis will be conducted based on the expected sample size of absence spells (approximately 148, potentially fewer after filtering) and estimated variance, considering the number of covariates. If the MDE is found to be too large to be of practical interest, the study may be deemed underpowered.",
+   "controls": "Control for baseline team offensive rating (PPP) before the absence, the absent player's average usage and L_pre, the team's strength of schedule during the absence spell, the duration of the absence spell, and whether the absent player is a starter. Consider controlling for the role category of the absent player (e.g., Primary Organizer, Shaper, Terminal Scorer, Role Occupant/Specialist) if a reliable and consistent classification method is available from prior research.",
+   "falsification": "A falsification test will involve analyzing the relationship between 'reorganization relative to L' and PPP change for a set of 'placebo' players who did not miss games but were matched on L_pre, usage, and role to the absent players. We would expect no significant relationship for these control cases. Additionally, examine the relationship between 'reorganization relative to L' and PPP change in the games *immediately following* the player's return, where the effect should diminish or reverse to baseline levels if the absence was the causal factor.",
+   "multiplicity": "The study will focus on a single primary estimand: the regression coefficient of the chosen 'reorganization relative to L' metric on PPP change. No adjustments for multiple comparisons are planned unless secondary analyses (e.g., subgroup analyses by player role or absence duration) are explicitly performed, in which case appropriate adjustments (e.g., Bonferroni, False Discovery Rate) will be applied.",
+   "decision_rule": "The hypothesis will be considered supported if the regression coefficient for the 'reorganization relative to L' metric on PPP change is statistically significant (p < 0.05) and the sign of the coefficient aligns with a pre-specified theoretical direction (e.g., larger positive difference between D_real and L_pre predicting greater PPP change, or vice versa, depending on the exact hypothesis). The magnitude and practical significance of the effect will also be considered in the interpretation.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25, and complete 2025-26 regular season and playoffs. Derived play-type possession records from [source] database (as of 2026-11-01)."
+  }
+ },
+ "redactions": 13
+}

@@ -1,0 +1,131 @@
+{
+ "model": {
+  "provider": "mock",
+  "model": "scripted"
+ },
+ "task_id": "RT-179",
+ "condition": "C",
+ "seed": 1,
+ "run_id": "pilot_mock|mock:scripted|RT-179|C|s1",
+ "model_name": "mock:scripted",
+ "task_hash": "2ce0bfa8b882eb880afa8d8d3a85bcd58cc27a54083bf1eea10bc8b9bc0e379d",
+ "snapshot_fact_hash": "4cf66d4662a11dbc3dab92c718a1af27f9c1852b89c03a06e1cb22097d7dde9c",
+ "config_hash": "9a5d84184228f7942ea6ec8c01c865ec1b81b1583820e09f0c1a74dcdaa10deb",
+ "code_hash": "eb8b879e1f6c59582dbdd4a77b7f746775d51afafe33215ecc94ca66e31a1cad",
+ "error": "",
+ "finished": "2026-11-10T08:23:25",
+ "final": {
+  "testability": {
+   "p_testable": 0.66,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [],
+   "summary": "scripted"
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "scripted"
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "scripted"
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.15,
+   "artifact": 0.15,
+   "uncertain": 0.15
+  },
+  "decision": "proceed",
+  "design": {
+   "estimand": "difference in PPP between conditions",
+   "unit": "possession, clustered by game",
+   "sample": "about 1200 games from 2022-23 to 2024-25",
+   "power": "power 0.8 for an MDE of 0.03 PPP",
+   "controls": "opponent and season fixed effects, matched baseline",
+   "falsification": "placebo permutation of labels",
+   "multiplicity": "single primary test; Holm for secondary",
+   "decision_rule": "proceed if the 95% CI excludes 0 and effect > 0.02",
+   "data_version": "frozen snapshot of seasons 2022-23 to 2024-25"
+  }
+ },
+ "stop_reason": "final",
+ "turns": 2,
+ "tool_calls": [
+  {
+   "name": "query_graph",
+   "args": {
+    "op": "find",
+    "type": "Hypothesis",
+    "text": "A defense's effect on opponents' H2-H1 change is a reliable team trait.",
+    "limit": 5
+   },
+   "result_chars": 1069
+  }
+ ],
+ "n_tool_calls": 1,
+ "memory_tool_calls": 1,
+ "usage": {
+  "input_tokens": 2595,
+  "output_tokens": 280,
+  "cost_usd": 0.0,
+  "cost_known": true
+ },
+ "wall_seconds": 0.0,
+ "system_prompt": "You are a basketball analytics researcher deciding whether and how a research question should be studied.\nYou work only from the task statement and the tools listed below. Some tool lists include access to records of earlier\nresearch by the same project; use them if listed. Do not assume facts you have not seen.\n\nTools:\n- glossary(): definitions of basketball and project terms used in task statements.\n- data_catalog(): the fields available in each per-game data file.\n- query_graph(op, ...): structured access to the research-history graph. op='find' with optional type (node type), where (attribute equality), text (keyword match), limit; op='node' with id; op='neighbors' with id, optional rel and direction ('out', 'in', 'both'). Node types: ConsolidatedFinding, Dataset, Experiment, Finding, FollowOnHypothesis, Hypothesis, Method, Paper, ResearchQuestion, Result, StatisticalLimitation, StudyFamily, Variable.\n\nProtocol: every reply is exactly one JSON object and nothing else.\nTo call a tool: {\"action\": \"tool\", \"tool\": \"<name>\", \"args\": {...}}\nTo finish:      {\"action\": \"final\", \"output\": <object following the schema below>}\nYou may call at most 12 tools; then you must finish.\n\nOutput schema:\n{\n \"testability\": {\n  \"p_testable\": \"number in [0,1]: probability the question can be answered with the stated data at useful power\",\n  \"blocking_constraints\": [\n   {\n    \"code\": \"one of RISK_CODES\",\n    \"text\": \"string\"\n   }\n  ]\n },\n \"prior_work\": {\n  \"already_answered\": \"yes | partly | no | unknown\",\n  \"cited\": [\n   \"identifiers of prior work relied on\"\n  ],\n  \"summary\": \"string\"\n },\n \"risks\": [\n  {\n   \"code\": \"one of RISK_CODES\",\n   \"text\": \"string\"\n  }\n ],\n \"predicted_outcome\": {\n  \"supported\": \"probability\",\n  \"rejected\": \"probability\",\n  \"untestable\": \"probability\",\n  \"artifact\": \"probability\",\n  \"uncertain\": \"probability\"\n },\n \"decision\": \"proceed | proceed_with_changes | do_not_proceed\",\n \"design\": {\n  \"estimand\": \"string\",\n  \"unit\": \"string\",\n  \"sample\": \"string\",\n  \"power\": \"string\",\n  \"controls\": \"string\",\n  \"falsification\": \"string\",\n  \"multiplicity\": \"string\",\n  \"decision_rule\": \"string\",\n  \"data_version\": \"string\"\n }\n}\n\nRisk codes (use only these): SAMPLE_SIZE_POWER, EXPOSURE_SPARSITY, MEASURE_RELIABILITY, RTM_SELECTION, OUTCOME_DERIVED_LABEL, LEAKAGE_LOOKAHEAD, MECHANICAL_FLOOR, BASE_RATE, CONFOUNDING, LABEL_ERROR, PLACEBO_DEPENDENCE, MULTIPLE_TESTING, IMPLEMENTATION_BUG, DRIFT_NONSTATIONARITY\nField guidance:\n- testability.p_testable: probability that the question can be answered with the stated data at useful statistical power.\n- prior_work.already_answered: whether earlier work you have seen already answered substantially the same question.\n  Use \"unknown\" if you have seen no earlier work. List identifiers you relied on in prior_work.cited.\n- predicted_outcome: probabilities (summing to 1) of what a competent test of the question as posed would conclude:\n  supported, rejected (adequately powered null), untestable (cannot be tested with this data), artifact (apparent\n  effect produced by a flaw), uncertain (inconclusive or inadequately tested).\n- decision: proceed, proceed_with_changes (state the changes in design), or do_not_proceed.\n- design: a pre-registration-quality plan even if the decision is do_not_proceed (then describe the minimum viable test).\n",
+ "messages": [
+  {
+   "role": "user",
+   "content": "Research question (as posed on 2026-10-06, in the area of defensive suppression and counter strategy (best/avoid)):\nA defense's effect on opponents' H2-H1 change is a reliable team trait.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 120 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed."
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\": \"tool\", \"tool\": \"query_graph\", \"args\": {\"op\": \"find\", \"type\": \"Hypothesis\", \"text\": \"A defense's effect on opponents' H2-H1 change is a reliable team trait.\", \"limit\": 5}}"
+  },
+  {
+   "role": "user",
+   "content": "TOOL_RESULT query_graph:\n[{\"id\": \"HYP:SF-PAP-013\", \"type\": \"Hypothesis\", \"label\": \"Hypothesis of SF-PAP-013\", \"snippet\": \"text: The shaper presence effect on PPP differs in clutch possessions.\", \"match\": 0.129}, {\"id\": \"HYP:SF-PAP-029\", \"type\": \"Hypothesis\", \"label\": \"Hypothesis of SF-PAP-029\", \"snippet\": \"text: Portability relates to destination net rating change.\", \"match\": 0.112}, {\"id\": \"HYP:SF-CHT-029\", \"type\": \"Hypothesis\", \"label\": \"Hypothesis of SF-CHT-029\", \"snippet\": \"text: Play-type actions have decaying cross-possession memory (lag-1 effect >= lag-2; not just score margin or team quality).\", \"match\": 0.109}, {\"id\": \"HYP:SF-APPA-005\", \"type\": \"Hypothesis\", \"label\": \"Hypothesis of SF-APPA-005\", \"snippet\": \"text: Playoff defenses change scheme within games and between games, especially after the opponent ran a play type heavily.\", \"match\": 0.09}, {\"id\": \"HYP:SF-APPS-014\", \"type\": \"Hypothesis\", \"label\": \"Hypothesis of SF-APPS-014\", \"snippet\": \"text: DRIVE efficiency drops within a single playoff game (defense moves first) before cross-game adaptation.\", \"match\": 0.089}]"
+  },
+  {
+   "role": "assistant",
+   "content": "{\"action\": \"final\", \"output\": {\"testability\": {\"p_testable\": 0.66, \"blocking_constraints\": []}, \"prior_work\": {\"already_answered\": \"partly\", \"cited\": [], \"summary\": \"scripted\"}, \"risks\": [{\"code\": \"MEASURE_RELIABILITY\", \"text\": \"scripted\"}, {\"code\": \"CONFOUNDING\", \"text\": \"scripted\"}], \"predicted_outcome\": {\"supported\": 0.2, \"rejected\": 0.2, \"untestable\": 0.15, \"artifact\": 0.15, \"uncertain\": 0.15}, \"decision\": \"proceed\", \"design\": {\"estimand\": \"difference in PPP between conditions\", \"unit\": \"possession, clustered by game\", \"sample\": \"about 1200 games from 2022-23 to 2024-25\", \"power\": \"power 0.8 for an MDE of 0.03 PPP\", \"controls\": \"opponent and season fixed effects, matched baseline\", \"falsification\": \"placebo permutation of labels\", \"multiplicity\": \"single primary test; Holm for secondary\", \"decision_rule\": \"proceed if the 95% CI excludes 0 and effect > 0.02\", \"data_version\": \"frozen snapshot of seasons 2022-23 to 2024-25\"}}}"
+  }
+ ],
+ "log": [
+  {
+   "turn": 0,
+   "reply": "{\"action\": \"tool\", \"tool\": \"query_graph\", \"args\": {\"op\": \"find\", \"type\": \"Hypothesis\", \"text\": \"A defense's effect on opponents' H2-H1 change is a reliable team trait.\", \"limit\": 5}}",
+   "usage": {
+    "input_tokens": 1138,
+    "output_tokens": 45,
+    "cost_usd": 0.0
+   },
+   "parse_error": "",
+   "tool": {
+    "name": "query_graph",
+    "args": {
+     "op": "find",
+     "type": "Hypothesis",
+     "text": "A defense's effect on opponents' H2-H1 change is a reliable team trait.",
+     "limit": 5
+    },
+    "result_chars": 1069
+   }
+  },
+  {
+   "turn": 1,
+   "reply": "{\"action\": \"final\", \"output\": {\"testability\": {\"p_testable\": 0.66, \"blocking_constraints\": []}, \"prior_work\": {\"already_answered\": \"partly\", \"cited\": [], \"summary\": \"scripted\"}, \"risks\": [{\"code\": \"MEASURE_RELIABILITY\", \"text\": \"scripted\"}, {\"code\": \"CONFOUNDING\", \"text\": \"scripted\"}], \"predicted_outcome\": {\"supported\": 0.2, \"rejected\": 0.2, \"untestable\": 0.15, \"artifact\": 0.15, \"uncertain\": 0.15}, \"decision\": \"proceed\", \"design\": {\"estimand\": \"difference in PPP between conditions\", \"unit\": \"possession, clustered by game\", \"sample\": \"about 1200 games from 2022-23 to 2024-25\", \"power\": \"power 0.8 for an MDE of 0.03 PPP\", \"controls\": \"opponent and season fixed effects, matched baseline\", \"falsification\": \"placebo permutation of labels\", \"multiplicity\": \"single primary test; Holm for secondary\", \"decision_rule\": \"proceed if the 95% CI excludes 0 and effect > 0.02\", \"data_version\": \"frozen snapshot of seasons 2022-23 to 2024-25\"}}}",
+   "usage": {
+    "input_tokens": 1457,
+    "output_tokens": 235,
+    "cost_usd": 0.0
+   },
+   "parse_error": ""
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+# FAM:SF-APPS-078 | Study family SF-APPS-078: Channel 2: possession ending state vs next 90-180s volume/points
+- observed_research_question: Channel 2: possession ending state vs next 90-180s volume/points
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: A possession's ending state changes opponent points/possessions in the next 90-180s beyond ~0.01-0.02 PPP boundary drift.
+- observed_result: 90s vs MADE_DEAD: TURNOVER_LIVE dOppPts=+0.510 dNetPts=-0.306 (dOppPPP=+0.055, dOppPoss=+0.298); MISSED_DEAD dNetPts=-0.112; PUTBACK dNetPts=+0.078. Volume (dOppPoss), not PPP, carries most of the live-TO cost.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No inferential tests in the core table; live TO raising opponent possession count is largely definitional (steal starts a break).
+- observed_sample_and_power: n=911968; MADE_DEAD n=354564
+- observed_method: 911968 possessions. Baseline end state MADE_DEAD. Same-period clock windows.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-078: 2026-06-16 (mtime)
+- observed_member_records: APPS-078
+- observed_sources: APPS-078: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\channel2_volume.py
+- observed_sources: APPS-078: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\channel2_volume_analysis.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-075 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-105 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

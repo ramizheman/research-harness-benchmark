@@ -1,0 +1,31 @@
+# EXP:APPS-037 | Sequential possession premium: defensive aftershock by play type
+- date: 2026-05-31
+- date_basis: doc
+- date_reliable: yes
+- design: All games H2 sequential pairs. Own-next baseline 0.975 PPP (n=18943); opponent-next baseline 1.206 (n=458604). Aftershock = opp baseline - opp next PPP after X succeeds.
+- extends: EXP:APPS-049 {direction=corrected (citing record is the earlier one); needs_review=yes; origin=related field; record=APPS-037; rule=date-ordered record link}
+- hypothesis: Opponent next-possession PPP is suppressed (positive aftershock) after the offense runs play type X, and this replicates RS+PO vs playoffs.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-037; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF07 {record=APPS-037; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Sign convention here (positive aftershock = opponent scores LESS) is opposite of the 52-series net-swing table where DRIVE/POST_UP have negative net swing.
+- prespecified: no
+- produced: RES:APPS-037 {record=APPS-037; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPS-053; APPS-054
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\sequential_premium\sequential_premium_report.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\sequential_premium_run.log
+- title: Sequential possession premium: defensive aftershock by play type
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPS-037; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-037; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-037; rule=keyword rule DATASET_RULES}
+
+# RES:APPS-037 | Result of APPS-037
+- failure_evidence: Large-n aftershock is uniformly positive across PTs (opponent scores ~1.07-1.09 vs baseline 1.206) so it may be a generic dead-ball/score effect rather than PT-specific disruption.
+- failure_type: E_unclear
+- power_info: opp-next n=458604; per-PT success n=5.9k-57.6k
+- primary_result: All-games aftershock after success: CUT +0.119 (n=21398), DRIVE +0.123 (57621), PNR +0.127 (51194), POST_UP +0.128 (20619), PULL_UP +0.132 (26060), PUTBACK +0.130 (5888), SPOT_UP +0.128 (43857), TRANSITION +0.135 (26262). All 8 replicate in playoffs. Own-next A1 treated as exploratory (~4% of pairs).
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

@@ -1,0 +1,106 @@
+{
+ "blind_id": "R3418d62e1417",
+ "task_statement": "Research question (as posed on 2026-10-06, in the area of defensive suppression and counter strategy (best/avoid)):\nA defense's effect on opponents' H2-H1 change is a reliable team trait.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 120 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "halftime adjustment",
+   "H2-H1 scoring change",
+   "reliability",
+   "team trait",
+   "counter strategy"
+  ],
+  "methodological_questions": [
+   "How to measure opponents H2-H1 change?",
+   "Reliability estimation (split-half, intraclass correlation) for team-season metric",
+   "Variance decomposition of defensive effect across halves",
+   "Confounding by game script, blowouts, garbage time",
+   "Regression to mean when selecting extreme half performances",
+   "Adequacy of 120 team-seasons for detecting stable defensive trait",
+   "Isolating defensive from offensive influence on opponent scoring change"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [
+   "No prior research on this specific question was available in the retrieved records, so nothing has been established or ruled out by earlier project work."
+  ],
+  "own_inferences": [
+   "The quantity 'opponent H2-H1 change' can be derived from play-by-play data, and its stability across games and seasons can be estimated via intraclass correlation or hierarchical modeling.",
+   "The primary challenges are: (1) the change score inherits regression-to-the-mean artifacts because first-half opponent scoring is a noisy baseline; (2) second-half scoring is confounded by game script (blowouts, garbage time, opponent resting starters); (3) with only 30 teams observed over 4 seasons, power to detect a modest team-level variance component is limited.",
+   "Without controlling for first-half performance and game context, any apparent reliability in raw H2-H1 differences would be suspect."
+  ],
+  "uncertainties": [
+   "The true size of a defensive halftime-adjustment trait, if it exists, is unknown; it may be so small that the available sample cannot distinguish it from noise.",
+   "How much of the second-half scoring change is attributable to the opponent's own offensive quality versus the defense's adjustment is difficult to isolate observationally."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was retrieved; the decision rests solely on the methodological assessment of the question with the available data."
+  },
+  "testability": {
+   "p_testable": 0.65,
+   "blocking_constraints": [
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Only 30 teams over 4 seasons; detecting a small between-team variance in halftime-adjustment effect likely requires a larger number of independent team observations or longer time series."
+    },
+    {
+     "code": "RTM_SELECTION",
+     "text": "The H2-H1 change score is mechanically correlated with the first-half opponent scoring baseline, creating regression-to-the-mean artifacts unless the baseline is properly conditioned on."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Game script (point differential at halftime, garbage time, opponent resting patterns) strongly influences second-half scoring, potentially swamping the defensive signal."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No earlier project studies on this exact question were found; the question remains open."
+  },
+  "risks": [
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "With 30 teams and 4 seasons, power to detect a small intraclass correlation for a defensive-adjustment trait may be low."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "The raw H2-H1 opponent scoring difference is negatively correlated with first-half opponent scoring, a classic regression-to-the-mean pattern that can create spurious stability if not modeled."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Second-half opponent scoring is heavily influenced by game situation (blowouts, garbage time, opponent tactical shifts) that are not purely a function of the defense."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "Per-game opponent half-to-half scoring changes are noisy, and aggregating over only a season per team may yield an unreliable metric, attenuating any between-team correlation."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "When a defense already holds an opponent to very low scoring in the first half, the scoring change may be bounded on the low side (floor effect), distorting the distribution."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.4,
+   "untestable": 0.1,
+   "artifact": 0.15,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The team-specific, season-level causal effect of a defense on opponent second-half points per possession (PPP) relative to first-half PPP, after controlling for opponent offensive strength and game script; the stability (intraclass correlation, ICC) of this effect across half-season splits and across seasons.",
+   "unit": "Defensive team-season, with within-season half-splits for reliability estimation; game-level data is used to estimate the team-season adjustment parameter.",
+   "sample": "All regular-season games from the 2022-23 through 2025-26 seasons. Garbage-time minutes (defined as segments where score differential exceeds 20 points and quarter ≥ 4) are excluded. Fourth quarters of games with a point differential > 20 at the start of the quarter are also removed. Only games with both teams having at least 20 possessions in each half after garbage-time removal are retained.",
+   "power": "Power will be assessed by simulation: using a hierarchical model with plausible effect sizes (e.g., team-level standard deviation in adjustment effect of 0.02–0.05 PPP) and the observed number of games per team-season, determine the minimum detectable ICC with 80% power at alpha = 0.05. If power is inadequate, at least three full seasons (2023-24 onward) will be used to extend the time series.",
+   "controls": "Fixed effects: opponent season-long offensive rating (ORtg), home/away indicator, rest advantage (back-to-back indicator for both teams), point differential at halftime, half-level pace (estimated possessions), an indicator for whether the opponent's star players are available (derived from rotation data). The defense team-season random intercept will be the primary quantity.",
+   "falsification": "1. Compute the same H2-H1 defensive trait for offenses (team's own scoring change) and test whether it shows similar reliability; if it does, the trait may reflect general game-script artifacts rather than pure defense. 2. Shuffle games across teams within season and re-estimate ICC; reliability should vanish. 3. Split the season into first half and second half (by game date) and compare—large discrepancy would indicate non-stationarity (coaching changes, trades). 4. Check whether the team random effect is stable when using only first-half opponent PPP as outcome; it should be, but the adjustment effect should be orthogonal.",
+   "multiplicity": "Only one primary hypothesis (ICC > 0) will be tested; any sensitivity analyses using alternative specifications will be labeled exploratory and corrected with Bonferroni.",
+   "decision_rule": "A Bayesian hierarchical model (team random intercepts with partial pooling) will be fit. The hypothesis is supported if the 95% credible interval for the intraclass correlation (posterior of σ_team^2 / (σ_team^2 + σ_resid^2)) excludes zero and the posterior probability of σ_team > 0 exceeds 0.975. The study will conclude 'rejected' if the 90% credible interval for ICC is entirely below a pre-specified smallest effect size of interest (e.g., ICC = 0.05) and the posterior median is near zero.",
+   "data_version": "NBA 2022-23 through 2025-26 regular season play-by-play, substitution, and matchup data as available on 2026-10-06."
+  }
+ },
+ "redactions": 0
+}

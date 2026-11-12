@@ -1,0 +1,149 @@
+{
+ "blind_id": "R6cdb842e809e",
+ "task_statement": "Research question (as posed on 2026-10-06, in the area of defensive suppression and counter strategy (best/avoid)):\nA defense's effect on opponents' H2-H1 change is a reliable team trait.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n- Units available to a study of this question (as recorded): 120 team-seasons\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "halftime adjustments",
+   "H2-H1 opponent scoring change",
+   "team trait reliability",
+   "split-half and intraclass correlation",
+   "measurement error in derived defensive metrics"
+  ],
+  "methodological_questions": [
+   "How to isolate a defense's causal effect on opponent scoring change from game script and opponent quality?",
+   "What is the appropriate reliability statistic for a derived team-level metric?",
+   "Is 120 team-seasons sufficient to detect a stable defensive trait given the expected measurement noise?",
+   "How to handle confounding due to halftime score margin, blowouts, and garbage time?",
+   "Does the metric remain stable across seasons and in playoff vs. regular-season contexts?"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Playoff defenses change scheme within games and between games (61% and 68% of cells), but the inferred label cannot separate real defensive adjustment from the offense executing differently; near-uniform transition matrices are consistent with label noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Ranking play types by own PPP minus opponent next-possession PPP changes recommendations in 38% of units; descriptive only, not evaluated against outcomes."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "One-game execution conformance scoring between Orlando and Detroit; descriptive."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "untestable",
+    "finding": "Split-half reliability of connector teammate-path quality Q_p: Pearson r=0.215, Spearman-Brown=0.355; 65.7% sign agreement. Most variance is within-player half-to-half; the trait is too unreliable to treat as a stable scoutable attribute."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Inferring defensive adjustments from play-type labels",
+    "why": "LABEL_ERROR: inferred labels cannot separate real defensive change from offensive execution; near-uniform transitions indicate noise."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "Split-half reliability of a derived player-season trait (connector quality)",
+    "why": "MEASURE_RELIABILITY: split-half correlation too low (r=0.215) to treat the trait as stable; most variance is within-player."
+   }
+  ],
+  "evidence_establishes": [
+   "Deriving stable defensive traits from play-by-play data is prone to measurement error ([prior work]).",
+   "Even with moderate sample sizes (~100 units), split-half reliability of derived performance metrics can be too low to support a stable trait ([prior work]).",
+   "A split-half design can detect insufficient reliability, but does not guarantee that a different metric would fare better."
+  ],
+  "evidence_does_not_establish": [
+   "No direct test of the reliability of the H2-H1 opponent scoring change as a team defensive trait.",
+   "No estimate of the between-team variance or ICC for this specific metric.",
+   "No guidance on which control variables are necessary to isolate the defense's effect."
+  ],
+  "own_inferences": [
+   "The per-game H2-H1 opponent scoring change is a noisy aggregate of many possessions influenced by game script, opponent offensive strength, halftime score margin, and garbage time; raw averages per defense will confound these factors.",
+   "A split-half or ICC reliability assessment is feasible with 120 team-seasons and ~80 games each, but measurement reliability is likely the dominant constraint, analogous to the connector quality case.",
+   "Controlling for halftime margin and opponent overall offensive rating is essential to reduce confounding, otherwise the metric may reflect game context rather than a stable defensive trait.",
+   "A hierarchical model with team-season random intercepts and appropriate fixed effects can separate signal from noise and directly estimate reliability (ICC).",
+   "Non-stationarity across seasons and potential drift in defensive schemes could further reduce year-over-year reliability."
+  ],
+  "uncertainties": [
+   "True effect size (between-team variance in the adjusted H2-H1 differential) is unknown; it may be too small to detect even with a well-controlled model.",
+   "Optimal set of control variables has not been pre-specified; including too many could reduce power, too few could leave residual confounding.",
+   "Possible structural differences between regular-season and playoff games could limit generalisability of reliability estimates.",
+   "Incomplete 2025-26 data at the time of the study (partial before April 13) must be handled; only completed regular-season games will be used."
+  ],
+  "historical_effect": {
+   "changed_decision": "yes",
+   "explanation": "The retrieval of [prior work] demonstrates that a naive split-half reliability test on a derived performance metric can return untestable results due to low measurement reliability. Combined with [prior work] showing that inferential labels for defensive adjustments are noisy, these findings motivated a design that avoids assumed labels, incorporates extensive controls for game context, and uses a hierarchical model to jointly estimate reliability, rather than relying on a simple raw correlation."
+  },
+  "testability": {
+   "p_testable": 0.25,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "The per-game H2-H1 opponent scoring change is highly noisy and conflates the defense's effect with opponent offensive execution and game script; the team-level aggregate may still contain too little signal relative to within-team variance."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Unadjusted H2-H1 change is strongly influenced by halftime score margin, opponent's overall offensive strength, home/away, and garbage time; failure to control these would produce a confounded metric that likely does not represent a stable defensive trait."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No earlier study tested the reliability of H2-H1 opponent scoring change as a team defensive trait. The closest work tested reliability of a different derived player-level metric and found it unreliable; another study showed that inferential defensive labels are noisy. Both inform the methodological risks but do not answer the current question."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The metric is a derived difference of two half-game totals; its signal-to-noise ratio may be too low to yield a reliable team trait, as seen in SF-[prior work]."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game script (halftime margin), opponent offensive rating, and garbage time all influence H2-H1 change independently of a defense's stable ability; without rigorous control the metric may reflect context rather than trait."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "With 120 team-seasons, the study has limited power to detect a small between-team ICC; if the true ICC is < 0.1, the estimate will be too imprecise to conclude reliability."
+   },
+   {
+    "code": "DRIFT_NONSTATIONARITY",
+    "text": "Defensive schemes and personnel change across seasons; reliability measured within a season may not hold across seasons, and using multiple seasons may introduce drift."
+   },
+   {
+    "code": "RTM_SELECTION",
+    "text": "If teams are selected based on extreme raw values in one period, regression to the mean may inflate the apparent reliability in a subsequent period if not properly handled by hierarchical shrinkage."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "If multiple reliability metrics (split-half, test-retest, year-over-year) are tested without predefined primary endpoint, false positive risk increases."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.15,
+   "rejected": 0.35,
+   "untestable": 0.35,
+   "artifact": 0.1,
+   "uncertain": 0.05
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The intraclass correlation (ICC) of the team-specific defensive effect on opponents' second-half minus first-half scoring, adjusted for halftime score margin, opponent offensive strength, location, and rest, estimated from a hierarchical model over regular-season games from 2022-23 through 2025-26.",
+   "unit": "Team-season (defense); 30 teams × 4 complete regular seasons = up to 120 units, only those with a minimum of 60 games retained.",
+   "sample": "All completed regular-season games from NBA 2022-23, 2023-24, 2024-25, and the completed portion of 2025-26 (games through 2026-04-13). Playoffs excluded to avoid structural differences. The 2025-26 partial season will be censored at 82 games or the end of the regular season; only games with full data will be used.",
+   "power": "Simulation-based: with 120 groups and ~80 observations per group, assuming an ICC of 0.10 and residual variance typical of per-game opponent margin changes, the 90% credible interval width for the ICC is expected to be approximately ±0.08. This provides adequate power to distinguish ICC > 0.15 from zero but limited power to precisely estimate very small values.",
+   "controls": "Fixed effects: halftime score difference (cubic spline), opponent's season offensive rating (as a proxy for their typical second-half performance), home/away indicator, days of rest for both the offense and defense, and a categorical variable for quarter of season (1–4) to capture tactical evolution. The model also includes random intercepts for opponent-offense-season to account for variation in opponent quality beyond the overall rating.",
+   "falsification": "1) Apply the same model with the outcome being first-half opponent points (per-possession), where the halftime adjustment component is absent; if the trait is purely a halftime-adjustment effect, the between-team variance should be near zero. 2) Run a leave-one-season-out predictive check: fit the model to three seasons and compute the correlation between predicted and observed team effects in the held-out season. 3) Replace the outcome with a permuted label (team-defense scrambled) to confirm that the estimated ICC collapses to zero.",
+   "multiplicity": "The primary endpoint is the posterior median ICC (team-season level) from the fully adjusted model, tested against a threshold of 0.10 (negligible) with a pre-registered decision rule. Secondary metrics (year-over-year stability, split-half r) are reported only with multiplicity-adjusted intervals (Bonferroni) if compared to thresholds.",
+   "decision_rule": "Declare the trait 'supported as reliable' if the 90% highest posterior density interval for the team-season ICC lies entirely above 0.15, AND the leave-one-season-out predictive correlation is significantly positive (p < 0.01) and at least 0.20. If the ICC interval is below 0.10 and the predictive correlation is non-significant, reject as unreliable. Otherwise, result is inconclusive (untestable).",
+   "data_version": "NBA stats API per-game data as of 2026-10-06, covering 2022-23, 2023-24, 2024-25, and the completed portion of 2025-26 regular season (all games through 2026-04-13)."
+  }
+ },
+ "redactions": 21
+}

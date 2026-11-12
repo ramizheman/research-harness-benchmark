@@ -1,0 +1,33 @@
+# EXP:APPA-016 | Per-team calibration: model 'signal' (bias) vs actual PPP, V1-V6
+- date: 2026-04-15
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: V1-V5: 240 matchups, 23,922 poss; V6: 520 matchups, 69,876 poss (season_engines); bias, MAE, RMSE, R2, win-side accuracy.
+- hypothesis: A3 predicted PPP exceeds actual (treated as validated optimization signal) and is well calibrated.
+- knowable_in_advance: no
+- measures: VAR:PPP_points_per_possession {record=APPA-016; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPA-016 {record=APPA-016; rule=audit/study_family_review.csv or singleton}
+- n_runs: 6
+- notes: Treating positive prediction bias as 'validated signal' is conceptually flawed. V6 template text says 'it does: 47.5%' for an expected >50%, so the conclusion contradicts the number.
+- prespecified: no
+- produced: RES:APPA-016 {record=APPA-016; rule=record fields}
+- project: Strategy app
+- related_as_recorded: APPA-017; APPA-020
+- related_to: EXP:APPA-017 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-016; rule=date-ordered record link}
+- related_to: EXP:APPA-020 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-016; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CALIBRATION_REPORT.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CALIBRATION_REPORT_V6.md
+- title: Per-team calibration: model 'signal' (bias) vs actual PPP, V1-V6
+- uses_method: METH:calibration_scoring {record=APPA-016; rule=keyword rule METHOD_RULES}
+- uses_method: METH:matched_control {record=APPA-016; rule=keyword rule METHOD_RULES}
+- uses_method: METH:regression {record=APPA-016; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-016 | Result of APPA-016
+- failure_evidence: At 520 matchups / 69,876 poss the signal is -0.12 pts/100 and R2 0.03.
+- failure_type: B_powered_null
+- power_info: 520 matchups, 69,876 possessions
+- primary_result: V1 bias +0.0112 (+1.12 pts/100), R2 -0.1758, win-side 58.8%; V2 +1.69; V3 +1.26; V6 bias -0.0012 (-0.12 pts/100), R2 0.0323, win-side 61.9%, model>actual 47.5%.
+- record_stratum: rejected
+- record_substatus: verdict null, powered null with power information
+- verdict: null

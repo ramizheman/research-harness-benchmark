@@ -1,0 +1,33 @@
+# EXP:APPS-001 | Overnight 10-series LLM adaptation review (adapters win series)
+- date: 2026-05-24
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: LLM agent adaptation reviews of H1 vs H2 play-type PPP for both offenses in 52 games across 10 playoff series (104 reports, all status ok), aggregated into series and master summaries.
+- hypothesis: The team that adapted better within games (per LLM adaptation review) wins the playoff series.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPS-001; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPS-001 {record=APPS-001; rule=audit/study_family_review.csv or singleton}
+- n_runs: 10
+- notes: No quantitative test; adaptation judgments made by the LLM after outcomes were known, so the 9/10 relationship is not an independent evaluation. Several per-game reports are very short (~1-2 KB), possibly truncated.
+- prespecified: no
+- produced: RES:APPS-001 {record=APPS-001; rule=record fields}
+- project: Strategy app
+- related_as_recorded: three_series_test pipeline run
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_20260524_003952\_manifest.json
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_overnight\MASTER_SUMMARY.md
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_overnight\_run_log.json
+- title: Overnight 10-series LLM adaptation review (adapters win series)
+- uses_dataset: DS:LLM_or_agent_outputs {record=APPS-001; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPS-001; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPS-001; rule=keyword rule DATASET_RULES}
+- uses_method: METH:LLM_agent_run {record=APPS-001; rule=keyword rule METHOD_RULES}
+
+# RES:APPS-001 | Result of APPS-001
+- failure_evidence: Post-hoc LLM narrative judgment of 'adapted better' with knowledge of winners; several winners described as adapting better 'enough (or opponent failed more)'.
+- failure_type: E_unclear
+- power_info: 10 series, 104 team-game reports; per-half play-type samples often n<10 possessions
+- primary_result: Team judged to have adapted better won 9 of 10 series; exception RECENT3_DEN_vs_MIN_26. SPOT_UP and DRIVE stifled in 10/10 series; offenses failed to counter in 9/10.
+- record_stratum: not_a_test
+- record_substatus: descriptive
+- verdict: descriptive

@@ -1,0 +1,143 @@
+{
+ "blind_id": "R1a18a317d59b",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "defensive suppression",
+   "counter strategy",
+   "PNR fail",
+   "PULL_UP",
+   "lift",
+   "league-wide counter",
+   "units",
+   "median lift"
+  ],
+  "methodological_questions": [
+   "lift measurement",
+   "unit definition",
+   "counterfactual",
+   "statistical power",
+   "confounding",
+   "selection bias",
+   "sample size",
+   "heterogeneity",
+   "assignment",
+   "time windows"
+  ],
+  "historical_evidence": [
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "supported",
+    "finding": "Holdout play-type rank validation shows median lift +0.4261 PPP with 90.8% positive lift, but notes risk of drift and artifact from construction."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "status_as_recorded": "not a hypothesis test",
+    "finding": "Descriptive PPP lift: PNR -0.139 PPP, PULL_UP +0.341 PPP (share changes +12.1pp for PNR, -7.6pp for PULL_UP)."
+   }
+  ],
+  "failed_approaches": [
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "TOV_FORCE matchup decomposition limited by exposure sparsity",
+    "why": "insufficient defensive possessions per cell (15‑54) and untested hypothesis."
+   },
+   {
+    "id": "[prior work][prior work]",
+    "what_failed": "PNR shot-level rates descriptive only",
+    "why": "no inferential test or validation of labeling."
+   }
+  ],
+  "evidence_establishes": [
+   "Lift measurement is feasible in NBA play‑by‑play data and can yield positive lifts for certain play types (e.g., PULL_UP)."
+  ],
+  "evidence_does_not_establish": [
+   "Whether a PNR failure reliably produces a PULL_UP lift >0 in ≥70% of units with median lift>2pp; no prior inferential test of this specific counter strategy."
+  ],
+  "own_inferences": [
+   "The study question requires defining a ‘unit’ (e.g., possession, game, or team‑game) and a clear operationalization of a PNR failure (e.g., a missed shot or forced turnover). The data provide sufficient seasons but the frequency of PNR failures and subsequent PULL_UP events may be sparse at the chosen granularity."
+  ],
+  "uncertainties": [
+   "Exact definitions of PNR fail and PULL_UP in the data; potential labeling errors; whether PULL_UP is consistently identified across teams; whether the 2pp lift threshold is meaningful at the chosen unit level."
+  ],
+  "historical_effect": {
+   "changed_decision": "no",
+   "explanation": "No prior study directly tested the posed hypothesis; existing evidence only informs feasibility of lift measurement and highlights risks such as drift and labeling errors."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "PNR failures are relatively rare, limiting the number of units with both a failure and a subsequent PULL_UP."
+    },
+    {
+     "code": "LABEL_ERROR",
+     "text": "Potential misclassification of PNR failures and PULL_UP plays in the play‑by‑play data."
+    },
+    {
+     "code": "MECHANICAL_FLOOR",
+     "text": "The play‑type labeling algorithm may impose a mechanical floor on measured lift."
+    },
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Uncertainty around the reliability of the PNR fail and PULL_UP definitions across seasons."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Game context (tempo, defensive matchup, player usage) may confound the observed lift."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]"
+   ],
+   "summary": "No prior inferential study has addressed the specific counter strategy of PNR failures leading to PULL_UP lifts. Existing studies provide descriptive lift estimates and methodological insights but do not test the proposed threshold criteria."
+  },
+  "risks": [
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Few PNR failure events per unit, limiting statistical power."
+   },
+   {
+    "code": "LABEL_ERROR",
+    "text": "Potential mislabeling of play types."
+   },
+   {
+    "code": "MECHANICAL_FLOOR",
+    "text": "Algorithmic floor may bias lift estimates."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Game‑level covariates may confound the lift."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Testing across many units increases false discovery risk."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.3,
+   "untestable": 0.2,
+   "artifact": 0.2,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Average lift in points per possession (PPP) of PULL_UP plays that immediately follow a PNR failure versus PULL_UP plays that do not follow a PNR failure, aggregated across units.",
+   "unit": "Unit of analysis: possession-level events grouped by team‑game context; each unit is a distinct occurrence of a PNR failure followed by a PULL_UP play or a PULL_UP play without a preceding PNR failure within the same possession sequence.",
+   "sample": "All possessions from 2022‑23 through 2025‑26 seasons where a PNR failure is detected; require at least 30 PNR‑followed PULL_UP events per unit to compute lift, otherwise aggregate across similar units via hierarchical modeling.",
+   "power": "Target 80% power to detect a median lift of 2pp in ≥70% of units at α=0.05, requiring roughly 200 units with sufficient events (subject to feasibility assessment).",
+   "controls": "Adjust for game tempo, defensive matchup (team‑to‑team), player usage rates, and time in game; include season fixed effects.",
+   "falsification": "Shuffle the temporal order of PNR failures within each possession sequence to test whether observed lifts persist when the causal ordering is broken.",
+   "multiplicity": "Apply a Holm–Bonferroni correction across the set of units tested; pre‑register the number of units and the decision rule.",
+   "decision_rule": "Reject the null (no lift) if the median lift across units exceeds 2pp and the proportion of units with lift >2pp is ≥70%; otherwise fail to reject.",
+   "data_version": "NBA 2022‑23 through 2025‑26 seasons, including regular season and playoffs, derived play‑type possession records."
+  }
+ },
+ "redactions": 12
+}

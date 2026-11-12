@@ -1,0 +1,75 @@
+{
+ "blind_id": "R041ff74417e1",
+ "task_statement": "Research question (as posed on 2026-06-19, in the area of play-type labeling and data quality):\nOpponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "testability": {
+   "p_testable": 0.5,
+   "blocking_constraints": [
+    {
+     "code": "OUTCOME_DERIVED_LABEL",
+     "text": "The research question posits that 'Opponent next-possession PPP after you run play X is large enough to drive AVOID labels'. The definition of 'AVOID labels' from the glossary is 'the strategy app's matchup-ranked counter recommendations after a trigger'. The available data does not explicitly include these 'AVOID labels' or the strategy app's ranking logic. Without access to the actual AVOID labels for play types, or a clear, testable definition of what constitutes an AVOID label based on the available data, it is impossible to determine if the proposed factors 'drive' them. This makes the core claim of the question difficult to test directly."
+    },
+    {
+     "code": "SAMPLE_SIZE_POWER",
+     "text": "Analyzing specific 'play X' and its sequential effects on opponent next-possession PPP and own-sequence lags will likely require a large number of instances for each play type to achieve sufficient statistical power, especially when breaking down by specific matchups or contexts. Rare play types or infrequent sequences might lead to insufficient sample sizes, making it difficult to detect meaningful effects or generalize findings."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "The 'play X' mentioned in the question could refer to specific, less common play types, or specific sequences of play. If these instances are rare, or if the combinations of play X with subsequent opponent possessions or own-sequence lags are sparse, the data may not provide enough observations to reliably estimate PPP values and their statistical significance."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "partly",
+   "cited": [
+    "[prior work][prior work]",
+    "[prior work][prior work]",
+    "EXP:[prior work]",
+    "HYP:[prior work]"
+   ],
+   "summary": "Previous research has explored the impact of one play type on the PPP of a *next* play type, both for the same team (own-sequence lags, e.g., [prior work][prior work] 'Running play type X raises the same team's next 1-5 possession PPP') and for the opponent's next possession (e.g., EXP:[prior work] and HYP:[prior work] 'Opponent next-possession PPP is suppressed... after the offense runs play type X'). [prior work][prior work] also discusses predecessor play type A changing PPP of next play type B. This establishes that the general concept of sequential possession effects on PPP has been studied and some effects found. However, no prior work directly addresses whether these specific lag effects are the *drivers* for 'AVOID labels' in a strategy app, which is the novel part of this question. The current question therefore extends existing work by linking these measured effects to the decision-making logic of the 'AVOID labels'."
+  },
+  "risks": [
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "The primary risk is the lack of a clear definition or access to the 'AVOID labels' themselves. If the labels are not directly available or their generation logic is opaque, it will be impossible to test whether the proposed factors 'drive' them. We can measure the factors, but not connect them to the outcome."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "Estimating PPP for specific play types (play X), and then further segmenting by subsequent possessions (opponent's next possession or own-sequence lags), will likely lead to small sample sizes for many combinations, reducing statistical power and increasing the uncertainty of any observed effects. This is particularly true if 'play X' refers to less frequent play types or specific game contexts."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Certain play types or sequential patterns might occur too infrequently to provide reliable data for analysis. If the 'exposure' to 'play X' followed by a relevant next possession type is sparse, it will be difficult to draw robust conclusions."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Many factors could influence both the choice of 'play X', the outcome of subsequent possessions, and the generation of 'AVOID labels' (if we assume their logic is complex). These confounders (e.g., game state, score margin, defensive scheme, player fatigue, lineup changes) would need careful control to isolate the specific effects of 'play X' on subsequent PPP and its purported link to AVOID labels."
+   },
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The reliability of the 'play type' labels themselves is crucial. If the rule-based classifier for play types has inherent noise or misclassifications, it could impact the accuracy of PPP calculations for specific play types and subsequent possessions."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.2,
+   "rejected": 0.2,
+   "untestable": 0.4,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "The causal effect of running 'play X' on opponent's next-possession PPP and own team's next-possession PPP, and the correlation of these effects with the criteria that would hypothetically lead to an 'AVOID label' (assuming a proxy for AVOID can be established).",
+   "unit": "Possession sequence (a play type X followed by the opponent's next possession, or a play type X followed by the own team's next possession).",
+   "sample": "All NBA regular season and playoff games from 2022-23, 2023-24, 2024-25, and complete 2025-26 regular season, from the available data. Filter for non-garbage time possessions. Group by 'play type X' and the subsequent possession's outcome. Minimum N possessions per play type for reliable PPP calculation (e.g., 30 possessions per cell).",
+   "power": "Power analysis would be conducted post-hoc if a proxy for AVOID labels could be established. Target a minimum of 80% power to detect a 0.05 PPP difference at an alpha of 0.05, given observed standard deviations of PPP. This would require substantial sample sizes for each 'play X' and sequence combination.",
+   "controls": "Match on game state variables (score margin bucket, quarter/half, time remaining), offensive and defensive lineup IDs, and potentially opponent team identity. Use exact matching or regression adjustment to control for confounding factors. Consider player-level fixed effects if analyzing specific initiators of 'play X'.",
+   "falsification": "A falsification test could involve analyzing the impact of 'play X' on PPP of possessions further in the future (e.g., 5th or 10th next possession) where no direct causal link is expected, or by applying the same analysis to randomly shuffled possession sequences to ensure the observed effects are not due to chance or baseline PPP variations.",
+   "multiplicity": "If multiple 'play X' types are tested or multiple lags are examined, apply a multiple testing correction (e.g., Benjamini-Hochberg FDR) to control the family-wise error rate.",
+   "decision_rule": "If the estimated effect of 'play X' on opponent next-possession PPP (or own-sequence lags) is statistically significant (p < 0.05 after correction) and falls within a range hypothesized to drive 'AVOID labels' (based on a pre-defined proxy or threshold), then the hypothesis would be considered supported. Otherwise, it would be rejected or deemed inconclusive. However, without a clear definition of 'AVOID labels', a direct decision rule is problematic.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25, 2025-26 (complete regular season, partial playoffs as of 2026-06-19) per-game files from NBA stats API, and derived play-type possession records."
+  }
+ },
+ "redactions": 12
+}

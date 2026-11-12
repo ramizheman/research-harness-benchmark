@@ -1,0 +1,35 @@
+# EXP:APPM-019 | Within-series learning: distribution shift vs outcomes
+- also_recorded_as: CHT-011
+- date: 2026-05-16
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Playoff possessions with series property; TVD shift between consecutive games (478 pairs); series-level comparison.
+- hypothesis: Teams shift play-type mix more after losses, and higher-adapting teams win series.
+- knowable_in_advance: unclear
+- measures: VAR:play_type_share_mix {record=APPM-019; rule=keyword rule VARIABLE_RULES}
+- measures: VAR:win_probability_series_outcome {record=APPM-019; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF-APPM-019 {record=APPM-019; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: Header says 33 series/58,455 possessions but table lists 52 series; inconsistent.
+- prespecified: no
+- produced: RES:APPM-019 {record=APPM-019; rule=record fields}
+- project: Strategy app
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_series_learning.py
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_series_learning_out.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_series_learning_out2.txt
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\series_adaptation_data.csv
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_learning_findings.md
+- title: Within-series learning: distribution shift vs outcomes
+- uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {record=APPM-019; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {record=APPM-019; rule=keyword rule DATASET_RULES}
+- uses_dataset: DS:Playoff_series_outcomes {record=APPM-019; rule=keyword rule DATASET_RULES}
+
+# RES:APPM-019 | Result of APPM-019
+- failure_evidence: 53.8% 'effectively a coin flip'; loss-win diff -0.85 pp.
+- failure_type: E_unclear
+- power_info: 478 game pairs; 52 series
+- primary_result: Shift after loss 31.85 vs after win 32.69 pp; higher-shift team won 28/52 series (53.8%).
+- record_stratum: uncertain
+- record_substatus: inadequately tested: verdict null, mechanism E_unclear
+- verdict: null

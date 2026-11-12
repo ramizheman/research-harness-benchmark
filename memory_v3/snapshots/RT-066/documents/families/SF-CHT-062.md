@@ -1,0 +1,26 @@
+# FAM:SF-CHT-062 | Study family SF-CHT-062: First-half 'starting to fail' OOS prediction of H2 (Design 4)
+- observed_research_question: First-half 'starting to fail' OOS prediction of H2 (Design 4)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Pre-H2 information (Q1-Q2 trend, last three H1 poss, hot H1, game state) predicts H2 deterioration out of sample.
+- observed_result: R^2 -0.0004 and -0.0013; AUC 0.495 and 0.499. Only team/opponent earlier-game results add R^2 +0.027 of which ~+0.015 appears under random reassignment.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: AUC 0.495-0.499 is chance; in-game 'failing' features add negative R^2.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Leave-information-out style regressions; AUC / R^2 vs chance.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Chat reports Design 4; TMP notes some 345 scripts lacked logs.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: CHT-062: 2026-10-06 (transcript)
+- observed_member_records: CHT-062
+- observed_sources: CHT-062: 26d2d8fd-a667-4ff9-b395-95ddd607e6ea
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-TMP-003 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-052 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

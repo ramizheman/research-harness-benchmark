@@ -1,0 +1,31 @@
+# EXP:APPA-002 | A1 within-scheme re-test controlling early-third PPP selection
+- also_recorded_as: CHT-019
+- date: 2026-05-16
+- date_basis: mtime
+- date_issues: file modification time: upper bound only
+- date_reliable: no
+- design: Same playoff cells as A1; adapter vs wrong-way within DROP/HELP/SWITCH, early-PPP quintile matching, and within-scheme Game N to N+1 carryover; Welch and MW tests.
+- hypothesis: Within the same inferred scheme (and within early-PPP quintiles), adapters improve PPP more than wrong-way teams, and this carries to the next game.
+- knowable_in_advance: unclear
+- measures: VAR:PPP_points_per_possession {record=APPA-002; rule=keyword rule VARIABLE_RULES}
+- member_of: FAM:SF12 {record=APPA-002; rule=audit/study_family_review.csv or singleton}
+- n_runs: 1
+- notes: The 'pooled across quintiles' gap +0.0556 equals the unmatched pooled gap, so it is not a matched estimate; flagged.
+- prespecified: no
+- produced: RES:APPA-002 {record=APPA-002; rule=record fields}
+- project: Team Adaptation
+- related_as_recorded: APPA-001; APPA-003
+- related_to: EXP:APPA-003 {direction=unknown (date intervals overlap); needs_review=yes; origin=related field; record=APPA-002; rule=date-ordered record link}
+- source: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\A1_WITHIN_SCHEME_findings.md
+- title: A1 within-scheme re-test controlling early-third PPP selection
+- uses_dataset: DS:Playoff_series_outcomes {record=APPA-002; rule=keyword rule DATASET_RULES}
+- uses_method: METH:matched_control {record=APPA-002; rule=keyword rule METHOD_RULES}
+
+# RES:APPA-002 | Result of APPA-002
+- failure_evidence: Quintile-matched gaps near zero in 4 of 5 quintiles; carryover null in all schemes; only DROP within-scheme gap significant without multiplicity correction.
+- failure_type: E_unclear
+- power_info: adapt/wrong n: DROP 73/109, HELP 96/115, SWITCH 36/50
+- primary_result: Within scheme gap: DROP +0.0830 (Welch p=0.0046), HELP +0.0539 (p=0.0493), SWITCH -0.0199 (p=0.6514). Quintile gaps -0.0440, -0.0231, +0.0138, +0.0133, +0.0966. Carryover gaps DROP +0.0039 (p=0.4244), HELP -0.0130 (p=0.7833), SWITCH -0.0392 (p=0.9353).
+- record_stratum: uncertain
+- record_substatus: inconclusive
+- verdict: inconclusive

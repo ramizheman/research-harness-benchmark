@@ -1,0 +1,94 @@
+{
+ "blind_id": "R6cae0cfb418c",
+ "task_statement": "Research question (as posed on 2026-06-14, in the area of play-type labeling and data quality):\nAny teammate DRIVE preceding a PNR raises PNR PPP.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "Play-type labeling (DRIVE, PNR)",
+   "Points Per Possession (PPP)",
+   "Temporal sequence of play types within a possession",
+   "Offensive play dynamics",
+   "Teammate actions and their influence"
+  ],
+  "methodological_questions": [
+   "How to define 'preceding' in the context of play sequences?",
+   "Reliability and consistency of derived play-type labels",
+   "Attribution of points to specific play types or sequences (PNR PPP)",
+   "Identification and control of confounding factors for PNR PPP",
+   "Linking actions of different teammates within a single possession"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [
+   "The reliability or accuracy of derived play-type labels (DRIVE, PNR).",
+   "The prevalence of the specific sequence 'teammate DRIVE preceding a PNR'.",
+   "Optimal methods for controlling confounding factors in sequential play analysis.",
+   "Whether the 'graph database built from the play-by-play' sufficiently preserves temporal sequence and player-action linkages for this specific question."
+  ],
+  "own_inferences": [
+   "The 'graph database built from the play-by-play' suggests that temporal sequencing of actions within a possession, and linking those actions to specific players and derived play types, is feasible, which is crucial for identifying a 'DRIVE preceding a PNR'.",
+   "The definition of 'teammate DRIVE' needs to be precise: does it refer to any player on the offensive team, and does it exclude the PNR initiator's own drive immediately before initiating the PNR?"
+  ],
+  "uncertainties": [
+   "The specific definition and reliability of 'DRIVE' and 'PNR' play-type labels as derived from the play-by-play data.",
+   "The exact structure and capabilities of the 'graph database' regarding event sequencing and player attribution within a possession.",
+   "The frequency of the specific event sequence (teammate DRIVE preceding PNR), which will impact statistical power.",
+   "The extent to which other factors (e.g., specific players involved, defensive scheme) can be accurately identified and controlled for using the available data."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was available, so it did not change the decision."
+  },
+  "testability": {
+   "p_testable": 0.7,
+   "blocking_constraints": []
+  },
+  "prior_work": {
+   "already_answered": "no",
+   "cited": [],
+   "summary": "No prior work on this specific question was found in the historical records."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "The reliability and accuracy of the derived 'DRIVE' and 'PNR' play-type labels are critical. Inaccurate labeling could lead to spurious findings or mask real effects."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "Many factors influence PNR PPP, including the specific players involved (initiator, screener, defenders), game context (score, time, quarter), defensive scheme, and the nature of the preceding DRIVE itself (e.g., successful penetration, pass out). These factors must be carefully controlled to isolate the effect of the preceding DRIVE."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "The specific sequence 'teammate DRIVE preceding a PNR' might be infrequent, potentially leading to small sample sizes for the 'treatment' group and insufficient statistical power to detect a meaningful effect."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "It's important to ensure that the 'preceding' DRIVE is genuinely a distinct action and not merely the initial phase of a pre-designed play that already includes the PNR as its primary option. While not strictly 'lookahead' in the data sense, it's a causal inference risk where the 'preceding' event might not be an independent variable."
+   },
+   {
+    "code": "OUTCOME_DERIVED_LABEL",
+    "text": "Points Per Possession (PPP) for PNR is a derived outcome. The accuracy of attributing points to the specific PNR play type (especially in complex possessions with multiple actions) is crucial."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.3,
+   "rejected": 0.3,
+   "untestable": 0.2,
+   "artifact": 0.1,
+   "uncertain": 0.1
+  },
+  "decision": "proceed_with_changes",
+  "design": {
+   "estimand": "The causal effect of a teammate DRIVE immediately preceding a PNR within the same possession on the Points Per Possession (PPP) generated by that PNR. Specifically, the difference in mean PNR PPP for possessions with a preceding teammate DRIVE versus those without, after controlling for relevant confounders.",
+   "unit": "A single PNR possession. Each PNR initiation will be considered a distinct unit of observation.",
+   "sample": "All identified PNR possessions from NBA 2022-23 regular season and playoffs, NBA 2023-24 regular season and playoffs, NBA 2024-25 regular season and playoffs, and NBA 2025-26 regular season (complete from 2026-04-13) and playoffs (complete from 2026-06-21).",
+   "power": "A power analysis will be conducted based on preliminary estimates of PNR PPP variance and the expected prevalence of the 'DRIVE preceding PNR' sequence. The goal is to achieve 80% power to detect a minimum effect size of 0.05 PPP difference, considered a practically meaningful improvement in offensive efficiency.",
+   "controls": "A mixed-effects regression model (or similar causal inference approach like propensity score matching if feasible) will be employed. Fixed effects will include: PNR initiator, PNR screener, primary defender on the initiator, primary defender on the screener, offensive team, defensive team. Covariates will include: quarter, time remaining in quarter, score differential, shot clock remaining at PNR initiation, prior actions in the possession (e.g., number of passes, offensive rebounds), and the outcome of the preceding DRIVE (e.g., whether it resulted in a pass out, penetration depth, shot attempt).",
+   "falsification": "A falsification test will involve analyzing the effect of a 'DRIVE *following* a PNR' on PNR PPP. We would expect no significant effect, as the PNR PPP is already determined by the time the subsequent DRIVE occurs. Additionally, we will test for an effect of a preceding non-DRIVE action (e.g., a simple pass or screen away) on PNR PPP, expecting a smaller or no effect compared to a DRIVE.",
+   "multiplicity": "Given a single primary estimand, no formal multiplicity adjustment is planned for the main hypothesis test. However, if multiple sub-analyses or exploratory comparisons are performed (e.g., by player type, team), appropriate adjustments (e.g., Benjamini-Hochberg) will be considered.",
+   "decision_rule": "The null hypothesis (H0: there is no difference in PNR PPP when preceded by a teammate DRIVE) will be rejected if the p-value for the primary estimand is less than 0.05. The effect size (mean difference in PPP) and its confidence interval will be reported. A positive and statistically significant effect will support the research question.",
+   "data_version": "NBA 2022-23, 2023-24, 2024-25, 2025-26 (partial for regular season and playoffs) derived play-type possession records in a graph database, supplemented by raw play-by-play data for detailed action sequencing and player identification."
+  }
+ },
+ "redactions": 0
+}

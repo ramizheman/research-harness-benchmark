@@ -1,0 +1,112 @@
+{
+ "blind_id": "R1c9755a88be3",
+ "task_statement": "Research question (as posed on 2026-05-23, in the area of defensive suppression and counter strategy (best/avoid)):\nIf PNR fail then PULL_UP is a real league-wide counter, it should show lift>0 in >=70% of units with median lift>2pp.\n\nData available on that date:\n- NBA 2022-23 regular season and playoffs\n- NBA 2023-24 regular season and playoffs\n- NBA 2024-25 regular season and playoffs\n- NBA 2025-26 regular season (complete from 2026-04-13; partial before)\n- NBA 2025-26 playoffs (complete from 2026-06-21; partial before)\n- Sources: Per-game files from the NBA stats API: play-by-play (action type, sub-type, clock, period, score, player, shot distance and result), substitution rotation intervals, starters, defensive matchup minutes and partial possessions, box-score summary. Derived play-type possession records (initiator, play type, points) in a graph database built from the play-by-play.\n\nYour job is to decide, before any analysis is run, whether this question can be answered with this data, what has already been established about it, which methodological and statistical risks threaten a test of it, and either a pre-registration-quality design or a reasoned recommendation not to proceed.",
+ "output": {
+  "research_concepts": [
+   "PNR failure",
+   "pull-up shot",
+   "counter strategy",
+   "lift in points per possession",
+   "defensive suppression",
+   "league-wide trend"
+  ],
+  "methodological_questions": [
+   "How to define PNR failure from play-by-play data?",
+   "How to identify pull-up shots as a deliberate counter?",
+   "What is the appropriate baseline for measuring lift?",
+   "What are the units of analysis (players, player-pairs, lineups)?",
+   "How to measure lift (PPP difference)?",
+   "What thresholds (70% of units positive lift, median lift >2 points per 100 possessions) are practical with this data?"
+  ],
+  "historical_evidence": [],
+  "failed_approaches": [],
+  "evidence_establishes": [],
+  "evidence_does_not_establish": [
+   "No prior project results speak to this specific question."
+  ],
+  "own_inferences": [
+   "The question implicitly assumes that PNR failure can be identified independently of the outcome of a subsequent pull-up. Without explicit labels of defensive coverage (over/under, blitz, hedge), identifying a failed PNR requires modeling that the data may not support.",
+   "If pull-up is defined merely as a shot type within a PNR-tagged possession, the concept of 'counter' loses its causal structure and becomes a descriptive comparison of shot outcomes."
+  ],
+  "uncertainties": [
+   "The data catalog does not indicate whether defensive coverage (e.g., screen defense type) is available. Therefore the core independent variable 'PNR fail' may not be operationalisable as intended.",
+   "The intended unit of analysis ('units') is not specified; it could refer to individual ball-handlers, ball-handler–screener pairs, or team-offense schemes, each with different sample-size implications."
+  ],
+  "historical_effect": {
+   "changed_decision": "no_historical_evidence",
+   "explanation": "No historical evidence was retrieved, so the decision rests solely on assessment of the data and methodological risks."
+  },
+  "testability": {
+   "p_testable": 0.3,
+   "blocking_constraints": [
+    {
+     "code": "MEASURE_RELIABILITY",
+     "text": "Both 'PNR fail' and the counter 'pull-up' are undefined in the data schema; operational definitions are likely to be noisy and contested."
+    },
+    {
+     "code": "EXPOSURE_SPARSITY",
+     "text": "Possessions that start with a PNR and end with a pull-up shot after a defensive stop are likely rare, making per-unit sample sizes too small for reliable lift estimation, especially to meet the 70% threshold at median 2 pp."
+    },
+    {
+     "code": "CONFOUNDING",
+     "text": "Even if a pull-up follows a defensive action that suppressed the PNR, its success depends on shooter skill, shot distance, and game context, not only on it being a counter."
+    }
+   ]
+  },
+  "prior_work": {
+   "already_answered": "unknown",
+   "cited": [],
+   "summary": "No prior work known."
+  },
+  "risks": [
+   {
+    "code": "MEASURE_RELIABILITY",
+    "text": "PNR failure must be defined by indirect signals (e.g., defensive matchup distance, screen angle) which are error-prone."
+   },
+   {
+    "code": "EXPOSURE_SPARSITY",
+    "text": "Many players will have very few pull-up attempts after a failed PNR; lift estimates for those units will be highly noisy."
+   },
+   {
+    "code": "SAMPLE_SIZE_POWER",
+    "text": "The criteria (≥70% of units lift>0 and median lift>2 pp) require adequate per-unit sample sizes; with rare events, most units will be underpowered."
+   },
+   {
+    "code": "CONFOUNDING",
+    "text": "The success of pull-ups after PNR failure may be confounded by overall offensive talent, defensive scheme, shot clock, and score differential."
+   },
+   {
+    "code": "LEAKAGE_LOOKAHEAD",
+    "text": "If PNR failure is defined by outcome (e.g., 0 points), then successful pull-ups would remove the possession from the failure set, inducing collider bias."
+   },
+   {
+    "code": "BASE_RATE",
+    "text": "If the baseline against which lift is measured (e.g., all other possessions) has a high average PPP, the required lift of >2 pp may be unrealistic."
+   },
+   {
+    "code": "MULTIPLE_TESTING",
+    "text": "Comparing lift for many units raises false positive rates for the 70% criterion unless multiplicity adjusted."
+   }
+  ],
+  "predicted_outcome": {
+   "supported": 0.05,
+   "rejected": 0.05,
+   "untestable": 0.5,
+   "artifact": 0.2,
+   "uncertain": 0.2
+  },
+  "decision": "do_not_proceed",
+  "design": {
+   "estimand": "Difference in points per possession (PPP) between pull-up jump shots taken in possessions where a PNR was deemed 'failed' (defense forced the ball‑handler away from the primary action) and the same player's PPP on all other possessions, using a baseline window of ±10 seconds from the screen event and excluding transition.",
+   "unit": "Individual ball-handler as the PNR initiator (player-season).",
+   "sample": "All NBA regular-season possessions from 2022–23 through 2025–26 where a PNR was initiated and a shot was attempted within the same possession.",
+   "power": "With an expected median of ~25 qualifying possessions per player-season and a standard deviation of ~10 PPP points per 100 possessions, the minimum detectable effect at 80% power and α=0.05 is approximately 3.5 pp. This barely meets the 2 pp threshold for the median but renders individual lifts too imprecise to reliably classify >0 for 70% of players.",
+   "controls": "Shooter identity, shot distance, defender distance at shot release, shot clock remaining, game score margin, period, and whether the defense switched or not (if derivable from matchup data).",
+   "falsification": "Replace pull-up shots with catch-and-shoot jumpers in the same context; if a similar lift pattern appears, the effect is not specific to pull-ups as a counter.",
+   "multiplicity": "Use a partial conjunction test to assess the hypothesis that at least 70% of players have lift >0, adjusted for clustering by team.",
+   "decision_rule": "Test the two conditions: (1) lower bound of a 90% confidence interval for the proportion of players with lift >0 exceeds 0.70, and (2) median lift is significantly greater than 2 pp via bootstrap. Both must be satisfied.",
+   "data_version": "NBA play-by-play through 2025–26, with derived play-type possession tags; defensive matchup minutes used only to infer coverage proximity, not type."
+  }
+ },
+ "redactions": 0
+}
