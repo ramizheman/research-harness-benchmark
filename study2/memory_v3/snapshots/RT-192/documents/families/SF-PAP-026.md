@@ -1,0 +1,27 @@
+# FAM:SF-PAP-026 | Study family SF-PAP-026: Warriors trio on/off structural case
+- observed_research_question: Warriors trio on/off structural case
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Curry/Thompson/Green on/off shows structural roles (e.g. Green as hidden organizer).
+- observed_result: Green classified ROLE OCCUPANT all 3 seasons; Curry D_A 0.132/0.026/0.129; Green D_A 0.151/0.117/0.144
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: case study, no test
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: GSW 2022-25 on/off PPP and D_A by player-season.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Paper limitations note Draymond Green classified as role occupant.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-026: 2026-08-08 (mtime)
+- observed_member_records: PAP-026
+- observed_sources: PAP-026: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\warriors_trio_onoff.csv
+- observed_sources: PAP-026: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\warriors_trio_structural.csv
+- observed_sources: PAP-026: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\warriors_trio_onoff.py
+- observed_sources: PAP-026: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\warriors_trio_structural.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-013 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-157 {basis=TF-IDF question clustering}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

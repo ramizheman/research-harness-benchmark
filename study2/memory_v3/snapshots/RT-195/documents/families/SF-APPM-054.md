@@ -1,0 +1,31 @@
+# FAM:SF-APPM-054 | Study family SF-APPM-054: Playoff adaptation-pair sustainability (12 pairs x 74 matchups)
+- observed_research_question: Playoff adaptation-pair sustainability (12 pairs x 74 matchups)
+- auto_outcome_status: rejected
+- observed_hypothesis: Pivoting to a listed counter after suppression sustains higher PPP than not pivoting, consistently across playoff matchups.
+- observed_result: 10/12 pairs CONSISTENT and within 0.10 of non-pivot (no PIVOT_WINS). PNR->PULL_UP sustained 1.069 vs non_pivot 1.224 (n_matchups=9) PIVOT_LOSES. DRIVE->PULL_UP 1.101 vs 1.217 (n=5) PIVOT_LOSES. Largest positive pair in the table: DRIVE->SPOT_UP 1.150 vs 1.098 (n=26). Shelf-life ~34-41 possessions.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Population deltas mostly |d|<0.10; two pairs with enough signal are PIVOT_LOSES (pivot worse than staying).
+- observed_sample_and_power: n=74 matchups; pair n_matchups 5 to 44
+- observed_method: 42,787 playoff possessions / 244 games / 74 directed matchups; 12 adaptation pairs; sustained_ppp vs non_pivot_ppp; CV<30% = CONSISTENT; |delta|>=0.10 = PIVOT_WINS/LOSES.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: _sustainability_all_playoffs_out.txt and _out2.txt are identical reruns (29166 bytes each). Sequential premiums were later removed from the deck as not holding up.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-054: 2026-05-24 (mtime)
+- observed_member_records: APPM-054
+- observed_sources: APPM-054: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs.py
+- observed_sources: APPM-054: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs_out.txt
+- observed_sources: APPM-054: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_all_playoffs_out2.txt
+- observed_sources: APPM-054: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_mia_bos.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-020 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

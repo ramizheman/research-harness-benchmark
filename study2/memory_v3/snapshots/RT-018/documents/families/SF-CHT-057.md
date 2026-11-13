@@ -1,0 +1,28 @@
+# FAM:SF-CHT-057 | Study family SF-CHT-057: Cut- vs drive-based connector portability
+- observed_research_question: Cut- vs drive-based connector portability
+- auto_outcome_status: supported
+- observed_hypothesis: Pre-move cut share (vs drive share) predicts whether a connector's organizational function reproduces after a move.
+- observed_result: Cut share rho=+0.265 p=0.011 AUC 0.653. Cut-drive rho=+0.314 p=0.002 AUC 0.656. Drive rho=-0.278 p=0.007. Top cut tercile 65% portable median Delta +0.167; bottom 35% median -0.039. LOO AUC 0.622; permutation p=0.005. Drop Gafford rho=+0.244 p=0.020.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: n=92 connector movers
+- observed_method: 92 connector movers; Spearman vs Delta; tercile hit rates; LOO AUC; 5000 label shuffles; drop Gafford / top-3; position splits.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: CHT-057: 'dian delta +0.167; bottom 35% median -0.039. loo auc 0.622; permutation p=0.005. drop gafford rho=+0.244 p=0.020. exploratory scrip'
+- observed_notes: Exploratory scripts _explore_cut_*.py; paper treats cut share as a boundary condition. Almost all other pre-move predictors were null.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: CHT-057: 2026-07-19 (transcript)
+- observed_member_records: CHT-057
+- observed_sources: CHT-057: b12a5e7d-6340-4afd-9aae-e0e979f11269
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-051 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

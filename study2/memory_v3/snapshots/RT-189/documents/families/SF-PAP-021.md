@@ -1,0 +1,30 @@
+# FAM:SF-PAP-021 | Study family SF-PAP-021: Origin cut vs drive diet screen for shaper portability
+- observed_research_question: Origin cut vs drive diet screen for shaper portability
+- auto_outcome_status: untestable
+- observed_hypothesis: Cut-heavy shapers' roles travel better than drive-heavy ones.
+- observed_result: cut rho=+0.32 p=0.125, AUC=0.71 (perm p=0.041); cut-minus-drive rho=+0.38 p=0.07; high-cut 75% vs low-cut 37.5% portable; drop top-3 rho=+0.22 p=0.33
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=24, p=0.13
+- observed_sample_and_power: n=24
+- observed_method: 24 shaper movers; Spearman, AUC, terciles, partials, bootstraps.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Chosen from a broad battery; directional only.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-021: 2026-08-08 (doc)
+- observed_member_records: PAP-021
+- observed_sources: PAP-021: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\cut_drive_travel_screen.py
+- observed_sources: PAP-021: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\cut_drive_travel_screen.csv
+- observed_sources: PAP-021: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-020 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-057 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

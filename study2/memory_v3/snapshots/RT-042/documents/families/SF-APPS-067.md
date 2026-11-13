@@ -1,0 +1,29 @@
+# FAM:SF-APPS-067 | Study family SF-APPS-067: Opponent action T -> your offense T+1 (def-matched 8x8)
+- observed_research_question: Opponent action T -> your offense T+1 (def-matched 8x8)
+- auto_outcome_status: supported
+- observed_hypothesis: The opponent's previous play type changes your next-possession PPP after matching on defensive team.
+- observed_result: 3/64 FINDING cells survive both matchings: SPOT_UP->TRANSITION ATT=-0.085; POST_UP->TRANSITION -0.083; PNR->DRIVE -0.058 (all also survive +prev_made). PULL_UP->DRIVE dropped as defense-quality confound.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Three cells replicate under def-match, off-match, and prev_made control. Most of 64 are null.
+- observed_sample_and_power: 64 cells tested; 3 FINDING
+- observed_method: 64 cells; def_tri matching primary; sensitivity match on own offense. BH-FDR+placebo+FT-clean. prev_made control.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPS-067: 'matching primary; sensitivity match on own offense. bh-fdr+placebo+ft-clean. prev_made control. 3/64 finding cells survive bot'
+- observed_notes: Weight row-level patterns over single cells per the report. Offensive-team match is the sensitivity file.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-067: 2026-06-14 (mtime)
+- observed_member_records: APPS-067
+- observed_sources: APPS-067: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\opponent_action_your_offense_defmatch.md
+- observed_sources: APPS-067: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\opponent_action_your_offense_offmatch.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-060 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-031 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

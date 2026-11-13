@@ -1,0 +1,31 @@
+# FAM:SF-CHT-076 | Study family SF-CHT-076: Bonus threshold and foul-trouble-big offensive adaptation
+- observed_research_question: Bonus threshold and foul-trouble-big offensive adaptation
+- auto_outcome_status: artifact
+- observed_hypothesis: Offenses attack more at the bonus threshold and when an opposing big in foul trouble stays on the floor.
+- observed_result: Bonus FTA +5.08pp (SE 0.19) mechanical; DRIVE +0.31pp (SE 0.21) identical to 2-3 placebo +0.33pp. Foul-trouble big: rim +1.36pp (SE 0.41 t=+3.4); DRIVE +0.47pp t=+1.3; PPP +0.008; occurs on 1.44% of possessions.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: FTA jump is the rulebook; DRIVE matches the placebo. Foul-trouble exposure 1.44% because coaches bench the player.
+- observed_sample_and_power: foul-trouble exposure 1.44% of possessions
+- observed_method: 3 vs 4 team fouls (clock>2:30) with 2-3 and 4-5+ placebos; foul-trouble big remaining on court vs guard placebo.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: CHT-076: '3 vs 4 team fouls (clock>2:30) with 2-3 and 4-5+ placebos; foul-trouble big remaining on court vs guard placebo. bon'
+- observed_notes: adaptation_sweep.py. Bonus FTA mechanical effect was knowable from the rules.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Team Adaptation
+- observed_dates: CHT-076: 2026-11-01 (transcript)
+- observed_member_records: CHT-076
+- observed_sources: CHT-076: 26d2d8fd-a667-4ff9-b395-95ddd607e6ea
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-TMP-022 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF15 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-018 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}

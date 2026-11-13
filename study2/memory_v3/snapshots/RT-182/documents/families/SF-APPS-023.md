@@ -1,0 +1,31 @@
+# FAM:SF-APPS-023 | Study family SF-APPS-023: System BEST vs constrained league mix (non-CUT matchup-specificity test)
+- observed_research_question: System BEST vs constrained league mix (non-CUT matchup-specificity test)
+- auto_outcome_status: rejected
+- observed_hypothesis: Matchup-specific (non-CUT) BEST counters beat a feasibility-weighted league mix that ignores game state.
+- observed_result: All BEST vs mix: 1.481 vs 1.212, gap=+0.269, p=0.0000, n=283. Non-CUT BEST vs mix: 1.216 vs 1.206, gap=+0.010, p=0.1709, n=136. L3_MATCHUP non-CUT: gap=+0.001, p=0.3277, n=47. BEST vs AVOID gap=+0.692, p=0.0000, n=169. 147/283 BEST are CUT (51.9%).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Key non-CUT test gap=+0.010, p=0.1709, n=136; H2H L3 non-CUT gap=+0.001, p=0.3277. Headline A vs B is CUT-driven.
+- observed_sample_and_power: n=136 non-CUT; n=47 L3 non-CUT
+- observed_method: 633 triggers, 55 series. A=BEST counter; B=constrained mix (SPOT_UP 35%/PULL_UP 25%/CUT 15%/DRIVE 9%/PNR 8%/POST_UP 8%); C=naive pivot; D=AVOID. One-sided MW A>B.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable: CUT is both 52% of BEST and in the constrained mix at 15%, so all-BEST vs mix cannot isolate matchup intelligence. Authors reframed contribution as trigger timing, not counter-selection.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-023: 2026-05-29 (mtime)
+- observed_member_records: APPS-023
+- observed_sources: APPS-023: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\baseline_test_results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-024 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-024 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-007 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

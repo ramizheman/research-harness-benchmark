@@ -1,0 +1,27 @@
+# FAM:SF-CHT-003 | Study family SF-CHT-003: Men's 2025 LOSO full-pipeline holdout Brier
+- observed_research_question: Men's 2025 LOSO full-pipeline holdout Brier
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The stacked men's pipeline (blend of XGB+LR+LGB+Elo, isotonic, injury, AA, seed cal, blue-blood, top-seed, differential seed cal) is well calibrated on 2025 holdout.
+- observed_result: 2025 full-pipeline Brier 0.14031; raw XGB 2025 Brier 0.1514.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Leave-one-season-out; 2025 fold Brier after the full adjustment stack. Raw 2025 XGB Brier cited as 0.1514.
+- observed_verdict: descriptive
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: CHT-003: 'leave-one-season-out; 2025 fold brier after the full adjustment stack. raw 2'
+- observed_notes: No results file on disk mentioned; pipeline explanation in chat. Engineering-adjacent but reports a holdout metric.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: CHT-003: 2026-03-16 (transcript)
+- observed_member_records: CHT-003
+- observed_sources: CHT-003: 9d9d1be5-b547-449a-b29b-63c29c66ae3f
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-007 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

@@ -1,0 +1,31 @@
+# FAM:SF-APPM-032 | Study family SF-APPM-032: Player routing regret
+- observed_research_question: Player routing regret
+- auto_outcome_status: supported
+- observed_hypothesis: Routing counters to the oracle initiator adds PPP beyond play selection.
+- observed_result: Routing regret +0.094 PPP (stale) / +0.124 RS (corrected); SPOT_UP +0.183 (n=385), CUT +0.129 (n=295), DRIVE +0.081 (n=280).
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Positive regret under conservative oracle.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: RS holdout; shrinkage-blended H2H oracle (prior weight 50), rotation-filtered, n>=10 H2H.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-032: 'rs holdout; shrinkage-blended h2h oracle (prior weight 50), rotation-f'
+- observed_notes: Oracle regret is non-negative by construction-like design; unconstrained oracle +0.549/+0.691.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPM-032: 2026-06-19 (mtime)
+- observed_member_records: APPM-032
+- observed_sources: APPM-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- observed_sources: APPM-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- observed_sources: APPM-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_oracle_sensitivity.py
+- observed_sources: APPM-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_routing_constrained_oracle.py
+- observed_sources: APPM-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_routing_regret.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-034 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

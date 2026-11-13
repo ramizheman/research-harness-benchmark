@@ -1,0 +1,36 @@
+# FAM:SF-TMP-007 | Study family SF-TMP-007: Field audit: play-type label leakage from possession outcome
+- observed_research_question: Field audit: play-type label leakage from possession outcome
+- auto_outcome_status: artifact
+- observed_hypothesis: Graph play-type labels are outcome-independent descriptors.
+- observed_result: 53.7% relabelled by calibration; PNR FG% by confidence bucket 0.0 (0.35), 0.949 (0.48), 0.898 (0.58); primary defender on floor 0.7259.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: PNR confidence buckets have first-shot FG% of 0.0 vs 0.949, i.e. labels encode the outcome.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Coverage, label source mix, and first-shot FG% by label confidence bucket across 4 seasons.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Label provenance (calibrated relabelling) was known before outcomes analysis.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-007: 2026-10-06 (mtime)
+- observed_member_records: TMP-007
+- observed_sources: TMP-007: C:\Users\lisas\AppData\Local\Temp\supp_audit\audit_fields.log
+- observed_sources: TMP-007: C:\Users\lisas\AppData\Local\Temp\supp_audit\audit_fields.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-001 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-005 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPS-058 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-032 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-086 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-163 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

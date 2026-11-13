@@ -1,0 +1,30 @@
+# FAM:SF-PAP-094 | Study family SF-PAP-094: Model vs goto/538 probability blend (round-specific, variable alpha)
+- observed_research_question: Model vs goto/538 probability blend (round-specific, variable alpha)
+- auto_outcome_status: supported
+- observed_hypothesis: Blending the model with betting-derived goto (2024-25) and 538 (2016-23) round-specific win probabilities beats pure model on scored (no play-in) Brier.
+- observed_result: rd2+goto_conversion method was wrong (goto Brier much worse); rd6 normalization ~0.11 combined 2025 as fallback; variable/new alpha beat pure model (log examples ~0.157 vs ~0.159; new alpha ~0.156 combined)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: variable/new alpha lower combined Brier than pure model; round-specific goto kept
+- observed_sample_and_power: scored games 2016-2025, play-in excluded
+- observed_method: Round from seeds; team A's rdN_win as P(win that round); variable alpha by gender/round/confidence/disagreement.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Exact overall Briers in the log are given as e.g. ~0.157; copy those approximations as stated. Women's Version B OOF ~0.13664 kept; women's 2nd-stage isotonic 0.13776 vs 0.13664 reverted.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-094: 2026-03-18 (doc)
+- observed_member_records: PAP-094
+- observed_sources: PAP-094: C:\Users\lisas\OneDrive\Documents\March Madness\backtest_alpha_strategy.py
+- observed_sources: PAP-094: C:\Users\lisas\OneDrive\Documents\March Madness\backtest_goto_blend.py
+- observed_sources: PAP-094: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-090 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-PAP-095 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-042 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

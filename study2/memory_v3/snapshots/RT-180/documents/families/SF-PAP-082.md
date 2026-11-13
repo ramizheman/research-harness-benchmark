@@ -1,0 +1,28 @@
+# FAM:SF-PAP-082 | Study family SF-PAP-082: Substitution timing after opponent changes is almost entirely the rotation clock
+- observed_research_question: Substitution timing after opponent changes is almost entirely the rotation clock
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The raw +9 pp extra substitution rate after opponent changes is an opponent-personnel response of at least 5 pp under full controls.
+- observed_result: raw +8.96 pp [+8.53,+9.39]; period x minute +0.69; +stint/fouls +0.18; full +0.83 [+0.40,+1.26]; exclude timeouts +0.78; opponent timeouts only +2.16; 5-poss secondary +0.87
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: clock alone removes 92% of the raw gap; residual +0.83 pp is 1/6 of the 5 pp GO threshold
+- observed_sample_and_power: n=299,539; 3,638 games
+- observed_method: 299,539 stoppages where T did not change (59,966 treated); LPM of next-stoppage change; CR1 game cluster.
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Motivated by shot study 59.7% vs 47.7% within 5 possessions. Residual is distinguishable from 0 only because n is huge.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-082: 2026-11-02 (doc)
+- observed_member_records: PAP-082
+- observed_sources: PAP-082: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\methods.md
+- observed_sources: PAP-082: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\results.md
+- observed_sources: PAP-082: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\results\02_results.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}

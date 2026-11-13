@@ -1,0 +1,27 @@
+# FAM:SF-APPM-007 | Study family SF-APPM-007: Shot-quality (xPPP, team shot-making) features
+- observed_research_question: Shot-quality (xPPP, team shot-making) features
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Shot-zone expected PPP and team shot-making skill add signal beyond box-score features.
+- observed_result: Best +xPPP only R2_hol +0.1204 (lift +0.0054); shot-skills -0.0003.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Lift +0.0054 below the +0.02 'real signal' threshold (doc: mostly absorbed).
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Add xPPP and team make-skill features to 8-feat OLS; holdout R2.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPM-007: 'add xppp and team make-skill features to 8-feat ols; holdout r2. best +xppp only r2_hol +0.1204 (lift +0.0054); shot-ski'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-007: 2026-04-17 (mtime)
+- observed_member_records: APPM-007
+- observed_sources: APPM-007: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHOT_QUALITY.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-067 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

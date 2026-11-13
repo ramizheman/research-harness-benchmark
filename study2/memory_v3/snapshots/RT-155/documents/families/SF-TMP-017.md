@@ -1,0 +1,31 @@
+# FAM:SF-TMP-017 | Study family SF-TMP-017: Signal reliability gate for adaptation triggers
+- observed_research_question: Signal reliability gate for adaptation triggers
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Team-season play-type PPP and share deviations are reliable enough to serve as adaptation triggers.
+- observed_result: Defense PPP allowed SB: PULL_UP 0.173, POST_UP 0.210, SPOT_UP 0.311, DRIVE 0.604; offense share SB 0.947-0.982.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Defensive PPP-allowed reliability 0.173-0.311 for PULL_UP/POST_UP/SPOT_UP.
+- observed_sample_and_power: median 472-1,735 poss per team-season
+- observed_method: Odd vs even game split-half r and Spearman-Brown by play type, offense and defense, 120 team-seasons.
+- observed_verdict: descriptive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: TMP-017: 'odd vs even game split-half r and spearman-brown by play type, offense and defense, 120'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-017: 2026-11-01 (mtime)
+- observed_member_records: TMP-017
+- observed_sources: TMP-017: C:\Users\lisas\AppData\Local\Temp\supp_audit\signal_gate.log
+- observed_sources: TMP-017: C:\Users\lisas\AppData\Local\Temp\supp_audit\signal_gate.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-003 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

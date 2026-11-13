@@ -1,0 +1,29 @@
+# FAM:SF-APPM-026 | Study family SF-APPM-026: Counter-tier validation Test 1 (BEST vs AVOID, 2025-26 and 2024-25 playoffs)
+- observed_research_question: Counter-tier validation Test 1 (BEST vs AVOID, 2025-26 and 2024-25 playoffs)
+- auto_outcome_status: supported
+- observed_hypothesis: Pre-game BEST-tier counters outscore AVOID-tier counters after suppression triggers.
+- observed_result: 2025-26 rho -0.3246 (n=519), BEST 1.460 vs AVOID 0.845; 2024-25 rho -0.2625 (n=634), BEST 1.424 vs AVOID 0.799; KW H 158.7/158.96.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: BEST > AVOID p=0.0 in both seasons.
+- observed_sample_and_power: n=519 / 634
+- observed_method: 10 series 2025-26 (n=519 obs) and 15 series 2024-25 (n=634); Spearman tier rank vs PPP, Kruskal-Wallis, Mann-Whitney.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: AVOID_OVERRIDE tier reclassifies AVOID by rest-of-game PPP (outcome-based), so smart-vs-AVOID comparisons are circular; INSUFF_EVIDENCE 220/519 and 324/634.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-026: 2026-06-19 (mtime)
+- observed_member_records: APPM-026
+- observed_sources: APPM-026: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\OVERNIGHT_SUMMARY.md
+- observed_sources: APPM-026: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_overnight_batch.py
+- observed_sources: APPM-026: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_run_10series_validation.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:OUTCOME_DERIVED_LABEL {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-018 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

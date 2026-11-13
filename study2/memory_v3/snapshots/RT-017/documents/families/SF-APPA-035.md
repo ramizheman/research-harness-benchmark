@@ -1,0 +1,27 @@
+# FAM:SF-APPA-035 | Study family SF-APPA-035: Relative-structure single-game validation BOS vs OKC
+- observed_research_question: Relative-structure single-game validation BOS vs OKC
+- auto_outcome_status: untestable
+- observed_hypothesis: Model's top-ranked play types score above team average in a held-out game.
+- observed_result: BOS rho 0.200, top-3 n/a, bottom-3 1/3; OKC rho 0.543, top-3 2/2, lift +0.308, bottom-3 1/3.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: One game; 5-6 PTs per team with 4-35 possessions.
+- observed_sample_and_power: 1 game
+- observed_method: One holdout game 0022400946; Spearman of predicted vs actual PT PPP (PTs >=3 poss); top-3/bottom-3 hits.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPA-035: 'one holdout game 0022400946; spearman of predicted vs actual pt ppp (pt'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-035: 2026-04-17 (mtime)
+- observed_member_records: APPA-035
+- observed_sources: APPA-035: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HISTORICAL_VALIDATION_BOS_OKC.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-063 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-024 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

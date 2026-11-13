@@ -1,0 +1,34 @@
+# FAM:SF-TMP-002 | Study family SF-TMP-002: Prospective designs 1-3: early-H2 slump predicts rest-of-H2 underperformance
+- observed_research_question: Prospective designs 1-3: early-H2 slump predicts rest-of-H2 underperformance
+- auto_outcome_status: rejected
+- observed_hypothesis: After an early-H2 slump (first k H2 possessions >=0.25 PPP below H1), the offense underperforms a cross-fitted shrinkage forecast for the rest of H2 beyond a permutation null.
+- observed_result: k=4 D1 theta=-0.0098 se=0.0047, perm null mean -0.0055, one-sided p=0.8601; D2 theta=-0.0000 p=0.4615; d2cal_k4 -0.0271 p=0.6553; all k p>=0.13.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: All D1/D2 statistics within permutation null (one-sided p 0.13-1.00) with SE ~0.004-0.03.
+- observed_sample_and_power: nT 9,431-13,598 triggers; SE 0.0043-0.0061 for D1
+- observed_method: 59,868 team-game-play-type units from 821,834 possessions (5,003 games); D1 residual, D2 opponent-paired DiD, caliper pairs, H1 pseudo-event; within-unit permutation nulls B=1000 and within-H2 B=200; k=3..6.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: TMP-002: 'ent-paired did, caliper pairs, h1 pseudo-event; within-unit permutation nulls b=1000 and within-h2 b=200; k=3..6. k=4 d1 theta=-0.0'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-002: 2026-10-06 (mtime)
+- observed_member_records: TMP-002
+- observed_sources: TMP-002: C:\Users\lisas\AppData\Local\Temp\supp_audit\perm_all.csv
+- observed_sources: TMP-002: C:\Users\lisas\AppData\Local\Temp\supp_audit\perm_h2.csv
+- observed_sources: TMP-002: C:\Users\lisas\AppData\Local\Temp\supp_audit\prospective.py
+- observed_sources: TMP-002: C:\Users\lisas\AppData\Local\Temp\supp_audit\prospective_full.log
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-064 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

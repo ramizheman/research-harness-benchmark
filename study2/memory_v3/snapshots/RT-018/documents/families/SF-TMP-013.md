@@ -1,0 +1,26 @@
+# FAM:SF-TMP-013 | Study family SF-TMP-013: Relabelled-unit sensitivity of suppression excess
+- observed_research_question: Relabelled-unit sensitivity of suppression excess
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Units whose play-type label changed between frozen CSV and graph drive the excess difference.
+- observed_result: Common neg obs 0.3997 null 0.3771 z 1.47; relabelled neg (G) 0.2868 null 0.3660 z -2.52; 48,194 of ~57,480 units identical.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: n 204-266 relabelled pairs
+- observed_method: Compare excess for common vs relabelled units in F and G vs null.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-013: 2026-10-08 (mtime)
+- observed_member_records: TMP-013
+- observed_sources: TMP-013: C:\Users\lisas\AppData\Local\Temp\supp_audit\tail_common.log
+- observed_sources: TMP-013: C:\Users\lisas\AppData\Local\Temp\supp_audit\tail_common.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-168 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

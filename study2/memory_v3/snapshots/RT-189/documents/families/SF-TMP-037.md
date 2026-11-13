@@ -1,0 +1,33 @@
+# FAM:SF-TMP-037 | Study family SF-TMP-037: SCOUT four preregistered case studies (Ayton, Embiid, Jones, Richardson)
+- observed_research_question: SCOUT four preregistered case studies (Ayton, Embiid, Jones, Richardson)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The two highest unused L_pre spells plus unused spells nearest the 50th and 25th percentiles of L_pre illustrate that SI improves mix/relationship forecasts when L_pre is high.
+- observed_result: Ayton: LL F0/F1/F2/F3 = 1.85945/1.839358/1.847143/1.847978, d_P1=-0.000834, dist_G0=0.355469 -> dist_G1=0.258568 (d_P2=+0.096901), d_src_inf=-0.46602. Embiid: F1 best mix (1.8622 vs F3 1.863676), d_P2=+0.168221. Jones: d_P2=-0.01273. Richardson: d_P2=-0.007254. Unexpected share 0.73/0.73/0.99/1.00. Embiid d_ppp=-0.089634; others near 0.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: High-L cases show G1 moving toward the realized fingerprint (d_P2 +0.097 and +0.168) but F1 mechanical removal beats F2/F3 on mix; the pooled P2 test (TMP-035) does not generalize this.
+- observed_sample_and_power: 4 cases; eval poss 2047/1669/3481/1622
+- observed_method: Rule fixed before outcomes: D. Ayton POR 2024-25 L_pre=0.13756 (highest unused), J. Embiid PHI 2023-24 L_pre=0.11837, H. Jones NOP 2024-25 L_pre=0.013711 (median), J. Richardson MIA 2023-24 L_pre=0.00706 (25th). Same P1/P2/S1 metrics as the pooled tests.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Ayton sits inside the 2024-25 inferrer drop (d_src_inf=-0.47). Fits the pooled reading that SI flags a bigger reshuffle more than it names the replacement structure.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2) / opponent scouting
+- observed_dates: TMP-037: 2026-11-02 (mtime)
+- observed_member_records: TMP-037
+- observed_sources: TMP-037: C:\Users\lisas\AppData\Local\Temp\supp_audit\scout_cases.log
+- observed_sources: TMP-037: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- observed_sources: TMP-037: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\cases.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF26 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-066 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:case_study {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

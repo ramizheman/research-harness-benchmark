@@ -1,0 +1,32 @@
+# FAM:SF-APPM-039 | Study family SF-APPM-039: Travel x fit screen and outcome holdout validation
+- observed_research_question: Travel x fit screen and outcome holdout validation
+- auto_outcome_status: supported
+- observed_hypothesis: Forecast portability (travel) and fit quadrants predict mover outcomes (embedded minutes, net rating).
+- observed_result: LOO corr 0.1998, AUC 0.5986; holdout additive embedded 89.59% vs irrelevant 48.11%; P(add emb > irr)=0.984; P(add net > irr)=0.99; corr(travel,net) 0.1881.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Additive > irrelevant in 98.4% of splits.
+- observed_sample_and_power: n=230
+- observed_method: 296 movers (230 with outcomes); LOO travel forecast; 500 random 50/50 calibration/holdout splits.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-039: 'utcomes); loo travel forecast; 500 random 50/50 calibration/holdout splits. loo corr 0.1998, auc 0.5986; holdout additive embed'
+- observed_notes: Modest AUC 0.60.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: APPM-039: 2026-07-18 (mtime)
+- observed_member_records: APPM-039
+- observed_sources: APPM-039: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PAPER_NUMBERS_SHEET.md
+- observed_sources: APPM-039: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\outcome_check.py
+- observed_sources: APPM-039: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\outcome_split_validation.py
+- observed_sources: APPM-039: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\travel_fit_screen.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-033 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:minutes_playing_time {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

@@ -1,0 +1,26 @@
+# FAM:SF-TMP-005 | Study family SF-TMP-005: Final checks: Design 5 placebo, defensive H2-adjustment trait reliability, start-of-half dip
+- observed_research_question: Final checks: Design 5 placebo, defensive H2-adjustment trait reliability, start-of-half dip
+- auto_outcome_status: no result recorded
+- observed_hypothesis: There is a reliable defensive second-half adjustment trait and the Design 5 gap depends on the slump event.
+- observed_result: NOT_RECORDED
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No log saved.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Split-half (odd/even game) reliability of team-season H2-H1 change; Design 5 on triggered vs non-triggered units; early-vs-rest possession dip.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: TMP-005: 'split-half (odd/even game) reliability of team-season h2-h1 change; de'
+- observed_notes: NOT_RECORDED
+- auto_confidence: low (0.15)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-005: 2026-10-06 (mtime)
+- observed_member_records: TMP-005
+- observed_sources: TMP-005: C:\Users\lisas\AppData\Local\Temp\supp_audit\final_checks.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-CHT-064 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

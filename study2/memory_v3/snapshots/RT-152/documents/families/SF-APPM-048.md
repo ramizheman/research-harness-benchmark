@@ -1,0 +1,35 @@
+# FAM:SF-APPM-048 | Study family SF-APPM-048: NYK vs PHI 2025-26 series retrospective: model vs observed
+- observed_research_question: NYK vs PHI 2025-26 series retrospective: model vs observed
+- auto_outcome_status: untestable
+- observed_hypothesis: Pre-game modeled PPP gap and favorite match the series outcome and observed PPP within 0.10.
+- observed_result: NYK modeled PPP 1.3240 vs observed 1.2487 (Delta -0.075, within 0.10 YES). PHI 1.2410 vs 1.0355 (Delta -0.205, within 0.10 NO). Predicted gap +0.0830 vs observed +0.2132 (same direction). NYK WP 84.0%; sweep 100%. Per-game NYK PPP 1.356 / 1.091 / 1.125 / 1.412. CUT share 6.0% + DRIVE 12.6% = 18.6% vs OTHER 28.4%.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=1 series; PHI PPP miss of 0.205; favorite-correct on a 84% favorite is a weak test.
+- observed_sample_and_power: n=4 games / 1 series
+- observed_method: One series, 4 games (0042500211-214), NYK swept 4-0. Compare pre-game model to series-aggregate and per-game PPP.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Separate from the four G1 retros. Model recommended CUT+DRIVE; observed mix was OTHER-heavy.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Strategy app
+- observed_dates: APPM-048: 2026-05-15 (mtime)
+- observed_member_records: APPM-048
+- observed_sources: APPM-048: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\NYK_vs_PHI_20260515_150445.md
+- observed_sources: APPM-048: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_NYK_vs_PHI_2526_series.md
+- observed_sources: APPM-048: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_retro_nyk_phi_2526.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-004 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPM-045 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPM-045 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-032 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

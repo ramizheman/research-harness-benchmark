@@ -1,0 +1,29 @@
+# FAM:SF-APPA-020 | Study family SF-APPA-020: Evaluation-alignment diagnostic and opponent-strength lambda sweep
+- observed_research_question: Evaluation-alignment diagnostic and opponent-strength lambda sweep
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Equilibrium and actual-mix predictors explain matchup PPP better than simple means; opponent-strength scaling helps.
+- observed_result: Equilibrium R2 -0.1981; actual-mix R2 -0.7167; team-offense mean R2 +0.1197; >=100-poss cells equil -0.2785. Lambda sweep: R2 worsens monotonically (lambda 1.0 -0.2862).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Both model predictors have negative R2 while team-mean is +0.1197; R2 more negative in larger cells.
+- observed_sample_and_power: 520 cells, 69,876 possessions
+- observed_method: 520 holdout matchup cells, 69,876 poss; R2 vs global/team means; lambda 0-1.5 post-hoc sweep.
+- observed_verdict: tool_eval_fail
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPA-020: '520 holdout matchup cells, 69,876 poss; r2 vs global/team means; lambda'
+- observed_notes: Opponent-strength adjustment, recommended as high-ROI, made it worse.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-020: 2026-04-17 (mtime)
+- observed_member_records: APPA-020
+- observed_sources: APPA-020: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_DIAGNOSIS.md
+- observed_sources: APPA-020: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\EVAL_DIAGNOSIS_SWEEP.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-021 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-026 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

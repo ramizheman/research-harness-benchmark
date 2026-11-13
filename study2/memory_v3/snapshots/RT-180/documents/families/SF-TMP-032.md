@@ -1,0 +1,39 @@
+# FAM:SF-TMP-032 | Study family SF-TMP-032: Paper 1 season-level L vs March-April 2025 labeling switch
+- observed_research_question: Paper 1 season-level L vs March-April 2025 labeling switch
+- auto_outcome_status: rejected
+- observed_hypothesis: The March-April 2025 play-type labeling switch changes season-level Structural Influence L and role classes beyond the effect of merely dropping post-March games (2023-24 placebo).
+- observed_result: Label shares 2024-25: Oct inferrer 0.827 / Apr inferrer 0.016 untagged 0.798; Mar inferrer 0.499. Definitive 500-null run: 2023-24 n=414, rho(this run, published)=0.755, rho(all games, before March 1)=0.667 (L>=0.03 n=61: 0.772), high-load>=0.10: 16 full / 15 trunc / 16 published. 2024-25 n=439, rho(this run, published)=0.719, rho(all, trunc)=0.690 (L>=0.03 n=72: 0.819), high-load: 19 / 22 / 21. First run (different estimator): 2023-24 Spearman(full,trunc)=0.465 median |diff|=0.0070, 19 high-load flips; 2024-25 0.531 / 0.0084 / 20 flips; role-class print crashed (TypeError).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: 2024-25 rho(all games, before March 1)=0.690 is not worse than the 2023-24 placebo 0.667; high-load counts stay within 19-22 vs published 21.
+- observed_sample_and_power: n=414 (2023-24) and 439 (2024-25) player-seasons; 500 nulls in the definitive run
+- observed_method: Label-source shares by month; then L from all regular-season games vs games before March 1 for 2023-24 (clean) and 2024-25 (switch). First run used case_common std_A; definitive run used published pull_edges / build_B_labeled_by_id / loo_loads with 500 nulls. Monte Carlo baseline: this-run all-games L vs published Lcos.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: TMP-032: 'games, before march 1)=0.690 is not worse than the 2023-24 placebo 0.667; high-load counts stay within 19-22 vs published 21.'
+- observed_notes: Use paper1_label_check_500 as the final version. First run crashed before printing role-class changes. paper1_label_summary.py has no log (uses time without import).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: TMP-032: 2026-11-02 (mtime)
+- observed_member_records: TMP-032
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check.log
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check.py
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check_500.log
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check_500.py
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check_500_rows.csv
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_check_rows.csv
+- observed_sources: TMP-032: C:\Users\lisas\AppData\Local\Temp\supp_audit\paper1_label_summary.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-TMP-007 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF26 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-192 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

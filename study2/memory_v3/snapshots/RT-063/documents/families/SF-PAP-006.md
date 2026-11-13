@@ -1,0 +1,29 @@
+# FAM:SF-PAP-006 | Study family SF-PAP-006: Orthogonality of residual structural influence vs value metrics
+- observed_research_question: Orthogonality of residual structural influence vs value metrics
+- auto_outcome_status: supported
+- observed_hypothesis: Residual structural influence is not a disguised value metric (no relation to net rating).
+- observed_result: rho(resid,net rating)=-0.018; rho(L,net rating)=+0.203; adj net rating organizers +1.22 vs shapers +0.50, p=0.10 (Mann-Whitney)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: rho(resid,net)=-0.018
+- observed_sample_and_power: n=1283
+- observed_method: Spearman correlations, 1283 player-seasons; organizer vs shaper team-adjusted net rating comparison.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: A null correlation is the desired outcome here (distinctness).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-006: 2026-08-09 (doc)
+- observed_member_records: PAP-006
+- observed_sources: PAP-006: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\fragility_orthogonality.py
+- observed_sources: PAP-006: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\fragility_orthogonality.csv
+- observed_sources: PAP-006: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF18 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-051 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

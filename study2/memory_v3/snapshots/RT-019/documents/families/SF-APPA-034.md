@@ -1,0 +1,24 @@
+# FAM:SF-APPA-034 | Study family SF-APPA-034: Opponent-relative leverage prevalence sweep
+- observed_research_question: Opponent-relative leverage prevalence sweep
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: How often does an opponent-specific exploitable defensive weakness exist?
+- observed_result: Exploit available 33.3%; trap 23.3%; both 6.7%; neither 50.0%; median best edge 3.79%.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: 870 pairs
+- observed_method: 870 ordered team pairs; defense PT edge vs league >= +5% on seed PTs.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Edges depend only on the defense (e.g. DAL PNR +9.2% for every offense), so they are not matchup-specific.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-034: 2026-04-20 (mtime)
+- observed_member_records: APPA-034
+- observed_sources: APPA-034: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LEVERAGE_PREVALENCE.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-048 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

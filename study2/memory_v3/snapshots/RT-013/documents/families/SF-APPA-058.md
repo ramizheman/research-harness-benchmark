@@ -1,0 +1,25 @@
+# FAM:SF-APPA-058 | Study family SF-APPA-058: Season stability of top suppressors and negative teammate pairs
+- observed_research_question: Season stability of top suppressors and negative teammate pairs
+- auto_outcome_status: rejected
+- observed_hypothesis: Each star's top sequential suppressor is stable across seasons, and some teammate X->Y sequences have large negative premiums.
+- observed_result: 2/30 (7%) stable (>=75% same top suppressor): D. Mitchell PUTBACK 75%, L. James POST_UP 75%. Negative: J. Tatum->K. Porzingis DRIVE->SPOT_UP -0.444 n=31; Giannis->Lillard DRIVE->PNR -0.263 n=31; J. Brown->J. Tatum SPOT_UP->DRIVE -0.186 n=37.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Only 2/30 stars meet the 75% same-top-suppressor stability rule.
+- observed_sample_and_power: 30 stars x 4 seasons; min n=20/cell
+- observed_method: 30 stars x 4 seasons; min n=20 per player-season-opp_play cell. Negative pairs: premium < -0.10, n>=30.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Positive counterpart Brown DRIVE -> Tatum PNR +0.326 n=43; sequence type matters more than pairing.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-058: 2026-05-31 (doc)
+- observed_member_records: APPA-058
+- observed_sources: APPA-058: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-050 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-056 {basis=TF-IDF question clustering}

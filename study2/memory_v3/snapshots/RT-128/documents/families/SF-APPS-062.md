@@ -1,0 +1,28 @@
+# FAM:SF-APPS-062 | Study family SF-APPS-062: Test 3: cumulative Q1-Q3 star load -> Q4 PPP
+- observed_research_question: Test 3: cumulative Q1-Q3 star load -> Q4 PPP
+- auto_outcome_status: rejected
+- observed_hypothesis: High Q1-Q3 initiator load lowers Q4 star PPP (mechanism for Test 2).
+- observed_result: Matched ATT=-0.0052, 95% CI[-0.0387,+0.0239], perm p=0.7706, placebo p=0.7760. Raw high-low -0.0146. high-load games=1854, low=2375.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: ATT~0, CI excludes large load effects; perm/placebo ~0.77. Test 2 Q4 decline is not explained by raw possession load.
+- observed_sample_and_power: 1854 high-load vs 2375 low-load games
+- observed_method: Unit=(star, game). Top vs bottom tercile Q1-Q3 load; match Q4 margin x opp def-rating quartile x season x home.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPS-062: 'atched att=-0.0052, 95% ci[-0.0387,+0.0239], perm p=0.7706, placebo p=0.7760. raw high-low -0.0146. high-load games=1854, low=2'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-062: 2026-06-14 (mtime)
+- observed_member_records: APPS-062
+- observed_sources: APPS-062: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\test_3_star_load.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-111 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

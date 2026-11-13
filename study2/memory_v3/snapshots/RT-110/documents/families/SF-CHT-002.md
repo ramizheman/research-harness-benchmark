@@ -1,0 +1,25 @@
+# FAM:SF-CHT-002 | Study family SF-CHT-002: Women's All-American adjustment cap at 0.12
+- observed_research_question: Women's All-American adjustment cap at 0.12
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Capping women's AA nudges at 0.12 (from 0.24-0.27 UConn-scale values) would turn AA from hurting Brier into helping by +0.001 to +0.002.
+- observed_result: Uncapped AA 0.17280 to 0.17293 (hurting, user-stated); capped AA 0.17280 to 0.17285 (almost neutral).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Capped AA is almost neutral (0.17280 to 0.17285), not the hoped +0.001 to +0.002 help.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Overwrite AA_ADJUSTMENTS_WOMEN with min(v, 0.12) and re-run women's OOF Brier table after isotonic.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: No results file on disk mentioned. Pre-cap hurting delta 0.17280 to 0.17293 is from the user prompt; post-cap numbers are from the assistant run.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: March Madness
+- observed_dates: CHT-002: 2026-03-16 (transcript)
+- observed_member_records: CHT-002
+- observed_sources: CHT-002: 9d9d1be5-b547-449a-b29b-63c29c66ae3f
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-126 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

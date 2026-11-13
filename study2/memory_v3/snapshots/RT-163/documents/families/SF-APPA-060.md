@@ -1,0 +1,28 @@
+# FAM:SF-APPA-060 | Study family SF-APPA-060: PT-shift layer diagnostic across four upset series
+- observed_research_question: PT-shift layer diagnostic across four upset series
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The play-type mix optimizer produces different feasible destination PTs by matchup (prescriptive) rather than one universal clipped destination (diagnostic).
+- observed_result: No feasible PT shift in any of 4 series. Distinct top-feasible destination PTs: 0 (none).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: 0/4 series surfaced a feasible PT shift; verdict 'Confirmed diagnostic, not prescriptive.' Continuous feasibility still collapses away from a matchup-specific opener.
+- observed_sample_and_power: 4 series
+- observed_method: Same 4 leakage-safe series; top feasible PT-shift destination, ceiling vs aspirational pp, muDelta.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable from the CUT-everywhere / personnel-feasibility failure (APPA-033).
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-060: 2026-04-21 (mtime)
+- observed_member_records: APPA-060
+- observed_sources: APPA-060: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HISTORICAL_UPSET_BACKTEST.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-029 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

@@ -1,0 +1,27 @@
+# FAM:SF-CHT-009 | Study family SF-CHT-009: Superstar suppression by lineup and forced play type
+- observed_research_question: Superstar suppression by lineup and forced play type
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Named star initiators have identifiable lineup and forced-play-type suppressors in the possession graph.
+- observed_result: Jokic vs MIN lineup PPP 0.814, -0.385 (n=59); Curry vs HOU 0.851, -0.358 (n=47); Doncic vs LAC 0.733, -0.396 (n=30); Giannis forced PULL_UP 0.848, -0.540 vs preferred DRIVE (largest gap).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No placebo or matching; later sequence work treated similar star-chain gaps as artifacts.
+- observed_sample_and_power: n>=30 for lineup cells cited
+- observed_method: Jokic/Curry/Doncic/Giannis; min-15 gate on 8 play types; opposing DEFENSE_LINEUP ~84% coverage; 272-row CSV.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: superstar_suppression_findings.md. Later chats treat player-to-player sequential premiums as artifacts.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-009: 2026-05-05 (transcript)
+- observed_member_records: CHT-009
+- observed_sources: CHT-009: 165b6a38-4a86-4f74-85f7-e41124c3ca48
+- observed_sources: CHT-009: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\superstar_suppression_findings.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-122 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

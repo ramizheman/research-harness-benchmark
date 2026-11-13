@@ -1,0 +1,36 @@
+# FAM:SF-APPM-014 | Study family SF-APPM-014: Play-type label accuracy / distribution audit
+- observed_research_question: Play-type label accuracy / distribution audit
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Inferred play-type labels match benchmark volumes, foul rates, PPP and known team identities.
+- observed_result: Audit overall FAIL: OTHER 20.2% vs <10% target; 40.8% low confidence; DRIVE foul-draw 1.7% vs 14-22% benchmark; most PTs PPP above benchmark band; MIA identity checks fail.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: 'play type labels have systematic issues that undermine adaptation findings'; foul possessions leak into OTHER.
+- observed_sample_and_power: n=1,073,607-1,078,047 possessions
+- observed_method: ~1.07M possessions; compare volume, foul-draw, PPP to benchmark bands; team identity and known-game checks.
+- observed_verdict: tool_eval_fail
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Undermines OTHER-based findings elsewhere.
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-014: 2026-05-24 (mtime)
+- observed_member_records: APPM-014
+- observed_sources: APPM-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PT_ACCURACY_DIAGNOSTIC.md
+- observed_sources: APPM-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PT_DISTRIBUTION_AUDIT.md
+- observed_sources: APPM-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_pt_accuracy_diagnostic.py
+- observed_sources: APPM-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_run_pt_audit.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-021 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}

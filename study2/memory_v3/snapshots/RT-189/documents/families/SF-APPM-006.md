@@ -1,0 +1,28 @@
+# FAM:SF-APPM-006 | Study family SF-APPM-006: Starter-share features in calibrator
+- observed_research_question: Starter-share features in calibrator
+- auto_outcome_status: supported
+- observed_hypothesis: Offensive/defensive starter-share features improve holdout R2.
+- observed_result: 8-feat R2_hol +0.1150 vs 6-feat +0.0835 (lift +0.0315).
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Lift +0.0315 > +0.01 ship threshold.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Add 2 OLS features (top-5 by train possessions) to shipped 6-feat calibrator; val 690 / holdout cells.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-006: 'train possessions) to shipped 6-feat calibrator; val 690 / holdout cells. 8-feat r2_hol +0.1150 vs 6-feat +0.0835 (lift +0.031'
+- observed_notes: Ship threshold stated in doc.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-006: 2026-04-17 (mtime)
+- observed_member_records: APPM-006
+- observed_sources: APPM-006: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\STARTER_SHARE.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-002 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-036 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

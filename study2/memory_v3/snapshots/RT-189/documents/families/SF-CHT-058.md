@@ -1,0 +1,25 @@
+# FAM:SF-CHT-058 | Study family SF-CHT-058: When-to-acquire connector battery (brittleness / scarcity / multiplier)
+- observed_research_question: When-to-acquire connector battery (brittleness / scarcity / multiplier)
+- auto_outcome_status: rejected
+- observed_hypothesis: Team brittleness or connector scarcity predicts benefit from acquiring a connector, or destination brittleness predicts role reproduction.
+- observed_result: A. When to acquire: all null (e.g. brit_top1 rho=-0.06 p=0.60; scarce-roster rho=+0.17 p=0.11). B. Dest brittleness vs Delta: all null. Adding brittleness to cut does not help.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: brit_top1 rho=-0.06 p=0.60; all listed acquisition-timing correlates null.
+- observed_sample_and_power: 120 team-seasons
+- observed_method: 120 team-season panel from LOO loads; four questions including brit_top1 vs outcomes.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: when_to_acquire_battery.csv.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: CHT-058: 2026-07-19 (transcript)
+- observed_member_records: CHT-058
+- observed_sources: CHT-058: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\paper2_output\when_to_acquire_battery.csv
+- observed_sources: CHT-058: b12a5e7d-6340-4afd-9aae-e0e979f11269
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-150 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

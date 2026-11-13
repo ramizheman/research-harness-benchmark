@@ -1,0 +1,26 @@
+# FAM:SF-CHT-025 | Study family SF-CHT-025: Play-type labeling audit: OTHER/DRIVE foul leakage
+- observed_research_question: Play-type labeling audit: OTHER/DRIVE foul leakage
+- auto_outcome_status: artifact
+- observed_hypothesis: Play-type PPP differences are real efficiency, not labeling/foul artifacts.
+- observed_result: OTHER: 36% end in fouls, PPP inflated (FOUL_BUCKET). DRIVE: 12pp below foul benchmark (FOUL_LEAK). PNR shows 22% foul rate. Only 335 of 50,668 possessions (0.7%) map to a real play type via initiation_type.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: OTHER PPP inflated by 36% foul endings; DRIVE 12pp below foul benchmark; initiation_type maps 0.7%.
+- observed_sample_and_power: 50,668 possessions in the initiation_type check
+- observed_method: Per-PT diagnostic of foul-ending share vs PPP; initiation_type mapping.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results discussed in chat; a findings/diagnostic markdown is implied but path not fully quoted.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-025: 2026-05-24 (transcript)
+- observed_member_records: CHT-025
+- observed_sources: CHT-025: d2a94a1e-b21a-4a3a-b2cf-3eb526e3f49a
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-135 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

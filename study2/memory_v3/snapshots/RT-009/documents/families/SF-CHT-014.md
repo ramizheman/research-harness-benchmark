@@ -1,0 +1,28 @@
+# FAM:SF-CHT-014 | Study family SF-CHT-014: Historical playoff backtest DropPullUp-PASS series winners
+- observed_research_question: Historical playoff backtest DropPullUp-PASS series winners
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Pregame series-winner probabilities on DropPullUp-PASS historical series match actual winners.
+- observed_result: OKC vs NOP predicted OKC ~94.5%, actual OKC 4-0 (correct); DEN vs LAL predicted DEN (chat table). Leakage filter example: 2022-23 63 games for the OKC/NOP run.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Chat summary table is incomplete beyond OKC-NOP; family of series runs, not a single powered test.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Phase 1-3 playoff pipeline with season_cap_yy leakage filter; four DropPullUp PASS series fully backtested.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: data/series_analysis/* and correction_log.json.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-014: 2026-04-30 (transcript)
+- observed_member_records: CHT-014
+- observed_sources: CHT-014: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\data\correction_log.json
+- observed_sources: CHT-014: ad618e77-498d-4180-ae3b-95d50fb27de7
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_addresses_question: RQC:RQC-003 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

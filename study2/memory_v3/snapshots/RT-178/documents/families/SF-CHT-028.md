@@ -1,0 +1,24 @@
+# FAM:SF-CHT-028 | Study family SF-CHT-028: Pattern-module audit: action_sequences stability
+- observed_research_question: Pattern-module audit: action_sequences stability
+- auto_outcome_status: untestable
+- observed_hypothesis: action_sequences is a stable, non-redundant tactical signal vs possession_flow.
+- observed_result: action_sequences CV=0.612, stability CV=0.919 (unstable); MERGE into possession_flow. Locked 9-pattern set with clutch_performance r(win)=+0.38.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Stability CV=0.919 and tautological keys (stdev=0); average sample per key 6.9.
+- observed_sample_and_power: 23 games / 46 team-observations
+- observed_method: Audit JSON across 23 games / 46 team-observations / ~4,700 possessions.
+- observed_verdict: failed_gate
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Audit JSON on disk mentioned in chat; action_sequences +0.245 PPP gap called an aggregation artifact vs possession_flow +0.169.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-028: 2026-05-19 (transcript)
+- observed_member_records: CHT-028
+- observed_sources: CHT-028: 45ff6a12-bb14-483f-bedb-c54e46693840
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-077 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

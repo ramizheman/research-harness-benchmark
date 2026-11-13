@@ -1,0 +1,26 @@
+# FAM:SF-APPA-022 | Study family SF-APPA-022: Blended prior-season shrinkage evaluator and k sweep
+- observed_research_question: Blended prior-season shrinkage evaluator and k sweep
+- auto_outcome_status: supported
+- observed_hypothesis: Blending prior seasons helps early season without hurting late season.
+- observed_result: Late: blended k=30 worse on 5/5 metrics (R2 -0.1065 vs -0.0866). Early: blended better 5/5 (R2 -0.2624 vs -0.4508; win-side 55.8% vs 52.5%). k sweep recommends k~5.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Early-season blend improves all 5 metrics, but all R2 remain negative.
+- observed_sample_and_power: 155 test games
+- observed_method: Fixed test 155 late-2024-25 games; current-only vs pooled vs blended (k=5,10,20,30); early-season simulation with 150 games.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Supported only as relative improvement; absolute accuracy stays below a mean predictor.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-022: 2026-04-16 (mtime)
+- observed_member_records: APPA-022
+- observed_sources: APPA-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\BLENDED_REPORT.md
+- observed_sources: APPA-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\K_SWEEP.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-016 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-060 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}

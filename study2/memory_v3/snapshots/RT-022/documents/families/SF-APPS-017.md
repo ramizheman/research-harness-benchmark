@@ -1,0 +1,32 @@
+# FAM:SF-APPS-017 | Study family SF-APPS-017: Execution conformance of observed mix vs recommended plan
+- observed_research_question: Execution conformance of observed mix vs recommended plan
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Teams' observed play-type mix in a game matches the model's recommended opener.
+- observed_result: Avg |delta| on leverage buckets 4.5pp to 24.0pp; 4 of 8 sides best matched opener #3, not rank-1.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: CUT and PNR muted for tagger floor; single-game horizon; no outcome comparison.
+- observed_sample_and_power: ~100 possessions per game
+- observed_method: Single 2025-26 playoff G1s, 4 games x 2 offenses; leverage-weighted gap between observed and recommended mix.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-017: 2026-04-20 (mtime)
+- observed_member_records: APPS-017
+- observed_sources: APPS-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_ORL_vs_DET_0042500101.md
+- observed_sources: APPS-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_PHI_vs_BOS_0042500111.md
+- observed_sources: APPS-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_PHX_vs_OKC_0042500141.md
+- observed_sources: APPS-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\CONFORMANCE_POR_vs_SAS_0042500151.md
+- observed_sources: APPS-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\execution_conformance_ORL_DET_0042500101.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-032 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

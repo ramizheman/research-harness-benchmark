@@ -1,0 +1,27 @@
+# FAM:SF-APPA-021 | Study family SF-APPA-021: Alpha blend of actual-usage and equilibrium predictions
+- observed_research_question: Alpha blend of actual-usage and equilibrium predictions
+- auto_outcome_status: rejected
+- observed_hypothesis: Blending equilibrium with actual-usage prediction beats either alone.
+- observed_result: Best alpha = 1.00 (pure actual usage): R2 hol +0.0451 raw, +0.0672 calibrated; fullEQ R2 -0.1981.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Best alpha ~1.0, meaning 'equilibrium is NOT predictive' per pre-written cheat sheet.
+- observed_sample_and_power: 520 holdout cells
+- observed_method: val 690 cells (84,319 poss), holdout 520 cells (69,876 poss); alpha sweep raw and OLS-calibrated.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPA-021: 'val 690 cells (84,319 poss), holdout 520 cells (69,876 poss); alpha sweep raw and ols-calibrated'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-021: 2026-04-17 (mtime)
+- observed_member_records: APPA-021
+- observed_sources: APPA-021: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ALPHA_BLEND.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-005 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-015 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}

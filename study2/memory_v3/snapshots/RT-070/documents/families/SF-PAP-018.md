@@ -1,0 +1,27 @@
+# FAM:SF-PAP-018 | Study family SF-PAP-018: Portability differences by role class
+- observed_research_question: Portability differences by role class
+- auto_outcome_status: untestable
+- observed_hypothesis: Portability differs across the four structural classes.
+- observed_result: median Delta Organizer +0.134 (n=30), Shaper +0.124 (n=24), Terminal +0.083 (n=117), Role +0.018 (n=123); KW H=3.85 p=0.28
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: only 24 shaper / 30 organizer movers
+- observed_sample_and_power: n=24 shapers
+- observed_method: 294 movers split by class; Kruskal-Wallis.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Small class counts were known from mover sample before testing.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-018: 2026-08-09 (doc)
+- observed_member_records: PAP-018
+- observed_sources: PAP-018: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\class_portability_locked.csv
+- observed_sources: PAP-018: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-029 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-153 {basis=TF-IDF question clustering}

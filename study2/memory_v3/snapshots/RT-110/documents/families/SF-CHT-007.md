@@ -1,0 +1,29 @@
+# FAM:SF-CHT-007 | Study family SF-CHT-007: Matchup kernel vs historical baseline on holdout possessions (EVAL_REPORT_v3)
+- observed_research_question: Matchup kernel vs historical baseline on holdout possessions (EVAL_REPORT_v3)
+- auto_outcome_status: rejected
+- observed_hypothesis: Matchup-specific kernel recommendations outperform using each team's own historical numbers.
+- observed_result: Value added /100: B +37.4, A +35.9, A2 +29.1. A2 underperformed baseline in 96/240 matchups, outperformed in 47/240 (20%). CALIBRATION_REPORT_V6 R^2 = 0.032.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: BASELINE WINS; A2 beats baseline in only 47/240 matchups (20%).
+- observed_sample_and_power: 23,922 holdout possessions; 240 matchups
+- observed_method: 23,922 holdout possessions; Model B historical baseline vs A static matchup kernel vs A2 kernel+curves; 240 matchups.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: CHT-007: '23,922 holdout possessions; model b historical baseline vs a static matchu'
+- observed_notes: Results file on disk mentioned: EVAL_REPORT_v3, CALIBRATION_REPORT_V6, ADVERSARIAL_REPORT_V7.md. Chat explicitly says do not email the reversed claim. Same 240 matchups / 23,922 possessions appear in d5bfd0a0 as A3 +2.06 pts/100 vs actual.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-007: 2026-05-05 (transcript)
+- observed_member_records: CHT-007
+- observed_sources: CHT-007: 165b6a38-4a86-4f74-85f7-e41124c3ca48
+- observed_sources: CHT-007: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\EVAL_REPORT_v3
+- observed_sources: CHT-007: d5bfd0a0-00c4-4320-b6d5-ef332fdc9971
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_addresses_question: RQC:RQC-018 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

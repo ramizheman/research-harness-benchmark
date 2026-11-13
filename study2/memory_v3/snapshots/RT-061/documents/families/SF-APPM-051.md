@@ -1,0 +1,35 @@
+# FAM:SF-APPM-051 | Study family SF-APPM-051: Risk-aware feasible openers vs legacy mu-top CUT
+- observed_research_question: Risk-aware feasible openers vs legacy mu-top CUT
+- auto_outcome_status: artifact
+- observed_hypothesis: Scoring candidates by P(overperform) over 95 possessions and dropping INFEASIBLE personnel pushes changes the rank-1 opener away from CUT for playoff G1s.
+- observed_result: ORL underdog: CUT-push INFE P=36.7% -> OREB_PUSH +3.0pp P=35.0% (DeltaP -1.7pp); baseline P(overperform) 29.9%, best feasible +5.1pp to 35.0%. DET favorite: TOV_AVOID stays, P=76.8%. PHI: PUTBACK INFE 28.9% -> OREB_PUSH 28.5%. BOS: CUT INFE 80.3% -> OREB_PUSH 79.9%. OKC: CUT INFE 60.5% -> OREB_PUSH 60.1%. PHX/POR/SAS four_factor already FEAS, DeltaP +0.0pp. ORL 18/26 candidates INFEASIBLE; DET 18/38 INFEASIBLE.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Legacy rank-1 is INFEASIBLE CUT/PUTBACK for 4/8 sides; feasible four-factor openers replace them with only -0.3 to -1.7pp modeled P.
+- observed_sample_and_power: n=8 team-sides; not outcome-tested
+- observed_method: 4 games / 8 team-sides; pool pt_shift, matchup_hunt, four_factor, tempo; compare legacy E[Delta PPP] opener vs best feasible risk-aware opener.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Demonstration of a product change, not a backtest against game outcomes. Complements the CUT-capacity table (ORL stretch 6.0% vs target 19.1%, gap +13.1pp).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-051: 2026-04-20 (mtime)
+- observed_member_records: APPM-051
+- observed_sources: APPM-051: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PERSONNEL_FEASIBILITY_PLAYOFF_TEAMS.md
+- observed_sources: APPM-051: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RISK_AWARE_OPENERS.md
+- observed_sources: APPM-051: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\STRATEGY_V2_RESULTS.md
+- observed_sources: APPM-051: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_risk_rerank_playoff.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-023 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-028 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

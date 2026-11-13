@@ -1,0 +1,32 @@
+# FAM:SF-APPM-046 | Study family SF-APPM-046: Matchup app reports TEAM_vs_TEAM (M-Z)
+- observed_research_question: Matchup app reports TEAM_vs_TEAM (M-Z)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: (App output) pregame matchup reports.
+- observed_result: MIN vs DEN sample: modeled MIN 1.286 vs season-avg 1.131 (Delta +0.155); DEN 1.288 vs 1.185 (Delta +0.103); DEN projected to neutralize 0.2829 PPP of MIN 0.0191 PPP gain. Spearman 0.54 on 454 holdout games restated; no game-outcome evaluation in the report.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Generated coaching reports; no hypothesis tested against realized outcomes.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: 62 generated reports (MEM 1, MIN 7, NYK 4, OKC 1, ORL 19, PHI 8, PHX 7, POR 7, SAS 1, TOR 7). Sample opened: MIN vs DEN has modeled PPP and scheme-stress numbers but no post-game outcome check.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPM-046: 'ize 0.2829 ppp of min 0.0191 ppp gain. spearman 0.54 on 454 holdout games restated; no game-outcome evaluation in the report. u'
+- observed_notes: Updated copy of APPM-041 after opening a sample. Confirmed app output (excluded as an evaluation unless it checks a prediction). PREGAME_* files are the same class.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-046: 2026-04-19 (mtime)
+- observed_member_records: APPM-046
+- observed_sources: APPM-046: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MEM_vs_POR_20260514_233535.md
+- observed_sources: APPM-046: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIN_vs_DEN_20260422_215604.md
+- observed_sources: APPM-046: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\ORL_vs_DET_20260425_131827.md
+- observed_sources: APPM-046: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PHI_vs_BOS_20260422_212310.md
+- observed_sources: APPM-046: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\TOR_vs_CLE_20260422_220105.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-032 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

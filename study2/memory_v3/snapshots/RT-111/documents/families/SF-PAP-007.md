@@ -1,0 +1,30 @@
+# FAM:SF-PAP-007 | Study family SF-PAP-007: Shaper on-floor play-mix shift
+- observed_research_question: Shaper on-floor play-mix shift
+- auto_outcome_status: supported
+- observed_hypothesis: Teams run more cuts/PNR and fewer spot-ups/drives when a shaper is on the floor.
+- observed_result: Shaper: CUT +1.353pp (sd 1.434), PNR +0.98pp, SPOT_UP -1.248pp, DRIVE -0.542pp; Organizer POST_UP +2.331pp
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: consistent within-team shifts
+- observed_sample_and_power: 73 team-seasons
+- observed_method: Within-team-season on/off possession play-type shares, 73 team-seasons (organizers 58), ON_COURT-5 cache.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Associational; on/off minutes confounded with bench units and garbage time per paper.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-007: 2026-08-09 (doc)
+- observed_member_records: PAP-007
+- observed_sources: PAP-007: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\role_composition_playmix.csv
+- observed_sources: PAP-007: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- observed_sources: PAP-007: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\role_composition_playmix.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-005 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-146 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

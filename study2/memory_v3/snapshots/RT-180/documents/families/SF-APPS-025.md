@@ -1,0 +1,28 @@
+# FAM:SF-APPS-025 | Study family SF-APPS-025: Adapt vs continue matched-pair overall-offense excess (post-hoc)
+- observed_research_question: Adapt vs continue matched-pair overall-offense excess (post-hoc)
+- auto_outcome_status: untestable
+- observed_hypothesis: Teams that abandon a suppressed play type (h2_n<=1) show a smaller matched-pair overall six-PT H1->H2 excess decline than teams that continue (h2_n>=5).
+- observed_result: Caliper 0.10: A excess +0.076 [+0.068,+0.084] n=3421 p=0; B excess +0.014 [-0.019,+0.046] n=255 p=0.386. Gap B-A = -0.062. Caliper sweep B CIs include 0 except 0.15.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Group B caliper-0.10 CI includes 0 (p=0.386, n=255 clusters=242); Group B is a reconstructed post-hoc cohort, not a validated successful-adaptation sample.
+- observed_sample_and_power: B n=255 pairs / 242 games at primary caliper
+- observed_method: Exploratory, not pre-registered. Group A continue n=11064; Group B adapt n=810 (adapt rate 6.8%). Same-game opponent control, 0.10 H1-PPP caliper, game-cluster-robust SE.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPS-025: 'me-game opponent control, 0.10 h1-ppp caliper, game-cluster-robust se. caliper 0.10: a excess +0.076 [+0.068,+0.084] n=3421 p='
+- observed_notes: Not a causal test of pivoting; outcome is six-PT aggregate PPP because suppressed-PT H2 PPP is undefined for abandoners.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-025: 2026-07-26 (mtime)
+- observed_member_records: APPS-025
+- observed_sources: APPS-025: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\adapt_vs_continue_matched_results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF14 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-043 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

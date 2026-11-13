@@ -1,0 +1,31 @@
+# FAM:SF-APPA-064 | Study family SF-APPA-064: G5 blog replay: LP opener vs realized mix SAS-OKC
+- observed_research_question: G5 blog replay: LP opener vs realized mix SAS-OKC
+- auto_outcome_status: untestable
+- observed_hypothesis: The LP-equilibrium opener (CUT) and AVOID (PNR) match realized efficiency in WCF Game 5 SAS @ OKC (0042500315).
+- observed_result: Final SAS 114-OKC 127. SAS CUT 9 poss 1.67 vs H2H 1.59 CORRECT; SAS PNR 22 poss 0.95 vs 0.94 MIXED (LP AVOID). OKC CUT 1 poss 2.00 vs 1.69 CORRECT but 1% mix vs plan. OKC PNR 19 poss 1.26 vs 1.11 (AVOID but above H2H). Live: both teams ~65-71% PULL_UP, CUT 1-5%.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: One game; CUT opener was high-PPP on tiny volume (SAS n=9, OKC n=1) while both teams ran PULL_UP as the modal PT.
+- observed_sample_and_power: 1 game; SAS 87 / OKC 82 callable poss
+- observed_method: One game scored post hoc against historical H2H baselines (replay uses PlayTypeInferrer + PNR proxy). Live blog is the in-game feed of the same game.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Live blog has no post-game accuracy table; the scored assessment is only in G5_BLOG_REPLAY.md.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-064: 2026-05-26 (mtime)
+- observed_member_records: APPA-064
+- observed_sources: APPA-064: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\G5_BLOG_REPLAY.md
+- observed_sources: APPA-064: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LIVE_BLOG_SAS_OKC_G5.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-063 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-076 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

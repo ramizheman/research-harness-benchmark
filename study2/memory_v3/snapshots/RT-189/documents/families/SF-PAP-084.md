@@ -1,0 +1,35 @@
+# FAM:SF-PAP-084 | Study family SF-PAP-084: Substitution-response repeatability is a team clock, not opponent-specific
+- observed_research_question: Substitution-response repeatability is a team clock, not opponent-specific
+- auto_outcome_status: artifact
+- observed_hypothesis: Timing or personnel response repeats across season halves or across meetings with the same opponent.
+- observed_result: team-season timing r=0.59 CI[0.43,0.71] n=90; pair-specific r=-0.01 [-0.05,+0.03] n=2,553; personnel slope halves r=0.00; post hoc within clock mean effect +0.8 pp then +0.4 with stint, half-to-half r=0.27-0.32
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: only team-level timing repeats; pair r=-0.01; post hoc: average effect vanishes inside each team's clock
+- observed_sample_and_power: n=90 team-seasons; 2,553 pairs; MDE r=0.055/0.29
+- observed_method: 90 team-seasons; 2,553 pairs; post hoc within team x period-minute.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: GO required opponent-specific repeatability. Post hoc labeled as such. Overall substitution-response recommendation NO-GO.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-084: 2026-11-02 (doc)
+- observed_member_records: PAP-084
+- observed_sources: PAP-084: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\results.md
+- observed_sources: PAP-084: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\results\03_posthoc_team_clock.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-001 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPS-058 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-PAP-081 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-TMP-007 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-069 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

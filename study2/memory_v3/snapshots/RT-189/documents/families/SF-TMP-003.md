@@ -1,0 +1,31 @@
+# FAM:SF-TMP-003 | Study family SF-TMP-003: Designs 3d/4/5: adaptive continuation null, OOS prediction of H2 deterioration, counter-ranking
+- observed_research_question: Designs 3d/4/5: adaptive continuation null, OOS prediction of H2 deterioration, counter-ranking
+- auto_outcome_status: no result recorded
+- observed_hypothesis: Pre-H2 information predicts H2 deterioration out of sample, and a pre-event ranking of alternative play types beats continuing after a slump.
+- observed_result: NOT_RECORDED
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No log files saved for these scripts.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Simulated adaptive-continuation null; leave-last-season-out weighted regression with permutation null (B=200), feature-group ablation; Design 5 BEST-alternative vs continue with random-label null (B=1000).
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: TMP-003: 'uation null; leave-last-season-out weighted regression with permutation null (b=200), feature-group ablation; design 5 best-alterna'
+- observed_notes: Results only printed to console; check any supplementary write-up.
+- auto_confidence: low (0.15)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-003: 2026-10-06 (mtime)
+- observed_member_records: TMP-003
+- observed_sources: TMP-003: C:\Users\lisas\AppData\Local\Temp\supp_audit\design4_diag.py
+- observed_sources: TMP-003: C:\Users\lisas\AppData\Local\Temp\supp_audit\design4b.py
+- observed_sources: TMP-003: C:\Users\lisas\AppData\Local\Temp\supp_audit\designs345.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-CHT-062 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-058 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

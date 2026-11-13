@@ -1,0 +1,27 @@
+# FAM:SF-PAP-089 | Study family SF-PAP-089: Historical seed-line calibration blend (alpha sweep)
+- observed_research_question: Historical seed-line calibration blend (alpha sweep)
+- auto_outcome_status: supported
+- observed_hypothesis: Blending model probability with historical seed-matchup win rates (1985-2025) reduces Brier, especially at extremes.
+- observed_result: alpha=0.5: raw 0.18063->0.17604 (-0.00459), with inj+AA 0.17962->0.17545; blue-blood +0.02 -> 0.17536; 1v16/2v15 strong_alpha 0.6 -> 0.17535; chalk 0.4 / tossup 0.7 -> 0.17508
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: seed blend dropped Brier by ~0.0046, the largest single gain in the log
+- observed_sample_and_power: alpha sweep 0.1-0.9
+- observed_method: final_prob = alpha*model + (1-alpha)*P_hist; alpha 0.1-0.9; later chalk/tossup split and 1v16/2v15 strong pull.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Exps 21, 23, 27, 29 kept. Differential alpha beat flat 0.5.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-089: 2026-03-14 (doc)
+- observed_member_records: PAP-089
+- observed_sources: PAP-089: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-087 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-040 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

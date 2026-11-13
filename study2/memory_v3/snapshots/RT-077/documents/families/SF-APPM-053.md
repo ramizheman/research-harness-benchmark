@@ -1,0 +1,28 @@
+# FAM:SF-APPM-053 | Study family SF-APPM-053: Defensive scheme extractor: SWITCH feed empty, ICE_CANDIDATE unvalidated
+- observed_research_question: Defensive scheme extractor: SWITCH feed empty, ICE_CANDIDATE unvalidated
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: boxscorematchupsv3 switchesOn and per-possession ICE_CANDIDATE labels can drive defensive-scheme conformance.
+- observed_result: On 0042500101, 0042500111, 0022400200, 0022400500: 759 matchup rows, zero non-zero switchesOn. R1G1 ICE_CANDIDATE counts: DET 5/5 DROP/ICE, OKC 6/4, PHX 5/2, SAS 8/6; BOS and PHI zero ICE_CANDIDATE. Confidence floor ICE 0.45 vs DROP 0.70. Manual validation (DROP agreement >=70%, ICE precision ~50%) not run.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: NBA v3 feed does not populate switchesOn (759 rows, all zero); ICE_CANDIDATE not confirmed ICE without screen-contact tracking; HEDGE/TRAP/ZONE unlabeled.
+- observed_sample_and_power: n=759 matchup rows / 4 games
+- observed_method: v1.1 defensive_scheme_labeler: DROP on middle-channel pullups; ICE_CANDIDATE on sideline-channel same signature. SWITCH from defender-swap vs modal and MatchupEdge.total_switches. Direct v3 pull on 4 games.
+- observed_verdict: tool_eval_fail
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPM-053: 'e_candidate. confidence floor ice 0.45 vs drop 0.70. manual validation (drop agreement >=70%, ice precision ~50%) not run. knowabl'
+- observed_notes: Knowable: endpoint schema includes the field but values are unused. Doc says do not re-probe this endpoint.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-053: 2026-04-24 (doc)
+- observed_member_records: APPM-053
+- observed_sources: APPM-053: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PIPELINE_BACKLOG.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-076 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

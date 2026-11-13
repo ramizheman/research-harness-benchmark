@@ -1,0 +1,27 @@
+# FAM:SF-TMP-039 | Study family SF-TMP-039: Lock of When a Hub Sits paper tables (absence_paper_tables)
+- observed_research_question: Lock of When a Hub Sits paper tables (absence_paper_tables)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Recompute and lock all tables and statistics for When a Hub Sits from full_edges.parquet.
+- observed_result: built 90 team-season tensors from full_edges.parquet in 16.7s
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Log is 128 bytes and stops after tensor construction; no table numbers were written.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: 90 team-season tensors from 2022-24 full_edges plus twoway presence; intended franchise-clustered absence statistics. Log ends after tensor build.
+- observed_verdict: abandoned
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Intended as a lock of Paper 2 numbers; completed results live in TMP-025/TMP-027 instead.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: TMP-039: 2026-11-01 (mtime)
+- observed_member_records: TMP-039
+- observed_sources: TMP-039: C:\Users\lisas\AppData\Local\Temp\supp_audit\absence_paper_tables.log
+- observed_sources: TMP-039: C:\Users\lisas\AppData\Local\Temp\supp_audit\absence_paper_tables.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF21 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-179 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}

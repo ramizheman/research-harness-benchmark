@@ -1,0 +1,27 @@
+# FAM:SF-APPS-086 | Study family SF-APPS-086: Connector ecosystem quality: L(p) and |dA| do not predict Q_p
+- observed_research_question: Connector ecosystem quality: L(p) and |dA| do not predict Q_p
+- auto_outcome_status: rejected
+- observed_hypothesis: Scalar structural load L(p) or an |dA|-weighted ecosystem lift predicts teammate-path quality Q_p.
+- observed_result: L(p) vs Q_p r~0. Uniform mean tm_dPPP vs Q_p r=+0.812; |dA|-weighted eco r=+0.703; eco residualized on uniform vs Q_p r=+0.084 p=0.399 NULL. Cosine to mean positive footprint vs Q_p r=-0.336 p=0.000559 (wrong sign). Pair-level dA contrasts do not survive FDR.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Proposed structural metrics add nothing beyond a uniform average of teammate lifts (eco residual r=+0.084 p=0.399). Load is not quality.
+- observed_sample_and_power: n=102
+- observed_method: N=102 connectors (pos=53, neg=49). Talent+opp+period+score residualized S_p and Q_p.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Together with portability: signature may travel but connector *value* looks relational/context-specific.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-086: 2026-07-26 (mtime)
+- observed_member_records: APPS-086
+- observed_sources: APPS-086: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_ecosystem_quality_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-085 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-045 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

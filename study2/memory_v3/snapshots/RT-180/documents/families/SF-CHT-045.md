@@ -1,0 +1,30 @@
+# FAM:SF-CHT-045 | Study family SF-CHT-045: Ex-ante post-suppression mix vs winning (+11.5pp leakage)
+- observed_research_question: Ex-ante post-suppression mix vs winning (+11.5pp leakage)
+- auto_outcome_status: artifact
+- observed_hypothesis: Adhering to a suppression-conditional recommended mix predicts winning.
+- observed_result: Leaky within-team win gap +11.5% (team-FE p=0.039). Ex-ante -2.7%, coef +0.25 p=0.47; Spearman(cost, H2 PPP) -0.33 to -0.04. Head-to-head ex-ante p=0.32 vs general mix p=0.008. Capped general eq-mix +8.8pp win still cited as standing.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Entire +11.5pp was this-game H2 PPP leakage; ex-ante null -2.7% p=0.47.
+- observed_sample_and_power: 327 team-games; 54 series LOSO
+- observed_method: 327 team-games; leaky target uses this-game H2 PPP; ex-ante uses LOSO historical degradation from other 54 series.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: CHT-045: 'eam-games; leaky target uses this-game h2 ppp; ex-ante uses loso historical degradation from other 54 series. leaky within-t'
+- observed_notes: Results file on disk mentioned: FINAL_NUMBERS_SHEET.md Section W and _audit_eq_postsupp_exante.py.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: CHT-045: 2026-06-16 (transcript)
+- observed_member_records: CHT-045
+- observed_sources: CHT-045: 1b9f0f61-d051-4b7b-8eef-8d1253cf67e2
+- observed_sources: CHT-045: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-149 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

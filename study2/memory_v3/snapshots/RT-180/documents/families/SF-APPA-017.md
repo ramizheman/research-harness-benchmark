@@ -1,0 +1,26 @@
+# FAM:SF-APPA-017 | Study family SF-APPA-017: A5 player-routing and A5b defensive attention penalty
+- observed_research_question: A5 player-routing and A5b defensive attention penalty
+- auto_outcome_status: rejected
+- observed_hypothesis: Routing possessions to each play type's best player adds value over A3, and survives defensive attention adaptation.
+- observed_result: V4 A5 vs A3 +0.77; V5 +0.94 (A5b vs A5 +0.01); V6 (520 matchups) A5 vs A3 +0.03, A5b vs A5 -0.00.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Shrinks from +0.94 to +0.03 pts/100 on the larger 520-matchup sample.
+- observed_sample_and_power: 520 matchups
+- observed_method: Calibration framework V4-V6; A5 vs A3 and A5b vs A5 signal in pts/100.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Model-scored, not observed outcomes.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-017: 2026-04-15 (mtime)
+- observed_member_records: APPA-017
+- observed_sources: APPA-017: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CALIBRATION_REPORT_V6.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-024 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

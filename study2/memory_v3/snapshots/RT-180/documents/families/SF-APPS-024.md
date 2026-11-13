@@ -1,0 +1,29 @@
+# FAM:SF-APPS-024 | Study family SF-APPS-024: DRIVE-as-BEST counter vs constrained mix
+- observed_research_question: DRIVE-as-BEST counter vs constrained mix
+- auto_outcome_status: untestable
+- observed_hypothesis: When BEST=DRIVE (counter_h2_n>=5), observed DRIVE H2 PPP beats a feasibility-constrained baseline.
+- observed_result: A mean=1.178 vs B_game 1.236 (gap=-0.058, p=0.6069) vs B_fixed 1.244 (gap=-0.066, p=0.2175) vs coach default C 1.134 (gap=+0.043, p=0.3052). MDE at 80% power ~0.180 PPP (SD~0.34).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Observed gap -0.066 is below MDE 0.180; n=44 cannot distinguish a true null from an effect up to 0.18 PPP.
+- observed_sample_and_power: n=44; MDE 0.180 PPP at 80% power (SD~0.34); 0.265 if SD~0.5
+- observed_method: 44 qualifying triggers, 39 games, 13 teams. Mix weights CUT 15%/SPOT_UP 35%/DRIVE 30%/OTHER 20%. One-sided MW A>B and A>C.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: A is left-skewed (median 1.279 > B_fixed) so MW p=0.2175 for A>B is consistent with a negative mean gap.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-024: 2026-05-30 (mtime)
+- observed_member_records: APPS-024
+- observed_sources: APPS-024: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\drive_counter_test.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-023 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-009 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

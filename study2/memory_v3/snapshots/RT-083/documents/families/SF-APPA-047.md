@@ -1,0 +1,24 @@
+# FAM:SF-APPA-047 | Study family SF-APPA-047: Live H2 trigger timing: remaining possessions window
+- observed_research_question: Live H2 trigger timing: remaining possessions window
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Suppression can be detected live in H2 with enough possessions remaining to act.
+- observed_result: Mean 21 poss remaining.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Sheet records only the mean (~21); no distribution, hit rate, or comparison to a false-alarm rate in this file.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Live H2 trigger simulation _run_live_trigger_validation.py; cited only as mean remaining possessions in the paper-mapping table.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPA-047: 'live h2 trigger simulation _run_live_trigger_validation.py; cited only as mean remaining possessions in the paper-m'
+- observed_notes: Primary artifact live_trigger_report.md is outside this slice.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-047: 2026-05-25 (doc)
+- observed_member_records: APPA-047
+- observed_sources: APPA-047: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-018 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

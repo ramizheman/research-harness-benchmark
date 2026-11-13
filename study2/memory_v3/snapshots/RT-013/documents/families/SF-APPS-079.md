@@ -1,0 +1,28 @@
+# FAM:SF-APPS-079 | Study family SF-APPS-079: State-attribution AUC decomposition of lag-1 memory
+- observed_research_question: State-attribution AUC decomposition of lag-1 memory
+- auto_outcome_status: rejected
+- observed_hypothesis: Lag-1 predictive signal is process/state (pace, play type, transition) rather than outcome persistence.
+- observed_result: Total attributable +0.0614 AUC. outcome_persistence marginal +0.0527 (39% share) unique +0.0069; momentum +0.0494 unique 0; transition_state unique +0.0117 (53% of unique); playtype_state unique +0.0003; lineup_state unique -0.0049.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Dominant block is outcome persistence/momentum, not play-type or lineup state. Unique signal is mostly transition_state.
+- observed_sample_and_power: 2025-26 test set; original N0->N1 jump +0.0242 for reference
+- observed_method: Minimal-state base AUC=0.5205 vs full 0.5819 on 2025-26 opponent next-possession outcome. Block ablation.
+- observed_verdict: reversed
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Collinear blocks: momentum large alone, unique 0.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-079: 2026-06-15 (mtime)
+- observed_member_records: APPS-079
+- observed_sources: APPS-079: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\state_attribution.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-059 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-032 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

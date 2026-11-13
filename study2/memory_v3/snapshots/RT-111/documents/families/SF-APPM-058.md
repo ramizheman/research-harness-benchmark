@@ -1,0 +1,28 @@
+# FAM:SF-APPM-058 | Study family SF-APPM-058: PNR shot-level season rates vs possession labels
+- observed_research_question: PNR shot-level season rates vs possession labels
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: PBP-derived shot-level PNR rates sit in a realistic band (script notes possession-level rates will be higher) and vary by team as expected.
+- observed_result: 2024-25 shot-level PNR share of half-court shots ranges from OKC 7.567% (498/6581) and BOS 7.854% to IND 13.824% (856/6192) and NYK 11.959%. ATL 11.361%, DEN 11.404%, PHX 10.232% (bh 7.050 / roll 3.181).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No pass/fail gate in the output; rates are a calibration input for PBPProxyPNR (later logs show calibrated PNR ~17.9-19.6% of possessions).
+- observed_sample_and_power: 30 teams, half_court_shots ~5994-6581
+- observed_method: PNR classifier on cached 2024-25 RS shots; team-level pnr_total_pct = (pnr_bh+pnr_roll)/half_court_shots.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Script date 2026-04-29; csv mtime 2026-05-25. These are SHOT-level rates; do not compare directly to possession mix shares.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-058: 2026-04-29 (mtime)
+- observed_member_records: APPM-058
+- observed_sources: APPM-058: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_pnr_season_test.py
+- observed_sources: APPM-058: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\pnr_season_results.csv
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-014 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-103 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

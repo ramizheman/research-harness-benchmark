@@ -1,0 +1,30 @@
+# FAM:SF-APPA-062 | Study family SF-APPA-062: L5 baseline comparison: V0/V2/V4/V5 team-aggregate regret
+- observed_research_question: L5 baseline comparison: V0/V2/V4/V5 team-aggregate regret
+- auto_outcome_status: untestable
+- observed_hypothesis: Scheme fingerprint (V2), optimizer (V4), and agents (V5) beat a scheme-neutral team PPP baseline on |projected-observed| regret.
+- observed_result: Mean regret: V0_NEUTRAL 0.1072, V0_TEAM 0.1053, V2_TEAM 0.1003, V4 0.1148, V5 0.0979. V2 vs V0_NEUTRAL mean_diff -0.0069 p=0.190. V4 vs V0_NEUTRAL +0.0075 p=0.563 (V4 worse). V5 vs V4 n_diff=15 beat_rate 0.275 / cond 0.733 mean_diff -0.0169 p=0.0309. V5 vs V0_NEUTRAL -0.0093 p=0.2589.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=40; V2 and full stack vs neutral p>0.05; V4 trends worse than neutral. Only V5 vs V4 on 15 differing pairs is p=0.031.
+- observed_sample_and_power: n=40 pairs
+- observed_method: Same 40 (slug, side) pairs from l5_ablation_results.parquet; observed_ppp is series-level weighted-mean PPP, not per-recommendation.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Conflicts with APPA-061 'AGENTS DEGRADE' headline: here V5 median/mean regret is lower than V4. Target is team-aggregate PPP, not the recommended play type.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-062: 2026-05-07 (mtime)
+- observed_member_records: APPA-062
+- observed_sources: APPA-062: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\L5_BASELINE_COMPARISON.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-029 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

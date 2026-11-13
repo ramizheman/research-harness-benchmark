@@ -1,0 +1,29 @@
+# FAM:SF-APPA-008 | Study family SF-APPA-008: Audit of overnight LLM adaptation-analysis batch ('9/10 adaptation predicts winning')
+- observed_research_question: Audit of overnight LLM adaptation-analysis batch ('9/10 adaptation predicts winning')
+- auto_outcome_status: artifact
+- observed_hypothesis: The agent batch's findings (defensive adjustments, point costs, adaptation predicts series winners 9/10) are valid.
+- observed_result: 706 findings with n<5; list_h2h_games called 0 times; series winners LLM-inferred; MIA-BOS G7 score invented (BOS 100 vs graph 84); what_came_next skips a possession; point costs are LLM arithmetic.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Series winners never looked up (0/2073 calls); master '9/10' rule built from LLM inference on inference; low-n claims (e.g. 0.0 PPP on n=3).
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Methodology audit of 104 game reports, 10 series, 2073 tool calls; code and graph verification.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Half-level PPP splits verified as real; causal and winning claims not validated.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Team Adaptation
+- observed_dates: APPA-008: 2026-05-24 (mtime)
+- observed_member_records: APPA-008
+- observed_sources: APPA-008: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_AUDIT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-009 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-042 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

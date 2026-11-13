@@ -1,0 +1,27 @@
+# FAM:SF-APPM-011 | Study family SF-APPM-011: Net-swing play-type scoring prototype
+- observed_research_question: Net-swing play-type scoring prototype
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Scoring PTs by own PPP minus opponent next-possession PPP changes recommendations.
+- observed_result: Top recommendation changes in 40/104 = 38% units; DRIVE median net swing -0.27 (negative 88%), POST_UP -0.22 (77%).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Not evaluated against outcomes; uses in-series observed opp_next_PPP.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: 52 playoff series / 104 team-offense units; compare rank orderings own-PPP vs net-swing.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-011: 2026-05-23 (mtime)
+- observed_member_records: APPM-011
+- observed_sources: APPM-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\NET_SWING_SCORING_PROTOTYPE.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-049 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-008 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

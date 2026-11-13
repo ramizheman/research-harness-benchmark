@@ -1,0 +1,26 @@
+# FAM:SF-PAP-061 | Study family SF-PAP-061: Opponent scouting P2: SI leave-one-out does not forecast relationship structure
+- observed_research_question: Opponent scouting P2: SI leave-one-out does not forecast relationship structure
+- auto_outcome_status: rejected
+- observed_hypothesis: G1 (leave-one-out) is closer to the evaluation fingerprint than G0 (no change).
+- observed_result: mean dist G0=0.145, G1=0.141, noise floor=0.085; dist(G0)-dist(G1)=+0.0032 CI[-0.0050,+0.0106] p=0.44 Holm 0.87; G1 beats G0 in 49% of spells
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: G1 beats G0 in 49%; CI includes 0
+- observed_sample_and_power: n=148
+- observed_method: Same 148 evaluation sets; dist(G0)-dist(G1); Holm family.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Ayton/Embiid cases show G1 help that does not generalize.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-061: 2026-11-02 (doc)
+- observed_member_records: PAP-061
+- observed_sources: PAP-061: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF26 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-020 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-TMP-006 | Study family SF-TMP-006: PULL_UP true-change variance: real or estimator artifact
+- observed_research_question: PULL_UP true-change variance: real or estimator artifact
+- auto_outcome_status: rejected
+- observed_hypothesis: PULL_UP's large H1->H2 true-change variance is real rather than produced by heterogeneous noise.
+- observed_result: PULL_UP intercept +0.0366 (tauSD 0.191) vs perm mean +0.0110 [-0.0757,+0.1107]; all play types inside permutation interval.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Observed intercept within 95% permutation interval for every play type.
+- observed_sample_and_power: PULL_UP 4,193 units
+- observed_method: Per-play-type regression of squared H1-H2 difference on 1/n1+1/n2; 100 within-unit half-label permutations; strata by 3-pt share.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: TMP-006: 'd h1-h2 difference on 1/n1+1/n2; 100 within-unit half-label permutations; strata by 3-pt share. pull_up intercept +0.0366 (tausd 0.'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-006: 2026-10-06 (mtime)
+- observed_member_records: TMP-006
+- observed_sources: TMP-006: C:\Users\lisas\AppData\Local\Temp\supp_audit\part9.log
+- observed_sources: TMP-006: C:\Users\lisas\AppData\Local\Temp\supp_audit\part9_pullup.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-185 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

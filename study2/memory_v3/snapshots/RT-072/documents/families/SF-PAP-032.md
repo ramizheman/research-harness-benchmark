@@ -1,0 +1,30 @@
+# FAM:SF-PAP-032 | Study family SF-PAP-032: Travel x fit screen vs real player outcomes (minutes, usage, net rating)
+- observed_research_question: Travel x fit screen vs real player outcomes (minutes, usage, net rating)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The travel x fit quadrant (additive vs redundant/missed-need/irrelevant) predicts post-move minutes, usage, and destination on-court net rating.
+- observed_result: n=198; embedded mpg>=15: additive 0.80, redundant 0.85, missed-need 0.50, irrelevant 0.68; mean dest net: additive -0.63, redundant -0.35, missed-need -2.50, irrelevant -3.58; corr(delta, dest_net)=+0.077; corr(travel_score, dest_net)=+0.155; corr(fit_score, dest_net)=-0.056
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: net-rating gap additive vs irrelevant is large but corr(delta, dest_net)=+0.077; fit_score correlations are negative; in-sample thresholds
+- observed_sample_and_power: n=198 movers
+- observed_method: 198 movers with box-score outcomes from nba_api stats joined to travel_fit_screen.csv; exploratory in-sample quadrants.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: PAP-032: ', not graph-circular. same-sample quadrants; pap-033 is the holdout upgrade. n=198 movers net-rating gap additive vs irrelevant'
+- observed_notes: External box-score check, not graph-circular. Same-sample quadrants; PAP-033 is the holdout upgrade.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-032: 2026-07-18 (mtime)
+- observed_member_records: PAP-032
+- observed_sources: PAP-032: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\outcome_check.py
+- observed_sources: PAP-032: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper2_output\outcome_check.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:OUTCOME_DERIVED_LABEL {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-039 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:minutes_playing_time {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

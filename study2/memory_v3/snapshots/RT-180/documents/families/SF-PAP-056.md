@@ -1,0 +1,32 @@
+# FAM:SF-PAP-056 | Study family SF-PAP-056: Pre-absence absorber rules vs realized initiation gainer
+- observed_research_question: Pre-absence absorber rules vs realized initiation gainer
+- auto_outcome_status: rejected
+- observed_hypothesis: The teammate with the closest pre-absence initiation profile (or most minutes / initiations / same-position minutes) is the largest gainer in the absent player's primary types.
+- observed_result: profile match 19% (chance 14%); most minutes 3%; most initiations 5%; same position+minutes 7%; 0/6 high-load cases; 2/11 cases (both low-disruption); minutes-gainer during spell matches initiation gainer 66%
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: 19% vs 14% chance; 0/6 hubs; only the during-spell minutes rule works (66%) and is not pre-absence
+- observed_sample_and_power: n=148; ~7.6 candidates/spell; 6 high-load
+- observed_method: Eligible candidates: last-5-games roster with >=100 pre initiations; chance ~1/7.6; 148 spells plus 11 cases.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Best predictor is minutes change during the absence, observed after it starts.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-056: 2026-11-01 (doc)
+- observed_member_records: PAP-056
+- observed_sources: PAP-056: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\CASE_STUDY_REPORT.md
+- observed_sources: PAP-056: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\review_checks.py
+- observed_sources: PAP-056: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\review_checks2.py
+- observed_sources: PAP-056: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-066 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:minutes_playing_time {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

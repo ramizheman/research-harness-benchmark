@@ -1,0 +1,23 @@
+# FAM:SF-CHT-063 | Study family SF-CHT-063: Design 5 BEST-vs-continue gap not slump-dependent
+- observed_research_question: Design 5 BEST-vs-continue gap not slump-dependent
+- auto_outcome_status: artifact
+- observed_hypothesis: The BEST-vs-continue gap after a slump is evidence of costly failure to abandon a suppressed play (depends on the slump event).
+- observed_result: After event BEST 1.403 vs continue 1.154, gap +0.248 (SE 0.009). No-slump events +0.239 vs +0.248. League-wide ranking no game info +0.238. BEST is CUT 61% of the time. Residuals ~0 for continue, BEST +0.002, others -0.003.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Gap is the same without a slump (+0.239) and with a fixed CUT-heavy ranking (+0.238).
+- observed_sample_and_power: SE 0.009 on +0.248
+- observed_method: BEST vs continue after event; same gap on non-slump events; fixed league-wide ranking with no game information.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Read-only checks in the Oct 6 audit chat. CUT dominance of BEST was knowable from league PPP ranking.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: CHT-063: 2026-10-06 (transcript)
+- observed_member_records: CHT-063
+- observed_sources: CHT-063: 26d2d8fd-a667-4ff9-b395-95ddd607e6ea
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:BASE_RATE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-140 {basis=TF-IDF question clustering}

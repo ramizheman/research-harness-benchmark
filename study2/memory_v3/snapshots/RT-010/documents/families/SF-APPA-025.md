@@ -1,0 +1,31 @@
+# FAM:SF-APPA-025 | Study family SF-APPA-025: Agent sequential adaptation test (costly-hit / matchup-hit)
+- observed_research_question: Agent sequential adaptation test (costly-hit / matchup-hit)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: An LLM agent given possession sequences identifies costly PTs and the series-specific top net-swing PT.
+- observed_result: Parse 6/6; costly-hit 100%; matchup-hit 100%; CUT emphasized 6/6.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=6; agent emphasized CUT in 6/6, consistent with generic advice.
+- observed_sample_and_power: n=6
+- observed_method: 6 series-team units; agent output scored on costly-hit and matchup-hit.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Costly PTs are the same league-wide (77-88% of units), so the costly-hit benchmark is easy.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Team Adaptation
+- observed_dates: APPA-025: 2026-05-23 (mtime)
+- observed_member_records: APPA-025
+- observed_sources: APPA-025: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\AGENT_SEQ_ADAPTATION_findings.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-026 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-004 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

@@ -1,0 +1,31 @@
+# FAM:SF-PAP-065 | Study family SF-PAP-065: Opponent scouting S4: defensive attention tracks new usage, not L_pre
+- observed_research_question: Opponent scouting S4: defensive attention tracks new usage, not L_pre
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Defenses anticipate high-L absences in matchup time beyond the new usage pattern.
+- observed_result: mean within-team rho=+0.92 [+0.91,+0.93]; early vs later attention rho=+0.54 [+0.49,+0.58]; L_pre moderation -0.169 p=0.044 (alignment) and -0.059 p=0.45 (convergence)
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: attention almost perfectly tracks usage (rho 0.92); L_pre moderation weak; not evidence of exploitation
+- observed_sample_and_power: n=148
+- observed_method: Within-team rho of change in initiation share vs attention share; games 1-5 vs 6+; moderation by L_pre.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Exploratory; Spearman(alignment, DeltaPPP)=-0.17.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-065: 2026-11-02 (doc)
+- observed_member_records: PAP-065
+- observed_sources: PAP-065: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-058 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-021 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

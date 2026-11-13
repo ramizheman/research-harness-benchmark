@@ -1,0 +1,28 @@
+# FAM:SF-PAP-015 | Study family SF-PAP-015: Common-universe sensitivity check for L vs D_A
+- observed_research_question: Common-universe sensitivity check for L vs D_A
+- auto_outcome_status: supported
+- observed_hypothesis: The L-D_A correlation holds when both are computed on the same initiation-edge universe.
+- observed_result: ON_COURT5 r_adj=0.582 (CI 0.484-0.665); INITIATED r_adj=0.509 (CI 0.407-0.608), shaper r 0.685; verdict MEANINGFULLY_WEAKER
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: r drops 0.58->0.51 but remains large
+- observed_sample_and_power: n=908
+- observed_method: 908 player-seasons; ON_COURT-5 vs full INITIATED edges with gap mass allocated.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Paper reports 0.60 headline; sensitivity 0.51 in limitations.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-015: 2026-08-09 (mtime)
+- observed_member_records: PAP-015
+- observed_sources: PAP-015: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\DATA_SOURCE_AUDIT.md
+- observed_sources: PAP-015: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\dA_L_common_universe_check.py
+- observed_sources: PAP-015: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\dA_L_common_universe_check.csv
+- observed_sources: PAP-015: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-014 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-146 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

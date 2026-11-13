@@ -1,0 +1,28 @@
+# FAM:SF-PAP-091 | Study family SF-PAP-091: NCAA architecture failures (SWA, Platt, beta, MLP, 2nd isotonic in-sample, RF, XGB sweep)
+- observed_research_question: NCAA architecture failures (SWA, Platt, beta, MLP, 2nd isotonic in-sample, RF, XGB sweep)
+- auto_outcome_status: artifact
+- observed_hypothesis: Further ensemble/calibration complexity improves Brier beyond 0.17454.
+- observed_result: SWA 0.18082 vs 0.18063; per-fold Platt 0.18671 vs 0.17978; beta 0.18361 vs 0.17932; MLP chain 0.16937 flagged overfit (~705 params on 1449 OOF); in-sample 2nd isotonic 0.17301 flagged overfit; RF 0.17453 vs 0.17454; XGB sweep best 0.17463 vs 0.17454
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: MLP and 2nd-stage isotonic improvements were in-sample overfits; other changes worse or noise
+- observed_sample_and_power: 1449 OOF samples
+- observed_method: Exps 30-31, 33, 37-41; stop after 5 consecutive failures.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: PAP-091: '0.17453 vs 0.17454; xgb sweep best 0.17463 vs 0.17454 later loso 2nd-stage isotonic was kept (~0.17240 vs ~0.17421) after th'
+- observed_notes: Later LOSO 2nd-stage isotonic was kept (~0.17240 vs ~0.17421) after the in-sample version was reverted.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: March Madness
+- observed_dates: PAP-091: 2026-03-14 (doc)
+- observed_member_records: PAP-091
+- observed_sources: PAP-091: C:\Users\lisas\OneDrive\Documents\March Madness\ablation_results.txt
+- observed_sources: PAP-091: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-090 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-159 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

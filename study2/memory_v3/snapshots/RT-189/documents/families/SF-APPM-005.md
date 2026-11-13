@@ -1,0 +1,31 @@
+# FAM:SF-APPM-005 | Study family SF-APPM-005: Matchup-model shrinkage K sweep
+- observed_research_question: Matchup-model shrinkage K sweep
+- auto_outcome_status: rejected
+- observed_hypothesis: Lowering SHRINKAGE_K in MatchupPPPModel recovers signal lost to over-shrinkage.
+- observed_result: Hypothesis REJECTED: k=5 R2 alone +0.018, k=50 +0.045, k=200 +0.058; best OLS R2 +0.0744 at k=500 (lift +0.0072 vs k=50). Actual-usage path R2 +0.045 vs equilibrium path +0.004.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Lower k gives wider spread but lower R2 (k=5 +0.018 vs k=200 +0.058).
+- observed_sample_and_power: holdout 520 cells
+- observed_method: Sweep k=5..5000 on 690 val / 520 holdout cells using actual usage mix; R2 raw and OLS-calibrated on holdout.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPM-005: 'sweep k=5..5000 on 690 val / 520 holdout cells using actual usage mix; r2 raw and ols-calibrated on'
+- observed_notes: Byproduct finding: downstream equilibrium optimizer eats the matchup signal (10x).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-005: 2026-04-17 (mtime)
+- observed_member_records: APPM-005
+- observed_sources: APPM-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_PREDICTIVE.md
+- observed_sources: APPM-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_PREDICTIVE_HIGH.md
+- observed_sources: APPM-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SHRINKAGE_SWEEP.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-021 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-025 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

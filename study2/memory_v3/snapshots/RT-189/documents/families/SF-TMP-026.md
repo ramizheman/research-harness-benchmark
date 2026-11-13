@@ -1,0 +1,37 @@
+# FAM:SF-TMP-026 | Study family SF-TMP-026: Defensive reorganizer 28-cell signature (odd/even cosine and trade portability)
+- observed_research_question: Defensive reorganizer 28-cell signature (odd/even cosine and trade portability)
+- auto_outcome_status: artifact
+- observed_hypothesis: A defender on the floor reliably rewires the opposing offense (DA_def above a random-split null; odd/even 28-cell signature cosine and trade portability exceed decoys).
+- observed_result: Gate/test3: mean DA_def 0.0712 vs null 0.0874 (paired t=-11.20), i.e. below null; size-adjusted split-half rho=-0.083 (p=0.00729); unbalanced 28-cell cosine mean=+0.4556 (t=+42.17); trade portability n=175 cosine +0.2401; Spearman(DA_def_r, dPPP_allowed)=-0.050 (p=0.1). structural_diag: self cosine +0.4491 vs random-other-team +0.1280, excess +0.3211; mover self-sim +0.2432 vs decoy +0.1193, excess +0.1239, 62.3%>0, binom p=0.001. def_sig_check: BALANCED odd-even self-cosine mean=+0.0371 vs unbalanced +0.4516; share_on-matched different-team cosine unbalanced +0.4583, balanced +0.0298; balanced mover portability mean=+0.0340.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Observed DA_def is below the random-split null (0.0712 vs 0.0874). The +0.45 odd/even cosine collapses to +0.0371 when n_on and n_off are balanced, and a share_on-matched different-team defender matches the unbalanced cosine (+0.4583).
+- observed_sample_and_power: N=1067/1043 defenders; movers n=175
+- observed_method: Eligible defenders n_on>=1000, n_off>=800; N=1067 then 1043; 2022-24. DA_def vs matched-size random-split null; odd/even split-half; year-to-year same-team vs traded; PPP-allowed payoff. Follow-up: self-cosine vs random other-team and same-team decoys; then balanced (n_on==n_off==m) signatures.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: TMP-026: '2022-24. da_def vs matched-size random-split null; odd/even split-half; year-to-year same-team vs traded; ppp-allowed payoff. foll'
+- observed_notes: Initial runs treated the 28-cell cosine as a positive signal; the balanced-size check is the final version. Unequal on vs off samples were in the eligibility rule (n_on>=1000, n_off>=800).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: TMP-026: 2026-11-01 (mtime)
+- observed_member_records: TMP-026
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\def_sig_check.log
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\def_sig_check.py
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_adapt_gate.log
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_adapt_gate.py
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_diag.log
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_diag.py
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\test3_def_reorg.log
+- observed_sources: TMP-026: C:\Users\lisas\AppData\Local\Temp\supp_audit\test3_def_reorg.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-TMP-024 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-191 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}

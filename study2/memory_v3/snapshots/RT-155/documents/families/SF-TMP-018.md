@@ -1,0 +1,36 @@
+# FAM:SF-TMP-018 | Study family SF-TMP-018: Game-plan adaptation to opponent's prior defensive weakness
+- observed_research_question: Game-plan adaptation to opponent's prior defensive weakness
+- auto_outcome_status: rejected
+- observed_hypothesis: Offenses tilt play-type mix toward play types tonight's opponent defended poorly in prior games, the tilt pays, and teams differ reliably.
+- observed_result: Tilt -2.353 pp per PPP (SE 1.212, t=-1.94); payoff +0.83 (SE 0.82); heterogeneity split-half r=+0.242, SB +0.389, p=0.020; CUT/POST/SPOT tilt -8.271 (SE 2.240).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Tilt has wrong sign (t=-1.94) and SD of weakness only 0.017 PPP.
+- observed_sample_and_power: SD of weakness 0.017 PPP
+- observed_method: 8,608 team-games, 51,648 rows, 120 team-seasons; season-to-date shrunk priors; random-opponent placebo; payoff regression; split-half heterogeneity.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: TMP-018: 'team-seasons; season-to-date shrunk priors; random-opponent placebo; payoff regression; split-half heterogeneity. tilt -2.353 p'
+- observed_notes: Low reliability of defensive PPP-allowed (signal_gate) made weakness signal small.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-018: 2026-11-01 (mtime)
+- observed_member_records: TMP-018
+- observed_sources: TMP-018: C:\Users\lisas\AppData\Local\Temp\supp_audit\gameplan.log
+- observed_sources: TMP-018: C:\Users\lisas\AppData\Local\Temp\supp_audit\gameplan.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:implementation_bug {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:IMPLEMENTATION_BUG {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-175 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

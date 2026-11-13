@@ -1,0 +1,31 @@
+# FAM:SF-PAP-044 | Study family SF-PAP-044: BEST-tier counter share vs 2025-26 win percentage
+- observed_research_question: BEST-tier counter share vs 2025-26 win percentage
+- auto_outcome_status: rejected
+- observed_hypothesis: Teams that follow BEST-tier counters more often win more.
+- observed_result: Pearson r=+0.25 across 30 teams
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: r=+0.25; paper: counter-selection quality explains little cross-sectional winning
+- observed_sample_and_power: n=30 teams
+- observed_method: 30 teams on 2025-26 RS holdout; Pearson r of BEST-tier share vs official win%.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-044: '30 teams on 2025-26 rs holdout; pearson r of best-tier share vs official win%. pearson r=+'
+- observed_notes: Descriptive companion to the ladder; NYK 68.8% no-counter / 41% wins vs IND 18.6% BEST follow / 71.4% wins.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: PAP-044: 2026-10-01 (doc)
+- observed_member_records: PAP-044
+- observed_sources: PAP-044: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Defensive Suppression\suppression_paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF03 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF08 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

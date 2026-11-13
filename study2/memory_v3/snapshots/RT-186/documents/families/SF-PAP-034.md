@@ -1,0 +1,24 @@
+# FAM:SF-PAP-034 | Study family SF-PAP-034: Position breakdown and Gobert sanity check on structural load
+- observed_research_question: Position breakdown and Gobert sanity check on structural load
+- auto_outcome_status: no result recorded
+- observed_hypothesis: Structural load is not an artifact of position or low initiation volume (Gobert vs other C/F-C; init<400 vs >=400).
+- observed_result: NOT_RECORDED
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: no result CSV/log of the printed tables was found
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Exploratory merge of fragility_full_loads with player_positions and initiation totals from paper2_full_edges.parquet.
+- observed_verdict: abandoned
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Archive paper discusses Gobert as a low-usage hub but does not report this script's group means.
+- auto_confidence: low (0.15)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-034: 2026-07-12 (mtime)
+- observed_member_records: PAP-034
+- observed_sources: PAP-034: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\fragility_position_check.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-135 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

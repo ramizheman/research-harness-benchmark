@@ -1,0 +1,33 @@
+# FAM:SF-PAP-058 | Study family SF-PAP-058: Structural disruption vs points per possession
+- observed_research_question: Structural disruption vs points per possession
+- auto_outcome_status: rejected
+- observed_hypothesis: How much the offense reorganizes (relative to L) predicts the change in points per possession.
+- observed_result: paper: essentially no relationship on 986; S3 PPP rho=-0.040 CI[-0.212,+0.166] p=0.62; TO +0.033 p=0.70; FT rate +0.161 p=0.061; robustness 915 player-seasons partial rho(L, DeltaPPP|opp)=-0.087; MDE rho~0.23
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: S3 rho=-0.040; MDE~0.23; 986-pool stated null
+- observed_sample_and_power: n=986; S3 n=148, MDE rho~0.23
+- observed_method: 986 player-seasons (paper); scouting S3: 148 spells, partial Spearman of L_pre with Delta PPP controlling conventional features, opponent, home, rest.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-058: '2,+0.166] p=0.62; to +0.033 p=0.70; ft rate +0.161 p=0.061; robustness 915 player-seasons partial rho(l, deltappp|opp)=-0.087;'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-058: 2026-11-01 (doc)
+- observed_member_records: PAP-058
+- observed_sources: PAP-058: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- observed_sources: PAP-058: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-024 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF21 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-068 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

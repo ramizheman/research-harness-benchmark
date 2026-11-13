@@ -1,0 +1,30 @@
+# FAM:SF-APPS-012 | Study family SF-APPS-012: Defensive PPP allowed and possession share, RS vs playoffs
+- observed_research_question: Defensive PPP allowed and possession share, RS vs playoffs
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Playoff defenses suppress DRIVE more than RS defenses (both lower PPP allowed and lower share).
+- observed_result: DRIVE allowed 1.191 -> 0.923 (-0.268), share 21.2% -> 18.2%; PNR -0.139, share +12.1pp; PULL_UP +0.341, share -7.6pp.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No inferential test; PNR share jump of +12.1pp may reflect tagging differences.
+- observed_sample_and_power: 25 teams
+- observed_method: 25 defensive teams, min 30 poss per cell; RS vs playoff PPP allowed and opponent possession share by PT.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: The PNR share jump (5.4% to 17.6%) is suspicious given the documented PNR tagger floor; flagged, not verified.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-012: 2026-05-08 (mtime)
+- observed_member_records: APPS-012
+- observed_sources: APPS-012: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_def_style_rs_vs_playoff.md
+- observed_sources: APPS-012: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\def_style_rs_playoff_run.log
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-105 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

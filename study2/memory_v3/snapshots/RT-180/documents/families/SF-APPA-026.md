@@ -1,0 +1,29 @@
+# FAM:SF-APPA-026 | Study family SF-APPA-026: Agent Test A: LLM vs engine series-level PT recommendations
+- observed_research_question: Agent Test A: LLM vs engine series-level PT recommendations
+- auto_outcome_status: untestable
+- observed_hypothesis: A generalist LLM (gemini-2.5-flash) on raw aggregates agrees with the engine and beats the team modal PT.
+- observed_result: Pairs with both agent and engine recs: 0; agent scoreable n=0; engine hit 2/3 (66.7%).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: 0 agent recommendations produced; n=3.
+- observed_sample_and_power: n=3
+- observed_method: 3 (team, series) pairs scored.
+- observed_verdict: abandoned
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-026: 2026-05-23 (mtime)
+- observed_member_records: APPA-026
+- observed_sources: APPA-026: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\AGENT_TEST_A_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-027 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-027 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

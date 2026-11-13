@@ -1,0 +1,31 @@
+# FAM:SF-PAP-068 | Study family SF-PAP-068: Opponent three-point luck has no persistent player component
+- observed_research_question: Opponent three-point luck has no persistent player component
+- auto_outcome_status: supported
+- observed_hypothesis: Opponent three-point luck is noise: split-half reliability ~0 and H1 does not predict H2.
+- observed_result: odd/even reliability: opp 3s 0.004; opp 2s 0.463; XNET 0.585; own luck 0.477; teammate luck 0.427; PM 0.549; H1 opp3 -> H2 opp3 per 100: +0.008 (SE 0.009); H1 opp2 -> H2: +0.009 (SE 0.009)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: reliability 0.004; H1->H2 +0.008 SE 0.009
+- observed_sample_and_power: 1,405 player-seasons; N=84,641 player-games
+- observed_method: 1,405 player-seasons with >=1,000 poss in each odd/even half; within-game regression on 84,641 player-games with >=10 H2 poss.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Twos have season-level reliability 0.463 but still fail the within-game persistence check.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Halftime Minutes
+- observed_dates: PAP-068: 2026-10-21 (doc)
+- observed_member_records: PAP-068
+- observed_sources: PAP-068: C:\Users\lisas\OneDrive\Documents\Basketball\Halftime Minutes\halftime_minutes.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF36 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-017 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

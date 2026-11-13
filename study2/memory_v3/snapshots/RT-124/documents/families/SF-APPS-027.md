@@ -1,0 +1,30 @@
+# FAM:SF-APPS-027 | Study family SF-APPS-027: Adaptation quality vs talent as predictor of series wins
+- observed_research_question: Adaptation quality vs talent as predictor of series wins
+- auto_outcome_status: untestable
+- observed_hypothesis: pct_ran_BEST - pct_ran_AVOID predicts series wins after controlling for RS net-rating talent.
+- observed_result: corr(talent, adapt)=+0.124. Per-series logistic: talent_diff_z +0.737 p=0.0213; adapt_diff_z +0.328 p=0.2755. Team-in-series cluster: talent p=0.0095, adapt p=0.2449. Univariate adapt beta=+0.311 p=0.1128. LPM: talent +0.160 p=0.0046, adapt +0.072 p=0.2633, R2=0.142.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: After talent control adapt p=0.275; n~55 series cannot separate coaching adaptation from roster quality.
+- observed_sample_and_power: n=55 series / 110 directions
+- observed_method: 110 series-directions / 55 series. Logistic y=won on standardized talent_diff and adapt_diff.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Authors' honest null: report as confounded with talent.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-027: 2026-06-15 (mtime)
+- observed_member_records: APPS-027
+- observed_sources: APPS-027: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\adaptation_talent_control.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-030 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-089 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

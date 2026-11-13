@@ -1,0 +1,28 @@
+# FAM:SF-APPS-049 | Study family SF-APPS-049: 52-series sequential adaptation: durable pivot branches and net swing
+- observed_research_question: 52-series sequential adaptation: durable pivot branches and net swing
+- auto_outcome_status: rejected
+- observed_hypothesis: If-X-fails-then-Y pivot branches and PT net-swing (own PPP - opp next PPP) are durable across ~104 playoff team-offense units.
+- observed_result: durable_branches=[]. Median net swing: CUT +0.36 (neg in 9%), TRANSITION +0.26 (21%), PULL_UP +0.09 (33%), PNR +0.04 (45%), SPOT_UP +0.02 (40%), POST_UP -0.22 (77%), DRIVE -0.27 (88%). n_units: CUT 103, DRIVE/POST_UP/SPOT_UP/TRANSITION/PULL_UP 104, PUTBACK 47.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: No conditional pivot branch met the durability bar (empty durable_branches). DRIVE/POST_UP negative net swing is the durable aftershock finding, recorded here as the positive half of the same run.
+- observed_sample_and_power: 52 series, 104 units
+- observed_method: 52 series, 104 units. Durable branch: median lift>0 and lift>0 in >=70% of units. Net swing per PT per unit.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Verdict is for the pre-specified durable-branch test (null). The aftershock ranking of DRIVE/POST_UP is supported and used as the prior in the net-swing scorer.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-049: 2026-05-23 (mtime)
+- observed_member_records: APPS-049
+- observed_sources: APPS-049: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\NET_SWING_SCORING_PROTOTYPE.md
+- observed_sources: APPS-049: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\sequential_adaptation_summary.json
+- observed_sources: APPS-049: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\sequential_adaptation_52series.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-011 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-008 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

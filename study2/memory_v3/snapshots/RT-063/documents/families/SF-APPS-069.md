@@ -1,0 +1,32 @@
+# FAM:SF-APPS-069 | Study family SF-APPS-069: State persistence vs window-overlap null (pre-registered FAIL)
+- observed_research_question: State persistence vs window-overlap null (pre-registered FAIL)
+- auto_outcome_status: rejected
+- observed_hypothesis: Process-only latent state (PCA-1 of tempo/transition) persists above the rolling-window overlap null after game x team demeaning.
+- observed_result: Process-only lag-1 r=+0.645 vs null +0.655; EXCESS=-0.010, cluster-bootstrap 95% CI [-0.012,-0.009]. Scoring excess -0.000; action texture +0.003. Instantaneous scoring autocorr lag-1=-0.0128.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: HEADLINE FAIL: excess=-0.010 with CI entirely negative; state persistence does not clear the overlap null. No state-persistence paper.
+- observed_sample_and_power: N=1,060,893 possessions
+- observed_method: N=1060893 possessions, 4 seasons, W=3 lagged. Excess = observed r - window-overlap null. Pre-registered criterion: excess persistence.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: High raw r~0.65 is mechanical window overlap. Season-stable observed r 0.642-0.647.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-069: 2026-07-12 (mtime)
+- observed_member_records: APPS-069
+- observed_sources: APPS-069: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\state_persistence.md
+- observed_sources: APPS-069: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\state_persistence.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-059 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-072 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-111 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

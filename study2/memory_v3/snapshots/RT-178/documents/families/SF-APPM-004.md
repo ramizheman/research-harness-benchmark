@@ -1,0 +1,27 @@
+# FAM:SF-APPM-004 | Study family SF-APPM-004: Calibration variance diagnostic (matchup signal collapse)
+- observed_research_question: Calibration variance diagnostic (matchup signal collapse)
+- auto_outcome_status: artifact
+- observed_hypothesis: The calibrated pipeline preserves enough variance and the matchup model pred_raw carries usable signal.
+- observed_result: pred_cal variance 3.9% of actual; pred_raw alone R2 +0.0042; dropping pred_raw changes R2 by +0.0002; team_mult alone +0.0392.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: pred_raw contributes ~0 (dR2 +0.0002); SHRINKAGE_SWEEP later showed the equilibrium optimizer collapses signal (R2 +0.004 vs +0.045 with actual usage).
+- observed_sample_and_power: holdout 520 cells
+- observed_method: 690 val / 520 holdout cells: variance ratios, slope test, drop-one and single-feature ablation, residual structure.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: APPM-004: '690 val / 520 holdout cells: variance ratios, slope test, drop-one and single-fea'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-004: 2026-04-17 (mtime)
+- observed_member_records: APPM-004
+- observed_sources: APPM-004: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\VARIANCE_DIAG.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-045 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}

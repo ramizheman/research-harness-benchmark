@@ -1,0 +1,26 @@
+# FAM:SF-CHT-047 | Study family SF-CHT-047: 7x turnover-safety of AVOID counters
+- observed_research_question: 7x turnover-safety of AVOID counters
+- auto_outcome_status: artifact
+- observed_hypothesis: AVOID counters are ~7x safer on turnovers than the suppressed play.
+- observed_result: 6.2x to 1.5x after league TO rebasing; 7x claim failed.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Unconditional PT mix; 6.2x to 1.5x after TO rebasing.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Unconditional PT mix then league TO rebasing (_audit_tier_to_reassigned.py).
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Recorded in FINAL_NUMBERS_SHEET Section W failed-claims table.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: CHT-047: 2026-06-16 (transcript)
+- observed_member_records: CHT-047
+- observed_sources: CHT-047: 1b9f0f61-d051-4b7b-8eef-8d1253cf67e2
+- observed_sources: CHT-047: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-110 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

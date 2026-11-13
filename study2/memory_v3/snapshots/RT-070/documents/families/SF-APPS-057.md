@@ -1,0 +1,29 @@
+# FAM:SF-APPS-057 | Study family SF-APPS-057: SQ2 holdout protocol specified but not scored
+- observed_research_question: SQ2 holdout protocol specified but not scored
+- auto_outcome_status: untestable
+- observed_hypothesis: A frozen-engine hit rate on 25 holdout series (cap_yy>23) is the defensible SQ2 number, vs in-sample 69.8%.
+- observed_result: No holdout hit-rate number found. Protocol states existing --full-calibrated 69.8% is in-sample until the holdout is run.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Holdout was specified (SHA 59a9be48, 17/25 split) but no scored holdout output was located in this slice.
+- observed_sample_and_power: planned holdout n=25 series
+- observed_method: Engine SHA freeze 59a9be48; tuning 17 series cap_yy<=23; holdout 25 series. Protocol written; holdout scoring result not found in files read.
+- observed_verdict: abandoned
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPS-057: 'engine sha freeze 59a9be48; tuning 17 series cap_yy<=23; holdout 25 series. protocol written; holdout scoring result not fou'
+- observed_notes: Confirms APPS-003 note that the holdout protocol exists without a result file.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-057: 2026-05-23 (mtime)
+- observed_member_records: APPS-057
+- observed_sources: APPS-057: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\HOLDOUT_PROTOCOL.md
+- observed_sources: APPS-057: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\holdout_split.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-003 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-115 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

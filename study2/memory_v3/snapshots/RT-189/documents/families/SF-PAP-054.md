@@ -1,0 +1,33 @@
+# FAM:SF-PAP-054 | Study family SF-PAP-054: Split-half reliability gate on restoration (threshold 0.40)
+- observed_research_question: Split-half reliability gate on restoration (threshold 0.40)
+- auto_outcome_status: untestable
+- observed_hypothesis: Per-spell restoration is reliable enough (Spearman-Brown >=0.40) to test predictors of who rebuilds.
+- observed_result: SB restoration all spells 0.32; among 53 spells with L_pre>=0.02, SB=0.01 (CSV Spearman +0.004); excess-reorganization upper bound 0.38
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: split-half reliability 0.32 < 0.40; 0.01 among L_pre>=0.02
+- observed_sample_and_power: n=148; 53 with L_pre>=0.02; paper: roughly twice as many spells would be needed
+- observed_method: Independent halves: odd pre+odd spell vs even pre+even spell; 0.40 threshold set before any predictor was examined.
+- observed_verdict: failed_gate
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: PAP-054: '>=0.02; paper: roughly twice as many spells would be needed split-half reliability 0.32 < 0.40; 0.01 among l_pre>=0.02'
+- observed_notes: 15-40 game absences over three seasons were known to be short for a 28-cell fingerprint. No predictor was tested.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-054: 2026-11-02 (doc)
+- observed_member_records: PAP-054
+- observed_sources: PAP-054: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate2.py
+- observed_sources: PAP-054: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate2_rows.csv
+- observed_sources: PAP-054: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-053 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-TMP-017 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-064 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

@@ -1,0 +1,26 @@
+# FAM:SF-CHT-085 | Study family SF-CHT-085: 2024-25 playoff PNR proxy calibration coverage
+- observed_research_question: 2024-25 playoff PNR proxy calibration coverage
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: 2024-25 playoff games in graph can be PNR-calibrated from 1,230 RS games without errors.
+- observed_result: 689 PNR possessions newly promoted; 73 PULL_UP 50% cap hits; 0 errors; 1,102 total proxy_calibrated PNR across 77 distinct 004240* games. Three-series batch 16 games 0 errors.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: 62/85 games in graph
+- observed_method: 62 of 85 official 004240* games in graph; 23 missing ingest; 22 phantom IDs skipped.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Calibration run; DQ check skipped by user. Missing 23 games are an ingest gap not a failed hypothesis.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-085: 2026-05-25 (transcript)
+- observed_member_records: CHT-085
+- observed_sources: CHT-085: 7600868d-e173-4ab0-ae4d-7827937e185b
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-111 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,27 @@
+# FAM:SF-PAP-074 | Study family SF-PAP-074: Lineup synergy beyond player ratings is not detectable
+- observed_research_question: Lineup synergy beyond player ratings is not detectable
+- auto_outcome_status: untestable
+- observed_hypothesis: A lineup layer (EB residuals of the five) improves prediction beyond ridge player ratings.
+- observed_result: offense tau~0, k~1.4e8; defense tau=1.45 per 100, k~6,700; model B nearly identical to A; player ratings vs single-poss points r=0.03-0.04, SD of predictions 5.2 per 100
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: offense lineup tau approximately 0
+- observed_sample_and_power: 770 players, 75 weekly cutoffs
+- observed_method: Weekly ridge RAPM, 770 players, penalty 2,000 set on 2022-23; EB lineup shrinkage constants on 2022-23.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-074: 2026-11-02 (doc)
+- observed_member_records: PAP-074
+- observed_sources: PAP-074: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\report.md
+- observed_sources: PAP-074: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\results\03_ratings.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-072 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-173 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:ridge_or_RAPM_ratings {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

@@ -1,0 +1,33 @@
+# FAM:SF-CHT-072 | Study family SF-CHT-072: Team-season adaptation-slope reliability (usage vs H1 PPP)
+- observed_research_question: Team-season adaptation-slope reliability (usage vs H1 PPP)
+- auto_outcome_status: rejected
+- observed_hypothesis: Some teams adapt (shift H2 usage with H1 PPP) more than others as a replicable trait.
+- observed_result: Adaptation odd-even r=-0.03 perm p=0.66; season-to-season -0.17, +0.25, +0.06; spread p=0.36. Persistence r=+0.07 p=0.25. PNR share odd-even r=+0.95, spot-up +0.87. League-wide H1 to H2 slope 0.02. Sampling SE ~0.65pp usage per 1.0 PPP; true spread can't be much above 0.4.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Fails split-half, season-to-season, and excess-spread tests; style traits replicate on the same split.
+- observed_sample_and_power: 53,000 units; 120 team-seasons; SE ~0.65pp per 1.0 PPP
+- observed_method: ~53,000 units / 120 team-seasons; odd vs even r, season-to-season r, excess team spread vs noise. Style (PNR share) as positive control.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: CHT-072: '3,000 units; 120 team-seasons; se ~0.65pp per 1.0 ppp fails split-half, season-to-season, and excess-spread tests; style traits re'
+- observed_notes: Output team_adapt.log in supp_audit. Verdict KILL in chat.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Team Adaptation
+- observed_dates: CHT-072: 2026-11-01 (transcript)
+- observed_member_records: CHT-072
+- observed_sources: CHT-072: 26d2d8fd-a667-4ff9-b395-95ddd607e6ea
+- observed_sources: CHT-072: C:\Users\lisas\AppData\Local\Temp\supp_audit\team_adapt.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-CHT-064 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

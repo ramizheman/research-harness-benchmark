@@ -1,0 +1,30 @@
+# FAM:SF-PAP-073 | Study family SF-PAP-073: Process measures are more reliable than points but not more predictive of later points
+- observed_research_question: Process measures are more reliable than points but not more predictive of later points
+- auto_outcome_status: rejected
+- observed_hypothesis: Expected shot/possession value is more reliable than actual points and better predicts later actual points.
+- observed_result: lineup-season offense k: A 1,448 vs B 132 / C 126; corr later A: A 0.21, B -0.04, C 0.03 (304 lineups >=200 poss); defense A 0.06, B 0.11, C 0.13; team-game split-half A -0.11 CI[-0.14,-0.09]
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: process 4-11x more reliable but offense corr with later points ~0; team-game actual-points component not identified
+- observed_sample_and_power: 304 lineups with >=200 poss
+- observed_method: Lineup-season tau and k=sigma^2/tau^2; first-half to second-half corr with later A; team-game deviations.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-073: 'eups >=200 poss); defense a 0.06, b 0.11, c 0.13; team-game split-half a -0.11 ci[-0.14,-0.09] detecting 10 per 100 at 2 se needs'
+- observed_notes: Detecting 10 per 100 at 2 SE needs ~570 possessions of actual points; median lineup plays a handful per game.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-073: 2026-11-02 (doc)
+- observed_member_records: PAP-073
+- observed_sources: PAP-073: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\report.md
+- observed_sources: PAP-073: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\results\02_measures.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-072 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-172 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:expected_FG_shot_value {basis=keyword rules on member records}

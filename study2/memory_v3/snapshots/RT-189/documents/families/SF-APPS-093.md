@@ -1,0 +1,28 @@
+# FAM:SF-APPS-093 | Study family SF-APPS-093: Connector success vs failure commonality hunt
+- observed_research_question: Connector success vs failure commonality hunt
+- auto_outcome_status: rejected
+- observed_hypothesis: Successful vs failing connectors share a structural signature, diet-gap match, or roster-load pattern.
+- observed_result: Within raw_success: L p=0.433; usage p=0.952; diet x gap p=0.399; n organizers p=0.975; talent_gap p=0.0122; adj_pts100 p=3.5e-18 (mechanical, it is the success label). proto sim p=0.0554 (wrong direction: fail med +0.676 vs success +0.279).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: No structural/diet/roster feature separates success from failure once the tautological adj_pts100 split is set aside; talent_gap is the only other scalar with p<0.05.
+- observed_sample_and_power: n=102 (53/49)
+- observed_method: Within-team n=102 (success=53 fail=49). Features: dA, team A, diet x gap, load HHI, n organizers, prototype similarity.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Looking like the average success prototype predicted worse Q_p in the ecosystem report as well.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-093: 2026-07-27 (mtime)
+- observed_member_records: APPS-093
+- observed_sources: APPS-093: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_success_commonality_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-086 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-090 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-053 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

@@ -1,0 +1,27 @@
+# FAM:SF-APPA-050 | Study family SF-APPA-050: Superstar sequential suppression: opponent play before the star
+- observed_research_question: Superstar sequential suppression: opponent play before the star
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: A specific opponent play type on the preceding possession suppresses each star's next-possession PPP relative to that star's baseline.
+- observed_result: PUTBACK is top suppressor for 6+ stars (e.g. D. Mitchell 1.178 to 0.884, d=-0.294, n_after=95; B. Beal d=-0.345 n=32; C. Holmgren d=-0.222 n=52). Other tops: TRANSITION (A. Davis -0.058), POST_UP (N. Jokic -0.075), PULL_UP (A. Edwards -0.043).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No multiplicity correction; n_after is 32-95 for several PUTBACK cells vs thousands of baseline possessions.
+- observed_sample_and_power: 30 stars; min n_after=30
+- observed_method: Full graph RS+PO; 30 stars; min n=30 after the suppressor PT.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: PUTBACK as a league-wide suppressor is the claim later tested as a mechanism in APPA-054/055.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-050: 2026-05-30 (doc)
+- observed_member_records: APPA-050
+- observed_sources: APPA-050: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-022 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-025 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

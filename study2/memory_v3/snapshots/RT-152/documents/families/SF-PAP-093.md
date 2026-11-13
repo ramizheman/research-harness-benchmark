@@ -1,0 +1,27 @@
+# FAM:SF-PAP-093 | Study family SF-PAP-093: Men's interaction features (3P clash, rebound clash, turnover clash, tempo/off/def)
+- observed_research_question: Men's interaction features (3P clash, rebound clash, turnover clash, tempo/off/def)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Style-clash interactions beat the 13-feature baseline.
+- observed_result: baseline 0.17405; A 0.17459; B 0.17478; neither beat baseline
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: A 0.17459 and B 0.17478 vs 0.17405
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Version A 13+6; Version B drop 3 weakest baseline +6.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: March Madness
+- observed_dates: PAP-093: 2026-03-14 (mtime)
+- observed_member_records: PAP-093
+- observed_sources: PAP-093: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- observed_sources: PAP-093: C:\Users\lisas\OneDrive\Documents\March Madness\mens_interaction_validation.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-087 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-162 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

@@ -1,0 +1,36 @@
+# FAM:SF-APPM-044 | Study family SF-APPM-044: Live-blog game replays: LP BEST/AVOID tier accuracy
+- observed_research_question: Live-blog game replays: LP BEST/AVOID tier accuracy
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Pre-game LP BEST/AVOID tiers predict in-game play-type PPP (scored only on BEST/AVOID, not OK).
+- observed_result: 0042500104 and 0042500173: Final 0-0, no classified possessions. 0042500101 DET 96-ORL 108: DET 2/3 (67%), ORL 2/4 (50%); ORL AVOID share 50/79 (63%). 0042500111 BOS 123-PHI 90: BOS 3/4 (75%), PHI 2/3 (67%). 0042500114 BOS 127-PHI 94: both 3/4 (75%). 0042500311 SAS 122-OKC 115: SAS 3/6 (50%), OKC 4/6 (67%).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Two of six replays had no classified possessions; remaining games mixed 50-75% tier accuracy with frequent AVOID live-overrides (model wrong, engine caught it).
+- observed_sample_and_power: n=6 games; scored cells 3-6 BEST/AVOID per team
+- observed_method: Replay of 6 playoff games with LP built on RS + prior series games; post-game tier accuracy on BEST/AVOID cells.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Updated copy of APPM-040 after opening REPLAY_0042500101/111/114/311. 0101 final DET 96-ORL 108 in replay vs RETRO 112-101; score source differs.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-044: 2026-05-28 (mtime)
+- observed_member_records: APPM-044
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500101.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500104.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500111.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500114.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500173.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\REPLAY_0042500311.md
+- observed_sources: APPM-044: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_replay_blog.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-026 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

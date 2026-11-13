@@ -1,0 +1,30 @@
+# FAM:SF-PAP-020 | Study family SF-PAP-020: Composite travel score (origin-only LOO forecast)
+- observed_research_question: Composite travel score (origin-only LOO forecast)
+- auto_outcome_status: rejected
+- observed_hypothesis: Origin structural influence, signature stability and usage forecast portability.
+- observed_result: AUC=0.61, corr vs self_sim=+0.06; within shapers r~0
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: AUC 0.61, corr 0.06 at n=294
+- observed_sample_and_power: n=294
+- observed_method: Leave-one-out OLS on 294 movers.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-020: 2026-08-08 (doc)
+- observed_member_records: PAP-020
+- observed_sources: PAP-020: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\travel_fit_screen.csv
+- observed_sources: PAP-020: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- observed_sources: PAP-020: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\travel_fit_screen.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-032 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-PAP-033 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-151 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

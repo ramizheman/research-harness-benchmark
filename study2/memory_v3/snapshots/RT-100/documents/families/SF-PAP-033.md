@@ -1,0 +1,34 @@
+# FAM:SF-PAP-033 | Study family SF-PAP-033: Split-half validation of travel x fit outcome ordering
+- observed_research_question: Split-half validation of travel x fit outcome ordering
+- auto_outcome_status: supported
+- observed_hypothesis: Additive > irrelevant on destination embedded minutes and on-court net rating survives when travel OLS and medians are fit on a calibration half and scored on holdout.
+- observed_result: 500 splits; embedded-rate gap median=+0.116 [10-90% -0.033, +0.248] P(>0)=0.838; net-rtg gap median=+2.926 [+0.541, +5.072] P(>0)=0.960; corr(travel forecast, net rtg) median=+0.178 P(>0)=0.976; corr(delta, net) median=+0.068 P(>0)=0.822
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: additive>irrelevant on net rating in 96% of holdout splits; minutes gap positive in 84%
+- observed_sample_and_power: n~198 movers, 500 splits, half~99
+- observed_method: Movers with origin features + outcomes randomly split 50/50; 500 seeds; travel OLS on origin_load/stability/origin_usage fit on calibration only.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-033: 'splits, half~99 additive>irrelevant on net rating in 96% of holdout splits; minutes gap positive in 84%'
+- observed_notes: Upgrades PAP-032. Embedded-rate gap 10th percentile is negative.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-033: 2026-07-13 (mtime)
+- observed_member_records: PAP-033
+- observed_sources: PAP-033: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\outcome_split_validation.py
+- observed_sources: PAP-033: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper2_output\outcome_split_validation.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPM-039 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-PAP-032 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-004 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:minutes_playing_time {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

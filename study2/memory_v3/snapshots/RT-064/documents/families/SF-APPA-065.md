@@ -1,0 +1,33 @@
+# FAM:SF-APPA-065 | Study family SF-APPA-065: Freeform agent sequential demo: MIA vs BOS 2023 G7
+- observed_research_question: Freeform agent sequential demo: MIA vs BOS 2023 G7
+- auto_outcome_status: untestable
+- observed_hypothesis: An agent given only possession sequences can recover a conditional decision tree and series-level adaptation in one high-stakes game.
+- observed_result: MIA thirds ORtg 108.0 / 136.0 / 156.0. After missed PNR (n=10) next PULL_UP 40%. POST_UP aftershock: BOS next-PPP 1.40 (miss n=5) and 1.50 (make n=4) vs PULL_UP make 0.00 (n=5). G4 POST_UP 0.40; G6 PNR 0.60; G7 PNR volume 10 to 18, PPP 0.60 to 1.06.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Most tree cells n=3-10; doc states branches are hypotheses until validated across series.
+- observed_sample_and_power: 1 game; 75 MIA possessions; cells n=3-10
+- observed_method: One Game 7 (0042200307); MIA 75 poss in thirds of 25; Markov-1 after make/miss; BOS next-PPP aftershock; 7-game PT table.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Demo explicitly does not claim engine recovery (separate Test A). Series score G7 103-84 MIA in Boston.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Team Adaptation
+- observed_dates: APPA-065: 2026-05-23 (mtime)
+- observed_member_records: APPA-065
+- observed_sources: APPA-065: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FREEFORM_AGENT_DEMO_BOS_MIA_2023.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-009 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPA-025 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-076 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}

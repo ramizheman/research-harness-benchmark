@@ -1,0 +1,26 @@
+# FAM:SF-CHT-006 | Study family SF-CHT-006: Offense best-response optimizer compresses holdout R-squared
+- observed_research_question: Offense best-response optimizer compresses holdout R-squared
+- auto_outcome_status: artifact
+- observed_hypothesis: The remaining R^2 gap after calibration is from data, not from the equilibrium optimizer compressing variance.
+- observed_result: Offense best-response optimizer delta R^2 = -0.488 (primary culprit); usage-decay curves -0.077; scheme/suppression listed as secondary in the ranked table.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Optimizer delta R^2 -0.488 is the ranked primary culprit for dying holdout signal.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Layer ablation of holdout R^2 contributors (optimizer, usage-decay, scheme/suppression).
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: CHT-006: 'layer ablation of holdout r^2 contributors (optimizer, usage-decay, scheme/suppressio'
+- observed_notes: Results discussed in chat; CALIBRATION_REPORT.md mentioned as the right-branch artifact.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-006: 2026-04-18 (transcript)
+- observed_member_records: CHT-006
+- observed_sources: CHT-006: 707277ce-5acd-4aaa-a660-672f33ef22b4
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-098 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}

@@ -1,0 +1,32 @@
+# FAM:SF-APPS-003 | Study family SF-APPS-003: SQ2 decision quality hit rate: engine top pt_shift vs team modal PT
+- observed_research_question: SQ2 decision quality hit rate: engine top pt_shift vs team modal PT
+- auto_outcome_status: artifact
+- observed_hypothesis: The V4 engine's recommended play type outperforms the team's highest-volume play type in that playoff series.
+- observed_result: Full-calibrated headline 69.8% (37/53); DRIVE-modal (banned-PT) comparisons 85.7% (12/14); clean comparisons 64.1% (25/39); high-confidence 64.3% (27/42). CUT recs 13/13; POST_UP 0/4. Uncalibrated archival: 51.7% (31/60), high-conf 42.9%, DRIVE recs 8% (n=25).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Headline 'structurally inflated': 14 of 53 pairs compare against banned DRIVE; 13 of 37 hits from CUT recs with structurally high PPP; in-sample, same series used to discover DRIVE failure and tune exclusion.
+- observed_sample_and_power: n=53 scoreable; no bootstrap CI computed
+- observed_method: (team, series) pairs across 42 correction_log series (84 rows, 53 scoreable in full-calibrated run); HIT if rec PT PPP > modal PT PPP, both n>=15.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: APPS-003: 'the drive ban and cut ppp level were known before scoring. holdout protocol (tuning 17 series, holdout 25, sha 59a9be48) was w'
+- observed_notes: Knowable: the DRIVE ban and CUT PPP level were known before scoring. Holdout protocol (tuning 17 series, holdout 25, SHA 59a9be48) was written but no holdout result was found in files read.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-003: 2026-05-23 (mtime)
+- observed_member_records: APPS-003
+- observed_sources: APPS-003: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\decision_quality_findings.md
+- observed_sources: APPS-003: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\README.md
+- observed_sources: APPS-003: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\proof\decision_quality_test.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-004 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-027 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

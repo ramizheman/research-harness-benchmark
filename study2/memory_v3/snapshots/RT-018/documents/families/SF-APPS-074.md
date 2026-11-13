@@ -1,0 +1,26 @@
+# FAM:SF-APPS-074 | Study family SF-APPS-074: Gravity persistence: elite creator -> teammate PPP at lags 1-3
+- observed_research_question: Gravity persistence: elite creator -> teammate PPP at lags 1-3
+- auto_outcome_status: rejected
+- observed_hypothesis: After an elite creator's signature action, teammates score more on the team's next k possessions with the same lineup on the floor.
+- observed_result: All 8 creators horizon=0. Jokic lag-1 ATT=+0.0282 CI[-0.043,+0.099] p=0.3779. CLEAN NULL on teammate PPP. Secondary: Antetokounmpo +0.075 distinct initiators over next 3 poss (perm p=0.0002, BH 0.003) ? structure not efficiency.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: No elite creator produces a positive lineup-matched teammate-PPP lift at any lag.
+- observed_sample_and_power: Jokic lag-1 n=1880; Giannis n=1804; Doncic n=325
+- observed_method: Exact match offensive lineup_id x margin bucket x period. 8 creators x 3 lags. BH-FDR 24 PPP cells.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Usage redistribution without points payoff for Giannis is the only surviving structural cell.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-074: 2026-06-15 (mtime)
+- observed_member_records: APPS-074
+- observed_sources: APPS-074: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\gravity_persistence.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF30 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-119 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

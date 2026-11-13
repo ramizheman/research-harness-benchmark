@@ -1,0 +1,27 @@
+# FAM:SF-APPA-010 | Study family SF-APPA-010: Adversarial best-response v1: equilibrium strategy vs actual
+- observed_research_question: Adversarial best-response v1: equilibrium strategy vs actual
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The system's offensive strategy survives optimal defensive adjustment and beats what teams ran.
+- observed_result: Eq vs actual +1.16 pts/100; beats actual 127/240 (53%); vs baseline eq +8.52 pts/100; converged 159/240.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Doc verdict 'MARGINAL'; equilibrium PPP is model-implied not observed.
+- observed_sample_and_power: 240 matchups
+- observed_method: 240 matchups, 23,922 holdout possessions; iterative best-response to approximate Nash equilibrium, model-scored PPP.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPA-010: '240 matchups, 23,922 holdout possessions; iterative best-response to approximate nash eq'
+- observed_notes: Model-scored counterfactual compared to realized PPP.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-010: 2026-04-14 (mtime)
+- observed_member_records: APPA-010
+- observed_sources: APPA-010: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-011 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-064 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

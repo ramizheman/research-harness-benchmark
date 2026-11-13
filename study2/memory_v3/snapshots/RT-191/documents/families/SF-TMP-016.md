@@ -1,0 +1,35 @@
+# FAM:SF-TMP-016 | Study family SF-TMP-016: Team heterogeneity in halftime play-type adaptation
+- observed_research_question: Team heterogeneity in halftime play-type adaptation
+- auto_outcome_status: untestable
+- observed_hypothesis: Teams differ reliably in how H1 play-type PPP moves H2 usage/persistence.
+- observed_result: Adaptation slope +0.1168 (0.0589); heterogeneity var +0.029821 vs null +0.014085 p=0.363; split-half r=-0.026 p=0.655; persistence split-half r=+0.067 p=0.251.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Team-season slope SD 0.6733 vs mean sampling SE 0.6508; split-half r -0.026.
+- observed_sample_and_power: 120 team-seasons
+- observed_method: 53,129 units, 120 team-seasons; team-season slopes, true-heterogeneity variance vs permutation null, odd/even split-half.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: TMP-016: 'seasons; team-season slopes, true-heterogeneity variance vs permutation null, odd/even split-half. adaptation slope +0.1168 (0.0589'
+- observed_notes: Sampling SE about equal to slope SD is computable before outcomes.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-016: 2026-11-01 (mtime)
+- observed_member_records: TMP-016
+- observed_sources: TMP-016: C:\Users\lisas\AppData\Local\Temp\supp_audit\team_adapt.log
+- observed_sources: TMP-016: C:\Users\lisas\AppData\Local\Temp\supp_audit\team_adapt.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-085 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-064 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF35 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-003 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

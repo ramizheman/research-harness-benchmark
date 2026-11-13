@@ -1,0 +1,37 @@
+# FAM:SF-TMP-024 | Study family SF-TMP-024: Within-game on/off Absorption vs Cascade (Gap = D_A - L_on)
+- observed_research_question: Within-game on/off Absorption vs Cascade (Gap = D_A - L_on)
+- auto_outcome_status: artifact
+- observed_hypothesis: When a rotation player sits, Gap = D_A - L_on is a reliable Absorption vs Cascade trait, predicted by bench-profile redundancy, and Absorption preserves PPP.
+- observed_result: Gap split-half rho=+0.591 (p=5.43e-127); D_A residualized rho=+0.489; hubs L_on>=0.05 (n=543) Gap rho=+0.599. Mechanism Spearman(agg_sim, -gap_sz)=-0.205 (p=1.13e-14), hubs -0.307. PPP payoff Spearman(-gap_sz, PPP_off-PPP_on)=-0.039 (p=0.144), hubs -0.054 (p=0.209). Balanced: Spearman(Lcos, DA_bal)=+0.345, DA_bal split-half +0.573, gap_bal +0.545. corr(D_A, co_sub_tv)=+0.312 (p=1.26e-32); partial corr(D_A, L_on | co_sub_tv, min_n, u)=+0.335.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Bench-redundancy mechanism has the wrong sign (Spearman(agg_sim, -gap_sz)=-0.205); PPP payoff is null (-0.039, p=0.144); D_A correlates +0.312 with platoon co-substitution.
+- observed_sample_and_power: N=1385 player-seasons (balanced N=882); hubs n=543
+- observed_method: N=1385 rotation player-seasons (>=400 on and off possessions), 30 franchises, 2022-24 two-way possessions; odd/even split-half of D_A and Gap; Spearman of bench cosine similarity with -Gap; PPP_off - PPP_on payoff. Balanced-size follow-up N=882 (m = min(n_on, n_off)). Platoon co-substitution diagnostic.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: TMP-024: 'ions), 30 franchises, 2022-24 two-way possessions; odd/even split-half of d_a and gap; spearman of bench cosine similarity with -g'
+- observed_notes: Gap reliability is high; the Absorption vs Cascade interpretation is the part that fails. Balanced-size gaps by role: PRIMARY ORGANIZER +0.0041, SHAPER -0.0661, ROLE OCCUPANT +0.0465, TERMINAL SCORER +0.0508.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: TMP-024: 2026-11-01 (mtime)
+- observed_member_records: TMP-024
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\absence_full_pool_check.log
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\absence_full_pool_check.py
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_adapt_gate.log
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_adapt_gate.py
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_diag.log
+- observed_sources: TMP-024: C:\Users\lisas\AppData\Local\Temp\supp_audit\structural_diag.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:implementation_bug {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:IMPLEMENTATION_BUG {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-014 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF21 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-057 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

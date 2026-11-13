@@ -1,0 +1,34 @@
+# FAM:SF-APPA-061 | Study family SF-APPA-061: L5 ablation: deterministic V4 vs LangGraph agent V5
+- observed_research_question: L5 ablation: deterministic V4 vs LangGraph agent V5
+- auto_outcome_status: untestable
+- observed_hypothesis: LangGraph agents (V5) improve play-type recommendations over the deterministic engine (V4).
+- observed_result: Median regret V4 0.102 [0.067, 0.128] vs V5 0.067 [0.050, 0.100], Holm p=0.062. V5 beats V4 11/40 vs 4/40, McNemar p=0.118. Override 8/40 (20%); override hit rate 25.0% [0.000, 1.000]. Brittle precision 7.5%. Parse 40/40. Runtime 60.1s vs 349.6s (5.816x).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Holm p=0.062 and McNemar p=0.118 on n=40; override hit 25% on 8 overrides; 0 player-level overrides scorable.
+- observed_sample_and_power: n=40 pairs; 8 overrides
+- observed_method: 20 series, 40 paired (slug, side) observations; 2,000 series-cluster bootstrap; Holm-Bonferroni on Wilcoxon regret and McNemar.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Doc interpretation 'AGENTS DEGRADE QUALITY' is stronger than the tests (neither primary p<0.05 after Holm). Successful-override table lists only 2 rows with V5 rec='none'.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-061: 2026-05-05 (mtime)
+- observed_member_records: APPA-061
+- observed_sources: APPA-061: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\L5_ABLATION_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:multiple_testing {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MULTIPLE_TESTING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-009 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPA-062 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-065 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

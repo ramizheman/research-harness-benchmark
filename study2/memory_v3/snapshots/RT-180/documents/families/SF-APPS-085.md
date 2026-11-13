@@ -1,0 +1,32 @@
+# FAM:SF-APPS-085 | Study family SF-APPS-085: Connector teammate-path quality Q_p split-half reliability
+- observed_research_question: Connector teammate-path quality Q_p split-half reliability
+- auto_outcome_status: untestable
+- observed_hypothesis: Connector quality Q_p (teammate-initiated on-off PPP gap) is a stable player-season attribute.
+- observed_result: Pearson r(Q_a,Q_b)=+0.215 p=0.0297; Spearman rho=+0.242. Spearman-Brown Q~0.355, S~0.278. Sign agreement 65.7% (67/102) binomial p=0.000996. ICC(player-season)=0.216 (78.4% within). Attenuation: even a perfect predictor max |r| with Q_p ~0.595; true r=0.30 attenuates to 0.179 (often undetectable).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Split-half r=0.215 / SB 0.355 is too low to treat Q_p as a stable scoutable trait; most variance is within-player half-to-half.
+- observed_sample_and_power: n=102 connectors
+- observed_method: Odd/even game_id split; n=102 connectors with both halves; on&off >=80 poss/half, teammate-init on >=50. Spearman-Brown; ANOVA ICC.
+- observed_verdict: failed_gate
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPS-085: 'fect (true r<=0.25 could still be missed). n=102 connectors split-half r=0.215 / sb 0.355 is too low to treat q_p as a stable scou'
+- observed_notes: L(p)/shape nulls are not just attenuation of a large true effect (true r<=0.25 could still be missed).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-085: 2026-07-26 (mtime)
+- observed_member_records: APPS-085
+- observed_sources: APPS-085: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_qp_reliability_report.md
+- observed_sources: APPS-085: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_qp_variance_audit_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-086 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-086 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-APPS-090 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-052 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

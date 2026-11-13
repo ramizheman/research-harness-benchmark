@@ -1,0 +1,33 @@
+# FAM:SF-TMP-001 | Study family SF-TMP-001: Reproduction and null simulation of published suppression excess
+- observed_research_question: Reproduction and null simulation of published suppression excess
+- auto_outcome_status: artifact
+- observed_hypothesis: The published H1->H2 suppression excess (0.408) exceeds what regression to the mean and selection on the H2 drop produce under no true change.
+- observed_result: No log saved; analytic_bias.py print string cites 'observed 0.408, simulation 0.440' for E[excess|H0].
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Null simulation with no true change gives excess ~0.440 vs observed 0.408 (numbers quoted in analytic_bias.py print text; no log).
+- observed_sample_and_power: 1,136 caliper pairs
+- observed_method: Reproduce 1,136 caliper-matched trigger/control pairs from frozen CSVs; reverse-trigger placebo; 20-rep multinomial null simulation; analytic truncated-normal null expectation over the actual pairs.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: TMP-001: 'reproduce 1,136 caliper-matched trigger/control pairs from frozen csvs; reverse-trigger placebo; 20-rep multinomial null simu'
+- observed_notes: Selection on D>=0.25 guarantees a floor on excess; derivable from design. Verdict inferred from script text, not a saved log.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-001: 2026-10-06 (mtime)
+- observed_member_records: TMP-001
+- observed_sources: TMP-001: C:\Users\lisas\AppData\Local\Temp\supp_audit\analytic_bias.py
+- observed_sources: TMP-001: C:\Users\lisas\AppData\Local\Temp\supp_audit\audit_core.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-TMP-012 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-072 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}

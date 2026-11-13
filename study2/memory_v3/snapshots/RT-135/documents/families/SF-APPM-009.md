@@ -1,0 +1,25 @@
+# FAM:SF-APPM-009 | Study family SF-APPM-009: More training seasons (fixed-holdout A/B)
+- observed_research_question: More training seasons (fixed-holdout A/B)
+- auto_outcome_status: rejected
+- observed_hypothesis: Training on 3 seasons instead of 2024-25 only improves prediction on a fixed late-2024-25 test set.
+- observed_result: After worse on 5/5 metrics: A3 R2 -0.0866 -> -0.2225 (normalized -0.2285); win-side accuracy 65.0% -> 48.3% (53.3% normalized).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: 0/5 metric wins in both raw and normalized runs.
+- observed_sample_and_power: 240 cells, 120 pairs
+- observed_method: Same 155 test games / 240 cells scored by both engines for A3, A5, A5b; raw and normalized variants.
+- observed_verdict: reversed
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Later recency weighting (half-life 0.5 seasons) adopted.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-009: 2026-04-16 (mtime)
+- observed_member_records: APPM-009
+- observed_sources: APPM-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SEASON_COMPARISON_FIXED.md
+- observed_sources: APPM-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SEASON_COMPARISON_NORMALIZED.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-027 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}

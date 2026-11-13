@@ -1,0 +1,28 @@
+# FAM:SF-APPS-041 | Study family SF-APPS-041: PUTBACK suppression matched-pair isolation (star vs team)
+- observed_research_question: PUTBACK suppression matched-pair isolation (star vs team)
+- auto_outcome_status: artifact
+- observed_hypothesis: Conceding a PUTBACK causally suppresses the next offensive possession after matching on game state.
+- observed_result: TEAM ATT=-0.0038 CI[-0.025,+0.015] perm p=0.890 n_t=15614. STAR ATT=+0.0040 [-0.049,+0.052] p=0.834 n_t=2481. STAR Q4 ATT=-0.1045 [-0.217,+0.010] p=0.032 (gradient does not survive matching as a FINDING).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Raw putback suppression collapses once margin/state is matched; original finding was a score/context confound.
+- observed_sample_and_power: n_treated team=15614, star=2481
+- observed_method: PSM 1:3 ATT, caliper 0.05. Treated=just conceded PUTBACK. Covariates include off_margin (already reflects conceded points).
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable: margin already includes the putback points, so unmatched H2/Q4 comparisons confound scoreboard state with aftershock.
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-041: 2026-06-14 (mtime)
+- observed_member_records: APPS-041
+- observed_sources: APPS-041: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\putback_matched_isolation.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF30 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-041 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

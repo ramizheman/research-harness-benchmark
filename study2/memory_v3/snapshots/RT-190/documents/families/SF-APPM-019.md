@@ -1,0 +1,31 @@
+# FAM:SF-APPM-019 | Study family SF-APPM-019: Within-series learning: distribution shift vs outcomes
+- observed_research_question: Within-series learning: distribution shift vs outcomes
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Teams shift play-type mix more after losses, and higher-adapting teams win series.
+- observed_result: Shift after loss 31.85 vs after win 32.69 pp; higher-shift team won 28/52 series (53.8%).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: 53.8% 'effectively a coin flip'; loss-win diff -0.85 pp.
+- observed_sample_and_power: 478 game pairs; 52 series
+- observed_method: Playoff possessions with series property; TVD shift between consecutive games (478 pairs); series-level comparison.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Header says 33 series/58,455 possessions but table lists 52 series; inconsistent.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-019: 2026-05-16 (mtime)
+- observed_member_records: APPM-019
+- observed_sources: APPM-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_series_learning.py
+- observed_sources: APPM-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_series_learning_out.txt
+- observed_sources: APPM-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_series_learning_out2.txt
+- observed_sources: APPM-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\series_adaptation_data.csv
+- observed_sources: APPM-019: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_learning_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-002 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

@@ -1,0 +1,33 @@
+# FAM:SF-APPM-021 | Study family SF-APPM-021: Within-game tactical adaptation (halftime, crunch, post-run)
+- observed_research_question: Within-game tactical adaptation (halftime, crunch, post-run)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Describe how play-type mix shifts by halftime margin, crunch time and after runs.
+- observed_result: OTHER +2.26 to +2.48pp in H2 in every bucket; crunch OTHER +6.08pp, PULL_UP +1.20pp at -0.045 PPP; post-run DRIVE +3.75pp, OTHER -6.72pp.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No inferential tests; OTHER label known to be noisy (PT audit).
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: 1,086,514 possessions / 5,187 games; H1 vs H2 by margin bucket; Q4 last 5 min |margin|<=5; post-run opponent PT.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-021: 2026-05-05 (mtime)
+- observed_member_records: APPM-021
+- observed_sources: APPM-021: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_adaptation_run_log.txt
+- observed_sources: APPM-021: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_within_game_adaptation.py
+- observed_sources: APPM-021: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\adaptation_data.csv
+- observed_sources: APPM-021: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_game_adaptation_findings.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-019 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

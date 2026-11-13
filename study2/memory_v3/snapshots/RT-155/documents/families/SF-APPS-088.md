@@ -1,0 +1,31 @@
+# FAM:SF-APPS-088 | Study family SF-APPS-088: Offensive-identity resilience: connector absence vs usage-matched others
+- observed_research_question: Offensive-identity resilience: connector absence vs usage-matched others
+- auto_outcome_status: supported
+- observed_hypothesis: Connector absence displaces team offensive identity (D_A) more than usage-matched non-organizer absence.
+- observed_result: Unmatched conn vs role D_A 0.2020 vs 0.1021, t=5.97 p=2.87e-08. Usage-matched vs role: paired dD_A +0.1151, P(conn>ctrl)=81.2%, t=6.35 p=7.35e-09 n=96. Vs terminal: +0.0777 t=2.37 p=0.0261 n=25.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Usage-matched connector vs role occupant identity break is large and significant (n=96). Licensed comparison excludes organizers.
+- observed_sample_and_power: n=96 matched pairs vs role; n=25 vs terminal; 908 player-seasons
+- observed_method: Player-seasons >=400 poss on and off, N=908. Primary: usage-matched pairs connector vs role occupant / vs terminal.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Does not claim PPP value. PRIMARY ORGANIZER is a positive-control reference (mean D_A 0.2141).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-088: 2026-07-26 (mtime)
+- observed_member_records: APPS-088
+- observed_sources: APPS-088: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\identity_resilience_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-014 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_related_family: FAM:SF17 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF18 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-014 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}

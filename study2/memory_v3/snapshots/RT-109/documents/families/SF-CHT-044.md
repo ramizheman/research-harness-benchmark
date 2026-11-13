@@ -1,0 +1,25 @@
+# FAM:SF-CHT-044 | Study family SF-CHT-044: H17 opponent next-trip aftershock vs H26 sequence conditioning
+- observed_research_question: H17 opponent next-trip aftershock vs H26 sequence conditioning
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Opponent next-possession PPP after you run play X is large enough to drive AVOID labels; own-sequence lags similarly matter.
+- observed_result: H17 PNR/CUT/DRIVE etc. ~+0.12 to +0.13 PPP (8/8 PTs). Sequence lags flat d~0.01-0.03, failed; H26 removed from engine. Suppression control opponent same PT H1-H2 +0.011 PPP.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: H17 is real ~+0.12 but using it in net_swing stuffed PNR into AVOID even when own PNR PPP was 0.93-0.95; own-sequence conditioning is ~0.01 noise.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: H17: opp next-trip lift by PT. H26/H31/H32: own lags. H29 EPV 0.01-0.02.
+- observed_verdict: inconclusive
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: CHT-044: '7 kept as exploratory. files in sequence_memory / playsheet_validation mentioned in later audits. h17 is real ~+0.12 but using it'
+- observed_notes: Engine change W.8 removed net_swing from optimizer; H17 kept as exploratory. Files in sequence_memory / playsheet_validation mentioned in later audits.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-044: 2026-06-19 (transcript)
+- observed_member_records: CHT-044
+- observed_sources: CHT-044: 2f3cd719-5b62-43dd-839a-6f80d9e4f6cd
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-051 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

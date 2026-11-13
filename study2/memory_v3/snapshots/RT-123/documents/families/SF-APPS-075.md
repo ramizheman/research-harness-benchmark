@@ -1,0 +1,29 @@
+# FAM:SF-APPS-075 | Study family SF-APPS-075: Extended Possession Value (direct PPP + opponent T+1 suppression)
+- observed_research_question: Extended Possession Value (direct PPP + opponent T+1 suppression)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Play types and players have a real downstream (opponent next-PPP) component beyond direct PPP.
+- observed_result: 4/8 PTs downstream real: CUT Ext 1.658 (supp +0.0220), TRANSITION 1.509 (+0.0145), SPOT_UP 1.303 (+0.0124), POST_UP 1.127 (+0.0194). DRIVE downstream not real (opp ATT +0.0024). Player downstream mostly BH ns except M. McBride supp +0.1007 BH p=0.0000.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Downstream effects are small (~0.01-0.02 PPP) relative to direct PPP gaps; player list is mostly non-FINDING after BH.
+- observed_sample_and_power: PT-level n in the tens to hundreds of thousands implied by other seq files
+- observed_method: Exact match margin x period x season x focal team. Ext.Value = direct PPP + (-opp ATT). BH+placebo for downstream.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPS-075: 'eason x focal team. ext.value = direct ppp + (-opp att). bh+placebo for downstream. 4/8 pts downstream real: cut ext 1.658 (sup'
+- observed_notes: POST_UP has low direct PPP (1.107) but real downstream suppression, opposite of the 52-series negative net-swing ranking which uses own-PPP minus opp-next without this matching.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-075: 2026-06-15 (mtime)
+- observed_member_records: APPS-075
+- observed_sources: APPS-075: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\epv.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-049 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF07 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-098 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

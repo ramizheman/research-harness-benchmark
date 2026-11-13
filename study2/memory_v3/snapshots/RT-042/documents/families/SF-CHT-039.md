@@ -1,0 +1,30 @@
+# FAM:SF-CHT-039 | Study family SF-CHT-039: Series-level AVOID share vs winning (talent confound)
+- observed_research_question: Series-level AVOID share vs winning (talent confound)
+- auto_outcome_status: untestable
+- observed_hypothesis: Higher AVOID share predicts losing, independent of team quality.
+- observed_result: Game-level rho=-0.19 p=0.008 (inflated n, team-quality confound). Series-level rho=-0.26 p=0.07 (n=50, underpowered; ~80 series needed for p<0.05). Low AVOID-share bin 52.6% vs 25-50% bin 37.0%.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Series n=50 p=0.07; still confounded by team quality (OKC disciplined and good).
+- observed_sample_and_power: n=50 series; stated need ~80 for p<0.05
+- observed_method: Game-level n=191 then series-level n=50 Spearman of AVOID/process vs outcomes.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Chat analysis; later talent-control test is a cleaner version.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-039: 2026-05-26 (transcript)
+- observed_member_records: CHT-039
+- observed_sources: CHT-039: fe66194a-4f5a-4778-bf2d-6912b8da2848
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-106 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

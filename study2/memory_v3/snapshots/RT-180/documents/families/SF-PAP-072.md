@@ -1,0 +1,29 @@
+# FAM:SF-PAP-072 | Study family SF-PAP-072: Measurement study primary: in-stint evidence does not predict retained-five performance
+- observed_research_question: Measurement study primary: in-stint evidence does not predict retained-five performance
+- auto_outcome_status: rejected
+- observed_hypothesis: Models D/E/F (actual-points, process, or all in-game evidence) beat model C on Task 2 weighted test (99% CI>0 and >=1% MSE drop).
+- observed_result: NO-GO; no Task 2 99% lower bound >0; closest offense D test +0.104 millinats [-0.012, 0.219] with opposite-sign validation; Task 2 MSE changes -0.14% to +0.01% vs 1% threshold
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: all six Task 2 comparisons fail 99% CI and 1% MSE; even 0.1% MSE would fail
+- observed_sample_and_power: 572,382 rows; 29.3% retained; 1,000 game-clustered bootstraps
+- observed_method: Train 2022-23, val 2023-24, test 2024-25; substitution opportunities; Task 2 = same five retained, IPW; multinomial logit; 6 primary comparisons.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-072: 'd test +0.104 millinats [-0.012, 0.219] with opposite-sign validation; task 2 mse changes -0.14% to +0.01% vs 1% threshold feasib'
+- observed_notes: Feasibility profiling already showed in-game scoring is nearly uninformative. Recommendation NO-GO for an adaptive substitution policy.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-072: 2026-11-02 (doc)
+- observed_member_records: PAP-072
+- observed_sources: PAP-072: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\prereg.md
+- observed_sources: PAP-072: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\report.md
+- observed_sources: PAP-072: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\results\05_eval.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-075 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-PAP-081 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-069 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

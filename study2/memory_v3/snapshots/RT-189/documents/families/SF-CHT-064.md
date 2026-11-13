@@ -1,0 +1,28 @@
+# FAM:SF-CHT-064 | Study family SF-CHT-064: Team-season defensive H2-adjustment reliability
+- observed_research_question: Team-season defensive H2-adjustment reliability
+- auto_outcome_status: untestable
+- observed_hypothesis: A defense's effect on opponents' H2-H1 change is a reliable team trait.
+- observed_result: H2-change trait r=-0.001 (p<.05 needs ~0.18). H1 defensive level r=+0.356 (test works). Season-to-season -0.19, -0.26, +0.16. Offensive H2-change r=+0.139 ns.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Split-half r=-0.001; a detectable r needs about 0.18.
+- observed_sample_and_power: 120 team-seasons; p<.05 needs r~0.18
+- observed_method: Split-half (two halves of a season) correlation across 120 team-seasons; season-to-season; H1 defensive level as positive control.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: CHT-064: 'split-half (two halves of a season) correlation across 120 team-season'
+- observed_notes: Chat audit; reliability floor was knowable from n=120.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: Defensive Suppression
+- observed_dates: CHT-064: 2026-10-06 (transcript)
+- observed_member_records: CHT-064
+- observed_sources: CHT-064: 26d2d8fd-a667-4ff9-b395-95ddd607e6ea
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-TMP-005 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}

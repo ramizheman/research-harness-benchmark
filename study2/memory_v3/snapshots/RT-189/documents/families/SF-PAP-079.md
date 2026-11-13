@@ -1,0 +1,29 @@
+# FAM:SF-PAP-079 | Study family SF-PAP-079: Shot adaptation directional and dispersion tests
+- observed_research_question: Shot adaptation directional and dispersion tests
+- auto_outcome_status: untestable
+- observed_hypothesis: Shot mix moves toward what incoming defenders historically allow, or treated events have more dispersed share changes than controls.
+- observed_result: per SD profile: 5/5 three -0.42 pp [-2.57,+1.73]; rim -1.12 [-3.16,+0.92]; variance ratio 1.05 [0.95, 1.15]; 1 SD of profile change ~0.6 pp of allowed share
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: directional CIs include 0; variance ratio 1.05; profiles barely differ after shrinkage
+- observed_sample_and_power: 1,054 treated
+- observed_method: Shrunk defender allowed-shot profiles (k=300); variance ratio with attempt-count reweighting; 1,000 game bootstrap.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Secondary: TO +2.1 pp q=0.03 and FT -2.0 q=0.013 are RTM from selecting on hot pre windows (36% treated are opponent timeouts vs 9% controls).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-079: 2026-11-02 (doc)
+- observed_member_records: PAP-079
+- observed_sources: PAP-079: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-174 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-PAP-001 | Study family SF-PAP-001: Wiring feasibility gate (8-team pilot)
+- observed_research_question: Wiring feasibility gate (8-team pilot)
+- auto_outcome_status: supported
+- observed_hypothesis: Offensive play-type co-initiation association matrix clears a fixed-margin null, is team-persistent across split halves, and is not collinear with play-type rates (pilot).
+- observed_result: C1 8/8 p<0.05; C2 S=0.319 within=43.027 between=134.770 perm_p=0.0002 (cosine S=0.154); C3 R2=0.080
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: all three gate criteria passed
+- observed_sample_and_power: 8 team-seasons pilot
+- observed_method: 8 frozen pilot team-seasons, odd/even game split, min-overlap association standardized vs 1000 fixed-margin shuffles; 3 gate criteria.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-001: '8 frozen pilot team-seasons, odd/even game split, min-overlap associ'
+- observed_notes: Cosine metric was added as co-primary after seeing pilot (Amendment 1), disclosed in prereg.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-001: 2026-07-12 (doc)
+- observed_member_records: PAP-001
+- observed_sources: PAP-001: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\PAPER2_PREREGISTRATION.md
+- observed_sources: PAP-001: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper2_gate.py
+- observed_sources: PAP-001: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper2_output\paper2_gate_result.txt
+- observed_sources: PAP-001: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\wiring_gate.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-138 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

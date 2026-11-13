@@ -1,0 +1,31 @@
+# FAM:SF-PAP-011 | Study family SF-PAP-011: HasShaper presence effect on PPP
+- observed_research_question: HasShaper presence effect on PPP
+- auto_outcome_status: rejected
+- observed_hypothesis: Having any shaper on the floor raises PPP net of role counts and talent.
+- observed_result: HasShaper +0.003 pts/100, t=0.004, p=0.996, CI[-1.37,+1.48]; n_SHAPER +1.17 pts/100 t=2.25 p~0.02 (not confirmed at 0.01)
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: MDE80 1.92 pts/100; t=0.00
+- observed_sample_and_power: MDE80 1.92 pts/100
+- observed_method: Same possession model as coverage with HasShaper indicator; 420,993 possessions.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Called HasConn in archive versions.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-011: 2026-08-09 (doc)
+- observed_member_records: PAP-011
+- observed_sources: PAP-011: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\hasconn_full_study.py
+- observed_sources: PAP-011: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\hasshaper_full_study.py
+- observed_sources: PAP-011: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\hasshaper_full_study.csv
+- observed_sources: PAP-011: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-013 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-PAP-013 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_related_family: FAM:SF28 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF29 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-062 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

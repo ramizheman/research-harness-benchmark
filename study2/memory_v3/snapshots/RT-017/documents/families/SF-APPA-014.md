@@ -1,0 +1,28 @@
+# FAM:SF-APPA-014 | Study family SF-APPA-014: A4 sequence-context modifiers vs A3
+- observed_research_question: A4 sequence-context modifiers vs A3
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Previous-outcome and repetition modifiers lift equilibrium PPP and diversify mixes.
+- observed_result: A4 +2.06 vs A3 +2.06; -0.00 pts/100; A4 beats A3 14/240; sample equilibrium mixes identical to A3.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Identical mixes and exactly 0.0000 deltas suggest the modifiers had no effect (possibly inert in code), not a tested null.
+- observed_sample_and_power: 240 matchups
+- observed_method: 240 matchups; same equilibrium framework.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: V6 and V7 report the same headline.
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-014: 2026-04-15 (mtime)
+- observed_member_records: APPA-014
+- observed_sources: APPA-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V6.md
+- observed_sources: APPA-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V7.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-011 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-061 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

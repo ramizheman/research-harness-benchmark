@@ -1,0 +1,29 @@
+# FAM:SF-APPA-055 | Study family SF-APPA-055: All play types x Q1-Q4 gradient on 30 stars
+- observed_research_question: All play types x Q1-Q4 gradient on 30 stars
+- auto_outcome_status: supported
+- observed_hypothesis: Only PUTBACK shows a fatigue signature (near-zero Q1 suppression compounding to Q4) across the full 30-star panel.
+- observed_result: PUTBACK Q1 d=-0.001 to Q4 d=-0.233, Q1->Q4 -0.232 (Q1 poss 722 / Q4 531). Other PTs suppress in Q1 already; largest other gradient DRIVE -0.060. CUT reverses +0.020. TRANSITION -0.053.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: On the full 30-star weighted panel, only PUTBACK is near-zero in Q1 and heavy in Q4.
+- observed_sample_and_power: 30 stars; PUTBACK Q4 n=531 poss
+- observed_method: Possession-weighted league delta of star PPP vs own-quarter baseline; no n floor; 30 stars x 9 opp PTs.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Section Q n>=30 gate gave Q1 -0.009 to Q4 -0.289; no-floor weighted gives the same qualitative story.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-055: 2026-06-03 (doc)
+- observed_member_records: APPA-055
+- observed_sources: APPA-055: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-050 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-APPA-054 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-APPA-056 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-006 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

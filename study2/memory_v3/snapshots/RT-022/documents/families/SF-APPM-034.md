@@ -1,0 +1,23 @@
+# FAM:SF-APPM-034 | Study family SF-APPM-034: Counter identity selection at specific-action level (non-CUT)
+- observed_research_question: Counter identity selection at specific-action level (non-CUT)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Choosing the specific counter identity (beyond tier) matters for non-CUT counters.
+- observed_result: Non-CUT gap +0.010, p=0.17 - not significant.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: +0.010, p=0.17.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Non-CUT gap test (details not in file).
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: APPM-034: 2026-07-11 (mtime)
+- observed_member_records: APPM-034
+- observed_sources: APPM-034: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-090 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

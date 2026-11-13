@@ -1,0 +1,26 @@
+# FAM:SF-APPA-046 | Study family SF-APPA-046: Adaptation vs generic counter (W4)
+- observed_research_question: Adaptation vs generic counter (W4)
+- auto_outcome_status: supported
+- observed_hypothesis: BEST-tier counters are suppression-specific rather than the team's generic best available play.
+- observed_result: BEST == generic best 78.3%; suppression-specific 21.7%. Defense suppressed generic-best 4.7% (73); then specific 39.7%. When supp != generic, still picks generic 79.2%. (off,def) counter changes by what was suppressed 48.8% (190/389). PNR adapt 28.3% n=428; PULL_UP 28.5% n=291. True INSUFF (no valid counter) 0/11,087 full-graph triggers.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: 78.3% of ranked BEST counters are the generic best available; Rank adds value in ~20-22%, 39.7% when defense took the team's best.
+- observed_sample_and_power: n=1,539 W4 triggers; 1,466 (95.3%) had a better option already
+- observed_method: _adaptation_vs_generic.py; n=1,539 RS triggers with BEST tier + viable blended PPP (55.4% of 2,779).
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Deck '80%' and '1,600 triggers' should be 78.3% and 1,539. Pivot remains counterfactual: 93% do not pivot. Drop magnitude does not predict smarter counters (~22% flat).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-046: 2026-06-22 (doc)
+- observed_member_records: APPA-046
+- observed_sources: APPA-046: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF05 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-064 {basis=TF-IDF question clustering}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

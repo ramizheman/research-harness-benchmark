@@ -1,0 +1,32 @@
+# FAM:SF-CHT-052 | Study family SF-CHT-052: Play-type replacement similarity vs absorb/cascade
+- observed_research_question: Play-type replacement similarity vs absorb/cascade
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Having a similar-profile teammate separates absorption from cascade when a player sits.
+- observed_result: mean sim ABSORBED +0.863 vs CASCADE +0.848; Spearman(sim, -gap)=-0.19 (wrong-signed). Embiid 23-24 cascades with Reed sim 0.94.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Similarity does not separate absorption from cascade; almost always findable.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Exploratory map of 23-ish absences; mean replacement similarity by outcome.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: absence_replacement_map.csv. Labeled non-confirmatory.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: CHT-052: 2026-07-12 (transcript)
+- observed_member_records: CHT-052
+- observed_sources: CHT-052: 9ea66f06-5402-4b05-850e-4b0b12a3afb6
+- observed_sources: CHT-052: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\paper2_output\absence_replacement_map.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-005 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-032 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-086 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-057 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

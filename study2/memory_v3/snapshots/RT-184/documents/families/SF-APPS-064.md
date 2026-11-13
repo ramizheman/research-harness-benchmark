@@ -1,0 +1,25 @@
+# FAM:SF-APPS-064 | Study family SF-APPS-064: Gate 1: defensive assignment network modularity vs volume-schedule null
+- observed_research_question: Gate 1: defensive assignment network modularity vs volume-schedule null
+- auto_outcome_status: rejected
+- observed_hypothesis: Attacker-defender assignment networks have community structure beyond volume and schedule.
+- observed_result: Q_obs=0.3838; Q_null=0.4300+-0.0010 range[0.4282,0.4324]; z=-46.85 p_emp=1.000. VERDICT: KILL ? no structure beyond volume+schedule.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Observed modularity is below the volume-schedule null (z=-46.85); gate instruction is do NOT lean on topology.
+- observed_sample_and_power: n=196782 possessions, 257x252
+- observed_method: 2023-24 RS. attackers=257 defenders=252 possessions=196782. Compare Q_obs to Q_null.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: gate2_reassignment_probe.py exists but no saved result file was found in sequence_memory/output.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-064: 2026-07-12 (mtime)
+- observed_member_records: APPS-064
+- observed_sources: APPS-064: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\gate1_assignment_structure.py
+- observed_sources: APPS-064: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\gate1_assignment_structure.txt
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF20 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-106 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

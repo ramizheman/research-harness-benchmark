@@ -1,0 +1,29 @@
+# FAM:SF-APPA-005 | Study family SF-APPA-005: Defensive scheme change within game and across games (inferred labels)
+- observed_research_question: Defensive scheme change within game and across games (inferred labels)
+- auto_outcome_status: untestable
+- observed_hypothesis: Playoff defenses change scheme within games and between games, especially after the opponent ran a play type heavily.
+- observed_result: Within-game change 319/523 (61.0%); cross-game change 298/440 (67.7%); 103/104 units (99.0%) and 52/52 series show a change; transition matrices near-uniform.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Doc caveat: inferred label cannot separate real defensive adjustment from offense executing differently; near-uniform transition matrices consistent with label noise.
+- observed_sample_and_power: 523 cells; 440 pairs
+- observed_method: A1 vote-rule scheme inference from opponent PT PPP; 523 comparable within-game cells; 440 consecutive game pairs; heavy-PT conditioning (>=5pp).
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Reverse-inferred labels from PPP outcomes; late-third votes use min_n_per_pt=2.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Team Adaptation
+- observed_dates: APPA-005: 2026-05-23 (mtime)
+- observed_member_records: APPA-005
+- observed_sources: APPA-005: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\DEFENSIVE_ADAPTATION_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-001 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-001 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-068 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

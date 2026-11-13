@@ -1,0 +1,28 @@
+# FAM:SF-APPM-010 | Study family SF-APPM-010: Scheme-adjusted vs baseline Spearman across canonical series
+- observed_research_question: Scheme-adjusted vs baseline Spearman across canonical series
+- auto_outcome_status: supported
+- observed_hypothesis: Scheme-adjusted engine (Step 2) ranks play types better than baseline (Step 1).
+- observed_result: Mean Spearman +0.524 -> +0.579 (median +0.548 -> +0.631); improves 42/84, worsens 8/84, noise 34/84.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Mean delta +0.055; 42 improve vs 8 worse.
+- observed_sample_and_power: n=84 team rows; no test
+- observed_method: Per team-series Spearman for 84 team rows across canonical playoff slugs.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Spearman target definition not stated in the file.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-010: 2026-05-03 (mtime)
+- observed_member_records: APPM-010
+- observed_sources: APPM-010: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\SEASON_COMPARISON.md
+- observed_sources: APPM-010: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_season_comparison.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-077 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

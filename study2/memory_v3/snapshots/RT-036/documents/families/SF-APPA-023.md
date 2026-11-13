@@ -1,0 +1,28 @@
+# FAM:SF-APPA-023 | Study family SF-APPA-023: Per-play-type interaction residual feature (Phase 1b)
+- observed_research_question: Per-play-type interaction residual feature (Phase 1b)
+- auto_outcome_status: rejected
+- observed_hypothesis: Per-PT team-pair interaction deltas add R2 over the 8-feature baseline (ship if lift > +0.005).
+- observed_result: Best k=500 R2_hol +0.1192 vs +0.1150 baseline; lift +0.0042; w_pt negative (-1.4014).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Lift +0.0042 < +0.005 ship threshold.
+- observed_sample_and_power: 870 train cells
+- observed_method: 870 train cells (386,675 poss); shrinkage k sweep 25-1000; holdout R2.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPA-023: '870 train cells (386,675 poss); shrinkage k sweep 25-1000; holdout r2. best k=500 r2_hol +0.1192 vs +0.1150 baseline; lift +0.'
+- observed_notes: Negative weight suggests overfitting sparse cells.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-023: 2026-04-17 (mtime)
+- observed_member_records: APPA-023
+- observed_sources: APPA-023: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\INTERACTION_PT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-020 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-034 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

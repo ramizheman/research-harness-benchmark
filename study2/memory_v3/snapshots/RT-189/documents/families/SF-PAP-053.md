@@ -1,0 +1,31 @@
+# FAM:SF-PAP-053 | Study family SF-PAP-053: Cross-fitted teammate restoration vs no-absence placebo
+- observed_research_question: Cross-fitted teammate restoration vs no-absence placebo
+- auto_outcome_status: supported
+- observed_hypothesis: Teammates rebuild a detectable fraction of the deleted structural relationships relative to a no-absence placebo.
+- observed_result: restoration mean +0.186 vs placebo +0.013, difference +0.173 [+0.085,+0.262]; 72% of spells R>0 vs 53% placebo; teammate response distance T 0.151 vs 0.139, diff +0.012 [-0.004,+0.030]; equal-size O excess +0.056 [+0.034,+0.080]
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: restoration excess +0.173 CI excludes 0; T excess CI includes 0
+- observed_sample_and_power: n=148, 28 franchises
+- observed_method: 148 spells; cross-fit deletion direction and counterfactual on random halves of pre games; franchise cluster bootstrap 2,000.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-053: '148 spells; cross-fit deletion direction and counterfactual on random halves of p'
+- observed_notes: About one-fifth of deleted structure is restored; four-fifths stays deleted. Average only.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-053: 2026-11-02 (doc)
+- observed_member_records: PAP-053
+- observed_sources: PAP-053: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate2.py
+- observed_sources: PAP-053: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate2_rows.csv
+- observed_sources: PAP-053: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF24 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-019 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}

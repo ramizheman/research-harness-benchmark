@@ -1,0 +1,30 @@
+# FAM:SF-APPS-004 | Study family SF-APPS-004: Post-hoc calibrated decision quality hit rate (--calibrated)
+- observed_research_question: Post-hoc calibrated decision quality hit rate (--calibrated)
+- auto_outcome_status: artifact
+- observed_hypothesis: Applying playoff calibration scalars (DRIVE excluded) raises the engine's hit rate vs modal PT.
+- observed_result: Hit rate 51.7% (31/60) before vs 96.2% (77/80) after; high-conf 42.9% -> 96.6%; CUT recs 66 with 95%.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Deprecated: 'Post-hoc PPP scalars on Neo4j mix, not is_playoff=True engine run; ~96%' and 'inflates hit rate'.
+- observed_sample_and_power: n=80
+- observed_method: Post-hoc scalar reweighting of cached Neo4j PT distributions instead of re-running the engine; 80 scoreable pairs.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Calibration was tuned on the same series it was scored on.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-004: 2026-05-23 (mtime)
+- observed_member_records: APPS-004
+- observed_sources: APPS-004: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\decision_quality_findings.md
+- observed_sources: APPS-004: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\validation\deprecated\README.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-003 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-026 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

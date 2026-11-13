@@ -1,0 +1,28 @@
+# FAM:SF-APPM-016 | Study family SF-APPM-016: Possession-level SQ2 test: engine recommended PT (playoff series)
+- observed_research_question: Possession-level SQ2 test: engine recommended PT (playoff series)
+- auto_outcome_status: rejected
+- observed_hypothesis: Possessions on the engine's recommended PT score more than other PTs within the series, beyond inherent PT PPP.
+- observed_result: A +0.140 PPP [0.084,0.196]; B DiD +0.090 [0.041,0.141]; C gamma +0.0088 SE 0.0239 p=0.7139.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Strictest FE test gamma +0.0088, p=0.71; A/B explained by engine picking high-PPP PTs.
+- observed_sample_and_power: 504 cells, SE 0.0239 (iid)
+- observed_method: 74 team-series pairs; Test A literal, Test B DiD vs RS, Test C two-way FE OLS on 504 cells.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-016: 2026-05-23 (mtime)
+- observed_member_records: APPM-016
+- observed_sources: APPM-016: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\POSSESSION_PPP_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-026 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

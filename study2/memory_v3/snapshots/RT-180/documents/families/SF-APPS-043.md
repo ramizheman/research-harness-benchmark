@@ -1,0 +1,26 @@
+# FAM:SF-APPS-043 | Study family SF-APPS-043: PNR suppression RTM-excess team and player tables
+- observed_research_question: PNR suppression RTM-excess team and player tables
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: PNR H1->H2 drops contain a team- and player-specific RTM-excess signal (who loses PNR; who takes it away).
+- observed_result: Offense excess c=0.10: GSW +0.702 n=12; MIA +0.110 CI[-0.119,+0.340] n=15. Defense: DAL +0.761 n=6 (CI crosses 0); UTA -0.005 CI[-0.203,+0.194] n=7. Players c=0.10 n>=5: J. Brown +0.643 n=10; only 2 players n>=10 at this caliper.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Overlapping CIs; player n>=10 at primary caliper is 2; many team CIs include 0. Ranks not distinguishable.
+- observed_sample_and_power: 380 matched pairs at c=0.10 from 2838 triggers
+- observed_method: 2838 PNR triggers; matched pairs caliper 0.10 n=380. CR1 cluster SE on game. Player tables also c=0.15/0.20.
+- observed_verdict: descriptive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: CHA/SAC digs are case studies on the same PNR-excess tables, not separate tests.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-043: 2026-08-21 (mtime)
+- observed_member_records: APPS-043
+- observed_sources: APPS-043: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cha_pnr_dig.md
+- observed_sources: APPS-043: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\pnr_suppression_rtm.md
+- observed_sources: APPS-043: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\sac_pnr_dig.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-046 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

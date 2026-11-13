@@ -1,0 +1,27 @@
+# FAM:SF-APPS-009 | Study family SF-APPS-009: Player routing V4 vs V5 direct scoring
+- observed_research_question: Player routing V4 vs V5 direct scoring
+- auto_outcome_status: untestable
+- observed_hypothesis: V5 player routing picks players with higher observed PPP than V4 routing.
+- observed_result: 8 divergences, 0 scoreable, 8 unscored (player missing from Neo4j); hit rate n/a.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Scoreable 0 of 8; V5 mostly routed to 'team' rather than a player.
+- observed_sample_and_power: n=8 divergences, 0 scoreable
+- observed_method: Series where V4 and V5 routed to different players; compare observed PPP (n>=5 each).
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Data coverage could be checked before running.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_data
+- observed_project: Strategy app
+- observed_dates: APPS-009: 2026-05-05 (mtime)
+- observed_member_records: APPS-009
+- observed_sources: APPS-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\player_routing_results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-016 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

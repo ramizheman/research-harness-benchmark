@@ -1,0 +1,24 @@
+# FAM:SF-APPA-015 | Study family SF-APPA-015: A3 equilibrium vs actual significance test
+- observed_research_question: A3 equilibrium vs actual significance test
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Matchup-aware equilibrium beats actual team behavior significantly across matchups.
+- observed_result: A3 beats actual 138/240 (57.5%); weighted mean +2.06 pts/100; median +2.22; SD 14.26; t=2.24; p=0.0644.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Doc reports p=0.064 not significant.
+- observed_sample_and_power: n=240, SD 14.26 pts/100
+- observed_method: Per-matchup A3 minus actual across 240 matchups; t-test.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: t=2.24 with n=240 should give p about 0.026 two-sided, so the stated p and t disagree. A3 PPP is nearly constant per offense, e.g. OKC 1.356 against every opponent.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-015: 2026-04-15 (mtime)
+- observed_member_records: APPA-015
+- observed_sources: APPA-015: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V7.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-011 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-013 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}

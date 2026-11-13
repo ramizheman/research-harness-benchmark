@@ -1,0 +1,28 @@
+# FAM:SF-PAP-076 | Study family SF-PAP-076: Coaches retain fives that scored well even though it does not carry forward
+- observed_research_question: Coaches retain fives that scored well even though it does not carry forward
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Retention is associated with in-stint scoring residuals.
+- observed_result: propensity AUC 0.73-0.74; +0.1 PPP shrunk offensive residual raises log-odds of retention 0.070-0.077 (CIs exclude 0 all 3 seasons); +0.1 allowed residual lowers 0.044-0.066; OR ~1.11 per SD
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: retention tracks residuals that PAP-072/075 show do not predict later points
+- observed_sample_and_power: three seasons
+- observed_method: Logistic retention on C/D/E/F features without horizon; descriptive after primary models.
+- observed_verdict: descriptive
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Post-primary descriptive addition. Combined with Task 2 null: coaches respond to noise.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-076: 2026-11-02 (doc)
+- observed_member_records: PAP-076
+- observed_sources: PAP-076: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\report.md
+- observed_sources: PAP-076: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\results\06_supplementary.json
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-072 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF36 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-174 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

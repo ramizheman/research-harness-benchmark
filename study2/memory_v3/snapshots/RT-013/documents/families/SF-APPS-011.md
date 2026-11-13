@@ -1,0 +1,27 @@
+# FAM:SF-APPS-011 | Study family SF-APPS-011: Regular season vs playoff PPP by play type (DRIVE over-prediction)
+- observed_research_question: Regular season vs playoff PPP by play type (DRIVE over-prediction)
+- auto_outcome_status: supported
+- observed_hypothesis: DRIVE PPP is materially higher in RS than playoffs, so an RS-calibrated optimizer over-recommends DRIVE.
+- observed_result: DRIVE RS 1.198 vs PO 0.912 (-0.286, 25 teams); PNR -0.173; PULL_UP +0.301; others within -0.07.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: DRIVE playoff PPP 0.286 below RS across 25 teams; top-10 teams all -0.30 to -0.43.
+- observed_sample_and_power: 25 teams, min 30 poss per cell; no CIs
+- observed_method: Team-level (team, PT, context) cells, min 30 poss, up to 25 teams.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Motivated the playoff DRIVE exclusion and a proposed playoff DSI offset.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-011: 2026-05-08 (mtime)
+- observed_member_records: APPS-011
+- observed_sources: APPS-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_rs_vs_playoff_ppp.md
+- observed_sources: APPS-011: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\rs_vs_playoff_run.log
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-029 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

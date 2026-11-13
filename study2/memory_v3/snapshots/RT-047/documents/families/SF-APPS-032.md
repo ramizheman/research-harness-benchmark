@@ -1,0 +1,32 @@
+# FAM:SF-APPS-032 | Study family SF-APPS-032: CUT depletion / decay hypothesis (feasibility, not efficiency)
+- observed_research_question: CUT depletion / decay hypothesis (feasibility, not efficiency)
+- auto_outcome_status: rejected
+- observed_hypothesis: CUT PPP decays across successive H2 runs, so the playsheet should rotate off CUT to SPOT_UP.
+- observed_result: CUT PPP stable 1.60-1.71 for runs 1-5 (all n>=14); runs 6+ n=4/2/0. 62.0% of team-halves never crossed below SPOT_UP (n=405). Depletion-adjusted rho -0.0415 vs baseline -0.2737 (degraded 0.2322). DP -6.7 pts/100 vs static ? invalidated.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: No efficiency cliff; constraint is opportunity (~3-5 CUT per half). DP was built on fabricated decay.
+- observed_sample_and_power: 311 games; CUT runs 6+ essentially unobserved
+- observed_method: 311 playoff games, 12361 H2 CUT/SPOT_UP/DRIVE possessions. Decay curve, switch-point vs SPOT_UP, depletion-adjusted Spearman, DP policy vs static.
+- observed_verdict: reversed
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Actionable output was constrained mix tables replacing single-label BEST:CUT.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-032: 2026-05-28 (mtime)
+- observed_member_records: APPS-032
+- observed_sources: APPS-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\CUT_DEPLETION_FINDINGS.md
+- observed_sources: APPS-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\depletion_validation.md
+- observed_sources: APPS-032: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\cut_depletion_analysis\dp_policy_validation.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-023 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-080 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

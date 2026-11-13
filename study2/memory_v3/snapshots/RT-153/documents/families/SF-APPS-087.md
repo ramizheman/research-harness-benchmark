@@ -1,0 +1,34 @@
+# FAM:SF-APPS-087 | Study family SF-APPS-087: Connector tangible impact: star shielding, TO, lineup lift
+- observed_research_question: Connector tangible impact: star shielding, TO, lineup lift
+- auto_outcome_status: rejected
+- observed_hypothesis: Connector presence shields stars (higher TS, lower TO) and lifts lineup ORtg beyond talent.
+- observed_result: Star dTS +0.05 pp p=0.937; dTO +0.74 pp p=0.00364 (wrong sign for shielding). Star-init TO~HasConn beta=+0.34 pp p=0.439. HasConn on-off PPP BOTH_NULL (mean -0.041 p=0.939, median +0.528 p=0.731, n=73). Frequent-conn lineup ORtg lift LOO +1.559 p=0.0184 but talent-controlled beta +0.915 p=0.51 n=428. Held-4 swap dORtg +0.427 p=0.565 n=296.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: PPP/TS/eFG shielding null; TO rate rises with connectors. Lineup ORtg lift is a talent confound (p=0.51 after TALENT; swap p=0.565).
+- observed_sample_and_power: n=61 star pairs; 73 team-seasons; 296 held-4 swaps; 428 lineups
+- observed_method: 61 star-season pairs >=80 poss w/wo CONNECTOR. HasConn M1 regressions. Lineup lift talent-controlled and held-4 swap n=296. Wilcoxon battery n=73.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Wilcoxon agrees with means on the nulls (BOTH_NULL) and on TO (BOTH_SIG, higher TO with HasConn).
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-087: 2026-07-27 (mtime)
+- observed_member_records: APPS-087
+- observed_sources: APPS-087: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_offense_median_wilcoxon_report.md
+- observed_sources: APPS-087: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_tangible_impact_report.md
+- observed_sources: APPS-087: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\lineup_lift_diagnostics_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-086 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-123 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}

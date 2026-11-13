@@ -1,0 +1,30 @@
+# FAM:SF-CHT-020 | Study family SF-CHT-020: A1 cross-game carryover (falsification T3)
+- observed_research_question: A1 cross-game carryover (falsification T3)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: In-game adapter PPP lift carries over to Game N+1.
+- observed_result: T3: no PPP lift, negative mix-carry; did not replicate the in-game adapter PPP lift at Game N+1. Handoff: do not cite ~92.6% or ~96% calibrated numbers for SQ3.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Cross-game offensive carryover is null; in-game lift does not replicate at Game N+1.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Falsification T3 on the same playoff A1 sample; 430 mentioned in a Dean-summary table as no next-game carryover.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: a1_falsification.py / A1_FALSIFICATION_findings.md.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-020: 2026-05-16 (transcript)
+- observed_member_records: CHT-020
+- observed_sources: CHT-020: 45ff6a12-bb14-483f-bedb-c54e46693840
+- observed_sources: CHT-020: 69feafdf-b3ec-4450-9564-c9c86979924b
+- observed_sources: CHT-020: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\validation\proof\a1_falsification.py
+- observed_sources: CHT-020: d2a94a1e-b21a-4a3a-b2cf-3eb526e3f49a
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-119 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

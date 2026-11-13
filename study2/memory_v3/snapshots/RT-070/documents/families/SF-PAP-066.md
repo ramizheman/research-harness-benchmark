@@ -1,0 +1,33 @@
+# FAM:SF-PAP-066 | Study family SF-PAP-066: Feasibility check: initiation share vs L_pre as predictors of D_real
+- observed_research_question: Feasibility check: initiation share vs L_pre as predictors of D_real
+- auto_outcome_status: supported
+- observed_hypothesis: L_pre predicts D_real after controlling initiation share; initiation share does not after controlling L_pre.
+- observed_result: Spearman(init_share, D_real)=+0.029 CI[-0.108,+0.178] p=0.73; partial(L_pre, D_real | init_share, n_spell, n_pre)=+0.369 CI[+0.209,+0.494] p=0.0005; partial(init_share | L_pre,...)=-0.116 p=0.19; Spearman(init_share, L_pre)=+0.332
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: L_pre partial +0.369; init_share raw +0.029
+- observed_sample_and_power: n=148, 28 franchises
+- observed_method: 148 spells; in-sample partial Spearman; franchise bootstrap/perm. Not held-out (P3 is).
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: In-sample reproduction of Hub Sits ranking, used to justify the scouting plan.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-066: 2026-11-01 (doc)
+- observed_member_records: PAP-066
+- observed_sources: PAP-066: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\ANALYSIS_PLAN_REVISED.md
+- observed_sources: PAP-066: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\FEASIBILITY_REPORT.md
+- observed_sources: PAP-066: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\verify_feasibility_stats.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-060 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

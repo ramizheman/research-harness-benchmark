@@ -1,0 +1,34 @@
+# FAM:SF-APPA-001 | Study family SF-APPA-001: A1 adaptation falsification: asymmetry, confidence and carryover tests
+- observed_research_question: A1 adaptation falsification: asymmetry, confidence and carryover tests
+- auto_outcome_status: artifact
+- observed_hypothesis: If the A1 adapter PPP lift is real coverage response, wrong-way teams should do worse than no-signal teams, the gap should widen with scheme-vote confidence, and adapting in Game N should carry over to Game N+1.
+- observed_result: T1 dPPP: adapter +0.0667 (n=205), neutral +0.0248 (n=50), no_signal +0.1260 (n=57), wrong_way +0.0111 (n=274). T2: adapter minus no-signal -0.0361 (1 vote), -0.1170 (2 votes). T3 next-game PPP Welch t=-1.003, p=0.842; MW p=0.863; counter-carry Welch t=-2.163, p=0.985.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: no_signal bucket (+0.1260) beats adapters (+0.0667); gap does not widen with confidence; carryover p=0.84; follow-up showed buckets selected on extreme early-third PPP (regression to mean).
+- observed_sample_and_power: n=205/50/57/274 cells; 430 pairs
+- observed_method: Playoff possessions only; game-team cells bucketed adapter/neutral/no_signal/wrong_way; early-to-late third PPP deltas; 430 consecutive (N, N+1) series pairs; one-sided Welch and Mann-Whitney tests.
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Scheme labels are only assigned when early-third PT PPP is >=10% hot/cold, which mechanically builds in mean reversion; this selection was knowable from the labeling rule before outcomes.
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Team Adaptation
+- observed_dates: APPA-001: 2026-05-16 (mtime)
+- observed_member_records: APPA-001
+- observed_sources: APPA-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\A1_FALSIFICATION_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-058 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF12 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF12 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF13 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-006 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

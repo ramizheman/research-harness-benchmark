@@ -1,0 +1,29 @@
+# FAM:SF-PAP-083 | Study family SF-PAP-083: Incoming offensive personnel do not track opponent incoming types
+- observed_research_question: Incoming offensive personnel do not track opponent incoming types
+- auto_outcome_status: rejected
+- observed_hypothesis: When T substitutes next, Delta T three-point rate tracks Delta O three-point rate at >=0.25 SD, above a clock-matched placebo.
+- observed_result: three slope 0.011 SE 0.008 std=0.011 placebo p97.5=0.014 p=0.06; rim 0.024 SE 0.008 std=0.025 placebo p=0.005; tier benchmark 0.051 std=0.052
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: three-point slope 0.011 SD vs 0.25 threshold, inside placebo; rim 0.025 SD is 1/10 of threshold
+- observed_sample_and_power: n=20,050; 200 placebos
+- observed_method: 20,050 treated windows where T substitutes next; types from earlier dates only; 200 placebos pairing Delta T with other-game Delta O in the same period-minute.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-083: 'here t substitutes next; types from earlier dates only; 200 placebos pairing delta t with other-game delta o in the same period'
+- observed_notes: Height/position/defensive role not in the data. Tier benchmark shows the method can detect matching at 0.05 SD.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-083: 2026-11-02 (doc)
+- observed_member_records: PAP-083
+- observed_sources: PAP-083: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\substitution_response\results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-176 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

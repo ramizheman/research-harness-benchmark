@@ -1,0 +1,29 @@
+# FAM:SF-PAP-013 | Study family SF-PAP-013: Exploratory HasShaper x Clutch interaction
+- observed_research_question: Exploratory HasShaper x Clutch interaction
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The shaper presence effect on PPP differs in clutch possessions.
+- observed_result: beta3 HasShaper x Clutch = -5.13 pts/100, t=-2.93, p=0.0034, ts-bootstrap CI[-8.64,-1.65]; main HasShaper +0.17 (p=0.80)
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: nominally significant negative interaction in a post-hoc test, never reported in paper
+- observed_sample_and_power: 14,047 clutch possessions
+- observed_method: Possession PPP model with HasShaper*Clutch (period>=4, <=300s, |margin|<=5); 14,047 clutch possessions, 90 team-seasons; not preregistered.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Not mentioned in paper.tex; forking-path risk after the HasShaper null.
+- auto_confidence: low (0.45)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-013: 2026-08-08 (mtime)
+- observed_member_records: PAP-013
+- observed_sources: PAP-013: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\clutch_hasshaper_test.py
+- observed_sources: PAP-013: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\clutch_hasshaper_test.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MULTIPLE_TESTING {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-011 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_addresses_question: RQC:RQC-056 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

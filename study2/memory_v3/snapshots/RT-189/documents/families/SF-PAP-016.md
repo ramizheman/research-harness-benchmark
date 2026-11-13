@@ -1,0 +1,27 @@
+# FAM:SF-PAP-016 | Study family SF-PAP-016: Portability feasibility gate
+- observed_research_question: Portability feasibility gate
+- auto_outcome_status: supported
+- observed_hypothesis: Enough movers with decoys exist and displacement signature is not collinear with play-type profile.
+- observed_result: Prereg: 296 movers, decoy frac 1.00, vacuity rho=0.048; final output: 294 movers, rho=0.007
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: gate passed
+- observed_sample_and_power: 296/294 movers
+- observed_method: Mover signature cache; G1 >=25 movers, G2 >=80% with >=3 decoys, G3 |rho|<0.90.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Mover count and vacuity rho changed between prereg record and final output.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-016: 2026-07-12 (doc)
+- observed_member_records: PAP-016
+- observed_sources: PAP-016: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\PORTABILITY_PREREGISTRATION.md
+- observed_sources: PAP-016: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\portability_gate_result.txt
+- observed_sources: PAP-016: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\portability_gate.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-062 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

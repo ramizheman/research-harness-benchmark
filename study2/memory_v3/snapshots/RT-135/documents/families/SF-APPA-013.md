@@ -1,0 +1,24 @@
+# FAM:SF-APPA-013 | Study family SF-APPA-013: A4 defender-archetype shrinkage layer vs A3
+- observed_research_question: A4 defender-archetype shrinkage layer vs A3
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Pooling defenders by archetype improves matchup intelligence.
+- observed_result: A4 +2.10 vs A3 +2.06 pts/100; +0.03; A4 beats A3 43/240.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: +0.03 pts/100 difference.
+- observed_sample_and_power: 240 matchups
+- observed_method: 240 matchups adversarial equilibrium comparison.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: File header still says v4.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-013: 2026-04-15 (mtime)
+- observed_member_records: APPA-013
+- observed_sources: APPA-013: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V5.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-011 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}

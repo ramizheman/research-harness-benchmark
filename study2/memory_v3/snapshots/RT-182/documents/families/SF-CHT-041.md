@@ -1,0 +1,25 @@
+# FAM:SF-CHT-041 | Study family SF-CHT-041: NOT_IN own-PPP vs BEST and AVOID after net_swing fix
+- observed_research_question: NOT_IN own-PPP vs BEST and AVOID after net_swing fix
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Off-tree NOT_IN counters are as bad as AVOID, implying the tree is incomplete.
+- observed_result: BEST 1.500 (n=1,664); AVOID 1.000 (n=720); NOT_IN 1.058 (n=6,256). NOT_IN is 0.059 above AVOID (p=0.002).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_IN sits just 0.059 above AVOID; closer to C than B in the pre-set verdict rule, but large-n significance is not a completeness proof.
+- observed_sample_and_power: NOT_IN n=6,256
+- observed_method: Average own-PPP with corrected methodology: BEST n=1,664, AVOID n=720, NOT_IN n=6,256.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results written into coherent/final numbers files per chat. ~35% NOT_IN rate motivated the analysis.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: CHT-041: 2026-06-19 (transcript)
+- observed_member_records: CHT-041
+- observed_sources: CHT-041: 2f3cd719-5b62-43dd-839a-6f80d9e4f6cd
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-124 {basis=TF-IDF question clustering}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

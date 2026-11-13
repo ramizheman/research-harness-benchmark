@@ -1,0 +1,35 @@
+# FAM:SF-PAP-067 | Study family SF-PAP-067: Team Adaptation gate2 restoration on a 201-spell pool
+- observed_research_question: Team Adaptation gate2 restoration on a 201-spell pool
+- auto_outcome_status: supported
+- observed_hypothesis: Cross-fitted restoration exceeds the no-absence placebo on a broader 201-spell pool (29 franchises).
+- observed_result: gate2 n=201: mean R=+0.192 vs Rp=+0.022 (diff +0.170); T=+0.157 vs Tp=+0.147 (diff +0.011); L_pre>=0.02 n=79 mean R=+0.216; gate1 n=201: R=+0.567 vs Rp=+0.416; O=+0.474 vs Op=+0.419; g1_mc median=0.0051, g1_scale median=0.0069; R split-half Spearman 0.412 (SB 0.583); O Spearman 0.609 (SB 0.757)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: restoration excess +0.170 on 201 spells, similar to Hub +0.173 on 148
+- observed_sample_and_power: n=201 spells, 29 franchises
+- observed_method: Same gate2 cross-fit as Hub Sits; 201 rows vs paper's 148; G1 scaling and odd/even reliability also stored in gate_rows.csv.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-067: 'same gate2 cross-fit as hub sits; 201 rows vs paper's 148; g1 scaling and odd/ev'
+- observed_notes: Code is a copy of Hub Sits adaptation gates run on a larger keep-set. Reliability of R (SB 0.58 on gate1 odd/even) is still below a 0.40 independent-half standard if read as gate2; this CSV is the shared-noise (gate1) construction for R. No separate writeup; inferred from CSVs.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Team Adaptation
+- observed_dates: PAP-067: 2026-11-02 (mtime)
+- observed_member_records: PAP-067
+- observed_sources: PAP-067: C:\Users\lisas\OneDrive\Documents\Basketball\Team Adaptation\gate.py
+- observed_sources: PAP-067: C:\Users\lisas\OneDrive\Documents\Basketball\Team Adaptation\gate2.py
+- observed_sources: PAP-067: C:\Users\lisas\OneDrive\Documents\Basketball\Team Adaptation\gate2_rows.csv
+- observed_sources: PAP-067: C:\Users\lisas\OneDrive\Documents\Basketball\Team Adaptation\gate_rows.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-053 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-PAP-054 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-019 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

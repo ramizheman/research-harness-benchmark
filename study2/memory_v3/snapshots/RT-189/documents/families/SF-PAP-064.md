@@ -1,0 +1,29 @@
+# FAM:SF-PAP-064 | Study family SF-PAP-064: Opponent scouting S2: value of early post-absence film
+- observed_research_question: Opponent scouting S2: value of early post-absence film
+- auto_outcome_status: rejected
+- observed_hypothesis: Early spell games improve mix/initiator forecasts more when L_pre is high, and an F3 prior beats F2.
+- observed_result: play types: +0.0003 after 1 game, +0.0023 after 5; F3 never beats F2 (diffs ~0.00002, p>=0.14); initiators: +0.134/+0.201/+0.233/+0.269/+0.309 after 1-5 games; partial rho with L -0.02 to -0.11
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: early film helps initiators a lot but the gain does not rise with L_pre; F3 never beats F2
+- observed_sample_and_power: n=148
+- observed_method: Update after spell games 1-5; play-type and initiator (T3) log-loss gains; partial rho with L_pre.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Who initiates goes stale immediately; what gets run does not.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-064: 2026-11-02 (doc)
+- observed_member_records: PAP-064
+- observed_sources: PAP-064: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF25 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF26 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-021 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

@@ -1,0 +1,26 @@
+# FAM:SF-APPS-015 | Study family SF-APPS-015: Player BEST/AVOID tier tendency in H2 trigger games (55 series)
+- observed_research_question: Player BEST/AVOID tier tendency in H2 trigger games (55 series)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Teams and players differ in how often H2 trigger possessions land on the engine's BEST vs AVOID counter.
+- observed_result: Team AVOID% ranges 50.6% (ORL) to 6.8% (SAC); team BEST% 0.0%-15.8%.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No outcome test; player samples 10-178 possessions.
+- observed_sample_and_power: min 10 poss per player
+- observed_method: trigger_table_clean.csv, 55 series 2022-2026, 179 players, 25 teams, min 10 poss.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-015: 2026-06-16 (mtime)
+- observed_member_records: APPS-015
+- observed_sources: APPS-015: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\player_tier_tendency_by_team.md
+- observed_sources: APPS-015: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\player_tier_tendency_league_summary.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-048 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

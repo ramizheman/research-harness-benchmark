@@ -1,0 +1,30 @@
+# FAM:SF-APPS-073 | Study family SF-APPS-073: Persistent Impact Score lag curves (global then within-team)
+- observed_research_question: Persistent Impact Score lag curves (global then within-team)
+- auto_outcome_status: artifact
+- observed_hypothesis: Running play type X raises the same team's next 1-5 possession PPP vs a matched baseline (action memory).
+- observed_result: Global horizons: DRIVE/SPOT_UP/TRANSITION=5; others 0 (PNR/CUT/POST_UP/PUTBACK). SPOT_UP lag-1 lift +0.027 ctrl_p=0.0000. Within-team: all horizons 0 except SPOT_UP horizon(all)=1; PNR lag-1 within_team_lift=-0.0218.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Flat non-decaying global lifts disappear after team-season demeaning; remaining within-team memory is essentially none except SPOT_UP lag-1.
+- observed_sample_and_power: DRIVE lag-1 n=163696; SPOT_UP n=175021
+- observed_method: Global baseline then re-center on team-season mean. PNR inferrer-only; OT+garbage excluded; min n>=30.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable: good teams both run certain PTs and score more later, which a global baseline attributes to the PT.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-073: 2026-06-14 (mtime)
+- observed_member_records: APPS-073
+- observed_sources: APPS-073: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\persistent_impact_level1.md
+- observed_sources: APPS-073: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\persistent_impact_level1_withinteam.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-059 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-069 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-CHT-029 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-013 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

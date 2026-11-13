@@ -1,0 +1,28 @@
+# FAM:SF-CHT-013 | Study family SF-CHT-013: Scheme-correction hit rate 46.9% pipeline annotation bug
+- observed_research_question: Scheme-correction hit rate 46.9% pipeline annotation bug
+- auto_outcome_status: artifact
+- observed_hypothesis: A 46.9% scheme-correction hit rate (some series 0%) reflects model failure rather than a logging bug.
+- observed_result: cmd_phase3 reads team_profiles but aggregate_series_profiles writes by_team, so observed_ppp stays empty on the pipeline path; backtest path reads by_team correctly.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Phase 3 never fills observed_ppp/gap/outcome_class because it looks at the wrong JSON key.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Audit of phase-3 annotation vs historical backtest path on correction_log.json; compared phi_bkn_2022 and sas_por_2526 outcomes JSON.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: No separate results file; bug found by reading code. Knowable from schema mismatch before interpreting the 46.9%.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: CHT-013: 2026-05-02 (transcript)
+- observed_member_records: CHT-013
+- observed_sources: CHT-013: 6edd84d1-4832-424b-bbd2-588a95246cad
+- observed_sources: CHT-013: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\_series_playoff_pipeline.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:implementation_bug {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:IMPLEMENTATION_BUG {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-105 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

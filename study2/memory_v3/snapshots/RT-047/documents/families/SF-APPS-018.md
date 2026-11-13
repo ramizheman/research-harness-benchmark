@@ -1,0 +1,35 @@
+# FAM:SF-APPS-018 | Study family SF-APPS-018: Ranked playsheet validation, 10 series (Spearman null; pairwise BEST>AVOID)
+- observed_research_question: Ranked playsheet validation, 10 series (Spearman null; pairwise BEST>AVOID)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: When a defense drops a play type >=0.25 PPP H1 to H2, playsheet counter ranking predicts which alternative scored better in H2 (BEST > SECOND > AVOID).
+- observed_result: Spearman rho=-0.0639, p=0.099717, n=665 (no clear full-rank signal). Kruskal-Wallis H=32.9723, p=2.7e-05. Mann-Whitney BEST 1.257 (n=56) vs AVOID 1.092 (n=160), U=5546.0, p=0.004018. Trigger accuracy rho=0.4525, n=121. Follow rate vs H2 PPP rho=-0.0664, p=0.5486, n=84.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Full-tier Spearman not significant (rho=-0.0639, p=0.099717) while pairwise BEST vs AVOID is; average counter n=6.9 possessions.
+- observed_sample_and_power: 665 counter obs, 142 unique triggers; avg counter n=6.9
+- observed_method: 10 completed 2025-26 playoff series; 665 counter observations / 142 unique triggers; Spearman of tier rank vs observed H2 PPP plus Kruskal-Wallis and Mann-Whitney BEST vs AVOID.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Honest assessment: ranking noisy in full Spearman; pairwise BEST vs AVOID confirmed. Pipeline season_cap_yy=26 may leak R1 into R2 series.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-018: 2026-05-25 (mtime)
+- observed_member_records: APPS-018
+- observed_sources: APPS-018: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\_validation_run.log
+- observed_sources: APPS-018: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\validation_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-048 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

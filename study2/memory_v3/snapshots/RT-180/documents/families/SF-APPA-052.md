@@ -1,0 +1,28 @@
+# FAM:SF-APPA-052 | Study family SF-APPA-052: CUT feasibility cap: BEST-AVOID gap without CUT-heavy games
+- observed_research_question: CUT feasibility cap: BEST-AVOID gap without CUT-heavy games
+- auto_outcome_status: supported
+- observed_hypothesis: The BEST vs AVOID gap is inflated by games where CUT exceeds 15% of H2 mix.
+- observed_result: All games BEST 1.473 vs AVOID 0.853 gap +0.620 MW p=0.0000 Spearman -0.316 n=2,544. CUT<=15%: +0.625 n=2,508. CUT>15%: +0.163 n.s. n=36. Only 4/272 games had CUT>15%.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Removing the 4 CUT-heavy games slightly strengthens the gap (+0.620 to +0.625).
+- observed_sample_and_power: 2,544 rows; 272 games
+- observed_method: 55-series trigger table + Neo4j H2 mix; exclude games with CUT share >15%.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPA-052: 'tale relative to n-gated +0.375 / best-vs-continue +0.445). robustness direction still holds on this csv. 2,544 rows; 272 game'
+- observed_notes: This uses the ungated +0.620 55-series gap (stale relative to n-gated +0.375 / BEST-vs-continue +0.445). Robustness direction still holds on this CSV.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-052: 2026-06-20 (doc)
+- observed_member_records: APPA-052
+- observed_sources: APPA-052: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:BASE_RATE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-009 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

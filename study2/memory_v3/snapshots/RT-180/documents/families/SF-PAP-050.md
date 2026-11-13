@@ -1,0 +1,26 @@
+# FAM:SF-PAP-050 | Study family SF-PAP-050: Play-type mix is nearly unchanged after an absence
+- observed_research_question: Play-type mix is nearly unchanged after an absence
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The absent player's departure causes the team to shift which play types it runs overall.
+- observed_result: play-type mix after an absence was nearly identical to the pre-absence mix (paper; no numeric table)
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: stated nearly identical; no CI
+- observed_sample_and_power: n=148
+- observed_method: Compare team play-type mix pre vs spell on the 148 spells.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-050: 2026-11-01 (doc)
+- observed_member_records: PAP-050
+- observed_sources: PAP-050: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF23 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-169 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

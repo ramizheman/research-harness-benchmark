@@ -1,0 +1,36 @@
+# FAM:SF-APPM-055 | Study family SF-APPM-055: Three-level counter ranking: population vs team-specific vs matchup
+- observed_research_question: Three-level counter ranking: population vs team-specific vs matchup
+- auto_outcome_status: inconclusive
+- observed_hypothesis: The best counter after a suppressed play type is stable from population (L1) to team (L2) to matchup (L3); otherwise the playsheet should not use a league default.
+- observed_result: L1 (first run): after DRIVE best=CUT 1.261 vs PNR 1.132 (spread +0.129, CUT n_mu=5 PIVOT_WINS); after PNR best=TRANSITION 1.271 (n=35); after PULL_UP best=CUT 1.370 (n=5). L2 MIA disagrees with L1 on DRIVE (L2 best=PNR not CUT, gap=+0.125), PNR (DRIVE not TRANSITION), POST_UP, PULL_UP, SPOT_UP. Playoff right-counter: after DRIVE best=SPOT_UP 1.150 vs non_pivot 1.098 (n=26); after PNR best=DRIVE 1.151 vs 1.161 (n=35); after SPOT_UP best=PULL_UP 1.302 (n=4). Later L1 (2425 file): after CUT best=PULL_UP 1.231 (n=23 PIVOT_WINS) not PNR.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: L2 disagrees with L1 on multiple MIA suppressions; playoff ranking also disagrees with L1 (DRIVE counter CUT vs SPOT_UP). CUT/TRANSITION bests often rest on n_mu=5-15.
+- observed_sample_and_power: L1 n_mu 5 to 696; playoff n_matchups 4 to 44
+- observed_method: Full graph then playoff-only ranking. First run: 946,166 possessions / 5,164 games / 887 directed matchups, 56 pairs. Later rerun: 959,223 possessions / 5,226 games. Playoff ranking: 42,787 possessions / 74 matchups.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable: small n on CUT/TRANSITION counters is visible in the rank tables. L1 best-counter identity changed between the 946k and 959k pulls for suppressed CUT (PNR 1.216 vs PULL_UP 1.231).
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-055: 2026-05-24 (mtime)
+- observed_member_records: APPM-055
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_right_counter_ranking.py
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_right_counter_ranking_out.txt
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_sustainability_results_2425.txt
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_out.txt
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_out2.txt
+- observed_sources: APPM-055: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_three_level_sustainability.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-054 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-036 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,32 @@
+# FAM:SF-TMP-009 | Study family SF-TMP-009: PULL_UP exposure-effect diagnostics
+- observed_research_question: PULL_UP exposure-effect diagnostics
+- auto_outcome_status: artifact
+- observed_hypothesis: The PULL_UP-specific decline with exposure is defensive adaptation rather than shooter selection/lineup artifact.
+- observed_result: With lineup FE: slope holding shot fixed -0.0255 (0.0061); shooter's earlier scored -0.1044 vs not scored +0.0693. No lineup FE: -0.0063 (0.0036); placebo other play types -0.0075 (0.0017).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Effect shrinks from -0.0255 to -0.0063 without lineup FE and the same-shooter placebo on other play types is -0.0071/-0.0075, consistent with shooter-level confound.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Exposure bins, shooter's own vs teammates' prior PULL_UPs, shot-selection controls, fatigue placebo, with (pullup2) and without (pullup3) lineup FE.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: TMP-009: 'teammates' prior pull_ups, shot-selection controls, fatigue placebo, with (pullup2) and without (pullup3) lineup fe. with lineu'
+- observed_notes: Verdict is extractor's reading of diagnostics; no written conclusion.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-009: 2026-10-07 (mtime)
+- observed_member_records: TMP-009
+- observed_sources: TMP-009: C:\Users\lisas\AppData\Local\Temp\supp_audit\pu_head.py
+- observed_sources: TMP-009: C:\Users\lisas\AppData\Local\Temp\supp_audit\pullup2.log
+- observed_sources: TMP-009: C:\Users\lisas\AppData\Local\Temp\supp_audit\pullup2.py
+- observed_sources: TMP-009: C:\Users\lisas\AppData\Local\Temp\supp_audit\pullup3.log
+- observed_sources: TMP-009: C:\Users\lisas\AppData\Local\Temp\supp_audit\pullup3.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-074 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}

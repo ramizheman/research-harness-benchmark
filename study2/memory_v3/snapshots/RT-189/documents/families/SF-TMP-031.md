@@ -1,0 +1,42 @@
+# FAM:SF-TMP-031 | Study family SF-TMP-031: Registered absence case studies (8 primary + 3 supplementary)
+- observed_research_question: Registered absence case studies (8 primary + 3 supplementary)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: In pre-selected absence cases, the leave-one-out predicted change of the absent player matches the realized team change more than sampling placebo and more than teammate-specific predictions.
+- observed_result: A. Davis LAL 2022-23: L_pred_pre=0.371, D_real=0.271, excess=0.199, above_p95=True, dir_corr=0.938 (cases2 0.881), placebo_p95=0.549, specificity_rank=1. T. Maxey PHI 2024-25: L_pred_pre=0.108, D_real=0.143, excess=0.077, above_p95=True, dir_corr=0.860 (cases2 0.661), departed_major includes J. Embiid. Label-shift: Brunson own +0.67 vs other-29 median +0.11 max +0.81 share>=own 0.03; Wembanyama +0.38 vs median +0.14 share>=own 0.21; Maxey +0.48 vs median +0.15 share>=own 0.28; Davis reference +0.83 share>=own 0.00; Booker +0.73 share>=own 0.00.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: 2024-25 cases (Wembanyama share>=own 0.21, Maxey 0.28) are less distinctive vs other teams on the same dates than clean-label Davis/Booker (0.00); Brunson remains distinctive (0.03).
+- observed_sample_and_power: 11 cases; 29 other-team placebos per 2024-25 case
+- observed_method: 8 primary cases (top-3 L_pred and nearest P90/P75/P50/P25/P10) plus 3 supplementary top-3 outside the July core; direction match corr(dpred, dreal) vs sampling placebo and vs each teammate with >=50 pre initiations. Label-shift check: same statistic for every other 2024-25 team over the case dates, plus 2022-23 Davis/Booker references.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: TMP-031: 'e july core; direction match corr(dpred, dreal) vs sampling placebo and vs each teammate with >=50 pre initiations. label-shift'
+- observed_notes: stage2_cases2 adds turnover/newcomer fields (e.g. Maxey newcomer_spell_share=0.151, departed_major J. Embiid/C. Martin/E. Gordon/J. McCain). Pool-level inference is TMP-027, not these cases.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: TMP-031: 2026-11-01 (mtime)
+- observed_member_records: TMP-031
+- observed_sources: TMP-031: C:\Users\lisas\AppData\Local\Temp\supp_audit\label_shift_case_check.log
+- observed_sources: TMP-031: C:\Users\lisas\AppData\Local\Temp\supp_audit\label_shift_case_check.py
+- observed_sources: TMP-031: C:\Users\lisas\AppData\Local\Temp\supp_audit\stage2_cases.log
+- observed_sources: TMP-031: C:\Users\lisas\AppData\Local\Temp\supp_audit\stage2_cases2.log
+- observed_sources: TMP-031: C:\Users\lisas\AppData\Local\Temp\supp_audit\stage2_outcomes.log
+- observed_sources: TMP-031: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\selected_cases.csv
+- observed_sources: TMP-031: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\stage2_outcomes.py
+- observed_sources: TMP-031: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\case_study\supplementary_cases.csv
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-TMP-032 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-TMP-037 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-065 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:case_study {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

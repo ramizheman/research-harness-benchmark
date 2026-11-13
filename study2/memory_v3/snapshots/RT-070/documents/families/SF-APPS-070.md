@@ -1,0 +1,31 @@
+# FAM:SF-APPS-070 | Study family SF-APPS-070: H1 usage as predictor of H2 suppression (distribution shift)
+- observed_research_question: H1 usage as predictor of H2 suppression (distribution shift)
+- auto_outcome_status: rejected
+- observed_hypothesis: First-half reliance on a play type predicts second-half suppression after controlling for H1 PPP / mean reversion.
+- observed_result: Test B: all BH-adjusted null/WEAK (PNR ATT=+0.0313 BH_p=0.0658 WEAK; others NULL). Test C top-1 acc=0.550 vs mean-reversion baseline 0.511 (+0.039) vs most-used 0.239. Test A PULL_UP slope -0.0581 p=0.0030; CUT -0.0917 p=0.0410; PNR +0.0562 p=0.0005 (wrong sign for suppression).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Matched ATT does not survive BH; predictive lift over mean reversion is only +0.039 (0.550 vs 0.511). Bulk of H2 suppression is RTM.
+- observed_sample_and_power: n=8873 team-games; Test C test n=1008
+- observed_method: 8873 team-games, 37067 cells (>=4 poss both halves). Test A slope; Test B matched HIGH vs LOW H1 usage; Test C multinomial which-type-suppressed.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Headline: no robust evidence H1 reliance predicts H2 suppression.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-070: 2026-06-15 (mtime)
+- observed_member_records: APPS-070
+- observed_sources: APPS-070: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\distribution_shift.py
+- observed_sources: APPS-070: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\distribution_shift.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-010 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-077 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-121 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

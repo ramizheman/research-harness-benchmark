@@ -1,0 +1,28 @@
+# FAM:SF-CHT-016 | Study family SF-CHT-016: Holdout leakage audit of fitted pipeline parameters
+- observed_research_question: Holdout leakage audit of fitted pipeline parameters
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Pooled splits feed holdout information into fitted calibrator/kernel parameters.
+- observed_result: Zero true leakage paths for the predictive calibrator (fit on VAL with TRAIN-only features; HOLDOUT never in coefficient estimation). Two external constants (playoff scalars, PNR-drop tier bands) could carry implicit exposure if their derivation studies used holdout series.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: 17 parameters enumerated
+- observed_method: Enumerated 17 fitted/calibrated/aggregate params and their fit splits.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: CHT-016: 'predictive calibrator (fit on val with train-only features; holdout never in coefficient estimation). two external constants (p'
+- observed_notes: Results file on disk mentioned: _audit_holdout_leakage.py output. Check 1 n_dash=0 among 22 boundary players also reported as 0/22.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-016: 2026-05-15 (transcript)
+- observed_member_records: CHT-016
+- observed_sources: CHT-016: 69feafdf-b3ec-4450-9564-c9c86979924b
+- observed_sources: CHT-016: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\_audit_holdout_leakage.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-098 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}

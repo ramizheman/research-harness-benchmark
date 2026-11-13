@@ -1,0 +1,26 @@
+# FAM:SF-APPS-089 | Study family SF-APPS-089: Connector on/off scoring vs structural load L (quadrants)
+- observed_research_question: Connector on/off scoring vs structural load L (quadrants)
+- auto_outcome_status: rejected
+- observed_hypothesis: Higher structural load L predicts higher adjusted on-off scoring among connectors.
+- observed_result: Corr(L, raw)=+0.013; Corr(L, adj)=+0.008. Quadrants ~25 each of highL-highScore / highL-lowScore / lowL-highScore / lowL-lowScore. Negative on/off n=49; 78% mechanism NONINITIATOR_TEAM_PATH (noninit_team_lift -3.52 vs +2.44 for positives).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: L is uncorrelated with scoring impact (r=+0.008). High-L connectors split evenly into help and harm.
+- observed_sample_and_power: n=102
+- observed_method: 102 connectors, >=150 on and off. Adj = within-team-season association with opp/period/margin/TALENT. Quadrants at median L=0.037 and median adj=0.10.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Negative-connector harm is mostly teammate-path efficiency, not mix or initiator replacement.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-089: 2026-07-26 (mtime)
+- observed_member_records: APPS-089
+- observed_sources: APPS-089: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_negative_mechanism_report.md
+- observed_sources: APPS-089: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\connector_player_onoff_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-086 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-PAP-031 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-046 {basis=TF-IDF question clustering}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

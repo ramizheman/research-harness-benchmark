@@ -1,0 +1,29 @@
+# FAM:SF-APPS-072 | Study family SF-APPS-072: MC suppression check: memoryless sim vs Paper 1 DiD +0.408
+- observed_research_question: MC suppression check: memoryless sim vs Paper 1 DiD +0.408
+- auto_outcome_status: supported
+- observed_hypothesis: A memoryless process matching possession micro-stats will reproduce the Paper 1 matched DiD suppression excess.
+- observed_result: Sim DiD ATT=-0.076 [-0.081,-0.071] n_pairs=25561 vs real +0.408; gap +0.484. Trigger count 25564 (32.9% of game x PT cells) vs ~5500 RS. Raw unmatched decline sim -0.504 vs real ~-0.655.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Sim ATT near 0 (slightly negative) as RTM+matching requires; cannot close the +0.408 real excess. Supports that half-level suppression is not memoryless microdynamics.
+- observed_sample_and_power: 25561 matched sim pairs; 1000 bootstrap
+- observed_method: Same 10000x200 sim; H1 steps 0-49 / H2 50-99; trigger h1_ppp>=1.15 and drop; NN match caliper 0.1.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Verdict of this check is that the real Paper 1 number is an anomaly vs the sim (near-zero sim ATT). Runtime field '1783832484s' is a clock artifact, not a measured runtime.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-072: 2026-07-12 (mtime)
+- observed_member_records: APPS-072
+- observed_sources: APPS-072: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\mc_suppression_check.py
+- observed_sources: APPS-072: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\mc_suppression_check.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-041 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

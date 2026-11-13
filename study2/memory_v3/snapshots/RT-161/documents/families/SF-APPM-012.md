@@ -1,0 +1,26 @@
+# FAM:SF-APPM-012 | Study family SF-APPM-012: ORL-DET opponent-specific leverage decomposition
+- observed_research_question: ORL-DET opponent-specific leverage decomposition
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Openers' gains come from opponent-specific edges rather than universal high-PPP play types.
+- observed_result: All top openers 'universal only' (opp-specific share +1.4% to +6.9%); DET within +/-5% of league on all seeded PTs.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No opponent-specific edge detected for either direction.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Per-PT opponent PPP allowed vs league, +/-5% threshold; decompose top-3 opener dPPP.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-012: 2026-04-20 (mtime)
+- observed_member_records: APPM-012
+- observed_sources: APPM-012: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ORL_DET_LEVERAGE.json
+- observed_sources: APPM-012: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ORL_DET_LEVERAGE.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-076 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

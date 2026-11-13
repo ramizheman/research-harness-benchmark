@@ -1,0 +1,30 @@
+# FAM:SF-APPA-063 | Study family SF-APPA-063: Holdout play-type rank validation (LAYER_AUDIT)
+- observed_research_question: Holdout play-type rank validation (LAYER_AUDIT)
+- auto_outcome_status: supported
+- observed_hypothesis: Pre-game PT PPP ranking from training data correlates with actual efficiency ranking in held-out games.
+- observed_result: Median rho +0.539 (IQR +0.245 to +0.750); 62.4% rho>0.4; 88.4% rho>0; 10.5% rho<0. Top-3 median hit 100%; >=2/3 hits 78.9%; median lift +0.4261 PPP; 90.8% positive lift. Bottom-3 median suppression 66.7%. MAE cited in later reports 0.0922 PPP.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Doc caveat: top-3 lift partly reflects league-wide high-efficiency PTs (CUT, PUTBACK, TRANSITION); 10.5% of rows the model misleads (rho<0).
+- observed_sample_and_power: 908 game-team rows; 454 games
+- observed_method: Train 523,517 possession sequences; 454 holdout games; 908 (game, team) rows; Spearman of predicted vs actual PT rank (PTs >=3 poss, >=4 common PTs); top-3 hit/lift; bottom-3 suppression.
+- observed_verdict: supported
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: APPA-063: 'train 523,517 possession sequences; 454 holdout games; 908 (game, team) rows; spearman of predicted vs actu'
+- observed_notes: This is the Spearman 0.54 recycled in generated TEAM_vs_TEAM reports. Team medians range NOP +0.727 to WAS +0.341.
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-063: 2026-04-18 (mtime)
+- observed_member_records: APPA-063
+- observed_sources: APPA-063: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LAYER_AUDIT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-035 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPA-035 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-016 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

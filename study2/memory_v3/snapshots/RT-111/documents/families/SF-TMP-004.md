@@ -1,0 +1,26 @@
+# FAM:SF-TMP-004 | Study family SF-TMP-004: Possession-count reconciliation: July-11 CSV vs current graph
+- observed_research_question: Possession-count reconciliation: July-11 CSV vs current graph
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The frozen suppression CSV and the current Neo4j graph contain the same possessions.
+- observed_result: CSV 825,566 vs graph 821,834 possessions (5,003 games); 1,110 games differ, net 3,732, mostly season 225 (1,104); 231 games all-null ppp (season 224).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Count six-play-type possessions by game in graph vs CSV.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Data-integrity check underpinning the audit.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression (supplementary audit)
+- observed_dates: TMP-004: 2026-10-06 (mtime)
+- observed_member_records: TMP-004
+- observed_sources: TMP-004: C:\Users\lisas\AppData\Local\Temp\supp_audit\reconcile.log
+- observed_sources: TMP-004: C:\Users\lisas\AppData\Local\Temp\supp_audit\reconcile.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-164 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

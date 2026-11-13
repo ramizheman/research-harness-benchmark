@@ -1,0 +1,27 @@
+# FAM:SF-TMP-023 | Study family SF-TMP-023: After-timeout tactical play-type shift
+- observed_research_question: After-timeout tactical play-type shift
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: After-timeout possessions shift play-type mix and efficiency.
+- observed_result: POST_UP +2.406 (t=+18.7), SPOT_UP +2.333 (t=+12.9); half-court PPP -0.0105 (SE 0.0056, t=-1.89).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: 56,423 ATO possessions vs same game-offense-period-minute.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-023: 2026-11-01 (mtime)
+- observed_member_records: TMP-023
+- observed_sources: TMP-023: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.log
+- observed_sources: TMP-023: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-190 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

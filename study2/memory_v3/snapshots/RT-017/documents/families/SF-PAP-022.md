@@ -1,0 +1,26 @@
+# FAM:SF-PAP-022 | Study family SF-PAP-022: Destination-side 63-feature FDR battery
+- observed_research_question: Destination-side 63-feature FDR battery
+- auto_outcome_status: untestable
+- observed_hypothesis: Some destination context feature predicts shaper portability.
+- observed_result: 0 FDR survivors at q<0.05; a few raw p<0.05
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=24 vs 63 tests
+- observed_sample_and_power: n=24
+- observed_method: 63 features, Benjamini-Hochberg q<0.05, 24 shaper movers.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-022: 2026-08-08 (doc)
+- observed_member_records: PAP-022
+- observed_sources: PAP-022: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\destination_battery_shapers.csv
+- observed_sources: PAP-022: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-019 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-053 {basis=TF-IDF question clustering}

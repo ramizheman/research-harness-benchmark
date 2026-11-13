@@ -1,0 +1,33 @@
+# FAM:SF-PAP-062 | Study family SF-PAP-062: Opponent scouting P3: incremental R2 of L_pre for displacement magnitude
+- observed_research_question: Opponent scouting P3: incremental R2 of L_pre for displacement magnitude
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Adding L_pre to conventional features raises held-out R2 of displacement (bootstrap CI excluding 0 and perm passing Holm).
+- observed_result: Y1 Delta R2_oos=+0.035 CI[-0.058,+0.117] perm p=0.010 Holm p=0.030; R2 0.121->0.156; Delta rho +0.02; Y2 Delta R2=-0.016 CI[-0.124,+0.053] p=0.71
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: perm p=0.010 (Holm 0.030) but franchise bootstrap CI includes 0, so pre-registered pass rule fails
+- observed_sample_and_power: n=148
+- observed_method: LOFO R2_oos; co-primary Y2 staleness; Holm family; pass requires bootstrap CI exclude 0.
+- observed_verdict: failed_gate
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Borderline magnitude signal, consistent with the paper's ranking claim but not established as scouting value.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-062: 2026-11-02 (doc)
+- observed_member_records: PAP-062
+- observed_sources: PAP-062: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\opponent_scouting\RESULTS_REPORT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:multiple_testing {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:MULTIPLE_TESTING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-066 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF26 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-020 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

@@ -1,0 +1,25 @@
+# FAM:SF-APPS-033 | Study family SF-APPS-033: INSUFF_EVIDENCE deep audit (post-orphan-fix)
+- observed_research_question: INSUFF_EVIDENCE deep audit (post-orphan-fix)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: INSUFF_EVIDENCE counter rows are recoverable missed tree branches rather than true no-history pairs.
+- observed_result: CAUSE_A n=208 (48.7%, mean PPP 1.162); CAUSE_B n=219 (51.3%, mean 1.055). BEST-AVOID gap 0.620; MISSED_GOOD 1.148 vs AVOID 0.821 (+0.327). Expanding cap 25->50 recovers <=0 confirmed truncated pairs; ADAPT_LIFT_MIN filter 0 rows.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Audit of coverage, not an outcome test; 37% of counters still unranked.
+- observed_sample_and_power: 427 INSUFF of 1153
+- observed_method: 1153 counter obs; 427 INSUFF (37.0%). Cause A wrong-src vs Cause B counter-absent. Cap/lift/per-src diagnostics.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Highest-ROI model change identified as per-src_pt ranking (recover 208/427) with no new data.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-033: 2026-06-19 (mtime)
+- observed_member_records: APPS-033
+- observed_sources: APPS-033: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\insuff_evidence_deep_audit.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:data_scarcity_text_pattern {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-122 {basis=TF-IDF question clustering}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

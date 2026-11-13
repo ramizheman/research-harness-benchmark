@@ -1,0 +1,29 @@
+# FAM:SF-APPS-002 | Study family SF-APPS-002: Three-series adaptation review and v2 playsheet pipeline test
+- observed_research_question: Three-series adaptation review and v2 playsheet pipeline test
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The agent adaptation-review and v2 playsheet pipeline runs end to end on full playoff series.
+- observed_result: 16/16 runs status ok (19-25 tool calls, ~124-227 s each); MIA_BOS tiered playsheet: 5 robust, 5 fragile, 1 structural of 11 entries.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Only run status recorded; no outcome-based scoring. G3_DEN_off.md is only 1405 bytes (report appears truncated).
+- observed_sample_and_power: 16 games
+- observed_method: 16 focal games (MIA vs BOS 2023 ECF G1-7, DEN vs MIA 2023 Finals G1-5, LAL vs OKC 2025-26 G1-4), one offense each; adaptation review plus v2 playsheet per game.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPS-002: '5 tool calls, ~124-227 s each); mia_bos tiered playsheet: 5 robust, 5 fragile, 1 structural of 11 entries. pipeline smoke test'
+- observed_notes: Pipeline smoke test rather than a validation of recommendations.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-002: 2026-05-24 (mtime)
+- observed_member_records: APPS-002
+- observed_sources: APPS-002: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\three_series_test\MIA_vs_BOS_2023_ECF\MIA_BOS_tiered_playsheet.md
+- observed_sources: APPS-002: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\three_series_test\_three_series_log.json
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_related_family: FAM:SF-APPM-052 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

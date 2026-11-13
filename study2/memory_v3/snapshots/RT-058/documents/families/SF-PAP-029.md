@@ -1,0 +1,29 @@
+# FAM:SF-PAP-029 | Study family SF-PAP-029: Destination outcome (net rating) checks for movers (archive)
+- observed_research_question: Destination outcome (net rating) checks for movers (archive)
+- auto_outcome_status: untestable
+- observed_hypothesis: Portability relates to destination net rating change.
+- observed_result: 'underpowered and null once corrected for landing-spot quality' (no numbers)
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: stated underpowered
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Movers' destination on-court net rating incl. origin-to-destination change.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Dropped from Paper 1.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-029: 2026-07-28 (doc)
+- observed_member_records: PAP-029
+- observed_sources: PAP-029: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-032 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-004 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

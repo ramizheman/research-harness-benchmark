@@ -1,0 +1,32 @@
+# FAM:SF-PAP-078 | Study family SF-PAP-078: Shot-mix DiD after opponent-only lineup changes (Test 1)
+- observed_research_question: Shot-mix DiD after opponent-only lineup changes (Test 1)
+- auto_outcome_status: untestable
+- observed_hypothesis: An unchanged offensive five changes 3/rim/midrange shares by a practical 3 pp after an opponent-only substitution.
+- observed_result: 3s +0.35 pp CI[-2.14,+2.84] Holm p=0.78 MDE=3.6; rim +1.03 [-1.23,+3.29] p=0.75 MDE=3.2; mid -1.38 [-3.60,+0.84] p=0.67 MDE=3.2; joint chi2(2)=2.09 p=0.35; 3/3 window also null (mid +1.19 Holm p=0.12)
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: all CIs include 0; MDE 3.2-3.6 pp equals the 3 pp practical threshold so small effects cannot be ruled out
+- observed_sample_and_power: 1,054 treated events, MDE 3.2-3.6 pp
+- observed_method: Clean 5/5 windows; 1,054 treated / 10,567 control in 2,812 games; OLS DiD with controls; CR1 game cluster; Holm across 3 shares.
+- observed_verdict: failed_gate
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Amendment 1 (sample sizes only) warned 10-poss windows are underpowered (37 treated). NO-GO.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-078: 2026-11-02 (doc)
+- observed_member_records: PAP-078
+- observed_sources: PAP-078: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\methods.md
+- observed_sources: PAP-078: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\results.md
+- observed_sources: PAP-078: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\results\02_results.json
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

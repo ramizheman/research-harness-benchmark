@@ -1,0 +1,27 @@
+# FAM:SF-PAP-028 | Study family SF-PAP-028: Connector vs terminal matched D_A contrast (archive)
+- observed_research_question: Connector vs terminal matched D_A contrast (archive)
+- auto_outcome_status: supported
+- observed_hypothesis: Connectors show larger on/off D_A than usage-matched terminal scorers.
+- observed_result: Delta=+0.078, p~0.026
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: n=25, p~0.026
+- observed_sample_and_power: n=25
+- observed_method: 25 matched pairs.
+- observed_verdict: supported
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Dropped from Paper 1 text.
+- auto_confidence: medium (0.5)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-028: 2026-07-28 (doc)
+- observed_member_records: PAP-028
+- observed_sources: PAP-028: C:\Users\lisas\OneDrive\Documents\Basketball\Archive\Paper2 Wiring\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-088 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-013 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}

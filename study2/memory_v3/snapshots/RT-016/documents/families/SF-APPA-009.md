@@ -1,0 +1,40 @@
+# FAM:SF-APPA-009 | Study family SF-APPA-009: Series adaptation experiment: static vs rolling vs adversarial-agent predictors
+- observed_research_question: Series adaptation experiment: static vs rolling vs adversarial-agent predictors
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Adversarial LLM agents predict next-game play-type mix better than static and rolling baselines.
+- observed_result: Rolling beats or ties static in all 12 (e.g. bos_mia 0.835 vs 0.748; den_okc tie agents=rolling 0.859). Agents below rolling in 11/12. Agent Dir%/Mag% 0.0 and L1 scheme 0.000 in every series. Hypothesis precision 0/0 in 9 series, 0/1 (den_min_2324, ind_nyk_2425), 0/2 (lal_hou_2526).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Agent Dir%/Mag% 0.0 in all 12 series and empty Agent predictions sections in most transitions; the few listed hypotheses (e.g. lal_hou 0/2) never scored as hits.
+- observed_sample_and_power: 4-6 transitions per series; 68 total
+- observed_method: 12 playoff series, 4-6 game transitions each (68 transitions); composite accuracy, L1 PT distance, direction/magnitude hit rates, agent hypothesis precision.
+- observed_verdict: null
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Updated after reading the remaining 9 series files. Agent arm still looks broken rather than tested; rolling vs static is a real comparison.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Team Adaptation
+- observed_dates: APPA-009: 2026-05-05 (doc)
+- observed_member_records: APPA-009
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_BATCH.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_bos_mia_2223.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_bos_nyk_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_lac_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_min_2324.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_den_okc_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_gsw_hou_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_nyk_2324.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_nyk_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_ind_okc_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_lal_hou_2526.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_min_okc_2425.md
+- observed_sources: APPA-009: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADAPTATION_EXPERIMENT_phi_bos_2526.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_addresses_question: RQC:RQC-061 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

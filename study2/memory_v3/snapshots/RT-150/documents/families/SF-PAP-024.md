@@ -1,0 +1,31 @@
+# FAM:SF-PAP-024 | Study family SF-PAP-024: Structural concentration vs defensive vulnerability
+- observed_research_question: Structural concentration vs defensive vulnerability
+- auto_outcome_status: rejected
+- observed_hypothesis: Teams whose structural influence is concentrated are more defensively vulnerable.
+- observed_result: C1a rho=+0.079 p=0.0882 CI[-0.114,+0.234]; C1b rho=+0.095 p=0.0738; robust 0.2/0.3 also fail
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: not underpowered (30 franchises) but CI spans 0
+- observed_sample_and_power: n=117, 30 franchises
+- observed_method: 117 team-seasons, 30 franchises; gate passed then confirmatory with churn robustness.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-024: 'ns, 30 franchises; gate passed then confirmatory with churn robustness. c1a rho=+0.079 p=0.0882 ci[-0.114,+0.234]; c1b rho=+0.'
+- observed_notes: Appendix F registered negative; source files in App\Strategy.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-024: 2026-07-12 (doc)
+- observed_member_records: PAP-024
+- observed_sources: PAP-024: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PAPER2_CONCENTRATION_PREREGISTRATION.md
+- observed_sources: PAP-024: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\concentration_full_result.txt
+- observed_sources: PAP-024: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\concentration_gate_result.txt
+- observed_sources: PAP-024: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF18 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-137 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

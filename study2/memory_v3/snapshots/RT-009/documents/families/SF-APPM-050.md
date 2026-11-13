@@ -1,0 +1,32 @@
+# FAM:SF-APPM-050 | Study family SF-APPM-050: SCOUT LLM insight demos ORL vs DET G1
+- observed_research_question: SCOUT LLM insight demos ORL vs DET G1
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: A single-shot SCOUT agent can surface one non-obvious, table-grounded insight the deterministic stack missed.
+- observed_result: v1: Banchero vs T. Harris two-way edge (Banchero 12 pts ppp_in_matchup 0.341 on 35.2 partial poss; Harris 0 pts / 0.0 PPP on 32.1). v2: ORL outscored DET 31-27 in Q4 despite FT trips 2 vs 11. Retro headline (both): ORL PPP model 1.2364 vs obs 1.109 (all)/1.474 (classified); DET 1.2183 vs 0.981/1.507; ORL WP 59.0%; model correct YES.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No scoring of insight quality beyond groundedness check; two runs produced unrelated insights.
+- observed_sample_and_power: n=2 prompts on 1 game
+- observed_method: Two prompts on game 0042500101 with derived tables; groundedness check against table values. Deterministic baseline suppressed from insight space.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: v1 PPP 0.341 on 12 points / 35.2 partial possessions is a matchup-minutes PPP, not possession PPP. Deterministic layer: no opponent-specific edge.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-050: 2026-04-23 (mtime)
+- observed_member_records: APPM-050
+- observed_sources: APPM-050: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\SCOUT_ORL_vs_DET_0042500101.md
+- observed_sources: APPM-050: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\SCOUT_ORL_vs_DET_0042500101_v2.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-012 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPM-049 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-034 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

@@ -1,0 +1,30 @@
+# FAM:SF-APPM-049 | Study family SF-APPM-049: SCOUT D6/D7 8-game calibration batch
+- observed_research_question: SCOUT D6/D7 8-game calibration batch
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: SCOUT conditional-query triggers (D6 EMPIRICAL PIVOT, D7 REGIME MIX, TRANSITION LEVER, REGIME SHIFT) fire at usable rates and respect Rule-of-Three on 8 playoff games.
+- observed_result: 8/8 ok, 43 min. Triggers: 14 D6 EMPIRICAL PIVOT, 9 REGIME SHIFT, 1 TRANSITION LEVER, 0 REGIME MIX. Rule-of-Three respected 7/8 (POR/SAS emitted 4 bullets). Post-batch: D7 REGIME MIX threshold +/-10pp -> +/-8pp after probe showed at n>=15 only 2 non-OTHER cells reached 10pp across 16 team-sides (projected 1 REGIME MIX: MIN clutch PULL_UP +9.8%). Thin re-validation 3 ok, ~16 min.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: 8/8 and 3/3 reports completed; Rule-of-Three 7/8 with one documented overflow.
+- observed_sample_and_power: n=8 then n=3 games
+- observed_method: 8-game validation batch of ScoutQueryLayer + synthesis D6/D7 rules; then a 3-game thin re-validation of D4/D5/D8 + D7 stack (HOU/LAL, ATL/NYK, ORL/DET).
+- observed_verdict: tool_eval_pass
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-049: '8-game validation batch of scoutquerylayer + synthesis d6/d7 rules; then a 3-'
+- observed_notes: D6+D7 merge branch (same team,PT firing both) did not occur and remains untested. Thin re-validation is n_runs extra but same product-calibration family; counted in n_runs=11 as 8+3.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-049: 2026-04-23 (doc)
+- observed_member_records: APPM-049
+- observed_sources: APPM-049: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PIPELINE_BACKLOG.md
+- observed_sources: APPM-049: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_thin_revalidate_three.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-088 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,32 @@
+# FAM:SF-PAP-087 | Study family SF-PAP-087: NCAA men's feature additions that raised or failed to lower Brier
+- observed_research_question: NCAA men's feature additions that raised or failed to lower Brier
+- auto_outcome_status: rejected
+- observed_hypothesis: Conference strength, tourney appearances, last-5 win%, conf-tourney win%, avg margin, 3P rate, coach tenure, tempo mismatch, late mean net rating, def consistency, home-road gap, end streak, adj off eff, POM slope, FT-rate 15/2 nudge, upset-susceptibility profile, recent-era seed weights, 8/9 sharpening, seed-gap monotonicity add signal.
+- observed_result: examples: conf strength 0.19356 vs 0.19319; last5 0.19330 vs 0.19227; coach tenure meta 0.18146 vs 0.18063; tempo mismatch 0.18205 vs 0.18063; POM slope 0.18235 vs 0.18063; 3P rate not formally logged; FT 15v2 0.17547 vs 0.17545; recent-era seed 0.17608 vs 0.17536; monotonicity 0.17642 vs 0.17535
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: reverted features raised Brier or were unlogged; pattern: redundant quality/style slices add noise
+- observed_sample_and_power: LOSO 2003-2025
+- observed_method: Same LOSO/OOF protocol; revert if Brier not improved.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-087: 'same loso/oof protocol; revert if brier not improved. examples: conf'
+- observed_notes: Includes iters 2,3,5,6,8,10,13-20,22,24-26,28. Ablation: 8 extra features slightly raised meta Brier 0.18250 vs 0.18240 with 12 features.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-087: 2026-03-08 (doc)
+- observed_member_records: PAP-087
+- observed_sources: PAP-087: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-086 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-041 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

@@ -1,0 +1,37 @@
+# FAM:SF-APPA-024 | Study family SF-APPA-024: Alignment regression: shift toward engine recommendation vs series ORtg
+- observed_research_question: Alignment regression: shift toward engine recommendation vs series ORtg
+- auto_outcome_status: untestable
+- observed_hypothesis: Teams whose playoff mix shifted toward the engine's recommended PT have higher series ORtg residuals.
+- observed_result: Pearson r -0.032, CI [-0.283, +0.209]; Spearman -0.067; OLS beta -5.33 (SE 19.64); clean subset r -0.079 (n=54); tuning fold +0.135, holdout -0.125.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=68 with CI width ~0.49 on r; doc says sample thin.
+- observed_sample_and_power: n=68; 95% CI [-0.283, +0.209]
+- observed_method: 68 (team, series) pairs; Pearson/Spearman, bootstrap CI, OLS with mix-shift control; provisional tuning/holdout split.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPA-024: 'ootstrap ci, ols with mix-shift control; provisional tuning/holdout split. pearson r -0.032, ci [-0.283, +0.209]; spearman -0.0'
+- observed_notes: Conflicts with the CASE_STUDIES claim of a +3.3 ORtg alignment effect.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Strategy app
+- observed_dates: APPA-024: 2026-05-23 (mtime)
+- observed_member_records: APPA-024
+- observed_sources: APPA-024: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ALIGNMENT_REGRESSION_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-004 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-031 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPM-020 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPM-020 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-001 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

@@ -1,0 +1,30 @@
+# FAM:SF-PAP-030 | Study family SF-PAP-030: Defensive reorganizer on/off: opponent fingerprint vs PPP allowed
+- observed_research_question: Defensive reorganizer on/off: opponent fingerprint vs PPP allowed
+- auto_outcome_status: rejected
+- observed_hypothesis: Defenders who displace the opponent's initiation fingerprint (high D_A) also suppress opponent PPP.
+- observed_result: eligible 653/882; corr(D_A, n_on) all=-0.475 vs eligible=-0.036; eligible median D_A=0.0529, median dPPP_allowed=-0.298; corr(D_A, dPPP_allowed)=+0.020; quadrants ~161-166 each
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: among 653 eligible, corr(D_A, dPPP_allowed)=+0.020; high-D_A names (Isaiah Joe 0.168, Trey Lyles 0.157) often allow more PPP
+- observed_sample_and_power: n=653 eligible of 882
+- observed_method: 882 defender-seasons 2022-25; D_A = 1-cos(A_on, A_off) of opponent initiations; dPPP_allowed = PPP_on-PPP_off; ranks only if n_on>=2000, n_off>=1000, mpg>=15.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Exploratory, not paper-locked. Sample-size floor removed the n_on artifact (corr -0.475 -> -0.036). Surprise flags were not written to the quadrant CSV.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-030: 2026-08-21 (mtime)
+- observed_member_records: PAP-030
+- observed_sources: PAP-030: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\defensive_reorganizer_explore.py
+- observed_sources: PAP-030: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\defensive_reorganizer_panel.csv
+- observed_sources: PAP-030: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\defensive_reorganizer_quadrants.csv
+- observed_sources: PAP-030: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\defensive_reorganizer_surprises.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-014 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-149 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}

@@ -1,0 +1,25 @@
+# FAM:SF-APPA-056 | Study family SF-APPA-056: TRANSITION gradient subgroup on four pace-sensitive stars
+- observed_research_question: TRANSITION gradient subgroup on four pace-sensitive stars
+- auto_outcome_status: untestable
+- observed_hypothesis: For stars whose #1 sequential suppressor is TRANSITION (Tatum, Morant, Young, Haliburton), TRANSITION hits hardest in Q1 then adapts by Q4, unlike PUTBACK.
+- observed_result: TRANSITION Q1 d=-0.221 (n=352) to Q4 d=-0.146 (n=262), gradient +0.075. PUTBACK compounds -0.067; POST_UP compounds -0.098. T. Young exception Q1 -0.023 to Q4 -0.240.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: 4-star subgroup selected on the outcome (TRANSITION is already their #1 suppressor); full 30-star TRANSITION gradient is only -0.053.
+- observed_sample_and_power: 4 stars; TRANSITION Q1 n=352 / Q4 n=262
+- observed_method: 4-player cluster; min n=15 per player-quarter cell.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Sheet says do not cite these numbers as the full 30-star league average.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: APPA-056: 2026-05-31 (doc)
+- observed_member_records: APPA-056
+- observed_sources: APPA-056: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-052 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

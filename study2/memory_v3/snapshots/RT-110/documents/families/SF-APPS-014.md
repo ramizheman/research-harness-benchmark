@@ -1,0 +1,26 @@
+# FAM:SF-APPS-014 | Study family SF-APPS-014: Within-game DRIVE decline by game third
+- observed_research_question: Within-game DRIVE decline by game third
+- auto_outcome_status: rejected
+- observed_hypothesis: DRIVE efficiency drops within a single playoff game (defense moves first) before cross-game adaptation.
+- observed_result: Game 1 DRIVE 0.864 (n=323) -> 0.942 (n=346), +0.078; all games 0.880 (n=1746) -> 0.973 (n=1987), +0.093.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: DRIVE rises early-to-late (+0.078 G1, +0.093 all games) instead of dropping.
+- observed_sample_and_power: n=1746-1987 per third (all games)
+- observed_method: Pooled playoff possessions split into game thirds by elapsed time; Game 1 only and all games.
+- observed_verdict: reversed
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-014: 2026-05-08 (mtime)
+- observed_member_records: APPS-014
+- observed_sources: APPS-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_drive_within_game.md
+- observed_sources: APPS-014: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\drive_within_game_run.log
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-107 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

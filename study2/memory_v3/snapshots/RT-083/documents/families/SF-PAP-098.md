@@ -1,0 +1,32 @@
+# FAM:SF-PAP-098 | Study family SF-PAP-098: Calibrated simulation vs Elo/net-rating/lineup+/- baselines
+- observed_research_question: Calibrated simulation vs Elo/net-rating/lineup+/- baselines
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The calibrated simulation beats simple team-level baselines on PPP MAE, win accuracy, log loss, and calibration error.
+- observed_result: VAL: CALIBRATION PPP MAE 0.1152 win 68.9% vs Elo 0.1154 / 69.4% and avg PPP 0.0928 / 67.9%; HOLDOUT: CALIBRATION PPP MAE 0.3369 win 54.8% logloss 0.778 vs Elo 0.3319 / 58.1% / 0.658 and lineup+/- win 64.5%
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: holdout win accuracy 54.8% vs lineup+/- 64.5% and Elo 58.1%; val-to-holdout collapse 68.9%->54.8%
+- observed_sample_and_power: val ~193 games; holdout 155 games
+- observed_method: Validation ~193 games mid-Jan-Feb; holdout 155 games late-Feb through playoffs; same metrics for avg PPP, net rating, Elo, lineup +/-, CALIBRATION.
+- observed_verdict: tool_eval_fail
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: PAP-098: 'validation ~193 games mid-jan-feb; holdout 155 games late-feb through'
+- observed_notes: Export states the residual correction overfits train and does not transfer. Likely overlaps APP evaluation records.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: PAP-098: 2026-04-18 (transcript)
+- observed_member_records: PAP-098
+- observed_sources: PAP-098: C:\Users\lisas\Downloads\cursor_nba_play_by_play_data_integratio.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF27 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-119 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}

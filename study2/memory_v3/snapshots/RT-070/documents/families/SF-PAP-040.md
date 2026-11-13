@@ -1,0 +1,28 @@
+# FAM:SF-PAP-040 | Study family SF-PAP-040: Collapse is already present on first five H2 attempts
+- observed_research_question: Collapse is already present on first five H2 attempts
+- auto_outcome_status: supported
+- observed_hypothesis: The H1-H2 drop is concentrated in late/garbage second-half attempts.
+- observed_result: H1 baseline 1.522; 1st-5th PPP 0.852 (vs H1 -0.670, n=3,295); 6th-10th 0.952 (-0.570, n=1,897); 11th+ 0.907 (-0.615, n=440)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: first five H2 attempts already at 0.852 vs 1.522 H1; does not worsen later
+- observed_sample_and_power: n=3,295 first-five attempts
+- observed_method: Order H2 attempts of the suppressed play within 683 continued triggers; compare 1st-5th vs 6th-10th vs 11th+.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Falsifies late-collapse alternative.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: PAP-040: 2026-10-01 (doc)
+- observed_member_records: PAP-040
+- observed_sources: PAP-040: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Defensive Suppression\playsheet_validation\cost_of_ignoring_results.md
+- observed_sources: PAP-040: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Defensive Suppression\suppression_paper.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF02 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-159 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-PAP-088 | Study family SF-PAP-088: Injury and All-American post-processing of OOF probabilities
+- observed_research_question: Injury and All-American post-processing of OOF probabilities
+- auto_outcome_status: supported
+- observed_hypothesis: Overlaying injury underperformance and All-American bonuses on OOF meta probabilities lowers Brier.
+- observed_result: baseline 0.18089; injury 0.18058; AA 0.18028; both 0.17993 (combined -0.00096)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: combined overlay 0.17993 vs 0.18089
+- observed_sample_and_power: 23 injury / 135 AA matchups touched
+- observed_method: No retraining; 23 injury-touched and 135 AA-touched matchups; clip [0.025,0.975].
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Most of the gain is All-American (135 touches vs 23 injuries).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-088: 2026-03-11 (doc)
+- observed_member_records: PAP-088
+- observed_sources: PAP-088: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-086 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-079 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

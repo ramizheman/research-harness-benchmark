@@ -1,0 +1,28 @@
+# FAM:SF-TMP-021 | Study family SF-TMP-021: Penalty-state adaptation (Pilot A)
+- observed_research_question: Penalty-state adaptation (Pilot A)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Behavior changes when the defense enters the penalty (3->4 team fouls).
+- observed_result: any_fta 3->4 -0.151 vs placebos -5.556/-9.655; rim_pct +0.015 vs +1.666/+2.077; pts +0.020.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Penalty contrast not distinct from placebo contrasts; SEs not printed (sqrt warning).
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Possessions with clock>2:30, game x offense x period FE; 2->3 and 4->5+ placebos.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: TMP-021: 'with clock>2:30, game x offense x period fe; 2->3 and 4->5+ placebos. any_fta 3->4 -0.151 vs placebos -5.556/-9.655; rim_pct +0'
+- observed_notes: pilots.py had no log; rerun in sweep.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-021: 2026-11-01 (mtime)
+- observed_member_records: TMP-021
+- observed_sources: TMP-021: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.log
+- observed_sources: TMP-021: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.py
+- observed_sources: TMP-021: C:\Users\lisas\AppData\Local\Temp\supp_audit\pilots.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-189 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-CHT-087 | Study family SF-CHT-087: Connector-mover pairing variants (name-keyed vs franchise rules)
+- observed_research_question: Connector-mover pairing variants (name-keyed vs franchise rules)
+- auto_outcome_status: artifact
+- observed_hypothesis: Portability median Delta is robust to pairing rule among 428 movers with n_decoys>=3.
+- observed_result: Current pool 428/428 pass n_decoys>=3. Chat reports a KW p=0.047 / n=92 role-class stratification and organizer-connector MW p=0.07 with bootstrap P(organizer>connector)=0.974 CI [-0.001, +0.180]. Menu-similarity confound: Pearson r(Delta, DeltaNR)=+0.12, Spearman +0.06 p=0.77, t p=0.16, bootstrap CI on mean gap [-1.47, +11.65] includes 0 — 'not a real effect once you correct the confound'.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Organizer-connector gap CI includes 0 after correcting a menu-similarity confound; KW p=0.047 is population-level, pairwise is suggestive.
+- observed_sample_and_power: n=92 in the KW-calibrated draft; 428 movers in pairing filter
+- observed_method: Confirmatory filter n_decoys>=3, 428/428 pass; pairing-rule variants.
+- observed_verdict: inconclusive
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Paper-prose chat (3f5af129) mixing portability follow-ups; numbers copied exactly. Findings also appear in paper drafts on disk.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: CHT-087: 2026-07-18 (transcript)
+- observed_member_records: CHT-087
+- observed_sources: CHT-087: 3f5af129-c1a7-4520-8a03-19362e571e19
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:confounding {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:CONFOUNDING {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-148 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}

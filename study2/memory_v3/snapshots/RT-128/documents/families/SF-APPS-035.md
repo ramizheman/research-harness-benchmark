@@ -1,0 +1,31 @@
+# FAM:SF-APPS-035 | Study family SF-APPS-035: Clutch-after-suppression star PPP vs overall (30 stars, RS 2025-26)
+- observed_research_question: Clutch-after-suppression star PPP vs overall (30 stars, RS 2025-26)
+- auto_outcome_status: rejected
+- observed_hypothesis: Stars elevate in clutch possessions of games where their team had a suppression trigger.
+- observed_result: Mean X-Z uplift -0.065, t=-2.41, p=0.025, n=24 (16 negative / 8 positive). Pearson r(uplift, IE%)=0.031, p=0.885. Brunson X-Z=+0.003 (rank 8/24). Raw clutch vs overall: Edwards +0.225, Giannis -0.240; Brunson -0.021.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Significant league-wide decline (-0.065 PPP, p=0.025), opposite of elevated clutch-cooking; IE% does not predict uplift.
+- observed_sample_and_power: n=24 players with n_X>=15; PO replication not run
+- observed_method: Clutch=Q4 last 5 min |margin|<=5. Group X=clutch in suppression games vs Z=overall. n_X>=15; n=24 OK-confidence players. Also raw clutch vs overall table.
+- observed_verdict: reversed
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPS-035: 'ense already failed to adapt. n=24 players with n_x>=15; po replication not run significant league-wide decline (-0.065 ppp, p=0'
+- observed_notes: Selection likely: these clutch minutes occur in games where the offense already failed to adapt.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-035: 2026-06-20 (doc)
+- observed_member_records: APPS-035
+- observed_sources: APPS-035: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\clutch_30stars.md
+- observed_sources: APPS-035: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\clutch_after_suppression.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-044 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-APPS-044 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-038 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

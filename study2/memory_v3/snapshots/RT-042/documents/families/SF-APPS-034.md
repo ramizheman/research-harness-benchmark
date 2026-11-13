@@ -1,0 +1,28 @@
+# FAM:SF-APPS-034 | Study family SF-APPS-034: Oracle player-routing sensitivity (RS holdout)
+- observed_research_question: Oracle player-routing sensitivity (RS holdout)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Routing regret (+0.137 baseline) is not an artifact of low-volume bench oracles.
+- observed_result: Baseline min_n=3: regret +0.137, 63.0% oracle>actual, n=980. min_n=20: +0.050, 52.5%, n=703. Recommended top-8 + min_n=5: +0.094, 57.9%, n=970. Strict top-4+n5: +0.068, 54.8%.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Regret shrinks under stricter gates but stays positive; recommended cite is +0.094 not +0.137.
+- observed_sample_and_power: n=980 BEST rows baseline
+- observed_method: RS holdout BEST rows n>=5 (980). Ablate min_n gate and top-K rotation filter.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPS-034: 'rs holdout best rows n>=5 (980). ablate min_n gate and top-k rotation'
+- observed_notes: Shrinkage prior weight=50 means n=3 H2H is ~94% league mean. PO oracle player tables flagged exploratory (typical n=3-8).
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-034: 2026-06-18 (mtime)
+- observed_member_records: APPS-034
+- observed_sources: APPS-034: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\oracle_sensitivity.md
+- observed_sources: APPS-034: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\playsheet_validation\rs_holdout_25_26\rs_player_routing_regret.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-032 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-APPS-009 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-021 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}

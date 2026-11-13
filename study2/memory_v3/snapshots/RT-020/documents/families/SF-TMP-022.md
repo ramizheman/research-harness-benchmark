@@ -1,0 +1,30 @@
+# FAM:SF-TMP-022 | Study family SF-TMP-022: Defender foul-trouble exploitation (Pilot B)
+- observed_research_question: Defender foul-trouble exploitation (Pilot B)
+- auto_outcome_status: supported
+- observed_hypothesis: Offenses attack the rim when an opposing big is in foul trouble.
+- observed_result: rim_pct big_tr +1.903 (SE 0.468, t=+4.1); any_fta -6.320 (t=-17.3); pts -0.020 (SE 0.011).
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: rim +1.903, t=+4.1; only 1.44% of possessions exposed.
+- observed_sample_and_power: 1.44% exposure
+- observed_method: 1,039,513 possessions; big/guard in foul trouble on floor, game-offense-period FE.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Fouling drops sharply, consistent with defender caution rather than offense targeting.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup/Team Adaptation
+- observed_dates: TMP-022: 2026-11-01 (mtime)
+- observed_member_records: TMP-022
+- observed_sources: TMP-022: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.log
+- observed_sources: TMP-022: C:\Users\lisas\AppData\Local\Temp\supp_audit\adaptation_sweep.py
+- observed_sources: TMP-022: C:\Users\lisas\AppData\Local\Temp\supp_audit\pilots.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-CHT-076 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-016 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:free_throws_fouls {basis=keyword rules on member records}

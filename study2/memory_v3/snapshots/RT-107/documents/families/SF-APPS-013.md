@@ -1,0 +1,25 @@
+# FAM:SF-APPS-013 | Study family SF-APPS-013: Defensive Style Index shift RS vs playoffs
+- observed_research_question: Defensive Style Index shift RS vs playoffs
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Teams shift toward HELP/SWITCH and away from DROP in the playoffs, making RS DSI priors wrong.
+- observed_result: SWITCH 0.294 -> 0.336 (+0.0426, 62% of teams); DROP 0.399 -> 0.343 (-0.0561); HELP 0.307 -> 0.321 (+0.0135, 'No meaningful shift').
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: HELP shift +0.0135 'No meaningful shift'; per-team shifts range -0.287 to +0.271 with no test.
+- observed_sample_and_power: 32 team-seasons; no CIs
+- observed_method: pbpstats Playoffs vs RS aggregates, same DSI formula, 2022-23 and 2023-24 playoff teams.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Partial support: SWITCH up and DROP down, but the hypothesized HELP shift was absent.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-013: 2026-05-08 (mtime)
+- observed_member_records: APPS-013
+- observed_sources: APPS-013: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\_dsi_rs_vs_playoff.md
+- observed_sources: APPS-013: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\dsi_rs_playoff_run.log
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-101 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}

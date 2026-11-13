@@ -1,0 +1,30 @@
+# FAM:SF-CHT-001 | Study family SF-CHT-001: Women's NCAA seed-only prior vs 4-feature LR Brier
+- observed_research_question: Women's NCAA seed-only prior vs 4-feature LR Brier
+- auto_outcome_status: inconclusive
+- observed_hypothesis: A 4-feature women's LR should beat a pure historical seed-prior; raw LR at ~0.176 looking worse than seed would mean the LR is a noisier seed model.
+- observed_result: Seed-only prior Brier 0.17614; raw LR 0.17637; isotonic 0.17280; +AA capped 0.17285; +seed cal alpha=0.4 0.17272.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Seed-only 0.17614 slightly better than raw LR 0.17637; LR is a noisier seed prior.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Women's tournament matchup table; seed-only = apply_seed_calibration on a 0.5 vector with alpha=0.0; compared to raw LR then isotonic/AA/seed-cal pipeline.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: No results file on disk mentioned; numbers printed in chat from a pipeline run. Same-season tournament seed in features is documented as not leakage.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: March Madness
+- observed_dates: CHT-001: 2026-03-16 (transcript)
+- observed_member_records: CHT-001
+- observed_sources: CHT-001: 9d9d1be5-b547-449a-b29b-63c29c66ae3f
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-095 {basis=family structure, similarity or record links; relation=repeat_of_earlier_family}
+- auto_addresses_question: RQC:RQC-005 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

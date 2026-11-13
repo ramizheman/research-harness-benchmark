@@ -1,0 +1,27 @@
+# FAM:SF-CHT-027 | Study family SF-CHT-027: ORL vs DET D6 last-mile synthesis gate
+- observed_research_question: ORL vs DET D6 last-mile synthesis gate
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: SYNTHESIS will name Wagner (1.54 PPP, n=13) as empirical CUT lead vs DET and note Banchero's 44.3% routed share, rather than only dumping mix.
+- observed_result: Binary verdict PASS, stronger than expected: D6 fired twice plus a null-result for DRIVE.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: NOT_RECORDED
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Regenerate ORL/DET with D6 rule; binary pass if playsheet contains a named Tactical Pivot citing Wagner.
+- observed_verdict: tool_eval_pass
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results file on disk mentioned: ORL_vs_DET_D6_20260423_091917.md. This is a report-generation gate, not a statistical hypothesis.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: CHT-027: 2026-04-23 (transcript)
+- observed_member_records: CHT-027
+- observed_sources: CHT-027: 75e6dc33-2e72-4026-8e06-1964cefc6b4f
+- observed_sources: CHT-027: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\ORL_vs_DET_D6_20260423_091917.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-094 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

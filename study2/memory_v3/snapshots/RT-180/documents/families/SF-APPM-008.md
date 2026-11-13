@@ -1,0 +1,26 @@
+# FAM:SF-APPM-008 | Study family SF-APPM-008: Final feature stacking ceiling
+- observed_research_question: Final feature stacking ceiling
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Stacking all clean-signal features raises the R2 ceiling materially.
+- observed_result: Best +xPPP + per-pt interaction R2_hol +0.1244 (lift +0.0094); adding more features lowered holdout R2 (12f +0.1167).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Max lift +0.0094; doc calls ~0.12 the practical ceiling.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Nested OLS models on 8-feat baseline plus xPPP, per-PT interaction, shot_rate, pct_3s.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPM-008: 'r2_hol +0.1244 (lift +0.0094); adding more features lowered holdout r2 (12f +0.1167). max lift +0.0094; doc calls ~0.12 the p'
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (0.75)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-008: 2026-04-17 (mtime)
+- observed_member_records: APPM-008
+- observed_sources: APPM-008: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\STACK_FINAL.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-101 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}

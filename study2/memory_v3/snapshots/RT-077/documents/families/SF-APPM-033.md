@@ -1,0 +1,28 @@
+# FAM:SF-APPM-033 | Study family SF-APPM-033: Sequential conditioning premiums (CUT->PULL_UP etc.)
+- observed_research_question: Sequential conditioning premiums (CUT->PULL_UP etc.)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Specific play-type sequences carry a PPP premium (e.g. CUT->PULL_UP +0.065, PUTBACK->TRANSITION +0.084).
+- observed_result: Premiums CUT->PULL_UP +0.065, PUTBACK->TRANSITION +0.084, Brown DRIVE->Tatum PNR +0.326 later removed: 'doesn't hold up'.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Slide notes 'Sequence premiums - Removed - doesn't hold up'; reason not stated in files read.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Sequence premium analyses (details in scripts, not read).
+- observed_verdict: abandoned
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Date approximated from v8 structure doc era; scripts dated 2026-05-31.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: APPM-033: 2026-06-11 (mtime)
+- observed_member_records: APPM-033
+- observed_sources: APPM-033: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_SLIDE_NUMBERS.md
+- observed_sources: APPM-033: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\PRESENTATION_STRUCTURE_v8.md
+- observed_sources: APPM-033: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_sequential_premium.py
+- observed_sources: APPM-033: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_sequential_premium_by_player.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-APPM-057 | Study family SF-APPM-057: Defense-pool diversity: ROBUST label vs duplicate regimes
+- observed_research_question: Defense-pool diversity: ROBUST label vs duplicate regimes
+- auto_outcome_status: supported
+- observed_hypothesis: The N~8-12 defensive adaptations used to certify playsheet ROBUST are genuinely distinct regimes (cosine clusters at 0.90), not near-duplicate single-knob tweaks.
+- observed_result: BOS vs OKC: 12 adaptations, 11 clusters at 0.90 (D3 STAR_DENIAL ~ D12 tighten PNR cosine 0.97). Baseline PPP 1.2916; opener POST_UP-4%->CUT+4% cumulative ++0.0625. OKC vs BOS: 11 adaptations, 10 clusters at 0.90 (D3~D11 cosine 0.96). Baseline 1.2025; cumulative ++0.0911. Verdict both: GENUINELY DISTINCT - ROBUST label is fully earned. At 0.50 threshold clusters collapse to 7 and 6.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: 11/12 and 10/11 distinct at the registered 0.90 threshold.
+- observed_sample_and_power: n=2 matchups
+- observed_method: Reuse _build_playsheet_conditional pool; pairwise cosine on PT delta vectors; single-link clusters at 0.95/0.90/0.80/0.50. Two matchups: BOS vs OKC and OKC vs BOS.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPM-057: '25; cumulative ++0.0911. verdict both: genuinely distinct - robust label is fully earned. at 0.50 threshold clusters collapse'
+- observed_notes: STAR_DENIAL is nearly collinear with PNR-tighten in both directions; still counted as distinct at 0.90 because only that pair merges.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPM-057: 2026-04-17 (mtime)
+- observed_member_records: APPM-057
+- observed_sources: APPM-057: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_audit_defense_pool.py
+- observed_sources: APPM-057: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_audit_out.txt
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-102 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

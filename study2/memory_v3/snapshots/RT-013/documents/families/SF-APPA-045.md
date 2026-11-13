@@ -1,0 +1,27 @@
+# FAM:SF-APPA-045 | Study family SF-APPA-045: Joint vs sequential Rank-then-Route ranking
+- observed_research_question: Joint vs sequential Rank-then-Route ranking
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Picking play type and player jointly beats sequential Rank then Route enough to justify the extra step.
+- observed_result: Joint pick = sequential 80.3%; joint reroutes 19.7% (547). Mean PPP left on table +0.020 all / +0.099 reroutes only (median +0.080). Play-type gap BEST vs 2nd 0.215 mean / 0.182 median. Routing premium +0.089. Strict dominance 49.2%.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Mean +0.020 PPP left on table is small; sequential declared safe ~80% with joint tiebreak in ~20%.
+- observed_sample_and_power: n=2,779 triggers
+- observed_method: _joint_vs_sequential.py; n=2,779 RS triggers; blended matchup PPP, min 3 H2H poss/player.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Prior weight 50 ? reroutes partly reflect talent routing, not pure matchup.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-045: 2026-06-22 (doc)
+- observed_member_records: APPA-045
+- observed_sources: APPA-045: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-053 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

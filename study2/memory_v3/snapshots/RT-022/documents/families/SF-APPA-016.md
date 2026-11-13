@@ -1,0 +1,29 @@
+# FAM:SF-APPA-016 | Study family SF-APPA-016: Per-team calibration: model 'signal' (bias) vs actual PPP, V1-V6
+- observed_research_question: Per-team calibration: model 'signal' (bias) vs actual PPP, V1-V6
+- auto_outcome_status: rejected
+- observed_hypothesis: A3 predicted PPP exceeds actual (treated as validated optimization signal) and is well calibrated.
+- observed_result: V1 bias +0.0112 (+1.12 pts/100), R2 -0.1758, win-side 58.8%; V2 +1.69; V3 +1.26; V6 bias -0.0012 (-0.12 pts/100), R2 0.0323, win-side 61.9%, model>actual 47.5%.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: At 520 matchups / 69,876 poss the signal is -0.12 pts/100 and R2 0.03.
+- observed_sample_and_power: 520 matchups, 69,876 possessions
+- observed_method: V1-V5: 240 matchups, 23,922 poss; V6: 520 matchups, 69,876 poss (season_engines); bias, MAE, RMSE, R2, win-side accuracy.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Treating positive prediction bias as 'validated signal' is conceptually flawed. V6 template text says 'it does: 47.5%' for an expected >50%, so the conclusion contradicts the number.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-016: 2026-04-15 (mtime)
+- observed_member_records: APPA-016
+- observed_sources: APPA-016: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CALIBRATION_REPORT.md
+- observed_sources: APPA-016: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CALIBRATION_REPORT_V6.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-017 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPA-020 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-064 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

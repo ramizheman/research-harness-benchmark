@@ -1,0 +1,31 @@
+# FAM:SF-APPA-054 | Study family SF-APPA-054: PUTBACK suppression mechanism: fatigue vs value
+- observed_research_question: PUTBACK suppression mechanism: fatigue vs value
+- auto_outcome_status: supported
+- observed_hypothesis: PUTBACK suppresses the next star possession via fatigue (stronger in H2 and Q4), while PUTBACK itself remains high-value.
+- observed_result: H1 delta -0.038 vs H2 -0.130 (22 stars, 3.4x). Q1 -0.009 vs Q4 -0.289 (11 stars; Q4 pooled n=34). PUTBACK H2 1.528 vs 1.217 (+0.311) n=8,614 vs 474,564. After opp PUTBACK offense 1.097 vs 1.210 (d=-0.113) n=15,898.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Q4 PUTBACK is sparse (34 pooled poss at n>=30; Mitchell n=34 drives the Q4 cell) even though the H2 vs H1 and aftershock tests are larger.
+- observed_sample_and_power: 22 stars H1+H2; Q4 pooled n=34; 15,898 aftershock poss
+- observed_method: Four tests on PUTBACK-suppressed stars: H1 vs H2 delta, Q1 vs Q4, PUTBACK H2 PPP vs baseline, offense PPP after opp PUTBACK.
+- observed_verdict: supported
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Sheet calls fatigue the primary driver; Q4 sparsity is knowable from the n>=30 gate.
+- auto_confidence: medium (0.5)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-054: 2026-05-31 (doc)
+- observed_member_records: APPA-054
+- observed_sources: APPA-054: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-050 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF-APPA-055 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_addresses_question: RQC:RQC-010 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

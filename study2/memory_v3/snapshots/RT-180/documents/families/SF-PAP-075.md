@@ -1,0 +1,25 @@
+# FAM:SF-PAP-075 | Study family SF-PAP-075: Task 1: process in-game evidence is detectable but negligible
+- observed_research_question: Task 1: process in-game evidence is detectable but negligible
+- auto_outcome_status: rejected
+- observed_hypothesis: In-game evidence improves prediction of subsequent performance under the actual rotation (Task 1).
+- observed_result: offense test E +0.147 millinats [0.049, 0.252] MSE +0.01%; F +0.139 [0.005, 0.274] MSE +0.01%; validation E/F not significant (F negative); C vs M0 ~2.1 millinats and ~1.0% MSE
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: only Task 1 offense E/F clear 99% in test; MSE +0.01%; can reflect rotation prediction not five performance
+- observed_sample_and_power: test ~102,478 rows/side
+- observed_method: Same models; Task 1 = all opportunities; 99% game-clustered CI.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: PAP-075: '049, 0.252] mse +0.01%; f +0.139 [0.005, 0.274] mse +0.01%; validation e/f not significant (f negative); c vs m0 ~2.1 millinats an'
+- observed_notes: Not sufficient for GO. Carryover: 10 per 100 stint residual predicts at most ~0.4 per 100 over next five.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-075: 2026-11-02 (doc)
+- observed_member_records: PAP-075
+- observed_sources: PAP-075: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\measurement\report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-072 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-PAP-072 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-069 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}

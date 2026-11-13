@@ -1,0 +1,26 @@
+# FAM:SF-PAP-086 | Study family SF-PAP-086: NCAA men's feature additions that improved LOSO Brier
+- observed_research_question: NCAA men's feature additions that improved LOSO Brier
+- auto_outcome_status: supported
+- observed_hypothesis: Added team-season features (SOS, FT rate, neutral-site ratio, rank variance, net-rating volatility, late-season slope) improve men's LOSO/OOF Brier.
+- observed_result: SOS 0.19735->0.19319; FT rate 0.19319->0.19227; neutral site 0.19227->0.19199; rank_variance 0.19199->0.19170; net_rating_volatility 0.18089->0.18077 (with adj 0.17993->0.17975); late_season_slope 0.18077->0.18063 (adj 0.17975->0.17962)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: each kept feature lowered Brier under the log's any-improvement rule
+- observed_sample_and_power: LOSO 2003-2025
+- observed_method: XGBoost then meta-ensemble LOSO CV 2003-2025; keep if any Brier drop.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-086: 'xgboost then meta-ensemble loso cv 2003-2025; keep if any brier drop. sos 0.19735->0.19319;'
+- observed_notes: Family of kept feature tests (iters 1,4,7,9,11,12). Target metric shifted from XGB CV to OOF meta during the stack.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-086: 2026-03-08 (doc)
+- observed_member_records: PAP-086
+- observed_sources: PAP-086: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-038 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

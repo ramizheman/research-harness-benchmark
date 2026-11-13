@@ -1,0 +1,29 @@
+# FAM:SF-PAP-051 | Study family SF-PAP-051: Gate1 G1: fingerprint is invariant to uniform teammate volume scaling
+- observed_research_question: Gate1 G1: fingerprint is invariant to uniform teammate volume scaling
+- auto_outcome_status: supported
+- observed_hypothesis: Uniformly scaling remaining teammates' initiation rows by 1.25 leaves the unit fingerprint at Monte Carlo noise (so restoration is not mere volume).
+- observed_result: g1_mc median=0.0053 mean=0.0072; g1_scale median=0.0070 mean=0.0090; 95th pct scale=0.0265 from CSV (script also cites sampling-null median ~0.078)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: scaling median 0.007 vs MC noise 0.005
+- observed_sample_and_power: n=148
+- observed_method: 148 spells; cosine distance after x1.25 vs MC redraw of the same matrix.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Paper: scaling by 25% moved the fingerprint by essentially game-to-game noise.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-051: 2026-11-02 (mtime)
+- observed_member_records: PAP-051
+- observed_sources: PAP-051: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate.py
+- observed_sources: PAP-051: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\adaptation\gate_rows.csv
+- observed_sources: PAP-051: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-053 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-170 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}

@@ -1,0 +1,36 @@
+# FAM:SF-APPM-045 | Study family SF-APPM-045: Playoff G1 retrospective: plan conformance vs outcome (opened RETRO files)
+- observed_research_question: Playoff G1 retrospective: plan conformance vs outcome (opened RETRO files)
+- auto_outcome_status: untestable
+- observed_hypothesis: Teams running closer to the model opener portfolio perform better, and pre-game favorite/PPP direction matches the game.
+- observed_result: Winner direction 4/4 YES. ORL PPP 1.2364 vs 1.109 (all)/1.474 (classified), DET 1.2183 vs 0.981/1.507, ORL WP 59.0% won 112-101. PHI 1.2143 vs 0.875/1.137, BOS 1.3185 vs 1.230/1.538, PHI WP 11.1% lost 91-123. PHX 1.2254 vs 0.903/1.273, OKC 1.2758 vs 1.266/1.566, PHX WP 26.7% lost 84-119. POR 1.2248 vs 1.021/1.225, SAS 1.2591 vs 1.144/1.521, POR WP 33.5% lost 98-111. Conformance: PHX 24.0pp drift lost by 35; PHI 4.5pp closest lost by 32. 5/8 team-games closest to opener #2-#4.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Four games is not enough evidence to claim the plans work in a statistical sense (doc). Winner-picking 4/4 is a weak test (favorites were large).
+- observed_sample_and_power: n=8 team-games
+- observed_method: 4 Game 1s / 8 team-games; avg |delta| on leverage buckets vs result; headline modeled vs observed PPP and winner.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Updated copy of APPM-024 after opening the four RETRO_ files. ORL favorite at 59% uses the older pooled prior (STRATEGY_V2 later flipped DET to 86%).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-045: 2026-04-20 (doc)
+- observed_member_records: APPM-045
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\PLAYOFF_RETRO_SUMMARY_2026-04-20.md
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_ORL_vs_DET_0042500101.md
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_PHI_vs_BOS_0042500111.md
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_PHX_vs_OKC_0042500141.md
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\RETRO_POR_vs_SAS_0042500151.md
+- observed_sources: APPM-045: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\_batch_playoff_retros.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-048 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-024 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

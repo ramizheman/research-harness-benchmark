@@ -1,0 +1,32 @@
+# FAM:SF-APPS-091 | Study family SF-APPS-091: Cut-share x load 2x2 connector PPP (id-keyed, after collision fix)
+- observed_research_question: Cut-share x load 2x2 connector PPP (id-keyed, after collision fix)
+- auto_outcome_status: rejected
+- observed_hypothesis: High-CUT portable-diet connectors have higher on/off adj PPP, especially when combined with high load.
+- observed_result: Spearman(cut, adj) rho=-0.1269 p=0.204 n=102. HasHighCut=+0.59 p=0.293; HasLowCut=+1.39 p=0.117. 2x2 M1: HiCut x HiLoad -0.29 p=0.688 (portability x hub cell null/wrong-sign); HiCut x LoLoad +2.14 p=0.00248; LoCut x HiLoad +3.06 p=0.00162. Kruskal-Wallis adj p=0.191.
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: Cut-only still null after id-key fix. The cell that would confirm portability (HiCut x HiLoad) is null; significant cells are mixed/discordant and exploratory.
+- observed_sample_and_power: n=102 id-keyed; 150 connector-seasons
+- observed_method: 150 connector-seasons; merged on/off n=102 keyed by player_id (prior abbrev-name collision duplicated rows 102->109). Possession M1 HasHighCut etc.
+- observed_verdict: null
+- observed_failure_type: B_powered_null
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Bug fix: J. Williams name collisions. Multiple-comparison + non-exclusive presence flags; authors say not a confirmed efficiency screen.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-091: 2026-07-27 (mtime)
+- observed_member_records: APPS-091
+- observed_sources: APPS-091: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\cutshare_connector_ppp_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:implementation_bug {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:IMPLEMENTATION_BUG {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-089 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF19 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-046 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

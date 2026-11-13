@@ -1,0 +1,32 @@
+# FAM:SF-APPM-020 | Study family SF-APPM-020: Within-series SHOULD vs DID alignment
+- observed_research_question: Within-series SHOULD vs DID alignment
+- auto_outcome_status: untestable
+- observed_hypothesis: Teams that shift toward the engine's prescribed mix win more and improve PPP.
+- observed_result: Shift toward rec PT: win rate 50.0% vs 50.0%; only 8 rows had a SHOULD vector (aligned 4/6 wins vs 1/2); A3 rec PT beat modal PT 87/94 (92.6%).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: 96 of 104 rows had no vector prescription; 'Sample too small at this gate'.
+- observed_sample_and_power: n=8 for vector test
+- observed_method: 100-104 (series,team) rows; G1 vs G2..N shift; direction-match and cosine vs prescription.
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Knowable: decision_context files with empty openers existed before analysis.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: Strategy app
+- observed_dates: APPM-020: 2026-05-16 (mtime)
+- observed_member_records: APPM-020
+- observed_sources: APPM-020: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_should_vs_did_data.csv
+- observed_sources: APPM-020: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\within_series_should_vs_did_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-004 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-024 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-002 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

@@ -1,0 +1,30 @@
+# FAM:SF-APPA-066 | Study family SF-APPA-066: TOV_FORCE matchup decomposition on four playoff games
+- observed_research_question: TOV_FORCE matchup decomposition on four playoff games
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: TOV_FORCE as a top-3 lever can be decomposed into defender x initiator x PT channels with positive matchup lift.
+- observed_result: Team-PT lifts are small (ORL vs DET PNR +1.2pp; POR vs SAS all PT lifts negative, e.g. PNR -4.1pp) while player-channel lifts are large on small n (Banchero on Huerter SPOT_UP +8.4pp, n_def=17 / n_off=54; Dort on Coffey SPOT_UP +12.0pp, n=25/16; Booker on Wiggins PULL_UP +14.8pp).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Player-channel n often 15-28 defensive possessions; primary_defender attribution includes helper steals; no holdout or game-outcome check.
+- observed_sample_and_power: 4 games; cell n often 15-54
+- observed_method: 4 games (ORL-DET, PHI-BOS, PHX-OKC, POR-SAS); Dean-Oliver additive lift from 1.05M recency-weighted possessions; defender cell n>=15.
+- observed_verdict: descriptive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: POR vs SAS team-level lifts are all negative, so the top-3 TOV_FORCE lever is coming from sparse player cells, not team PT rates.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-066: 2026-04-20 (mtime)
+- observed_member_records: APPA-066
+- observed_sources: APPA-066: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\HOW_TO_FORCE_TOVS.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:insufficient_exposure {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:EXPOSURE_SPARSITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-067 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-083 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:turnovers {basis=keyword rules on member records}

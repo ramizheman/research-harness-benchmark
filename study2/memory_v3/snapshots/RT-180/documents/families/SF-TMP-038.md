@@ -1,0 +1,45 @@
+# FAM:SF-TMP-038 | Study family SF-TMP-038: Historical 2020-22 absence-pool extension feasibility
+- observed_research_question: Historical 2020-22 absence-pool extension feasibility
+- auto_outcome_status: untestable
+- observed_hypothesis: Reconstructed 2020-21 and 2021-22 possession data can enlarge the 148-spell pool toward ~270 spells and improve restoration-predictor power without breaking play-type comparability.
+- observed_result: Neo4j/raw files: yy=20 and yy=21 have 0 games. API: 1,080 (yy=20) and 1,230 (yy=21) game IDs. gamerotation ~15% success (2/13 yy=20 games; timeouts). PBP roster proxy 11.4 players per team-game (range 9-15) on a 30-game sample. Uncalibrated 15-game play-type sample vs yy=22: PNR 17.2%/15.0% vs 21.9%; SPOT_UP 29.3%/29.1% vs 21.7%. 10-game subType PNR ~0 events both seasons. Projected spells yy=21 ~42-52, yy=20 ~33-45; yy=21+22-24 ~190-200, still below ~270. G3 analog: yy=25 inferrer data dropped split-half from 0.32 to ~0.00.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: gamerotation unreliable (~15% success); PNR ~0 in subType samples; even both historical seasons project ~223-245 spells, below the ~270 target; full reconstruction and expanded gate.py never finished (build_log last at 800/1230 yy=21 games; no full_edges_hist.parquet; run_expanded_analysis.py has no log).
+- observed_sample_and_power: current pool 148; target ~270; yy=21 projected +42-52
+- observed_method: NBA API audit of playbyplayv3 vs gamerotation; 10-game then 15-game-per-season play-type samples vs yy=22; PBP roster proxy for presence; projection from yy=22-24 yield (~49 spells/season). Full reconstruction and gate.py on the expanded pool were specified but not completed.
+- observed_verdict: abandoned
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: TMP-038: '0, still below ~270. g3 analog: yy=25 inferrer data dropped split-half from 0.32 to ~0.00. research_assessment (generated november'
+- observed_notes: research_assessment (Generated November 3, 2026 in the document; files dated 2026-11-02) recommends yy=21 only as a sensitivity check after PNR calibration, and not to include yy=20.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history_probable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: TMP-038: 2026-11-02 (mtime)
+- observed_member_records: TMP-038
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\audit_historical.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\audit_log.txt
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\build_games_hist.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\build_historical_data.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\build_log.txt
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\build_stdout.txt
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\quick_test_30.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\research_assessment.md
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\run_expanded_analysis.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\test_pipeline_sample.py
+- observed_sources: TMP-038: C:\Users\lisas\AppData\Local\Temp\supp_audit\historical_absence_extension\test_yy21_quick.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-085 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-TMP-016 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-TMP-024 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF22 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-193 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Player_absence_spells {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}

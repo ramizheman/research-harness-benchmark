@@ -1,0 +1,31 @@
+# FAM:SF-APPA-004 | Study family SF-APPA-004: DID-ADAPT case study NYK vs PHI 2025-26 series
+- observed_research_question: DID-ADAPT case study NYK vs PHI 2025-26 series
+- auto_outcome_status: untestable
+- observed_hypothesis: Within-game and within-series adaptation toward engine counters coincides with better PPP in one series.
+- observed_result: Adapters 4/8 rows; mean dPPP adapters +0.0327 vs non-adapters -0.2987. A2 could not be computed: no SHOULD vector in correction_log.json.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: n=8 team-game rows; series SHOULD vector missing.
+- observed_sample_and_power: n=8
+- observed_method: 4 games x 2 teams = 8 team-game rows with three-thirds A1 method; series-level SHOULD vs DID cosine (A2).
+- observed_verdict: inconclusive
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Same selection issue as APPA-003 applies.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Team Adaptation
+- observed_dates: APPA-004: 2026-05-15 (mtime)
+- observed_member_records: APPA-004
+- observed_sources: APPA-004: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\DID_ADAPT_NYK_vs_PHI_2526.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:selection_or_regression_to_the_mean {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF13 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-029 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:case_study {basis=keyword rules on member records}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

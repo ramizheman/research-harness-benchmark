@@ -1,0 +1,32 @@
+# FAM:SF-APPA-030 | Study family SF-APPA-030: Play-type label backfill verification
+- observed_research_question: Play-type label backfill verification
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Backfilled play-type labels match expected league distributions and team identities.
+- observed_result: PNR 28.7% FAIL (band 20-28%); PULL_UP 7.9% FAIL; 3100 games with team PNR >33% FAIL; PNR PPP 0.948 PASS; temporal PASS; team identity FAIL; 2024-25 PULL_UP ~0-1% for many teams. Final: FAIL.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: 2024-25 PULL_UP shares 0.0-2.0% for many teams; 82.8% of PNR labels proxy_calibrated.
+- observed_sample_and_power: 921,514 possessions
+- observed_method: 921,514 labelled possessions; band tests on PT shares, PNR cap, PPP sanity, temporal distribution, team identity and directional checks.
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Report says do not run adaptation analysis until resolved.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Strategy app
+- observed_dates: APPA-030: 2026-05-24 (doc)
+- observed_member_records: APPA-030
+- observed_sources: APPA-030: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\BACKFILL_VERIFICATION.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-001 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPA-005 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-APPS-058 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-021 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

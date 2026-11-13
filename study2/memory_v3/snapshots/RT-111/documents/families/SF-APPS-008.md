@@ -1,0 +1,31 @@
+# FAM:SF-APPS-008 | Study family SF-APPS-008: Engine layer ablation L1-L4 with placebos
+- observed_research_question: Engine layer ablation L1-L4 with placebos
+- auto_outcome_status: rejected
+- observed_hypothesis: Each engine layer (PNR calibration, scheme fingerprint, tier correction, sequential conditioning) improves prediction of observed series PPP.
+- observed_result: May-7 PT-level vs V0_NEUTRAL: V4 beat 0.422 [0.365,0.480], V2 0.399 [0.338,0.459], FP_SHUFFLE 0.479 [0.412,0.544]; vs V0: V2 0.526 [0.469,0.585], V4 0.451. May-4 dir_acc: V4 0.205 vs A_SHUFFLE placebo 0.511 (gap -0.306).
+- auto_failure_mechanism: B_powered_null (adequately powered null result)
+- observed_failure_evidence: No forward config beats V0_NEUTRAL (all beat rates <0.5, CI excludes 0.5 above); placebo ties or beats V4 in the first version.
+- observed_sample_and_power: 213 PT cells, 42 series; CI width about +/-0.06
+- observed_method: 42 series; configs V0..V4, LOO A1-A4, FP/tier shuffles; 268 scheme cells / 213 PT cells; cluster bootstrap 10,000, Holm correction.
+- observed_verdict: failed_gate
+- observed_failure_type: B_powered_null
+- auto_validation_status: same_pipeline_validation; evidence: APPS-008: '.469,0.585], v4 0.451. may-4 dir_acc: v4 0.205 vs a_shuffle placebo 0.511 (gap -0.306). version 1 (may 4) reported l2 lift +0.1'
+- observed_notes: Version 1 (May 4) reported L2 lift +0.172 dir_acc but a placebo beating V4; version 2 (May 7) added a scheme-neutral baseline that no layer beats. L1 and L4 contributed ~0 in both.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-008: 2026-05-04 (mtime)
+- observed_member_records: APPS-008
+- observed_sources: APPS-008: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\ablation_report.md
+- observed_sources: APPS-008: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\data\ablation_summary.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-105 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:ablation {basis=keyword rules on member records}
+- auto_uses_method: METH:bootstrap_interval {basis=keyword rules on member records}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

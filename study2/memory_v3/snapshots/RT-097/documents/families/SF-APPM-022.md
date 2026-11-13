@@ -1,0 +1,30 @@
+# FAM:SF-APPM-022 | Study family SF-APPM-022: Superstar suppression profiles (incl. Q5c sequential triggering)
+- observed_research_question: Superstar suppression profiles (incl. Q5c sequential triggering)
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Specific opposing lineups, defenders, play types and preceding opponent play types suppress star efficiency.
+- observed_result: Q5c verdict 'rank-1 suppressor varies meaningfully across players'; e.g. Jokic after opp POST_UP 1.1271 (-0.0675, SE +/-0.0500, n=480); Curry forced POST_UP -0.209.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Rank-1 deltas mostly within 1-2 SE with no multiple-comparison control; OTHER artifact flagged in doc.
+- observed_sample_and_power: SE per cell reported
+- observed_method: Initiator possessions for 4 then ~30 stars (gate >=15); Q5c ranks opponent prior-PT by target PPP for 14 players; reruns 2026-05-06 and 2026-05-30.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-022: 2026-05-05 (mtime)
+- observed_member_records: APPM-022
+- observed_sources: APPM-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_analyze_superstar_suppression.py
+- observed_sources: APPM-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_q5c_expanded.py
+- observed_sources: APPM-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\_suppression_run_log.txt
+- observed_sources: APPM-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\superstar_suppression_findings.md
+- observed_sources: APPM-022: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\suppression_data.csv
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-050 {basis=family structure, similarity or record links; relation=repeated_by_later_family}
+- auto_addresses_question: RQC:RQC-024 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

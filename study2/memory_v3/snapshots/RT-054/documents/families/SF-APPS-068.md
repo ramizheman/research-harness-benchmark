@@ -1,0 +1,36 @@
+# FAM:SF-APPS-068 | Study family SF-APPS-068: Possession Control Index incremental R2 over ORtg (PCI is DRtg proxy)
+- observed_research_question: Possession Control Index incremental R2 over ORtg (PCI is DRtg proxy)
+- auto_outcome_status: artifact
+- observed_hypothesis: PCI (halfcourt PPP + second-chance - TO - transition leakage) explains Net Rating beyond ORtg, Pace, and FGA/poss.
+- observed_result: A R2=0.763 OOS 0.761; C R2=0.902 OOS 0.919; dR2=+0.139. Offensive-control components add +0.005 R2 beyond ORtg. Net~ORtg+leakage R2=0.948. corr(leakage, DRtg)=+0.894. PCI univariate r=+0.863 vs ORtg +0.866.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Headline PCI gain is leakage tracking DRtg (+0.89); offensive-control dR2=+0.005. Baseline omitted defense by construction (Net=ORtg-DRtg).
+- observed_sample_and_power: n=120 team-seasons; OOS 2025-26 30 teams
+- observed_method: 120 team-seasons. Models A baseline / B PCI-only / C full. OOS test 2025-26. Diagnostic Net~ORtg+leakage vs +offcontrol.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: same_pipeline_validation; evidence: APPS-068: '120 team-seasons. models a baseline / b pci-only / c full. oos test 2025-26. diagnostic net~ortg+leakage vs +offcontrol. a'
+- observed_notes: Knowable: Net Rating already contains DRtg, so adding a leakage term that correlates 0.89 with DRtg must lift R2.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-068: 2026-06-15 (mtime)
+- observed_member_records: APPS-068
+- observed_sources: APPS-068: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\pci_feature_importance_summary.md
+- observed_sources: APPS-068: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\pci_validation.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:leakage {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=design}
+- auto_has_risk: RISK:LEAKAGE_LOOKAHEAD {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-059 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-103 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}

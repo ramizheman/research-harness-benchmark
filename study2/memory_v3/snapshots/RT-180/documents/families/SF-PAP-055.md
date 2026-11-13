@@ -1,0 +1,28 @@
+# FAM:SF-PAP-055 | Study family SF-PAP-055: Prespecified predictors of restoration (not evaluated after reliability fail)
+- observed_research_question: Prespecified predictors of restoration (not evaluated after reliability fail)
+- auto_outcome_status: no result recorded
+- observed_hypothesis: Remaining-rotation overlap, presence of a second hub, and uniqueness of the absent player predict restoration.
+- observed_result: NOT_RECORDED
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: blocked by restoration reliability 0.32<0.40
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Three predictors specified in advance; none evaluated because PAP-054 failed.
+- observed_verdict: abandoned
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.5)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: PAP-055: 2026-11-02 (doc)
+- observed_member_records: PAP-055
+- observed_sources: PAP-055: C:\Users\lisas\OneDrive\Documents\Basketball\When a Hub Sits\when_a_hub_sits.tex
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_measurement_reliability {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:MEASURE_RELIABILITY {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-054 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-171 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:split_half_reliability {basis=keyword rules on member records}
+- auto_measures: VAR:restoration_R_reorganization {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,36 @@
+# FAM:SF-APPA-031 | Study family SF-APPA-031: Case studies: alignment with engine mix vs ORtg (+3.3 claim)
+- observed_research_question: Case studies: alignment with engine mix vs ORtg (+3.3 claim)
+- auto_outcome_status: supported
+- observed_hypothesis: Games where the team mix was closest to the engine recommendation score more after strength adjustment.
+- observed_result: Closest vs most-deviated tercile +3.3 ORtg adjusted (raw +5.2); Spearman rho >0.4 in 62% of games. Cases: GSW-LAL rho 1.00 coachable +28.0 ORtg; MIA-BOS rho 0.80 aligned residual +27.9; NYK-LAL rho 0.80 coachable +25.0; CLE-PHX rho -0.80; LAL-GSW rho 0.90 residual +12.3 despite deviation; MIN-DEN rho 0.10 L1=0.99 residual -29.8.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No CI or test reported for +3.3; in-game PT ranking used as rho target shares outcome data; 3 of 6 cases are labeled honest counter-examples; every kernel rec is CUT-heavy.
+- observed_sample_and_power: 908 game-team pairs; 6 cases
+- observed_method: 908 holdout game-team pairs; terciles of L1 distance; 6 illustrative cases with kernel unconstrained vs +/-5pp coachable vs calibrated (10-feature residual calibrator val R2 +0.1244) and 4 named-scheme robustness.
+- observed_verdict: supported
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPA-031: '908 holdout game-team pairs; terciles of l1 distance; 6 illustrative ca'
+- observed_notes: Contradicted by series-level alignment regression r=-0.032 (APPA-024). Coachable caps still +14.3 to +28.0 ORtg, which are model-internal not observed. Full file now read.
+- auto_confidence: low (0.45)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPA-031: 2026-04-18 (mtime)
+- observed_member_records: APPA-031
+- observed_sources: APPA-031: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\CASE_STUDIES.md
+- observed_sources: APPA-031: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\LAYER_AUDIT.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:BASE_RATE {basis=risk taxonomy rules}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-063 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF32 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-031 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:case_study {basis=keyword rules on member records}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:net_rating_ORtg {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

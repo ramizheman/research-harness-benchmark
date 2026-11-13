@@ -1,0 +1,29 @@
+# FAM:SF-PAP-080 | Study family SF-PAP-080: Own-only substitution changes shot mix (benchmark) while opponent-only does not
+- observed_research_question: Own-only substitution changes shot mix (benchmark) while opponent-only does not
+- auto_outcome_status: supported
+- observed_hypothesis: Changing the offensive five itself moves shot mix, showing the design can detect personnel effects.
+- observed_result: own-only three +3.1 pp (SE 1.2); rim -1.1 (1.1); mid -2.0 (1.1); opponent-only all within 1.4 pp of 0
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: own-only +3.1 pp CI excludes 0; opponent-only null
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Same DiD estimator on own-only change class vs opponent-only.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-080: '4 pp of 0 design is not blind to personnel. fake-timing and permutation placebos consistent with null opponent effect. own-only +3'
+- observed_notes: Design is not blind to personnel. Fake-timing and permutation placebos consistent with null opponent effect.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-080: 2026-11-02 (doc)
+- observed_member_records: PAP-080
+- observed_sources: PAP-080: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:PLACEBO_DEPENDENCE {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-078 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-023 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:difference_in_differences {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

@@ -1,0 +1,27 @@
+# FAM:SF-PAP-090 | Study family SF-PAP-090: NCAA architecture: scipy blend, temperature scaling, LightGBM, era weights
+- observed_research_question: NCAA architecture: scipy blend, temperature scaling, LightGBM, era weights
+- auto_outcome_status: supported
+- observed_hypothesis: Replacing LR meta with a convex scipy blend, then T-scaling, adding LightGBM, and era-weighting 2016+ seasons, lowers full-chain Brier.
+- observed_result: scipy blend 0.17508->0.17491 (w XGB 0.342, Elo 0.000, LR 0.658); T=0.937 -> 0.17476; LGB 4-way -> 0.17472; era 1.5 -> 0.17452 (confirm 0.17454)
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: full chain 0.17508 to 0.17454
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: LOSO OOF; keep if improved.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: PAP-090: 'loso oof; keep if improved. scipy blend 0.17508->0.17491 (w xgb'
+- observed_notes: Exps 32,34,35,36. Elo weight went to 0 in the convex blend.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: March Madness
+- observed_dates: PAP-090: 2026-03-14 (doc)
+- observed_member_records: PAP-090
+- observed_sources: PAP-090: C:\Users\lisas\OneDrive\Documents\March Madness\experiment_log.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-089 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-178 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NCAA_tournament_and_ratings_data {basis=keyword rules on member records}
+- auto_measures: VAR:Brier_score {basis=keyword rules on member records}

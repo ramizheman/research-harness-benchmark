@@ -1,0 +1,27 @@
+# FAM:SF-PAP-031 | Study family SF-PAP-031: Per-shaper on/off scoring and mechanism decomposition
+- observed_research_question: Per-shaper on/off scoring and mechanism decomposition
+- auto_outcome_status: no result recorded
+- observed_hypothesis: Shaper residual influence predicts a player's on/off scoring impact and the play-mix mechanism.
+- observed_result: NOT_RECORDED
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: script present (and pycache) but no shaper_player_onoff.csv / quadrants / report.md in output/
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Person-id keyed shaper universe; adjusted on/off PPP with opp/period/margin/talent; quadrants on L vs adj pts/100; MIN_POSS=150.
+- observed_verdict: abandoned
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Intended outputs were never found. Do not treat as a completed test.
+- auto_confidence: low (0.15)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-031: 2026-08-22 (mtime)
+- observed_member_records: PAP-031
+- observed_sources: PAP-031: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\_shaper_player_onoff_mechanism.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-089 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_related_family: FAM:SF-PAP-007 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-048 {basis=TF-IDF question clustering}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

@@ -1,0 +1,36 @@
+# FAM:SF-APPM-052 | Study family SF-APPM-052: MIA vs BOS G6 2023 agent adaptation review
+- observed_research_question: MIA vs BOS G6 2023 agent adaptation review
+- auto_outcome_status: inconclusive
+- observed_hypothesis: MIA failed to pivot after H1-H2 suppression of PULL_UP/PNR in 2023 ECF G6 (0042200306), leaving points vs H2H baseline.
+- observed_result: Agent review: H1 PPP 1.158 -> H2 0.971. PULL_UP 1.6 (n=5) -> 0.5 (n=6); cost vs H2H 1.361: (1.361-0.5)*6=5.166 points. PNR 1.0 (n=4) -> 0.333 (n=6); cost (1.0-0.333)*6=4.002. Combined 9.168 points. Tactical review: reportable-PT overall 1.157 (n=38) -> 1.171 (n=35); PNR 1.0 (n=4) -> 0.333 (n=6), cost vs H2H 1.172: 4.895 points; PULL_UP 1.25 (n=4) -> 0.75 (n=4).
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: n=1 game; two reviews disagree on the primary miss (PULL_UP vs PNR) and on whether overall H2 PPP fell (0.971 vs 1.171) because possession classification differs.
+- observed_sample_and_power: n=1 game; H2 cells n=4 to 9
+- observed_method: Two LLM adaptation reviews of the same game plus generated playsheets. Agent review and FIXED copy are identical. Tactical review uses a different PT table.
+- observed_verdict: inconclusive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: MIA_G6_2023_AGENT_REVIEW_FIXED.md is a byte-identical copy of the unfixed file. Ranked/tiered/v2 playsheets are app output (CUT opener, AVOID PNR) without outcome scoring.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-052: 2026-05-24 (mtime)
+- observed_member_records: APPM-052
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_G6_tactical.md
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_G6_v2_playsheet.md
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_ranked_playsheet.md
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_BOS_tiered_playsheet.md
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_G6_2023_AGENT_REVIEW.md
+- observed_sources: APPM-052: C:\\Users\\lisas\\OneDrive\\Documents\\Basketball\\App\\Strategy\\MIA_G6_2023_AGENT_REVIEW_FIXED.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPM-022 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-002 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-013 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

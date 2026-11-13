@@ -1,0 +1,26 @@
+# FAM:SF-APPS-077 | Study family SF-APPS-077: Star-specific 8x8 transition matrices (30 stars)
+- observed_research_question: Star-specific 8x8 transition matrices (30 stars)
+- auto_outcome_status: untestable
+- observed_hypothesis: Teammate DRIVE -> star PNR (inferrer-only) is a recurring setup; other star transitions are structural if they FIND in 3+ stars.
+- observed_result: Pre-reg DRIVE->PNR: all NULL/WEAK (SGA ATT=-0.222 BH_p=0.433). FINDING cells: 2 (Curry CUT->DRIVE +0.460 n=66 LOW_CONFIDENCE; Leonard SPOT_UP->POST_UP -0.360 n=137). Zero transition types FIND in 3+ stars. WEAK: 36.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Pre-registered hypothesis untestable (insufficient inferrer-only n) and unreplicated; 2 isolated FINDING cells expected at ~5% of 883 tests.
+- observed_sample_and_power: 883 matched cells of 1920
+- observed_method: 30 stars x 64 cells=1920; 883 estimated (n_t>=30). BH-within-star + placebo + FT-clean.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPS-077: 'x 64 cells=1920; 883 estimated (n_t>=30). bh-within-star + placebo + ft-clean. pre-reg drive->pnr: all null/weak (sga att=-0.2'
+- observed_notes: Per-star .md files are the cell dumps; summary is the experiment record.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPS-077: 2026-06-14 (mtime)
+- observed_member_records: APPS-077
+- observed_sources: APPS-077: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\star_matrix_summary.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-060 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF-APPS-066 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-044 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:placebo_or_permutation_test {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

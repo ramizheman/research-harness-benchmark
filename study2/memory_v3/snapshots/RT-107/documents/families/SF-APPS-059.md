@@ -1,0 +1,30 @@
+# FAM:SF-APPS-059 | Study family SF-APPS-059: Sequence-memory horizon test (per-lag vs aggregated window)
+- observed_research_question: Sequence-memory horizon test (per-lag vs aggregated window)
+- auto_outcome_status: supported
+- observed_hypothesis: Increasing prior-possession history changes the opponent's next-possession outcome after controlling for game state.
+- observed_result: Per-lag GBT AUC N=0 0.5621 -> N=1 0.5863 (d+0.0242) -> N=3 0.5907 -> N=8 0.5911. R2 0.0051 -> 0.0133. Aggregated window declines after N=1 (AUC 0.5868 -> 0.5687 at N=8). Effective horizon ~2-3 possessions.
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: Short-memory horizon is stable OOS; almost all gain is lag-1, plateau by lag 4. Absolute AUC still only ~0.591.
+- observed_sample_and_power: n=1,024,980 possessions; time-split test 2025-26
+- observed_method: 1024980 possessions with >=8 priors; TRAIN 22-24, VAL 24-25, TEST 2025-26. Per-lag vs aggregated window; GBT/logit/ridge.
+- observed_verdict: supported
+- observed_failure_type: D_positive
+- auto_validation_status: same_pipeline_validation; evidence: APPS-059: 'ons; time-split test 2025-26 short-memory horizon is stable oos; almost all gain is lag-1, plateau by lag 4. absolute auc s'
+- observed_notes: Aggregated-window decline was dilution of lag-1, not absence of memory.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-059: 2026-06-13 (mtime)
+- observed_member_records: APPS-059
+- observed_sources: APPS-059: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\sequence_memory_report.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPS-070 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_related_family: FAM:SF17 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-040 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:ridge_or_RAPM_ratings {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-APPS-092 | Study family SF-APPS-092: HasConn share vs pace (possessions per 48)
+- observed_research_question: HasConn share vs pace (possessions per 48)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Connector presence slows pace (substituting half-court organization for transition).
+- observed_result: beta(HasConn share -> poss/48)=-0.86 SE=0.38 t=-2.25 p=0.0266; within-ts corr=-0.002 p=0.782. Mix: TRANSITION -0.448 pp p=0.0013; PNR +0.980 p=0.00187; CUT +1.353 p=1.2e-11; DRIVE -0.542 p=0.0206; SPOT_UP -1.248 p=0.000315. PUTBACK +0.148 p=0.0579. TRANSITION PPP | HasConn adj -0.13 t=-0.06 p=0.948.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Pace beta p=0.0266 but within-ts correlation is 0; no stint clock so poss/48 is period-implied. Mix shifts are clearer than efficiency.
+- observed_sample_and_power: n=28569 periods; mix n_ts=73
+- observed_method: Period-implied poss/48; n=28569 periods, 90 team-seasons. HasConn share with score-margin/period/opp FE, team-season FE, cluster SE. Play-mix: HasConn>=1 vs 0 within team-season n=73.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: HasConn->TRANSITION PPP was mix-licensed and null. Association not causal pace.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: When a Hub Sits (Paper 2)
+- observed_dates: APPS-092: 2026-07-27 (mtime)
+- observed_member_records: APPS-092
+- observed_sources: APPS-092: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\hasconn_pace_report.md
+- observed_sources: APPS-092: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\paper2_output\putback_transition_hasconn_report.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPS-087 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-124 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

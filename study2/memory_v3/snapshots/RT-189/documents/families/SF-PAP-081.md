@@ -1,0 +1,34 @@
+# FAM:SF-PAP-081 | Study family SF-PAP-081: Repeat-meeting shot-mix and response repeatability (Test 4)
+- observed_research_question: Repeat-meeting shot-mix and response repeatability (Test 4)
+- auto_outcome_status: untestable
+- observed_hypothesis: Matchup-specific shot mix or treated-minus-control response repeats from earlier to later meetings.
+- observed_result: three residual r=+0.010 CI[-0.031,+0.053]; rim -0.122 [-0.167,-0.077]; PPP -0.070 [-0.110,-0.033]; response r 5/5=0.14 [-0.12,0.39] n=63 MDE r=0.36; 3/3 r=0.056 [0.003,0.109] n=1,385
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: three-share r=0.01; 5/5 response CI includes 0; 3/3 r=0.056 is isolated/uncorrected
+- observed_sample_and_power: 2,610 pairs; 5/5 n=63 MDE r=0.36
+- observed_method: 2,610 directed pairs with >=2 meetings; residuals net of season team and opponent levels.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Negative rim/PPP correlations are mechanical (season means include the compared games).
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Lineup Adaptation
+- observed_dates: PAP-081: 2026-11-02 (doc)
+- observed_member_records: PAP-081
+- observed_sources: PAP-081: C:\Users\lisas\OneDrive\Documents\Basketball\Lineup Adaptation\shot_adaptation\results.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:low_power_large_MDE {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-PAP-084 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-069 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Shot_level_data_with_expected_FG {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

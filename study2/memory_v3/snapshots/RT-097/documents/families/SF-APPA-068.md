@@ -1,0 +1,27 @@
+# FAM:SF-APPA-068 | Study family SF-APPA-068: Game retrospective template preview OKC vs PHX (unpopulated)
+- observed_research_question: Game retrospective template preview OKC vs PHX (unpopulated)
+- auto_outcome_status: untestable
+- observed_hypothesis: Pre-game vs halftime vs post-game pipeline runs on OKC-PHX Game 1 can be compared to observed stats.
+- observed_result: All sections [MODELED pending] / [DELTA pending] / [OBSERVED pending]. Spearman 0.54 and MAE 0.0922 are copied from the holdout rank study, not computed here.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Pipeline runs were never supplied; 0 possession sequences in the train split field.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: Template for three temporal windows; intended to use ObservedGameStats and MatchupState. Train sequences listed as 0.
+- observed_verdict: abandoned
+- observed_failure_type: A_unanswerable
+- auto_validation_status: same_pipeline_validation; evidence: APPA-068: 'pending]. spearman 0.54 and mae 0.0922 are copied from the holdout rank study, not computed here. placeholder preview, not a c'
+- observed_notes: Placeholder preview, not a completed retrospective.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-068: 2026-04-19 (mtime)
+- observed_member_records: APPA-068
+- observed_sources: APPA-068: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\GAME_RETROSPECTIVE_TEMPLATE_PREVIEW.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-063 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-069 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

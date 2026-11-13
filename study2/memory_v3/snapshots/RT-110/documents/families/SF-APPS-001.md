@@ -1,0 +1,30 @@
+# FAM:SF-APPS-001 | Study family SF-APPS-001: Overnight 10-series LLM adaptation review (adapters win series)
+- observed_research_question: Overnight 10-series LLM adaptation review (adapters win series)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: The team that adapted better within games (per LLM adaptation review) wins the playoff series.
+- observed_result: Team judged to have adapted better won 9 of 10 series; exception RECENT3_DEN_vs_MIN_26. SPOT_UP and DRIVE stifled in 10/10 series; offenses failed to counter in 9/10.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Post-hoc LLM narrative judgment of 'adapted better' with knowledge of winners; several winners described as adapting better 'enough (or opponent failed more)'.
+- observed_sample_and_power: 10 series, 104 team-game reports; per-half play-type samples often n<10 possessions
+- observed_method: LLM agent adaptation reviews of H1 vs H2 play-type PPP for both offenses in 52 games across 10 playoff series (104 reports, all status ok), aggregated into series and master summaries.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: No quantitative test; adaptation judgments made by the LLM after outcomes were known, so the 9/10 relationship is not an independent evaluation. Several per-game reports are very short (~1-2 KB), possibly truncated.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-001: 2026-05-24 (mtime)
+- observed_member_records: APPS-001
+- observed_sources: APPS-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_20260524_003952\_manifest.json
+- observed_sources: APPS-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_overnight\MASTER_SUMMARY.md
+- observed_sources: APPS-001: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\batch_adaptation_overnight\_run_log.json
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-010 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

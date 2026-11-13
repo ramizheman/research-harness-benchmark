@@ -1,0 +1,25 @@
+# FAM:SF-APPA-029 | Study family SF-APPA-029: Crunch-time identity stability year over year
+- observed_research_question: Crunch-time identity stability year over year
+- auto_outcome_status: untestable
+- observed_hypothesis: Team crunch-time PPP delta vs baseline is a stable organizational identity.
+- observed_result: YoY r = -0.023 (n=62 pairs); consistently positive CHI +0.056, CHA +0.040; negative NOP -0.074.
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: r=-0.023 on 62 pairs; per-team-season crunch samples ~100+ possessions, so deltas of +/-0.05 PPP are within sampling noise.
+- observed_sample_and_power: 62 pairs; >=100 crunch poss per team-season
+- observed_method: 93 team-seasons 2022-25, gate >=100 crunch possessions; YoY Pearson across 62 pairs; player-attribution heuristic.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Doc still calls consistently positive teams 'genuine crunch-time performers' despite r~0, and has a blank team row. Knowable because single-season PPP on ~100 possessions has SE comparable to the deltas.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-029: 2026-05-06 (mtime)
+- observed_member_records: APPA-029
+- observed_sources: APPA-029: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\crunch_identity_findings.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_addresses_question: RQC:RQC-030 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:correlation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

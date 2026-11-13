@@ -1,0 +1,29 @@
+# FAM:SF-PAP-005 | Study family SF-PAP-005: Role taxonomy emergence (usage x residual influence quadrants)
+- observed_research_question: Role taxonomy emergence (usage x residual influence quadrants)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: A low-usage class (Shapers) carries organizer-level structural influence.
+- observed_result: Shaper n=103 influence 0.078 resid +0.062 usage 0.145 vs Organizer n=96 influence 0.094 resid +0.054 usage 0.244
+- auto_failure_mechanism: D_positive (no failure: positive result)
+- observed_failure_evidence: descriptive classification
+- observed_sample_and_power: n=924
+- observed_method: 924 rotation player-seasons 2022-25; median usage split x residual>0.
+- observed_verdict: descriptive
+- observed_failure_type: D_positive
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-005: 2026-08-09 (doc)
+- observed_member_records: PAP-005
+- observed_sources: PAP-005: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\PAPER_NUMBERS_SHEET.md
+- observed_sources: PAP-005: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\structural_role_summary.csv
+- observed_sources: PAP-005: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- observed_sources: PAP-005: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\structural_role_taxonomy.py
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-034 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_related_family: FAM:SF18 {basis=family structure, similarity or record links; relation=record_link_extends}
+- auto_addresses_question: RQC:RQC-060 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Box_score_and_traditional_stats {basis=keyword rules on member records}
+- auto_measures: VAR:structural_influence_load_L {basis=keyword rules on member records}

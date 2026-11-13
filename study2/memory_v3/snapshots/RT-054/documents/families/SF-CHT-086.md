@@ -1,0 +1,30 @@
+# FAM:SF-CHT-086 | Study family SF-CHT-086: LLM / ex-ante usefulness of suppression context (leakage audit)
+- observed_research_question: LLM / ex-ante usefulness of suppression context (leakage audit)
+- auto_outcome_status: artifact
+- observed_hypothesis: An LLM layer can reason about suppression context beyond the engine, or predicting suppression from H1 is a viable label.
+- observed_result: Label is mostly an RTM artifact. Apparent LLM skill was leakage; what survives is small/noisy; engine misses are selection/override not missing graph facts. Margin of LLM vs engine described as literally zero after leakage removal.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Suppression label selected on the outcome; remaining LLM edge not statistically retrievable.
+- observed_sample_and_power: ~8-14 possessions per play type per half; PPP SD ~1.1
+- observed_method: Chat audit: suppressed=(H1_PPP-H2_PPP)>=0.25 on ~8-14 H2 poss/PT; SD~1.1 so SE large; LLM skill vs leakage.
+- observed_verdict: failed_gate
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Discussion in chat; related H1-info prediction tasks also judged not viable. Label SE was knowable from possession counts.
+- auto_confidence: high (0.8)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Defensive Suppression
+- observed_dates: CHT-086: 2026-06-16 (transcript)
+- observed_member_records: CHT-086
+- observed_sources: CHT-086: 1b9f0f61-d051-4b7b-8eef-8d1253cf67e2
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_has_risk: RISK:RTM_SELECTION {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-005 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_related_family: FAM:SF-CHT-032 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-128 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:LLM_agent_run {basis=keyword rules on member records}
+- auto_uses_dataset: DS:LLM_or_agent_outputs {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

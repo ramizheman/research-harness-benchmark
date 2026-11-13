@@ -1,0 +1,29 @@
+# FAM:SF-CHT-032 | Study family SF-CHT-032: Teammate DRIVE then PNR including calibrated labels then inferrer-only
+- observed_research_question: Teammate DRIVE then PNR including calibrated labels then inferrer-only
+- auto_outcome_status: artifact
+- observed_hypothesis: Any teammate DRIVE preceding a PNR raises PNR PPP.
+- observed_result: League-wide including calibrated PNR: +0.022 PPP, p=0.004 (n=20,658 vs 159,623). Tatum +0.152 p=0.27. Inferrer-only DRIVE-PNR ATT=-0.006, p=0.76.
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: The +0.022 vanished to -0.006 once PNR was inferrer-only; calibrated-PNR temporal contamination.
+- observed_sample_and_power: n~180k including calibrated labels
+- observed_method: Chain-preceded PNR vs PNR not preceded by teammate drive; later 8x8 matrix restricted to inferrer-only PNR.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Results files on disk mentioned. Label-source restriction was a registered rule in Test 1.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: yes_from_history
+- observed_project: Strategy app
+- observed_dates: CHT-032: 2026-06-14 (transcript)
+- observed_member_records: CHT-032
+- observed_sources: CHT-032: 1b9f0f61-d051-4b7b-8eef-8d1253cf67e2
+- observed_sources: CHT-032: C:\Users\lisas\OneDrive\Documents\Basketball Strategy\sequence_memory\output\teammate_drive_pnr.txt
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:label_or_classification_error {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=data}
+- auto_has_risk: RISK:LABEL_ERROR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-005 {basis=family structure, similarity or record links; relation=limitation_precedent}
+- auto_addresses_question: RQC:RQC-039 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}

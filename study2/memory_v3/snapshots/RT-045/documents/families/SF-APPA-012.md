@@ -1,0 +1,27 @@
+# FAM:SF-APPA-012 | Study family SF-APPA-012: A4 five-player matchup model vs three-player A3
+- observed_research_question: A4 five-player matchup model vs three-player A3
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Modeling 5 players per team improves equilibrium PPP over 3.
+- observed_result: A4 +1.61 vs A3 +2.06 pts/100; A4-A3 -0.46; A4 beats A3 87/240.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: A4-A3 -0.46 pts/100, no test reported.
+- observed_sample_and_power: 240 matchups
+- observed_method: 240 matchups adversarial equilibrium comparison.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: NOT_RECORDED
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPA-012: 2026-04-15 (mtime)
+- observed_member_records: APPA-012
+- observed_sources: APPA-012: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\ADVERSARIAL_REPORT_V4.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-APPA-011 {basis=family structure, similarity or record links; relation=repeat_order_unknown}
+- auto_addresses_question: RQC:RQC-002 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:three_point_attempts_or_luck {basis=keyword rules on member records}

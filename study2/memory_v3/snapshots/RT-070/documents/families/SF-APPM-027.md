@@ -1,0 +1,27 @@
+# FAM:SF-APPM-027 | Study family SF-APPM-027: Upset test: app-alignment vs game upsets
+- observed_research_question: Upset test: app-alignment vs game upsets
+- auto_outcome_status: untestable
+- observed_hypothesis: Upset winners ran more BEST + AVOID_OVERRIDE plays.
+- observed_result: Smart-share edge +0.0307 (winner higher in 50% of upsets); 2024-25 +0.0616 (48%).
+- auto_failure_mechanism: A_unanswerable (question not answerable with the data or design)
+- observed_failure_evidence: Winner had higher smart share in only 50%/48% of upset games; n=13/17 upsets.
+- observed_sample_and_power: n=13 and 17 upsets
+- observed_method: 2025-26: 13 upsets vs 30 non-upset wins; 2024-25: 17 vs 36; compare smart share.
+- observed_verdict: null
+- observed_failure_type: A_unanswerable
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Smart share includes outcome-defined AVOID_OVERRIDE.
+- auto_confidence: high (0.95)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Strategy app
+- observed_dates: APPM-027: 2026-06-19 (mtime)
+- observed_member_records: APPM-027
+- observed_sources: APPM-027: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\OVERNIGHT_SUMMARY.md
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-096 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Playoff_series_outcomes {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
+- auto_measures: VAR:win_probability_series_outcome {basis=keyword rules on member records}

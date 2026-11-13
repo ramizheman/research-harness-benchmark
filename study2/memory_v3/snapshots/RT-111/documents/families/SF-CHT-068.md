@@ -1,0 +1,26 @@
+# FAM:SF-CHT-068 | Study family SF-CHT-068: CHA 2025-26 PNR matched-excess outlier
+- observed_research_question: CHA 2025-26 PNR matched-excess outlier
+- auto_outcome_status: artifact
+- observed_hypothesis: Charlotte is a real multi-year PNR suppressor (and a star-hunting offensive victim) in the league table.
+- observed_result: CHA defense +0.366 n=14, 95% CI [+0.161, +0.572]; 2025-26 n=5 mean +0.681; pre-2025-26 ~+0.19 across 9 pairs. Top 3 games 54% of excess mass. Offense +0.480 n=17, not LaMelo-centered (Nurkic/Oubre/Smith/Knueppel).
+- auto_failure_mechanism: C_artifact (apparent effect produced by a construction, selection or labelling flaw)
+- observed_failure_evidence: Defense cell is a five-game 2025-26 stretch; pre-2025-26 ordinary. Do not tell Dean Charlotte is a real PNR suppressor.
+- observed_sample_and_power: defense n=14 (5 in 2025-26)
+- observed_method: Caliper-filtered matched excess by season; drop-top-k; initiator list.
+- observed_verdict: artifact_found
+- observed_failure_type: C_artifact
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Chat-only sense-check of a league table; small-n season cell was knowable.
+- auto_confidence: high (1.0)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Defensive Suppression
+- observed_dates: CHT-068: 2026-08-21 (transcript)
+- observed_member_records: CHT-068
+- observed_sources: CHT-068: 7c1dbb00-75f7-4da2-b863-cf8f1784f0c0
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_limited_by: LIM:small_sample {basis=LIMIT_RULES on recorded power, failure evidence and notes; level=unclear}
+- auto_has_risk: RISK:SAMPLE_SIZE_POWER {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-141 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

@@ -1,0 +1,28 @@
+# FAM:SF-APPA-043 | Study family SF-APPA-043: Counter play-type matchup specificity (Rank step)
+- observed_research_question: Counter play-type matchup specificity (Rank step)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: Given the same defense, different offenses get different BEST counters, and knowing the suppressed PT reduces counter entropy.
+- observed_result: Median entropy 1.543 (mostly matchup-specific). Knowing suppressed PT reduces entropy -0.344 (within-PT 1.331). One offense vs different defenses mixed: BOS/MIA/OKC vary; LAL/TOR often one counter.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: No inferential test on the entropy values; mixed identity vs matchup pattern across teams.
+- observed_sample_and_power: NOT_RECORDED
+- observed_method: RS holdout; _counter_specificity.py and _counter_matchup_specificity.py; entropy of BEST counters.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: same_pipeline_validation; evidence: APPA-043: 'rs holdout; _counter_specificity.py and _counter_matchup_specificity.p'
+- observed_notes: Supports Rank as partly matchup-informed; ~80% of BEST counters are still the generic best (W4).
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Defensive Suppression
+- observed_dates: APPA-043: 2026-06-22 (doc)
+- observed_member_records: APPA-043
+- observed_sources: APPA-043: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\FINAL_NUMBERS_SHEET.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_related_family: FAM:SF-APPA-046 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-019 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:holdout_backtest_or_replay {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}

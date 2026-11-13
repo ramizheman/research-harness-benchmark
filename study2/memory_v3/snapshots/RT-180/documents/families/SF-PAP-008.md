@@ -1,0 +1,26 @@
+# FAM:SF-PAP-008 | Study family SF-PAP-008: Route entropy: does shaper presence expand the play repertoire
+- observed_research_question: Route entropy: does shaper presence expand the play repertoire
+- auto_outcome_status: inconclusive
+- observed_hypothesis: Shaper presence increases non-focal play-type diversity (entropy).
+- observed_result: d_entropy_nonfocal=-0.0455 (shaper, n_ts=80); organizer +0.0115
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: d_entropy_nonfocal near 0 (-0.0455); no uncertainty reported
+- observed_sample_and_power: n_ts=80
+- observed_method: Within-team-season entropy of non-focal players' play types on vs off, 80 team-seasons.
+- observed_verdict: null
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Paper interprets as 'rebalancing not expanding'; no CI given.
+- auto_confidence: medium (0.7)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: no_evidence
+- observed_project: Structural Influence (Paper 1)
+- observed_dates: PAP-008: 2026-08-09 (doc)
+- observed_member_records: PAP-008
+- observed_sources: PAP-008: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\output\role_route_graph.csv
+- observed_sources: PAP-008: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\paper.tex
+- observed_sources: PAP-008: C:\Users\lisas\OneDrive\Documents\Basketball\Published\Structural Influence\role_route_graph.py
+- auto_adjudication_basis: R0 single record; automated rule-based adjudication, not human adjudication
+- auto_related_family: FAM:SF-PAP-007 {basis=family structure, similarity or record links; relation=record_link_related_to}
+- auto_addresses_question: RQC:RQC-159 {basis=TF-IDF question clustering}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}

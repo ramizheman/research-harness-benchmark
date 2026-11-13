@@ -1,0 +1,33 @@
+# FAM:SF-APPS-071 | Study family SF-APPS-071: Memoryless Monte Carlo possession simulation (generative check)
+- observed_research_question: Memoryless Monte Carlo possession simulation (generative check)
+- auto_outcome_status: not a hypothesis test
+- observed_hypothesis: A memoryless state-driven process calibrated to NBA micro-stats can match uncalibrated distributional targets (esp. lag-1 scoring autocorr).
+- observed_result: Uncalibrated: PPP std 1.149 vs sim 1.152; lag-1 scoring autocorr real -0.0022 vs sim +0.0029; share 0 pts 0.475 vs 0.484. Sequence-only R2=0.00000; state-only 0.00002.
+- auto_failure_mechanism: E_unclear (mechanism unclear from the records)
+- observed_failure_evidence: Generative existence proof, not independent evidence. Sequence R2~0 by construction of the constraint.
+- observed_sample_and_power: 10,000 games x 200 possessions
+- observed_method: 10000 games x 200 possessions. Constraint state_{t+1} indep play_type_t | state_t. Not a validation of empirical findings used as anchors.
+- observed_verdict: descriptive
+- observed_failure_type: E_unclear
+- auto_validation_status: no_validation_recorded; evidence: NOT_RECORDED
+- observed_notes: Status line in the report: GENERATIVE / ILLUSTRATIVE, not validation.
+- auto_confidence: medium (0.65)
+- auto_members_disagree: no
+- auto_knowable_before_outcome: not_applicable
+- observed_project: Strategy app
+- observed_dates: APPS-071: 2026-06-15 (mtime)
+- observed_member_records: APPS-071
+- observed_sources: APPS-071: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\mc_simulation.py
+- observed_sources: APPS-071: C:\Users\lisas\OneDrive\Documents\Basketball\App\Strategy\sequence_memory\output\mc_simulation.md
+- auto_adjudication_basis: R0 no member is a hypothesis test; automated rule-based adjudication, not human adjudication
+- auto_has_risk: RISK:DRIFT_NONSTATIONARITY {basis=risk taxonomy rules}
+- auto_has_risk: RISK:MECHANICAL_FLOOR {basis=risk taxonomy rules}
+- auto_addresses_question: RQC:RQC-096 {basis=TF-IDF question clustering}
+- auto_uses_method: METH:calibration_scoring {basis=keyword rules on member records}
+- auto_uses_method: METH:matched_control {basis=keyword rules on member records}
+- auto_uses_method: METH:regression {basis=keyword rules on member records}
+- auto_uses_method: METH:simulation {basis=keyword rules on member records}
+- auto_uses_dataset: DS:NBA_play_by_play_possessions_and_reconstructed_lineups {basis=keyword rules on member records}
+- auto_uses_dataset: DS:Play_type_initiation_records_Neo4j_INITIATED_edges_play_type_possessions {basis=keyword rules on member records}
+- auto_measures: VAR:PPP_points_per_possession {basis=keyword rules on member records}
+- auto_measures: VAR:play_type_share_mix {basis=keyword rules on member records}
