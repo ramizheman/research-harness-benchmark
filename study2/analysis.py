@@ -26,7 +26,7 @@ import numpy as np
 HB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HB)
 from bench import retrieval_audit as ra, scoring  # noqa: E402
-from bench.stats import bootstrap_ci, holm, sign_flip_p  # noqa: E402
+from bench.stats import bootstrap_ci, holm, sign_flip_p, tost  # noqa: E402
 from runner import experiment  # noqa: E402
 
 S1_TASKS = ["RT-012", "RT-014", "RT-065", "RT-066", "RT-101", "RT-112", "RT-146", "RT-147", "RT-179", "RT-183"]
@@ -34,6 +34,7 @@ S1_SOURCES = ["runs/pilot3_v1", "runs/cross_model_v1", "runs/reasoning_models_v1
 S1B_SOURCE = "runs/study1b_v1"
 S2_MODELS = ["Gemini", "DeepSeek", "Haiku", "gpt-oss"]
 RULES = ("primary", "strict", "valid_only")
+EQUIV_MARGIN = 0.10
 DECISION_FIELDS = "risks[].text, testability.blocking_constraints[].text, historical_effect.explanation"
 
 
@@ -338,6 +339,9 @@ def study2(run_dir="runs/study2_v1"):
         for a, b in (("A", "O"), ("B", "O")):
             res["contrasts"][rule][f"{b}-{a}"] = with_holm({m: contrast(rows, T, sf, m, a, b, rule) for m in M})
         pooled = with_holm({f"{b}-{a}": contrast(rows, T, sf, None, a, b, rule) for a, b in (("A", "O"), ("B", "O"))})
+        for a, b in (("A", "O"), ("B", "O")):
+            d = task_diffs(rows, T, sf, None, a, b, rule)
+            pooled[f"{b}-{a}"]["equivalence_margin_0.10"] = tost(np.array([d[t] for t in T if t in d]), EQUIV_MARGIN)
         res["contrasts"][rule]["pooled"] = pooled
     subsets = {"without the 12 uncertain tasks": [t for t in T if t not in uncertain],
                "tasks with gold families": [t for t in T if gold[t]],
