@@ -22,6 +22,10 @@ from . import agent, llm, tools, tools_v3
 
 HB = common.HB
 CODE_DIRS = ("bench", "runner")
+DEFAULT_TASK_DIR = os.path.join("tasks", "replay")
+DEFAULT_SNAPSHOT_DIR = "."
+TASK_DIR = os.path.join(HB, DEFAULT_TASK_DIR)
+SNAPSHOT_DIR = HB
 
 
 def code_hash():
@@ -36,11 +40,14 @@ def load_config(path):
     c = json.load(open(path, encoding="utf-8"))
     c["_config_hash"] = hashlib.sha256(json.dumps(c, sort_keys=True).encode()).hexdigest()
     c["_out"] = os.path.join(HB, "runs", c["experiment_id"])
+    global TASK_DIR, SNAPSHOT_DIR
+    TASK_DIR = os.path.normpath(os.path.join(HB, c.get("task_dir", DEFAULT_TASK_DIR)))
+    SNAPSHOT_DIR = os.path.normpath(os.path.join(HB, c.get("snapshot_dir", DEFAULT_SNAPSHOT_DIR)))
     return c
 
 
 def load_task(task_id):
-    t = json.load(open(os.path.join(HB, "tasks", "replay", f"{task_id}.json"), encoding="utf-8"))
+    t = json.load(open(os.path.join(TASK_DIR, f"{task_id}.json"), encoding="utf-8"))
     body = json.dumps({k: t[k] for k in ("task_id", "statement", "permitted_records")}, sort_keys=True, ensure_ascii=False)
     if hashlib.sha256(body.encode("utf-8")).hexdigest() != t["task_hash"]:
         raise ValueError(f"{task_id}: frozen task file changed (hash mismatch)")
@@ -53,7 +60,7 @@ def answer_key():
 
 def ensure_snapshot(task, records=None, inv=None):
     """Return the task's snapshot dir, building it if absent; refuse a snapshot whose records differ from the task's."""
-    d = os.path.join(HB, "memory_v2", "snapshots", task["task_id"])
+    d = os.path.join(SNAPSHOT_DIR, "memory_v2", "snapshots", task["task_id"])
     man = os.path.join(d, "manifest.json")
     if not os.path.exists(man):
         records = records or common.load_records()
@@ -71,7 +78,7 @@ def ensure_snapshot(task, records=None, inv=None):
 def ensure_snapshot_v3(task, records=None, inv=None):
     """Consolidated family memory (memory_v3) for a task: built from exactly the task's permitted records."""
     from bench import memory_v3
-    d = os.path.join(HB, "memory_v3", "snapshots", task["task_id"])
+    d = os.path.join(SNAPSHOT_DIR, "memory_v3", "snapshots", task["task_id"])
     man = os.path.join(d, "manifest.json")
     if not os.path.exists(man):
         records = records or common.load_records()
