@@ -15,9 +15,9 @@ A Sports Analytics Benchmark}
 \begin{abstract}
 Sports organizations hold years of analytical work, much of it fragmented or lost when people leave. A persistent research memory that an AI agent can consult is one proposed way to keep that work useful. This paper tests one requirement of such a system: whether an agent, given a record of prior basketball studies, makes a better decision about whether a new research design should proceed. Five language models were run on the same ten tasks with no memory, document retrieval, or graph retrieval, at three seeds each (450 primary runs in three experiments).
 
-Memory did not produce a clear improvement. Under the primary scoring rule, the ten memory-minus-no-memory differences in balanced accuracy range from $-0.083$ to $+0.208$. No difference survives correction for ten comparisons (smallest exact sign-flip $p = 0.06$, Holm-adjusted $0.62$). Across 300 paired comparisons, memory turned a wrong decision into a correct one 47 times and a correct one into a wrong one 46 times. The models reproduced retrieved records accurately.
+Memory retrieved through search did not produce a clear improvement. Under the primary scoring rule, the ten memory-minus-no-memory differences in balanced accuracy range from $-0.083$ to $+0.208$. No Study 1 difference survives correction for ten comparisons (smallest exact sign-flip $p = 0.06$, Holm-adjusted $0.62$). Across 300 paired comparisons, memory turned a wrong decision into a correct one 47 times and a correct one into a wrong one 46 times. The models reproduced retrieved records accurately.
 
-The paper describes, but does not test, two points where the process can fail. First, retrieval rarely returned the closest prior work: on the three tasks with a prior study of the same question or a precedent named in the answer key, that family was returned in 2 of 45 runs under each retrieval method. Counting looser analogues as well, a relevant family was returned in 48 percent of document-retrieval runs and 36 percent of graph-retrieval runs on the seven tasks that have one. Second, the same prior record supported correct and incorrect decisions on different tasks: a play-type labeling audit was cited in 18 runs on one task (14 correct) and in 11 runs on another (3 correct), and nothing in the record itself separated the two cases. An oracle-retrieval condition would be needed to separate the two failure points.
+The paper describes two points where the process can fail. First, retrieval rarely returned the closest prior work: on the three tasks with a prior study of the same question or a precedent named in the answer key, that family was returned in 2 of 45 runs under each retrieval method. Counting looser analogues as well, a relevant family was returned in 48 percent of document-retrieval runs and 36 percent of graph-retrieval runs on the seven tasks that have one. Second, the same prior record supported correct and incorrect decisions on different tasks: a play-type labeling audit was cited in 18 runs on one task (14 correct) and in 11 runs on another (3 correct), and nothing in the record itself separated the two cases. A follow-up that handed the agent the relevant prior families directly gave higher accuracy for four of five models (by 0.014 to 0.264), but no difference was detectable on ten tasks (Section~\ref{sec:study1b}).
 \end{abstract}
 
 \section{Introduction}
@@ -29,7 +29,7 @@ The argument for such a system is that model capability is widely available, whi
 
 This paper tests that assumption on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped?
 
-The results are mixed in a way the average hides. On one task, a prior audit of the play-type labels was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory changed decisions in both directions about equally often and did not improve the average. Section~\ref{sec:transfer} describes the cases. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
+The results are mixed in a way the average hides. On one task, a prior audit of the play-type labels was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory retrieved through search changed decisions in both directions about equally often and did not improve the average. Section~\ref{sec:transfer} describes the cases. Section~\ref{sec:study1b} reports a follow-up that handed the relevant families over directly. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
 
 \section{Scope and context}
 \label{sec:vision}
@@ -412,12 +412,60 @@ DeepSeek's no-memory accuracy is 0.514, and memory raises it by 0.167 (documents
 
 Both reasoning models score higher with the graph than with documents (Sonnet 0.722 against 0.653, DeepSeek 0.722 against 0.681). Gemini's ordering is the reverse. None of those gaps is clear.
 
+\section{Study 1b: oracle retrieval}
+\label{sec:study1b}
+
+The three experiments above, called Study 1 below, could not say whether retrieval or applicability limited accuracy. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations, and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
+
+\subsection{Design}
+
+Two conditions were added to the Study 1 conditions A, B, and C, which were not rerun. In condition O (oracle), each run received a frozen list of gold relevant families for its task through the same retrieval tool, protocol, prompts, and settings as Study 1; the model could also read any of those families in full. Each list held up to four families: the first two question-tier and the first two lesson-tier families under the corrected audit of Appendix~\ref{app:retrieval}, by a rule committed before the list was computed. One declared manual addition was made: FAM:SF-CHT-025 was added to the lists for RT-012 (where it replaced FAM:SF02) and RT-147, because the automated rule cannot select it (Appendix~\ref{app:retrieval}). The lists were not changed after any run. Seven tasks have gold families (two to four each). The three tasks with none (RT-065, RT-101, RT-146) serve as a noise reference, because O and A are the same condition there apart from the extra read tool. Documents in O use the condition B format, so O$-$C mixes the effect of which families are retrieved with the effect of format.
+
+In condition OS, each gold family also carried a short scope annotation stating which data, estimands, and effect sizes its recorded defect does and does not threaten. There are 23 annotations, written only from each family's own record, with identical text wherever a family appears. They were checked mechanically for shared phrases with the answer key and with the task-own records. The annotator knew the answer key and the Study 1 results, and the ``applies to'' sentences are the annotator's inference from the records, so OS is exploratory. OS also carries 729 to 1,784 more characters in the first retrieval than O, so OS$-$O measures annotation plus extra length. OS was run for four models; Sonnet 5.5 was run on O only to limit cost. Each condition used three seeds per task and model (270 runs). Total cost was \$4.19.
+
+\subsection{Results}
+
+\begin{table}[ht]
+\centering
+\caption{Balanced flag accuracy with oracle retrieval, primary scoring rule. A, B, and C are the Study 1 runs.}
+\label{tab:study1b}
+\small
+\begin{tabular}{lrrrrrl}
+\toprule
+Model & A & B & C & O & OS & O $-$ A [95\% CI] \\
+\midrule
+Gemini 2.5 Flash & 0.639 & 0.681 & 0.583 & 0.861 & 0.847 & $+0.222$ $[-0.056, +0.597]$ \\
+Claude Haiku 5.5 & 0.625 & 0.583 & 0.639 & 0.639 & 0.667 & $+0.014$ $[-0.250, +0.347]$ \\
+gpt-oss-20b & 0.542 & 0.528 & 0.528 & 0.625 & 0.750 & $+0.083$ $[-0.208, +0.431]$ \\
+Claude Sonnet 5.5 & 0.736 & 0.653 & 0.722 & 0.722 & n/a & $-0.014$ $[-0.125, +0.083]$ \\
+DeepSeek V4 Pro & 0.514 & 0.681 & 0.722 & 0.778 & 0.806 & $+0.264$ $[0.000, +0.556]$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Intervals are percentile bootstrap intervals over the ten tasks (10,000 resamples), the same method as Table~\ref{tab:primary}. Holm adjustment is within each contrast family (O$-$A, O$-$B, O$-$C, OS$-$O).
+\end{minipage}
+\end{table}
+
+Accuracy under oracle retrieval was higher than with no memory for four of five models (by 0.014 to 0.264), most for DeepSeek and Gemini; Haiku was essentially unchanged and Sonnet slightly lower. No interval excluded zero; the lower bound is 0.000 for DeepSeek. The Holm-adjusted $p$-values for O$-$A were 0.94 or higher. By the preregistered definition (a positive difference whose interval lies above zero), the oracle did not help for any model, meaning no effect was detected. It does not show that there is none.
+
+Against Study 1's own search the direction is more uniform. O exceeded B for all five models ($+0.056$ to $+0.181$) and was at or above C for all five ($0.000$ to $+0.278$). All of these intervals include zero, and three lower bounds sit at $0.000$ (O$-$B for Haiku, O$-$C for Gemini, and under the valid-only rule O$-$A for Gemini).
+
+On the three tasks named in the preregistered predictions, correct rates pooled over the five models under A, B, C, and O were: RT-012, 0.33, 0.67, 0.60, 1.00; RT-147, 0.80, 0.47, 0.60, 0.67; RT-179, 0.20, 0.73, 0.53, 0.80. The predictions, written after reviewing Study 1's per-task results, were that O would move RT-012 and RT-179 toward the answer key and RT-147 away from it, and that annotations would not clearly change any of the three. The direction of O against A held on all three tasks. On the four models that ran OS, the change from O to OS was $0.00$ for RT-012, $0.00$ for RT-179, and $+0.17$ for RT-147; the preregistration set no numeric threshold for these calls, so they are directional. RT-012 shows the largest gain, with all 15 O runs and all 12 OS runs correct, but the experiment cannot say which of its four families produced it. On RT-179, where Study 1's search already surfaced relevant families, the oracle added little over B (0.80 against 0.73).
+
+Scope annotations did not change decisions by any preregistered criterion. OS$-$O ranged from $-0.014$ to $+0.125$ with every interval including zero, and no model shifted its flag rate by two thirds or more on two or more tasks. On the three tasks without gold families, where O and OS are identical, flag shares changed by up to 0.67 for gpt-oss and 0.33 for each other model. On annotated tasks the largest changes were 1.0 (gpt-oss, RT-112) and 0.67 (Haiku, RT-147). The one task where annotations moved the pooled rate is RT-147 (O 0.58, OS 0.75 on the four OS models), which is within the range that run-to-run noise produces here. Because the annotation for FAM:SF-CHT-025 is the same text for RT-012 and RT-147 and holds no information about effect size, this experiment does not test the scope-condition idea in the form Study 1 suggested.
+
+\subsection{Limits and deviations}
+
+Fifteen of 270 runs were invalid and two had no scorable flag; the conclusions are unchanged under the strict and valid-only rules. On the three no-gold tasks, O and A differ by up to 0.67 in a single cell (for example DeepSeek on RT-146), a reminder of how noisy cells of three runs are. The predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run. The preregistered spend stop was raised from \$8 to \$25 during the run; total spend was \$4.19, so it did not bind, and the change is recorded in the preregistration. All analyses were computed from saved runs by a script that uses the same methods as Study 1, and the Study 1 columns reproduce the published table.
+
 \section{Discussion}
 \label{sec:discussion}
 
 \subsection{What the results show and what they do not}
 
-Memory did not reliably improve the decision on these ten tasks for any of the five models. The largest gain, DeepSeek's under graph retrieval, is a candidate effect that does not survive correction for multiple comparisons (Section~\ref{sec:results}). Memory changed correctness in about a third of paired runs, in both directions about equally. The models reproduced the records accurately. These are the measured findings.
+Memory retrieved through search did not reliably improve the decision on these ten tasks for any of the five models. The largest gain, DeepSeek's under graph retrieval, is a candidate effect that does not survive correction for multiple comparisons (Section~\ref{sec:results}). Memory changed correctness in about a third of paired runs, in both directions about equally. The models reproduced the records accurately. These are the measured findings.
 
 Three patterns plausibly contribute to the flat average, though none was tested as a cause. First, retrieval often did not return the most relevant prior work. Second, a record that applied cleanly to one task was applied to another where, by the answer key, it did not decide the question (Cases 1 and 2). Third, retrieved failures shifted models toward caution generally, helping on tasks that should be flagged and hurting on tasks that should not (Table~\ref{tab:caution}).
 
@@ -429,7 +477,7 @@ The first is retrieval. On the seven tasks with at least one relevant family in 
 
 The second is applicability. Returning and citing a relevant family was not consistently linked to accuracy. Among memory runs on tasks with a relevant family, runs that returned one were more accurate under document retrieval (0.82 against 0.60) and less accurate under graph retrieval (0.66 against 0.76). These comparisons are confounded by model and task, because some models retrieve differently and some tasks are harder, and they are not causal estimates. Cases 1 and 2 show the same record leading to opposite verdicts.
 
-A cleaner test would add an oracle-retrieval condition, in which each run receives the relevant prior families directly. If accuracy rose under oracle retrieval, retrieval would be the limiting step. If it did not, the limit would be in judging applicability. A run-level comparison of surfaced and not-surfaced runs within model and task would also help, but it needs more seeds than this design has.
+Study 1b (Section~\ref{sec:study1b}) ran that oracle condition on the same ten tasks. Accuracy with gold families handed over was above no memory for four of five models and above Study 1's search for all five, but no interval excluded zero. One reading is that retrieval limited Gemini and DeepSeek, which gained most, while applicability judgment, or a high starting accuracy as for Sonnet, limited Haiku and Sonnet, which did not. That reading is a hypothesis from a pattern across five models on ten tasks, not a tested decomposition. A run-level comparison within model and task would need more seeds than this design has.
 
 \subsection{Representing accumulated research}
 
@@ -437,7 +485,7 @@ The cases raise a design question the experiments do not test: what information 
 
 \subsection{Model choice}
 
-Sonnet with an empty retrieval (0.736) scored higher than gpt-oss-20b with the graph (0.528). For an organization early in such a build, these results suggest that the choice of model may matter more than the archive attached to it. Whether memory adds value with a different archive, retrieval method, or validation step is not something these experiments can show.
+Sonnet with an empty retrieval (0.736) scored higher than gpt-oss-20b with the graph (0.528). With the gold families handed over, Gemini 2.5 Flash reached 0.861, above Sonnet without memory (0.736). On these ten tasks, then, model choice moved accuracy about as much as attaching this archive with retrieval removed as a variable (a gain of $+0.222$ for Gemini, against a gap of 0.208 between Sonnet without memory and gpt-oss with the graph), and more than attaching it through search did. Whether that holds on a larger task set, or with a retrieval method that approaches the oracle, is not something these experiments can show.
 
 \section{Design implications}
 \label{sec:practical}
@@ -455,7 +503,7 @@ The following implications are hypotheses consistent with the results, not teste
 \section{Limitations}
 \label{sec:limits}
 
-\textbf{Ten tasks.} Three seeds reduce noise on each task but do not add tasks. With intervals about 0.6 wide, a small average gain is not something this design can detect. The claim is that memory did not reliably help on these ten decisions, not that its effect is zero.
+\textbf{Ten tasks.} Three seeds reduce noise on each task but do not add tasks. With intervals about 0.6 wide, a small average gain is not something this design can detect. The claim is that memory retrieved through search did not reliably help on these ten decisions, not that its effect is zero.
 
 \textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as proceed is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
 
@@ -465,7 +513,7 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{How retrieval and use were coded.} Mentioned, returned, and used (Appendix~\ref{app:retrieval}) were coded by deterministic rules over the saved run files, not by human raters or a language-model judge, so no inter-rater agreement applies. The rules were not validated against hand coding. The original audit code also dropped the risk code of any family tagged with a single code, which removed families such as FAM:SF-APPS-085 from the lesson tier; the figures in this paper are recomputed with that parsing corrected and nothing else changed (Appendix~\ref{app:retrieval}). At least one known misclassification remains: FAM:SF-CHT-025 is not counted for RT-012 because it has no risk-code tag. The retrieval rates should be read as estimates under these definitions.
 
-\textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files.
+\textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files. The Study 1b analyses in Section~\ref{sec:study1b} were also computed from saved runs after the runs finished. The Study 1b gold families, annotations, and predictions were frozen before those runs; the predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run.
 
 \textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. All ten tasks are basketball research designs from one research program. Nothing here shows the same pattern in another sport or in a live scouting workflow.
 
@@ -473,12 +521,12 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{Extended thinking} was confirmed by the presence of reasoning traces passed between turns. The content of those traces is not a measured outcome.
 
-\textbf{What would change the conclusion.} More tasks would narrow the intervals enough to detect a plausible effect; 60 to 100 tasks would be a reasonable target. An oracle-retrieval condition would show whether retrieval or applicability limits accuracy. A condition with typed relationships or recorded scope conditions would test the representation question in Section~\ref{sec:discussion}. A differently composed archive or task set, with more tasks that have close prior work, could give memory more room to help.
+\textbf{What would change the conclusion.} More tasks would narrow the intervals enough to detect a plausible effect; 60 to 100 tasks would be a reasonable target. Study 1b ran the oracle-retrieval condition and did not detect an effect (Section~\ref{sec:study1b}). A condition with typed relationships or recorded scope conditions would test the representation question in Section~\ref{sec:discussion}. A differently composed archive or task set, with more tasks that have close prior work, could give memory more room to help.
 
 \section{Future directions}
 \label{sec:future}
 
-This section describes what the results suggest testing next. None of it was tested here.
+This section describes what the results suggest testing next. The oracle-retrieval condition was run as Study 1b (Section~\ref{sec:study1b}). The rest was not tested here.
 
 A relationship layer stored alongside the document archive could distinguish six kinds of connection between investigations:
 
@@ -491,7 +539,7 @@ A relationship layer stored alongside the document archive could distinguish six
 \item \textbf{Topical similarity.} The investigations share terminology or domain but have no established methodological or causal connection.
 \end{enumerate}
 
-Cases 1 and 2 indicate that relationship types alone may not be enough: the same record is a direct dependency for two tasks with opposite answers. A useful layer would probably also need scope conditions on each lesson, stating which estimands and effect sizes a recorded defect threatens. Three conditions would test these ideas in turn: oracle retrieval, to separate retrieval from applicability; retrieval over typed relationships with scope conditions; and an independent validation step that checks each cited connection before a decision is accepted. Each would need more tasks than the present benchmark to give a clear answer.
+Cases 1 and 2 indicate that relationship types alone may not be enough: the same record is a direct dependency for two tasks with opposite answers. A useful layer would probably also need scope conditions on each lesson, stating which estimands and effect sizes a recorded defect threatens. Study 1b ran the oracle and found a consistent direction but no detectable effect, and its scope annotations did not separate the two tasks. Two conditions remain: retrieval over typed relationships with scope conditions, and an independent validation step that checks each cited connection before a decision is accepted. Each would need more tasks than the present benchmark to give a clear answer.
 
 For the follow-up study, the definitions of mentioned, returned, and used should be fixed in the analysis code before the runs, and the relevance coding should be checked against hand coding on a sample, with agreement reported.
 
@@ -500,7 +548,7 @@ For the follow-up study, the definitions of mentioned, returned, and used should
 
 Across five models and 450 primary runs on a fixed basketball benchmark, research memory did not reliably improve the decision about whether a proposed study should proceed. It changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often. The models reproduced retrieved records accurately.
 
-The results describe two points where the process can fail. The closest prior work was returned in 2 of 45 runs under each retrieval method. When a relevant record was returned it was nearly always cited, although the measure of use is weak, and citing it did not consistently produce the right decision. In the clearest example, one labeling audit was cited in runs that correctly stopped one design and in runs that wrongly stopped another, and nothing in the record separated the two cases. Whether better retrieval, records that state their scope conditions, or an independent validation step would change that is the question for the next experiment.
+The results describe two points where the process can fail. The closest prior work was returned in 2 of 45 runs under each retrieval method. When a relevant record was returned it was nearly always cited, although the measure of use is weak, and citing it did not consistently produce the right decision. In the clearest example, one labeling audit was cited in runs that correctly stopped one design and in runs that wrongly stopped another, and nothing in the record separated the two cases. In Study 1b, handing over the relevant families gave higher accuracy for four of five models, but no difference was detectable on ten tasks, and scope annotations had no detectable effect (Section~\ref{sec:study1b}). A larger task set is the next step.
 
 \begin{thebibliography}{99}
 
