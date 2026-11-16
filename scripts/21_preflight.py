@@ -29,8 +29,10 @@ def check(name, cond, detail=""):
     print(("PASS " if cond else "FAIL ") + name + (f": {detail}" if detail else ""))
 
 
-# Study 1b: conditions O and OS, per-model condition lists, frozen gold families and scope annotations
+# Study 1b: conditions O and OS, per-model condition lists, frozen gold families and scope annotations.
+# Study 2 also loads an oracle file, but its conditions are A, B and O and its annotation file is empty.
 oracle = experiment.oracle_inputs(cfg)
+study2 = bool(oracle) and sorted(cfg.get("conditions", [])) == ["A", "B", "O"]
 
 
 def toolbox3(cond, task):
@@ -41,7 +43,23 @@ def toolbox3(cond, task):
 
 # ------------------------------------------------------------------ design
 runs = experiment.plan(cfg)
-if oracle:
+if study2:
+    conds_of = {m["model"]: m.get("conditions", cfg["conditions"]) for m in cfg["models"]}
+    n_expected = sum(len(cfg["tasks"]) * len(c) * len(cfg["seeds"]) for c in conds_of.values())
+    check("run count", len(runs) == n_expected,
+          f"{len(runs)} runs = {len(cfg['tasks'])} tasks x {len(cfg['seeds'])} seed(s) x conditions per model "
+          + ", ".join(f"{m} {'/'.join(c)}" for m, c in conds_of.items()))
+    check("conditions", sorted(cfg["conditions"]) == ["A", "B", "O"] and all(set(c) == {"A", "B", "O"} for c in conds_of.values()),
+          ", ".join(cfg["conditions"]))
+    check("every model runs exactly its listed conditions",
+          all({r["condition"] for r in runs if r["model"]["model"] == m} == set(c) for m, c in conds_of.items()))
+    check("gold families loaded for every task; scope annotations empty (OS is not a Study 2 condition)",
+          set(oracle["gold"]) == set(cfg["tasks"]) and oracle["annotations"] == {},
+          ", ".join(f"{k} {v[:12]}" for k, v in oracle["hashes"].items()))
+    check("study budget stop", experiment.spend_cap(cfg) is not None and cfg.get("budget_usd") is not None
+          and experiment.spend_cap(cfg) <= cfg["budget_usd"] * cfg.get("stop_fraction", 0.8),
+          f"runs stop once recorded spend reaches {experiment.spend_cap(cfg)} USD (budget {cfg.get('budget_usd')} USD)")
+elif oracle:
     conds_of = {m["model"]: m.get("conditions", cfg["conditions"]) for m in cfg["models"]}
     n_expected = sum(len(cfg["tasks"]) * len(c) * len(cfg["seeds"]) for c in conds_of.values())
     check("run count", len(runs) == n_expected,
@@ -130,7 +148,62 @@ if protocol == 2:
 
 # ------------------------------------------------------------------ protocol 3: family memory, distinct retrieval, retrieval first
 stage1_probe = []
-if protocol >= 3:
+if protocol >= 3 and study2:
+    from runner import agent, tools_v3  # noqa: E402
+    check("run count (4 models x 68 tasks x A, B, O x seed 1)",
+          len(runs) == n_expected and len(cfg["tasks"]) == 68 and cfg["seeds"] == [1],
+          f"{len(runs)} runs (expected {n_expected})")
+    src = json.load(open(os.path.join(experiment.HB, "configs", "study1b.json"), encoding="utf-8"))
+    src_models = {m["model"]: {k: v for k, v in m.items() if k != "conditions"} for m in src["models"]}
+    for m in cfg["models"]:
+        check(f"{m['model']} generation settings and price identical to configs/study1b.json", m == src_models.get(m["model"]))
+    check("budgets identical to configs/study1b.json", cfg["budgets"] == src["budgets"])
+    budget = cfg["budgets"]["max_tool_result_chars"]
+    prompts = {}
+    task0 = experiment.load_task(cfg["tasks"][0])
+    for c in cfg["conditions"]:
+        tb = toolbox3(c, task0)
+        p = agent.system_prompt_v3(tb, cfg["budgets"]["max_tool_calls"])
+        prompts[c] = p.replace(tb.describe(), "<TOOLS>")
+        check(f"{c} prompt lists retrieve_history first with the shared description",
+              tb.describe().startswith("- " + tools_v3.TOOL_DOCS["retrieve_history"]))
+    check("protocol-3 system instructions identical in every condition apart from the tool list", len(set(prompts.values())) == 1)
+    sp = next(iter(prompts.values()))
+    check("output schema is not shown before retrieval (system prompt and stage-1 message)",
+          not any(k in sp + agent.STAGE1 for k in ('"predicted_outcome"', '"historical_evidence"', '"p_testable"', "Output schema")))
+    check("stage-2 schema contains the scored fields and the evidence fields",
+          all(k in agent.stage2_text() for k in list(agent.scoring.OUTPUT_SCHEMA) + list(agent.EVIDENCE_SCHEMA)))
+    n_empty_gold = 0
+    q = {"query": "sample", "research_concepts": ["sample size and statistical power"], "methodological_questions": ["is the outcome measure reliable"]}
+    for t in cfg["tasks"]:
+        try:
+            task = experiment.load_task(t)
+            d, man = experiment.ensure_snapshot_v3(task)
+            check(f"{t} v3 family memory: documents = graph, every family has every field, exclusions absent",
+                  man["equivalent"] and man["every_family_has_all_fields"] and not (set(man["records"]) & set(task.get("excluded_records", []))),
+                  f"{man['n_families']} families, {man['n_facts']} facts")
+            ra = json.loads(tools_v3.Toolbox3("A", None, budget).call("retrieve_history", q))
+            tb_b = tools_v3.Toolbox3("B", d, budget)
+            sb = tb_b.call("retrieve_history", q)
+            rb = json.loads(sb)["results"]
+            want_b = min(tools_v3.RETRIEVE_K, len(tb_b.families))
+            gold = oracle["gold"][t]
+            so = toolbox3("O", task).call("retrieve_history", q)
+            ro = json.loads(so)["results"]
+            check(f"{t} retrieval: A empty; B returns {want_b} families uncut; O returns the {len(gold)} frozen gold families in order, uncut, with no annotation",
+                  ra == {"results": [], "n_results": 0} and len(tb_b.families) > 0 and len(rb) == want_b
+                  and "truncated" not in sb and len(sb) <= budget
+                  and [x["id"] for x in ro] == ["FAM:" + f for f in gold]
+                  and "truncated" not in so and len(so) <= budget
+                  and not any("scope_annotation" in x for x in ro)
+                  and all(x["document"] == tb_b.doc_text[x["id"]] for x in ro),
+                  f"B {len(sb)} chars, O {len(so)} chars, {len(tb_b.families)} families in memory")
+            if not gold:
+                n_empty_gold += 1
+        except Exception as e:  # noqa: BLE001
+            check(f"{t} protocol 3", False, repr(e)[:300])
+    check("tasks with no gold families return an empty oracle list", n_empty_gold > 0, f"{n_empty_gold} tasks")
+elif protocol >= 3:
     from runner import agent, tools_v3  # noqa: E402
     n_models = len(cfg["models"])
     expected_p3 = n_expected if oracle else 10 * 3 * 3 * n_models
