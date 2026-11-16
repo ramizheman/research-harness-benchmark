@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath, booktabs, graphicx, array}
+\usepackage{amsmath, booktabs, graphicx, array, tabularx}
 \usepackage[hidelinks]{hyperref}
 
 \title{Retrieval and Transfer Failures in Research Memory:\\
@@ -158,7 +158,7 @@ Table~\ref{tab:tasks_plain} describes each task in one plain line. Table~\ref{ta
 \caption{The ten tasks in plain language. ``Stop'' is a flag in the answer key; ``go ahead'' is proceed.}
 \label{tab:tasks_plain}
 \small
-\begin{tabular}{p{1.1cm}p{9.3cm}p{1.9cm}}
+\begin{tabularx}{\linewidth}{lXl}
 \toprule
 Task & What the idea asks, in plain words & Answer key \\
 \midrule
@@ -173,7 +173,7 @@ RT-147 & Are the opponent's next-possession effects large and stable enough to j
 RT-179 & Is a team's ability to hold down opponents' second-half improvement a stable, measurable trait? & Stop \\
 RT-183 & Do role players who mostly cut keep their role better after changing teams than players who mostly drive? & Stop \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 
 \vspace{0.4em}
 \begin{minipage}{0.92\linewidth}\footnotesize
@@ -315,7 +315,7 @@ Results depend on how invalid outputs are scored, most for Sonnet; the sensitivi
 
 Invalid outputs were schema failures, not invented findings; counts by model and condition are in Appendix~\ref{app:scoring}.
 
-The Gemini series is one check on whether the protocol was the problem. Across Pilot 1, Pilot 2, and Experiment 1, the records, the protocol, and the number of seeds changed. Pilot 1's apparent gains ($+0.167$ for documents, $+0.250$ for the graph) come largely from three no-memory answers that could not be parsed at the time; with those answers recovered, the differences are $+0.042$ and $0.000$. Pilot 2 gives $-0.042$ and $-0.042$, and Experiment 1 gives $+0.042$ and $-0.056$. Delivering the records, which Pilot 2 had failed to do, did not reveal a gain.
+The protocol itself was checked against the Gemini series across Pilot 1, Pilot 2, and Experiment 1; delivering the records did not reveal a gain (Appendix~\ref{app:scoring}).
 
 Model differences are larger than memory effects. Sonnet without memory (0.736) is 0.097 above Gemini without memory and 0.194 above gpt-oss-20b without memory. On these ten decisions, the choice of model moved accuracy more than attaching this archive did.
 
@@ -350,7 +350,7 @@ Flag rate, should not flag & 0.22 & 0.39 & 0.33 \\
 \end{tabular}
 \end{table}
 
-Stated testability discriminated better with memory for four of the five models. The area under the curve (AUC) for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
+Stated testability discriminated better with memory for four of the five models, but better-ranked testability did not translate into better flag decisions at the 0.5 threshold. The per-model values of this measure, the area under the curve (AUC), which are descriptive and have no intervals, are in Appendix~\ref{app:scoring}.
 
 Compliance was uneven across models; repair-turn counts are in Appendix~\ref{app:scoring}.
 
@@ -434,7 +434,7 @@ Both reasoning models score higher with the graph than with documents (Sonnet 0.
 \section{Study 1b: oracle retrieval}
 \label{sec:study1b}
 
-Study 1 could not tell ``search failed to find the right studies'' from ``the model misjudged the studies it found.'' Study 1b removes the first possibility by handing the models the right studies. The three experiments above, called Study 1 below, could not say whether retrieval or applicability limited accuracy. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations, and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
+Study 1 could not tell ``search failed to find the right studies'' from ``the model misjudged the studies it found.'' Study 1b removes the first possibility by handing the models the right studies. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations, and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
 
 \subsection{Design}
 
@@ -865,5 +865,14 @@ DeepSeek V4 Pro & 0 & 1 & 1 \\
 \subsection*{Repair turns}
 
 Compliance was uneven. gpt-oss-20b needed 18 repair turns across its 60 memory runs, against 3 for Gemini, 2 for DeepSeek, 1 for Haiku, and none for Sonnet.
+
+
+\subsection*{Gemini series across pilots and Experiment 1}
+
+The Gemini series is one check on whether the protocol was the problem. Across Pilot 1, Pilot 2, and Experiment 1, the records, the protocol, and the number of seeds changed. Pilot 1's apparent gains ($+0.167$ for documents, $+0.250$ for the graph) come largely from three no-memory answers that could not be parsed at the time; with those answers recovered, the differences are $+0.042$ and $0.000$. Pilot 2 gives $-0.042$ and $-0.042$, and Experiment 1 gives $+0.042$ and $-0.056$. Delivering the records, which Pilot 2 had failed to do, did not reveal a gain.
+
+\subsection*{Testability discrimination (AUC)}
+
+Stated testability discriminated better with memory for four of the five models. The AUC for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
 
 \end{document}
