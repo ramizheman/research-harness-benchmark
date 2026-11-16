@@ -80,3 +80,10 @@ None added knowingly. Please look at:
 - "Tests one step" now appears once; the scope sentences follow it in the same paragraph.
 - Checks versus the previous readable version: same numeric tokens (only repeat counts of 1, 2, 3.1, 112, 179, 0.001 changed, all from the new example and the Case sentence); tables, bibliography and appendix identical; no undefined references; the pun appears once.
 - Not compiled (no LaTeX compiler on this machine).
+
+## Revision 4: embedding retrieval (2026-11-16)
+
+- Abstract, Introduction, Design (Three conditions): the search method is now stated (TF-IDF keyword search, up to four families); Study 1 used no embedding model.
+- New section "Rerun with embedding retrieval" (sec:embed) with Tables embed_retr, embed_acc and embed_diff: 300 further runs (conditions B and C, bge-small-en-v1.5, ten results, 14,000-character result limit), $8.42, preregistered 2026-11-15 (study1_embed/prereg.md).
+- Discussion, Limitations (new "Retrieval method" paragraph), post-hoc list, Conclusion, and the offline-check appendix (app:offline) updated.
+- No frozen number was changed. check_readable.py now lists 29 numbers that appear only in the new text; all come from the embedding rerun or the offline check.

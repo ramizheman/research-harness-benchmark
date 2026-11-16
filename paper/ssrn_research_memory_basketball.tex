@@ -4,8 +4,8 @@
 \usepackage{amsmath, booktabs, graphicx, array, tabularx}
 \usepackage[hidelinks]{hyperref}
 
-\title{Retrieval and Transfer Failures in Research Memory:\\
-A Sports Analytics Benchmark}
+\title{Corpses and Corpora: Can an AI Learn From a Graveyard\\
+of Failed Basketball Studies?}
 \author{Rami Zheman \\ Independent Researcher, Alexandria, VA}
 \date{November 2026}
 
@@ -13,25 +13,10 @@ A Sports Analytics Benchmark}
 \maketitle
 
 \begin{abstract}
-Sports organizations hold years of analytical work, much of it fragmented or lost when people leave. A persistent research memory that an AI agent can consult is one proposed way to keep that work useful. This paper tests one requirement of such a system: whether an agent, given a record of prior basketball studies, makes a better decision about whether a new research design should proceed. Five language models were run on the same ten tasks with no memory, document retrieval, or graph retrieval, at three seeds each (450 primary runs in three experiments).
+Most of my basketball research ideas did not work, and I kept the records. This paper tests whether those records help an AI agent decide if a new research idea is worth running. Five language models judged ten of my past ideas, as of the day each was proposed, with no archive, with document search over 319 dated earlier studies, or with graph search. A good call meant stopping ideas that later proved untestable or an artifact of a design flaw, and letting the rest go ahead.
 
-Memory retrieved through search did not produce a clear improvement. Under the primary scoring rule, the ten memory-minus-no-memory differences in balanced accuracy range from $-0.083$ to $+0.208$. No Study 1 difference survives correction for ten comparisons (smallest exact sign-flip $p = 0.06$, Holm-adjusted $0.62$). Across 300 paired comparisons, memory turned a wrong decision into a correct one 47 times and a correct one into a wrong one 46 times. The models reproduced retrieved records accurately.
-
-The paper describes two points where the process can fail. First, retrieval rarely returned the closest prior work: on the three tasks with a prior study of the same question or a precedent named in the record of what actually happened when I ran the idea, that family was returned in 2 of 45 runs under each retrieval method. Counting looser analogues as well, a relevant family was returned in 48 percent of document-retrieval runs and 36 percent of graph-retrieval runs on the seven tasks that have one. Second, the same prior record supported correct and incorrect decisions on different tasks: a data-quality audit was cited in 18 runs on one task (14 correct) and in 11 runs on another (3 correct), and nothing in the record itself separated the two cases. A follow-up that handed the agent the relevant prior families directly gave higher accuracy for four of five models (by 0.014 to 0.264), but no difference was detectable on ten tasks (Section~\ref{sec:study1b}).
+Memory did not produce a clear improvement. No difference survived correction for multiple comparisons, and memory fixed wrong calls about as often as it broke right ones. Search rarely returned the closest earlier study, and the same earlier record supported a correct call on one task and a wrong call on another. Handing the models the relevant studies directly raised accuracy for four of five models, but ten tasks cannot confirm a difference that size. A rerun with embedding retrieval found relevant studies far more often and still did not improve accuracy. The paper reports its limits in full and proposes what a larger test would need.
 \end{abstract}
-
-\begin{center}
-\fbox{\begin{minipage}{0.92\linewidth}
-\small
-\textbf{What I did and found, in plain language}
-
-\medskip
-\textbf{The studies.} In Study 1, five AI models were each shown ten research ideas and had to say go ahead or stop. They did this with no archive, with a search over the archive's documents, and with a search over a linked graph of the archive. In Study 1b, I removed search as a possible weak point by handing the models the relevant past studies directly. This paper contains only these two studies.
-
-\medskip
-\textbf{What was found.} Letting the models search the archive did not produce a clear improvement: it fixed about as many decisions as it broke. Search often missed the closest earlier study, and the same earlier study led to a right decision on one idea and a wrong one on another. Handing over the relevant studies gave higher accuracy for four of the five models, but no difference was detectable with only ten ideas, so I treat that as a lead and not as a result.
-\end{minipage}}
-\end{center}
 
 \section{Introduction}
 \label{sec:intro}
@@ -44,17 +29,21 @@ There are reasons to think memory should help. Knowing which lineup study failed
 
 \subsection*{What the agent is asked to do}
 
-Each task is a research idea as of the day I proposed it, which I call its task date. I know how it turned out because I later ran it. The model is asked to decide, as of that day, whether the idea is worth running. Every study in my archive carries a date, and for each task the model can search only studies dated before the task date; the task's own study, anything that cites it, and anything too close to its results are removed. The model sees earlier studies only through a search tool, and with no memory the tool returns nothing, so it decides from the idea alone. Its call is graded against what actually happened when I ran the idea, which I call the \emph{answer key} for short. If my earlier studies teach the model anything, it should call these ideas better with the archive than without.
+Each task is a research idea as of the day I proposed it, which I call its task date. I know how it turned out because I later ran it. The model is asked to decide, as of that day, whether the idea is worth running, which here means whether it would turn out testable and not an artifact of a design flaw. Every study in my archive carries a date, and for each task the model can search only studies dated before the task date; the task's own study, anything that cites it, and anything too close to its results are removed. The model sees earlier studies only through a search tool, and with no memory the tool returns nothing, so it decides from the idea alone. Its call is graded against what actually happened when I ran the idea, which I call the \emph{answer key} for short. If my earlier studies teach the model anything, it should call these ideas better with the archive than without.
 
 The test uses ten tasks. Each task is a research idea that I once proposed. The model reads the idea and must say go ahead or stop. The answer key was recorded in the archive by a fixed rule, not by an independent expert panel. If the study turned out to be untestable or an artifact of a design flaw, the right answer is stop, and I call a stop answer a \emph{flag}. If the study was runnable and informative, even when it found nothing, the right answer is go ahead. Section~\ref{sec:outcome} gives the exact rule for what counts as a flag.
 
-Two tasks show how the test works. RT-112 asks whether changing a team's five-man lineup changes what kinds of shots it takes. When I ran it, it did (the team's own-lineup three-point rate moved by $+3.1$ percentage points), so the answer key says go ahead. RT-179 asks whether a team's ability to hold down opponents' second-half improvement is a stable trait. When I ran it, the trait could not be measured (the split-half correlation, which compares the measure computed on two halves of the data, was $r = -0.001$), so the answer key says stop. A model that has read my record of failed studies should be able to tell these apart, and the question is whether it does.
+Two tasks show how the test works. RT-112 asks whether changing a team's five-man lineup changes what kinds of shots it takes. When I ran it, it did (the team's own-lineup three-point rate moved by $+3.1$ percentage points), so the answer key says go ahead. RT-179 asks whether a team's ability to hold down opponents' second-half improvement is a stable trait. When I ran it, the trait could not be measured (the split-half correlation, which compares the measure computed on two halves of the data, was $r = -0.001$), so the answer key says stop. A model can bring its own methodological judgment to these questions, with no archive at all. The question is whether reading my record of past studies makes its calls any better. For RT-112, the model could search 289 earlier studies; for RT-179, 248. Each search shows it about four. Some of those are relevant and many are not. To make the comparison, every model is also run with no archive as the baseline, so each result compares the same model with and without the archive.
 
-The archive is not a lookup table. For most ideas, it holds no study of the same question, only neighbors that share a risk or a topic. The test is whether a model can use the neighbors that matter and ignore the ones that don't.
+What the archive holds differs by task. For a few tasks it holds a close earlier study of the same question. For others it holds only analogues: earlier failures that share a recorded risk, such as an unreliable measure. For three tasks it holds nothing relevant. It is a notebook of neighbors, not a lookup table, and the search tool returns a few records whether or not any of them fit. The test is whether a model can use the neighbors that matter and ignore the ones that don't.
 
-This paper tests whether memory helps on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped? It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer: each run retrieves once from a fixed archive and decides once. What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
+In this paper, a \emph{relevant} study is one that shares the task's research question or one of its recorded risks, found by a fixed rule and not by a model's opinion (one manual addition is declared in Study 1b). It does not mean the study contains the answer, and an analogue can mislead as well as help. Study 1b hands the models these relevant studies directly, so that search cannot be the weak point.
 
-The results are mixed in a way the average hides. On one task, a data-quality audit was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory retrieved through search changed decisions in both directions about equally often and did not improve the average. The section ``When memory helps, and when it hurts'' (Section~\ref{sec:transfer}) gives the details. Section~\ref{sec:study1b} reports a follow-up that handed the relevant families over directly. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
+This paper tests whether memory helps on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should go ahead or stop? It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer: each run retrieves once from a fixed archive and decides once. What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
+
+There are two studies. In Study 1, five AI models were each shown ten research ideas and had to say go ahead or stop. They did this with no archive, with a search over the archive's documents, and with a search over a linked graph of the archive. In Study 1b, I removed search as a possible weak point by handing the models the relevant past studies directly. This paper contains only these two studies and one rerun of Study 1's two search conditions with an embedding retriever, which I added because keyword search is not what most people would use today (Section~\ref{sec:embed}).
+
+The results are mixed in a way the average hides. On one task, a data-quality audit was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should go ahead. Across five models and three experiments, memory retrieved by keyword search changed decisions in both directions about equally often and did not improve the average. The section ``When memory helps, and when it hurts'' (Section~\ref{sec:transfer}) gives the details. Section~\ref{sec:study1b} reports a follow-up that handed the relevant families over directly: it gave higher accuracy for four of the five models, but no difference was detectable with only ten ideas, so I treat that as a lead and not as a result. Section~\ref{sec:embed} reports the rerun with embeddings: it found the relevant studies far more often and still did not improve accuracy. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
 
 \section{Related work}
 \label{sec:related}
@@ -143,13 +132,17 @@ The outcome statuses are rule-based readings of the records, not independent exp
 
 \subsection{The ten tasks}
 
-Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should proceed. Four tasks should be flagged; six should not. The answer key flags a task when its own study family was recorded as untestable or artifact. Rejected, supported, and uncertain families are keyed as proceed, because a test of the question as posed was runnable and informative.
+Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should go ahead or stop. Four tasks should be flagged (stopped); six should go ahead. The answer key flags a task when its own study family was recorded as untestable or artifact. Rejected, supported, and uncertain families are keyed as go ahead, because a test of the question as posed was runnable and informative.
+
+The ten tasks were chosen by a script, not by hand. It drew from 196 eligible study families. It first built a balanced main set of 78 (16 supported, 16 rejected, 16 untestable, 16 artifact, 14 uncertain), then a ten-task set with two per outcome group. Candidates were ranked by the archive's confidence score, with bonuses for a self-contained question and a reliable date. A seeded coin flip (seed 20261110) broke near ties. Further limits kept one task per question cluster and capped repeats of a topic. The ten tasks in this paper are the ten-task set the script produced, and every configuration from Pilot 1 onward used that same list.
+
+A status note dated 2026-11-10 records that a mock run of these ten had finished and the real pilot had not started, because the API keys were rejected. No real model output existed when the tasks were selected. Git cannot verify this order on its own, because the selector and the runs share a baseline commit dated 2026-11-11. Pilots 1 and 2 produced real output on these ten before the 450 primary runs. I read the pilot outputs while developing the protocol. I did not change the task list afterward.
 
 Table~\ref{tab:tasks_plain} describes each task in one plain line. Table~\ref{tab:tasks} then gives the research questions as posed, the expected decision, and the recorded result behind it. The models did not see the recorded result.
 
 \begin{table}[ht]
 \centering
-\caption{The ten tasks in plain language. ``Stop'' is a flag in the answer key; ``go ahead'' is proceed.}
+\caption{The ten tasks in plain language. ``Stop'' is a flag in the answer key.}
 \label{tab:tasks_plain}
 \small
 \begin{tabularx}{\linewidth}{lXl}
@@ -188,17 +181,17 @@ RT-012 & Play-type labeling & Does a teammate drive preceding a pick-and-roll ra
 \addlinespace
 RT-014 & Defensive suppression & Does adhering to a suppression-triggered recommended play-type mix predict game outcomes? & Flag & Artifact. The entire apparent win gain ($+11.5$ pp) was second-half PPP leakage from the same game. Ex-ante effect $-2.7\%$, $p = 0.47$. \\
 \addlinespace
-RT-065 & Player absence & Can pre-absence initiation profiles, role similarity, or minutes identify which teammate will absorb a departing player's offensive role? & Proceed & Rejected. 148 absence spells. Profile match 19\% (chance 14\%); 0 of 6 high-load cases correct. \\
+RT-065 & Player absence & Can pre-absence initiation profiles, role similarity, or minutes identify which teammate will absorb a departing player's offensive role? & Go ahead & Rejected. 148 absence spells. Profile match 19\% (chance 14\%); 0 of 6 high-load cases correct. \\
 \addlinespace
-RT-066 & Player absence & Does the degree of offensive reorganization during an absence predict the change in team scoring efficiency? & Proceed & Rejected. No relationship in 986 player-seasons; primary analysis $\rho = -0.040$, 95\% CI $[-0.21, +0.17]$, $p = 0.62$. \\
+RT-066 & Player absence & Does the degree of offensive reorganization during an absence predict the change in team scoring efficiency? & Go ahead & Rejected. No relationship in 986 player-seasons; primary analysis $\rho = -0.040$, 95\% CI $[-0.21, +0.17]$, $p = 0.62$. \\
 \addlinespace
-RT-101 & Structural roles & Does lineup role coverage vary within teams in a way that is separable from raw talent? & Proceed & Supported. 72 team-seasons; coverage--talent $|\rho| = 0.042$. All three gates passed. \\
+RT-101 & Structural roles & Does lineup role coverage vary within teams in a way that is separable from raw talent? & Go ahead & Supported. 72 team-seasons; coverage--talent $|\rho| = 0.042$. All three gates passed. \\
 \addlinespace
-RT-112 & Lineup effects & Does changing the offensive five-man lineup detectably alter shot-type mix? & Proceed & Supported. Own-lineup three-point rate $+3.1$ pp (SE 1.2); opponent-only changes null. \\
+RT-112 & Lineup effects & Does changing the offensive five-man lineup detectably alter shot-type mix? & Go ahead & Supported. Own-lineup three-point rate $+3.1$ pp (SE 1.2); opponent-only changes null. \\
 \addlinespace
-RT-146 & Defensive suppression & After pick-and-roll efficiency is suppressed, does pull-up shooting provide a reliably positive counter in at least 70\% of cases? & Proceed & Uncertain. Zero branches met the rule (at least 70\% of units, median lift above 2 pp). \\
+RT-146 & Defensive suppression & After pick-and-roll efficiency is suppressed, does pull-up shooting provide a reliably positive counter in at least 70\% of cases? & Go ahead & Uncertain. Zero branches met the rule (at least 70\% of units, median lift above 2 pp). \\
 \addlinespace
-RT-147 & Play-type labeling & Are opponent next-possession effects after each play type large and stable enough to justify the AVOID labels the system generates? & Proceed & Uncertain. Effect about $+0.12$ PPP in 8 of 8 play types; using it in the label score put PNR in AVOID even at 0.93--0.95 own PPP. Recorded mechanism: artifact. \\
+RT-147 & Play-type labeling & Are opponent next-possession effects after each play type large and stable enough to justify the AVOID labels the system generates? & Go ahead & Uncertain. Effect about $+0.12$ PPP in 8 of 8 play types; using it in the label score put PNR in AVOID even at 0.93--0.95 own PPP. Recorded mechanism: artifact. \\
 \addlinespace
 RT-179 & Defensive suppression & Is a team's ability to limit opponent scoring improvement across halves a reliable team characteristic? & Flag & Untestable. Split-half $r = -0.001$; a detectable effect needs $r \approx 0.18$. \\
 \addlinespace
@@ -252,7 +245,7 @@ Pilot 1 stored individual studies and did not force retrieval before the assessm
 
 \subsection{Three conditions}
 
-Condition A calls retrieval and receives nothing. Condition B searches family documents and returns four families. Condition C matches the query to concept nodes and to family text, scores families by the relationships it traverses, and also returns four. The facts inside a family are the same in B and C. What differs is which families are selected, and that C shows the paths. Agents could make follow-up retrieval calls within a tool budget, so some runs saw more than four families. In Experiment 1, the first retrieval in B and C shared 1.4 of four families on average for the same task and seed; this overlap was not logged for Experiments 2 and 3.
+Condition A calls retrieval and receives nothing. Condition B ranks the full text of each family record by TF-IDF keyword matching against a query the model writes, and returns up to four families that share at least one term with the query; it has no embedding model and no test of relevance beyond that score. Condition C matches the query, also by TF-IDF, to concept nodes and to each family's question and hypothesis, scores families by the relationships it traverses, and also returns up to four. Study 1 used no embedding model. Section~\ref{sec:embed} reruns B and C with an embedding retriever that returns ten families, and Appendix~\ref{app:offline} reports the offline check that preceded that choice. The facts inside a family are the same in B and C. What differs is which families are selected, and that C shows the paths. Agents could make follow-up retrieval calls within a tool budget, so some runs saw more than four families. In Experiment 1, the first retrieval in B and C shared 1.4 of four families on average for the same task and seed; this overlap was not logged for Experiments 2 and 3.
 
 \subsection{Memory snapshots and the exclusion of each task's own result}
 
@@ -261,7 +254,9 @@ Each task's runs searched a per-task snapshot of the archive, built before any r
 \subsection{The outcome and the scoring rule}
 \label{sec:outcome}
 
-A run counts as a flag if its decision is do not proceed, or its stated probability that the question is testable is below 0.5, or its predicted probability of an untestable or artifact outcome exceeds 0.5. A ``proceed with changes'' decision with low stated testability therefore counts as a flag.
+A run counts as a flag if its decision is stop (``do not proceed'' in the output format), or its stated probability that the question is testable is below 0.5, or its predicted probability of an untestable or artifact outcome exceeds 0.5. A ``proceed with changes'' output with low stated testability therefore counts as a flag. In the output format the word ``proceed'' means go ahead, and ``do not proceed'' means stop.
+
+The rule that keys a task as stop only when its own study was recorded as untestable or artifact is in the task generator, \texttt{bench/tasks.py}, line 254. It was written before the 2026-11-10 note, as far as the repository shows. The same limit applies: git cannot prove the line was never edited later.
 
 The primary outcome is balanced flag accuracy: the mean of accuracy on the four tasks that should be flagged and accuracy on the six that should not, after averaging seeds within each task. The ten tasks are the unit of analysis. Seeds measure how much a model varies on the same task; they do not add tasks.
 
@@ -278,7 +273,7 @@ Gemini 2.5 Flash, Claude Haiku 5.5, and gpt-oss-20b were run at temperature 0.7.
 
 Letting the models search the archive did about nothing detectable: it helped some models, hurt others, and no difference holds up after correction for multiple comparisons.
 
-Table~\ref{tab:primary} gives the primary result. The sign of the memory effect is not stable across models. DeepSeek moves the most, upward, from a weak baseline. Sonnet, the strongest model without memory, is lower with document retrieval and about unchanged with graph retrieval. The other three models move by less than 0.06 in either direction.
+Table~\ref{tab:primary} gives the primary result. The sign of the memory effect is not stable across models. DeepSeek moves the most, upward, from a weak baseline. Sonnet, the strongest model without memory, is lower with document retrieval and about unchanged with graph retrieval. The other three models move by less than 0.06 in either direction. One measure did move with memory: stated testability ranked the tasks better with memory for four of the five models, and that ranking did not produce better go-ahead-or-stop decisions at the 0.5 threshold. Those values are descriptive and have no intervals (Appendix~\ref{app:scoring}).
 
 \begin{table}[ht]
 \centering
@@ -344,7 +339,7 @@ Flag rate, should not flag & 0.22 & 0.39 & 0.33 \\
 \end{tabular}
 \end{table}
 
-Stated testability discriminated better with memory for four of the five models, but better-ranked testability did not translate into better flag decisions at the 0.5 threshold. The per-model values of this measure, the area under the curve (AUC), which are descriptive and have no intervals, are in Appendix~\ref{app:scoring}.
+The per-model values behind the testability ranking in Section~\ref{sec:results}, the area under the curve (AUC), are in Appendix~\ref{app:scoring}.
 
 Compliance was uneven across models; repair-turn counts are in Appendix~\ref{app:scoring}.
 
@@ -381,14 +376,14 @@ I chose the next two cases, Case 1 and Case 2, because they are the pair where t
 
 \textbf{What the archive contained.} An earlier labeling audit, FAM:SF-CHT-025, was in memory. Its record states that foul-ending possessions inflated the efficiency of the OTHER category (36 percent of those possessions ended in fouls), that drives sat 12 points below the foul benchmark, and that only 335 of 50,668 possessions (0.7 percent) mapped to a real play type through the initiation-type field. It records the outcome as an artifact. It does not mention the calibrated pick-and-roll labels that undid the RT-012 study.
 
-\textbf{What the models did.} Without memory, accuracy on this task was 0.33 averaged across models. With document retrieval it was 0.67, and with graph retrieval 0.60. FAM:SF-CHT-025 was cited in 18 of the 30 memory runs, 14 of which were correct; 5 of the 12 memory runs that did not cite it were correct. The clean pattern, mostly wrong without memory and correct in every memory run, occurred for two models in four of the ten model-condition cells. Haiku was wrong in all three no-memory runs and correct in all six memory runs, citing FAM:SF-CHT-025 in each; in its document-retrieval runs it named the 0.7 percent coverage as a blocking constraint. DeepSeek went from one correct no-memory run in three to six of six. The other three models did not show the pattern. Gemini was correct in one of six memory runs. gpt-oss-20b was correct in three of six. Sonnet, correct in all three no-memory runs, was correct in only one of three document-retrieval runs: it cited FAM:SF-CHT-025 in each, named label error as a risk, and chose to proceed with a label audit written into the design rather than to stop.
+\textbf{What the models did.} Without memory, accuracy on this task was 0.33 averaged across models. With document retrieval it was 0.67, and with graph retrieval 0.60. FAM:SF-CHT-025 was cited in 18 of the 30 memory runs, 14 of which were correct; 5 of the 12 memory runs that did not cite it were correct. The clean pattern, mostly wrong without memory and correct in every memory run, occurred for two models in four of the ten model-condition cells. Haiku was wrong in all three no-memory runs and correct in all six memory runs, citing FAM:SF-CHT-025 in each; in its document-retrieval runs it named the 0.7 percent coverage as a blocking constraint. DeepSeek went from one correct no-memory run in three to six of six. The other three models did not show the pattern. Gemini was correct in one of six memory runs. gpt-oss-20b was correct in three of six. Sonnet, correct in all three no-memory runs, was correct in only one of three document-retrieval runs: it cited FAM:SF-CHT-025 in each, named label error as a risk, and chose to go ahead with a label audit written into the design rather than to stop.
 
 \textbf{What the case shows.} A precise record of a defect in data the new analysis would use was associated with correct stops for some models. It did not guarantee a stop: one model treated the same defect as a design step to fix rather than a reason to stop, and the answer key scores that as wrong. Because the analysis is observational, the higher accuracy of runs that cited the record may also reflect which models retrieved it. The automated relevance rule in Appendix~\ref{app:retrieval} does not count FAM:SF-CHT-025 as relevant to RT-012, because the record carries no risk-code tag; a human reader would plausibly treat it as a direct dependency. The appendix's retrieval rates for this task should be read with that in mind.
 
 \subsection{Case 2: the same record, the opposite verdict (RT-147)}
 \label{sec:rt147}
 
-\textbf{Question.} A proposed analysis asks whether opponent next-possession effects after each play type are large and stable enough to justify the AVOID labels a recommendation system generates. The answer key says proceed: the task's own study was recorded as uncertain, with a real opponent effect of about $+0.12$ PPP across all eight play types and a problem in how the effect was used in the label score.
+\textbf{Question.} A proposed analysis asks whether opponent next-possession effects after each play type are large and stable enough to justify the AVOID labels a recommendation system generates. The answer key says go ahead: the task's own study was recorded as uncertain, with a real opponent effect of about $+0.12$ PPP across all eight play types and a problem in how the effect was used in the label score.
 
 \textbf{What the models did.} Without memory, accuracy was 0.80 averaged across models. With document retrieval it fell to 0.47, and with graph retrieval to 0.60. Three models dropped under document retrieval: Haiku from 1.00 to 0.00, gpt-oss-20b from 1.00 to 0.33, and DeepSeek from 0.33 to 0.00. Haiku also fell to 0.00 under graph retrieval, and gpt-oss-20b to 0.67. Gemini rose from 0.67 to 1.00 under document retrieval, and Sonnet was correct in every run.
 
@@ -398,7 +393,7 @@ The prior study of the same question, SF07, was in memory. Its record reports an
 
 \textbf{What the case shows.} Both RT-012 and RT-147 depend on the derived play-type labels, so FAM:SF-CHT-025 bears on both in the same way. Nothing in the record separates them. The answer key separates them by how each study turned out: in RT-012 a small conditional effect depended on how pick-and-roll was labeled, while in RT-147 the opponent effect was large and consistent across play types. That information was not available to the models. A model applying the labeling lesson consistently would stop both designs, and the key scores one of those stops as wrong.
 
-This is also the task on which the answer key is most open to dispute. The task's own study was recorded as uncertain but with an artifact mechanism: using the opponent effect in the label score pushed pick-and-roll into AVOID even when it was performing well. Haiku's objection, that the label is built from the outcome it explains, is close to the problem the study found. The key scores that objection as wrong because the benchmark keys uncertain studies as proceed. Treating this case as an example of a wrong lesson is therefore the author's reading under the benchmark's keying convention, not an independently validated classification.
+This is also the task on which the answer key is most open to dispute. The task's own study was recorded as uncertain but with an artifact mechanism: using the opponent effect in the label score pushed pick-and-roll into AVOID even when it was performing well. Haiku's objection, that the label is built from the outcome it explains, is close to the problem the study found. The key scores that objection as wrong because the benchmark keys uncertain studies as go ahead. Treating this case as an example of a wrong lesson is therefore the author's reading under the benchmark's keying convention, not an independently validated classification.
 
 \subsection{Case 3: an analogous failure, used by most models and ignored by one (RT-179)}
 
@@ -412,7 +407,7 @@ This is also the task on which the answer key is most open to dispute. The task'
 
 \subsection{Tasks with no relevant prior}
 
-RT-065 asks whether pre-absence profiles identify which teammate absorbs a departing player's role. The answer key says proceed (an adequately powered test rejected the hypothesis), but accuracy was 0.07 without memory, 0.07 with documents, and 0.13 with the graph. The archive holds no relevant family for this question in either tier. Because the error appears without memory, retrieval did not cause it, and memory did not correct it.
+RT-065 asks whether pre-absence profiles identify which teammate absorbs a departing player's role. The answer key says go ahead (an adequately powered test rejected the hypothesis), but accuracy was 0.07 without memory, 0.07 with documents, and 0.13 with the graph. The archive holds no relevant family for this question in either tier. Because the error appears without memory, retrieval did not cause it, and memory did not correct it.
 
 \section{Extended thinking}
 \label{sec:reasoning}
@@ -434,7 +429,7 @@ Study 1 could not tell ``search failed to find the right studies'' from ``the mo
 
 \subsection{Design}
 
-Two conditions were added to the Study 1 conditions A, B, and C, which were not rerun. In condition O (oracle), each run received a frozen list of gold relevant families for its task through the same retrieval tool, protocol, prompts, and settings as Study 1; the model could also read any of those families in full. Each list held up to four families: the first two question-tier and the first two lesson-tier families under the corrected audit of Appendix~\ref{app:retrieval}, by a rule committed before the list was computed. One declared manual addition was made: FAM:SF-CHT-025 was added to the lists for RT-012 (where it replaced FAM:SF02) and RT-147, because the automated rule cannot select it (Appendix~\ref{app:retrieval}). The lists were not changed after any run. Seven tasks have gold families (two to four each). The three tasks with none (RT-065, RT-101, RT-146) serve as a noise reference, because O and A are the same condition there apart from the extra read tool. Documents in O use the condition B format, so O$-$C mixes the effect of which families are retrieved with the effect of format.
+Two conditions were added to the Study 1 conditions A, B, and C, which were not rerun. In condition O (oracle), each run received a frozen list of gold relevant prior studies (defined in the Introduction) for its task through the same retrieval tool, protocol, prompts, and settings as Study 1; the model could also read any of those families in full. Each list held up to four families: the first two question-tier and the first two lesson-tier families under the corrected audit of Appendix~\ref{app:retrieval}, by a rule committed before the list was computed. One declared manual addition was made: FAM:SF-CHT-025 was added to the lists for RT-012 (where it replaced FAM:SF02) and RT-147, because the automated rule cannot select it (Appendix~\ref{app:retrieval}). The lists were not changed after any run. Seven tasks have gold families (two to four each). The three tasks with none (RT-065, RT-101, RT-146) serve as a noise reference, because O and A are the same condition there apart from the extra read tool. Documents in O use the condition B format, so O$-$C mixes the effect of which families are retrieved with the effect of format.
 
 In condition OS, each gold family also carried a short scope annotation stating which data, estimands, and effect sizes its recorded defect does and does not threaten. There are 23 annotations, written only from each family's own record, with identical text wherever a family appears. They were checked mechanically for shared phrases with the answer key and with the task-own records. The annotator knew the answer key and the Study 1 results, and the ``applies to'' sentences are the annotator's inference from the records, so OS is exploratory. OS also carries 729 to 1,784 more characters in the first retrieval than O, so OS$-$O measures annotation plus extra length. OS was run for four models; Sonnet 5.5 was run on O only to limit cost. Each condition used three seeds per task and model (270 runs). Total cost was \$4.19.
 
@@ -477,12 +472,84 @@ Scope annotations did not change decisions by any preregistered criterion. OS$-$
 
 Fifteen of 270 runs were invalid and two had no scorable flag; the conclusions are unchanged under the strict and valid-only rules. On the three no-gold tasks, O and A differ by up to 0.67 in a single cell (for example DeepSeek on RT-146), a reminder of how noisy cells of three runs are. The predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run. The preregistered spend stop was raised from \$8 to \$25 during the run; total spend was \$4.19, so it did not bind, and the change is recorded in the preregistration. All analyses were computed from saved runs by a script that uses the same methods as Study 1, and the Study 1 columns reproduce the published table.
 
+\section{Rerun with embedding retrieval}
+\label{sec:embed}
+
+\subsection{Why, and what changed}
+
+Study 1 searched by keyword matching (TF-IDF) and returned at most four families. Keyword search is no longer the usual choice for retrieval, the design never compared it with embeddings, and I have no recorded reason for choosing it. After Study 1, an offline check (Appendix~\ref{app:offline}) found that an embedding retriever put the closest earlier study in the top four more often than keyword search did (9 of 45 queries against 1 of 45), still missed it most of the time, and gained more from a larger cutoff than from the change of method. I then reran conditions B and C on the same ten tasks, five models, and three seeds (300 runs, \$8.42), with three settings changed together. Families are ranked by cosine similarity of bge-small-en-v1.5 embeddings, with no relevance threshold. Each search returns ten families instead of four. The tool-result limit rose from 6,000 to 14,000 characters so that ten family views fit. In C the same embeddings replace TF-IDF when the query is matched to concept nodes and to each family's question and hypothesis; the traversal is unchanged. Condition A does not search, so it was not rerun, and the original A runs are the comparison. Prompts, models, tasks, snapshots, and scoring are as in Study 1. The retriever, the design, and the analysis were preregistered and approved on 2026-11-15, after Study 1 and Study 1b and before any of these runs. I chose the retriever and cutoff from retrieval recall on the saved snapshots, not from any model's decisions.
+
+\subsection{Results}
+
+Retrieval improved a great deal on the closest study and moderately on relevant studies overall (Table~\ref{tab:embed_retr}). The closest prior study was returned in 18 of 45 runs under embedding document search and 22 of 45 under embedding graph search, against 2 of 45 under keyword search. A relevant prior study was returned in 59 and 69 of 105 runs, against 50 and 38, a gain of 9 and 31 runs.
+
+\begin{table}[ht]
+\centering
+\caption{Retrieval audit, keyword search against the embedding rerun. Closest prior study: question-tier family returned (45 runs on the three tasks that have one). Relevant prior study returned, and returned and cited: 105 runs on the seven tasks with a relevant family. Definitions as in Appendix~\ref{app:retrieval}.}
+\label{tab:embed_retr}
+\small
+\begin{tabular}{lrrr}
+\toprule
+ & Closest study returned & Relevant study returned & Returned and cited \\
+\midrule
+B, keyword (up to 4) & 2/45 & 50/105 & 47/105 \\
+B, embedding (10) & 18/45 & 59/105 & 55/105 \\
+C, keyword (up to 4) & 2/45 & 38/105 & 35/105 \\
+C, embedding (10) & 22/45 & 69/105 & 61/105 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Accuracy did not improve (Tables~\ref{tab:embed_acc} and~\ref{tab:embed_diff}). Under the primary scoring rule the ten embedding-minus-no-memory differences range from $-0.125$ to $+0.125$, the smallest unadjusted sign-flip $p$ is 0.25 (Sonnet, document search), and every Holm-adjusted $p$ is 1.00. Pooled over models the differences are $-0.053$ (95\% interval $-0.256$ to $0.181$) for document search and $-0.033$ ($-0.228$ to $0.181$) for graph search. Embedding accuracy was also lower than keyword accuracy for the same condition in all ten model-condition comparisons (by 0.014 to 0.125; one possible reason is that ten results per search put more distracting studies in front of the model, which this experiment did not test), and pooled the difference is $-0.067$ ($-0.158$ to $0.008$) for document search and $-0.061$ ($-0.197$ to $0.075$) for graph search, neither detectable after correction. Under the strict scoring rule, pooled embedding document search was 0.089 below keyword document search (interval $-0.153$ to $-0.033$, unadjusted $p = 0.016$, Holm-adjusted $0.062$), which does not meet the 0.05 threshold. Sixteen of 150 embedding document-search runs and 6 of 150 embedding graph-search runs were invalid, 8 of the 16 for Haiku, and one graph-search run had no scorable flag.
+
+\begin{table}[ht]
+\centering
+\caption{Balanced accuracy under the primary scoring rule. A, B, and C are the original Study 1 runs (keyword search); B-emb and C-emb are the embedding rerun.}
+\label{tab:embed_acc}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Model & A & B & B-emb & C & C-emb \\
+\midrule
+Gemini & 0.639 & 0.681 & 0.653 & 0.583 & 0.569 \\
+Haiku & 0.625 & 0.583 & 0.500 & 0.639 & 0.542 \\
+gpt-oss & 0.542 & 0.528 & 0.444 & 0.528 & 0.431 \\
+Sonnet & 0.736 & 0.653 & 0.639 & 0.722 & 0.708 \\
+DeepSeek & 0.514 & 0.681 & 0.556 & 0.722 & 0.639 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Embedding minus no memory (A), with 95\% bootstrap intervals over tasks and Holm-adjusted sign-flip $p$ across the ten contrasts.}
+\label{tab:embed_diff}
+\small
+\begin{tabular}{lll}
+\toprule
+Model & B-emb $-$ A [95\% interval], $p_{\mathrm{Holm}}$ & C-emb $-$ A [95\% interval], $p_{\mathrm{Holm}}$ \\
+\midrule
+Gemini & $+$0.014 [$-$0.361, 0.458], 1.00 & $-$0.069 [$-$0.375, 0.292], 1.00 \\
+Haiku & $-$0.125 [$-$0.445, 0.264], 1.00 & $-$0.083 [$-$0.375, 0.278], 1.00 \\
+gpt-oss & $-$0.097 [$-$0.361, 0.264], 1.00 & $-$0.111 [$-$0.347, 0.111], 1.00 \\
+Sonnet & $-$0.097 [$-$0.194, 0.000], 1.00 & $-$0.028 [$-$0.167, 0.083], 1.00 \\
+DeepSeek & $+$0.042 [$-$0.194, 0.361], 1.00 & $+$0.125 [$-$0.139, 0.458], 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This does not support the idea that keyword search was what held memory back. In this design, finding the relevant studies far more often did not make the decisions better, which counts against weak retrieval alone as the explanation for the flat result. It does not rule retrieval out, and it does not isolate the cause: ten results instead of four also means more distractors per search, so the flat result could reflect distraction as much as the applicability problem, and this design cannot tell them apart. The rerun also used one embedding model and one cutoff, and a better retriever, a reranker, or an agent that reformulates its queries might still do better. It is also consistent with the applicability problem described in Section~\ref{sec:discussion}, but this experiment did not test that.
+
+\subsection{Limits}
+
+Three settings changed together (the method, the number of results, and the result limit), so a difference from Study 1 could not be attributed to any one of them. The retriever was chosen after the Study 1 results were known, using relevance labels from the automated audit rather than human judgment, and the graph search with embeddings was not evaluated offline before the rerun. The embedding runs were made on 2026-11-15 and 16 and the original runs on 2026-11-10 and 11, so provider changes to the models are possible. The task set is the same ten tasks, with the same limits on what ten tasks can detect.
+
 \section{Discussion}
 \label{sec:discussion}
 
 \subsection{What the results show and what they do not}
 
-Memory retrieved through search did not reliably improve the decision on these ten tasks for any of the five models. The largest gain, DeepSeek's under graph retrieval, is a candidate effect that does not survive correction for multiple comparisons (Section~\ref{sec:results}). Memory changed correctness in about a third of paired runs, in both directions about equally. The models reproduced the records accurately. These are the measured findings.
+Memory retrieved by keyword search did not reliably improve the decision on these ten tasks for any of the five models. The largest gain, DeepSeek's under graph retrieval, is a candidate effect that does not survive correction for multiple comparisons (Section~\ref{sec:results}). Memory changed correctness in about a third of paired runs, in both directions about equally. The models reproduced the records accurately. These are the measured findings. The embedding rerun (Section~\ref{sec:embed}) gives the same answer with a different retriever.
 
 Three patterns plausibly contribute to the flat average, though none was tested as a cause. First, retrieval often did not return the most relevant prior work. Second, a record that applied cleanly to one task was applied to another where, by the answer key, it did not decide the question (Cases 1 and 2). Third, retrieved failures shifted models toward caution generally, helping on tasks that should be flagged and hurting on tasks that should not (Table~\ref{tab:caution}).
 
@@ -490,7 +557,7 @@ Three patterns plausibly contribute to the flat average, though none was tested 
 
 The data describe two points where the process can fail. They do not establish which one limits accuracy.
 
-The first is retrieval. On the seven tasks with at least one relevant family in memory, a relevant family was returned in 50 of 105 document-retrieval runs and 38 of 105 graph-retrieval runs. Question-tier families, the closest prior work, were returned in 2 of 45 runs in each condition on the three tasks that have one. When a relevant family was returned, it was also cited in 47 of 50 such document-retrieval runs (94 percent) and 35 of 38 graph-retrieval runs (92 percent). That rate says little about use. The ``used'' measure requires only that a returned family be cited and that the explanation of the evidence be at least 30 characters long, and the output schema asks every run to cite the records it relied on. The measure shows that returned families were rarely ignored outright, not that they shaped the decision.
+The first is retrieval. On the seven tasks with at least one relevant family in memory, a relevant family was returned in 50 of 105 document-retrieval runs and 38 of 105 graph-retrieval runs. Question-tier families, the closest prior work, were returned in 2 of 45 runs in each condition on the three tasks that have one. When a relevant family was returned, it was also cited in 47 of 50 such document-retrieval runs (94 percent) and 35 of 38 graph-retrieval runs (92 percent). That rate says little about use. The ``used'' measure requires only that a returned family be cited and that the explanation of the evidence be at least 30 characters long, and the output schema asks every run to cite the records it relied on. The measure shows that returned families were rarely ignored outright, not that they shaped the decision. In the embedding rerun (Section~\ref{sec:embed}) retrieval was much better on the closest study and moderately better overall, and accuracy still did not improve, which counts against weak retrieval alone as the explanation without ruling it out; ten results per search may also have added distraction.
 
 The second is applicability. Returning and citing a relevant family was not consistently linked to accuracy. Among memory runs on tasks with a relevant family, runs that returned one were more accurate under document retrieval (0.82 against 0.60) and less accurate under graph retrieval (0.66 against 0.76). These comparisons are confounded by model and task, because some models retrieve differently and some tasks are harder, and they are not causal estimates. Cases 1 and 2 show the same record leading to opposite verdicts.
 
@@ -502,7 +569,7 @@ The cases raise a design question the experiments do not test: what information 
 
 \subsection{Model choice}
 
-Sonnet with an empty retrieval (0.736) scored higher than gpt-oss-20b with the graph (0.528). With the gold families handed over, Gemini 2.5 Flash reached 0.861, above Sonnet without memory (0.736). On these ten tasks, then, model choice moved accuracy about as much as attaching this archive with retrieval removed as a variable (a gain of $+0.222$ for Gemini, against a gap of 0.208 between Sonnet without memory and gpt-oss with the graph), and more than attaching it through search did. Whether that holds on a larger task set, or with a retrieval method that approaches the oracle, is not something these experiments can show.
+Sonnet with no memory scored 0.736, against 0.528 for gpt-oss-20b with graph search. Gemini with the gold families handed over scored 0.861, which is above Sonnet with no memory. That 0.861 mixes the model and the archive: it is Gemini plus the handed-over studies, not the archive on its own. On these ten tasks, the gap between models is about as large as Gemini's gain from the handed-over studies ($+0.222$) and larger than any gain from keyword search. Sonnet and DeepSeek also differ from the other three models in provider, temperature, and extended thinking all at once. They run at temperature 1.0 because extended thinking requires it, and the others run at 0.7, so a comparison across models cannot separate those factors. Each model's own temperature is fixed across conditions, so the within-model comparisons do not have this confound. Whether any of this holds on a larger task set is not something these experiments can show.
 
 \section{Design implications}
 \label{sec:practical}
@@ -513,16 +580,26 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{Treat retrieved lessons as advisory.} In these runs, the same agent retrieved a prior study and judged whether it applied, and its judgment was right and wrong about equally often. A separate review step, by an analyst or an independent check, corresponds to the revise step in case-based reasoning. Whether such a step would improve decisions is untested.
 
-\textbf{Allow ``no relevant evidence.''} Three of the ten tasks have no relevant prior family. An agent required to retrieve something will receive topical neighbors, and Shi et al.\ (2023) suggest such context can shift decisions. A system that can report that nothing relevant was found avoids that input.
+\textbf{Allow ``no relevant evidence.''} Three of the ten tasks have no relevant prior family. The tool returns its top results for any non-empty query, so ``no relevant evidence'' was never available to the models, and an agent required to retrieve something receives topical neighbors. Shi et al.\ (2023) suggest such context can shift decisions. A system that can report that nothing relevant was found avoids that input.
 
 \textbf{Measure retrieval separately from use.} The automated relevance rule here missed a record that drove decisions (Case 1), and a parsing error in the audit code initially dropped every family tagged with a single risk code (Appendix~\ref{app:retrieval}). Any system evaluated this way should validate its relevance coding against human judgment before relying on retrieval-rate metrics.
 
 \section{Limitations}
 \label{sec:limits}
 
-\textbf{Ten tasks.} Three seeds reduce noise on each task but do not add tasks. With intervals about 0.6 wide, a small average gain is not something this design can detect. The claim is that memory retrieved through search did not reliably help on these ten decisions, not that its effect is zero.
+\textbf{No human baseline.} Nobody who did not already know the outcomes judged these ten ideas, with or without the archive, so the paper cannot say whether the models sit above or below a reasonable analyst. Adding one such person would be a post-hoc comparison, and a useful one.
 
-\textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as proceed is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
+\textbf{Ten tasks.} Three seeds reduce noise on each task but do not add tasks. With intervals about 0.6 wide, a small average gain is not something this design can detect. The claim is that memory retrieved by keyword search did not reliably help on these ten decisions, not that its effect is zero.
+
+\textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as go ahead is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
+
+\textbf{What ``a good call'' means.} The answer key records whether a study later turned out untestable or an artifact, which a model cannot know on the task date, and it rewards hindsight more than judgment. A sensible analyst could say stop on a study that later returned an adequately powered null, and the key would score that as wrong. RT-065, where nearly every run in every condition disagreed with the key, shows the cost. The benchmark measures agreement with how the archive's rules classified each study, not how good a research decision was.
+
+\textbf{Possible label echo.} The key comes from the archive's automatic status labels, and the retrieved records carry labels of the same kind. A gain could therefore reflect a model copying a recorded status instead of reasoning from it. The task's own family and its close duplicates are removed, but earlier families on the same question stay in memory, so the benchmark cannot rule this out. It is one reason the RT-012 and RT-147 pair matters: the same record led to opposite verdicts, which a simple echo would not produce.
+
+\textbf{The flag rule and a threshold.} A flag is an OR over three conditions, so any shift toward caution moves accuracy mechanically, and Table~\ref{tab:caution} shows such a shift. Stated testability ranked tasks better with memory for four of five models (Appendix~\ref{app:scoring}), but that measure is descriptive and has no intervals. A threshold-free primary metric would be cleaner and might tell a different story; I did not use one because the scoring rule was fixed before the runs.
+
+\textbf{Headroom.} Only three of the ten tasks have a close earlier study, and two models (gpt-oss and DeepSeek) score about 0.5 without memory, which is chance for a balanced two-way call. The test may have little room to show a gain, and a larger set with more tasks that have close precedents is the natural next step.
 
 \textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Appendix~\ref{app:scoring} (Table~\ref{tab:sensitivity}).
 
@@ -530,7 +607,9 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{How retrieval and use were coded.} Mentioned, returned, and used (Appendix~\ref{app:retrieval}) were coded by deterministic rules over the saved run files, not by human raters or a language-model judge, so no inter-rater agreement applies. The rules were not validated against hand coding. The original audit code also dropped the risk code of any family tagged with a single code, which removed families such as FAM:SF-APPS-085 from the lesson tier; the figures in this paper are recomputed with that parsing corrected and nothing else changed (Appendix~\ref{app:retrieval}). At least one known misclassification remains: FAM:SF-CHT-025 is not counted for RT-012 because it has no risk-code tag. The retrieval rates should be read as estimates under these definitions.
 
-\textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files. The Study 1b analyses in Section~\ref{sec:study1b} were also computed from saved runs after the runs finished. The Study 1b gold families, annotations, and predictions were frozen before those runs; the predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run.
+\textbf{Retrieval method.} Study 1 used TF-IDF keyword search with at most four results. No embedding retriever was compared at design time, and I have no recorded reason for that choice. An offline check (Appendix~\ref{app:offline}) reranked the same pools with the saved queries and did not call a model. Keyword search put the closest earlier study in the top four on 1 of 45 document-search queries; a local embedding model (bge-small-en-v1.5) did so on 9 of 45, and two other local models on 4 and 1 of 45. Raising the cutoff from four to 20 raised the keyword figure to 16 of 45 and the best embedding figure to 29 of 45. The same embedding model returned a lesson-tier analogue less often than keyword search (25 of 60 against 34 of 60 at four). Section~\ref{sec:embed} then reran both search conditions with embeddings and ten results. That rerun found relevant studies far more often and did not change the conclusion. It tested one embedding model and one cutoff with three settings changed together; the retriever was chosen after the Study 1 results were known, from retrieval recall and not from model decisions, with relevance labels from the automated audit; and the graph search with embeddings was not evaluated offline first. A different embedding model, a hybrid, a reranker, or query reformulation might retrieve better and might change the result. Study 1b, where the relevant studies were handed over and no search was involved, does not depend on the retriever.
+
+\textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files. The offline retrieval check in Appendix~\ref{app:offline} was also run after the results were known, and the embedding rerun (Section~\ref{sec:embed}) was designed after Study 1 and Study 1b and preregistered before its runs. The Study 1b analyses in Section~\ref{sec:study1b} were also computed from saved runs after the runs finished. The Study 1b gold families, annotations, and predictions were frozen before those runs; the predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run.
 
 \textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. This is a real design limitation and not only a joke at my own expense: a corpus drawn from a graveyard may push models toward caution, and the result may not transfer to fields whose records are cleaner. All ten tasks are basketball research designs from one research program. Nothing here shows the same pattern in another sport or in a live scouting workflow.
 
@@ -563,9 +642,22 @@ For the follow-up study, the definitions of mentioned, returned, and used should
 \section{Conclusion}
 \label{sec:conclusion}
 
-Across five models and 450 primary runs on a fixed basketball benchmark, research memory did not reliably improve the decision about whether a proposed study should proceed. It changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often. The models reproduced retrieved records accurately.
+Across five models and 450 primary runs on a fixed basketball benchmark, research memory did not reliably improve the decision about whether a proposed study should go ahead. It changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often. The models reproduced retrieved records accurately. A rerun of both search conditions with an embedding retriever (300 further runs) gave the same answer: the relevant studies were returned far more often, and accuracy was still not detectably different from no memory (Section~\ref{sec:embed}).
 
-The results describe two points where the process can fail. The closest prior work was returned in 2 of 45 runs under each retrieval method. When a relevant record was returned it was nearly always cited, although the measure of use is weak, and citing it did not consistently produce the right decision. In the clearest example, one labeling audit was cited in runs that correctly stopped one design and in runs that wrongly stopped another, and nothing in the record separated the two cases. In Study 1b, handing over the relevant families gave higher accuracy for four of five models, but no difference was detectable on ten tasks, and scope annotations had no detectable effect (Section~\ref{sec:study1b}). A larger task set is the next step.
+The results describe two points where the process can fail. The closest prior work was returned in 2 of 45 runs under each keyword retrieval method (18 and 22 of 45 with embeddings). When a relevant record was returned it was nearly always cited, although the measure of use is weak, and citing it did not consistently produce the right decision. In the clearest example, one labeling audit was cited in runs that correctly stopped one design and in runs that wrongly stopped another, and nothing in the record separated the two cases. In Study 1b, handing over the relevant families gave higher accuracy for four of five models, but no difference was detectable on ten tasks, and scope annotations had no detectable effect (Section~\ref{sec:study1b}). A larger task set is the next step.
+
+\section*{Availability}
+\label{sec:availability}
+
+The following are available at \url{https://github.com/ramizheman/research-harness-benchmark}:
+
+\begin{itemize}
+\item the task-selection script, with seed 20261110 (\texttt{bench/tasks.py}, run by \texttt{scripts/12\_generate\_replay\_tasks.py});
+\item the three preregistrations: Study 1b (\texttt{study1b/prereg\_1b.md}), the embedding rerun (\texttt{study1\_embed/prereg.md}), and Study 2 (\texttt{study2/prereg\_v2.md}; the earlier keyword-search version is \texttt{study2/prereg.md}). Study 1 has no separate preregistration file. Study 2 is not reported in this paper, and its runs are not in the repository because that study is still in progress;
+\item the 319-family archive (\texttt{memory\_v2/full/documents/families/}) and the per-task memory snapshots with their fact hashes (\texttt{memory\_v3/snapshots/}, one manifest per task);
+\item the saved run files for the pilots, Study 1, Study 1b, and the embedding rerun (\texttt{runs/}), and the analysis scripts that reproduce every table (\texttt{study2/analysis.py}, \texttt{analysis\_fixes/recompute\_retrieval\_audit.py});
+\item the scoring specification and the audit code, including the risk-code parsing correction (\texttt{bench/scoring.py}, \texttt{bench/retrieval\_audit.py}).
+\end{itemize}
 
 \begin{thebibliography}{99}
 
@@ -790,9 +882,6 @@ Records and Families are the permitted pool each task's runs could search. Exclu
 \end{minipage}
 \end{table}
 
-\vspace{1.5em}
-\noindent\textit{Disclosure.} Drafting assistance from a large language model. The tasks, the answer key, the scoring, and the run outputs were fixed before this paper was written, and no experimental runs were added in order to write it. The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in Section~\ref{sec:transfer} were computed after the results were known, from the saved run files.
-
 
 \section{Scoring details, sensitivity, and invalid outputs}
 \label{app:scoring}
@@ -870,5 +959,38 @@ The Gemini series is one check on whether the protocol was the problem. Across P
 \subsection*{Testability discrimination (AUC)}
 
 Stated testability discriminated better with memory for four of the five models. The AUC for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
+
+
+\section{Offline check with embedding retrievers}
+\label{app:offline}
+
+This check was run after the results were known. It reranks the same snapshot each run searched, using the exact first query the model wrote, and it calls no model. All three embedding models run locally: all-MiniLM-L6-v2, bge-small-en-v1.5, and e5-small-v2. The hybrid fuses the TF-IDF and bge-small rankings by reciprocal rank. Section~\ref{sec:embed} reruns the search conditions with the embedding model this check favored. Relevance follows the audit of Appendix~\ref{app:retrieval}. The TF-IDF replay reproduced the four families shown to the model on all 150 document-search queries and on 149 graph-search queries; one graph-search run made no search and is excluded.
+
+\begin{table}[ht]
+\centering
+\caption{Offline retrieval check on the models' document-search queries (150). Question tier: the closest earlier study is in the top $k$ (3 tasks, 45 queries). Lesson tier: at least one lesson-tier family is in the top $k$ (4 tasks that have lesson-tier families and no question-tier family, 60 queries).}
+\label{tab:offline}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{Question tier} & \multicolumn{2}{c}{Lesson tier} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Retriever & top 4 & top 20 & top 4 & top 20 \\
+\midrule
+TF-IDF (as used) & 1/45 & 16/45 & 34/60 & 57/60 \\
+BM25 & 4/45 & 19/45 & 34/60 & 58/60 \\
+MiniLM & 4/45 & 26/45 & 16/60 & 32/60 \\
+bge-small & 9/45 & 29/45 & 25/60 & 32/60 \\
+e5-small & 1/45 & 20/45 & 18/60 & 45/60 \\
+Hybrid (TF-IDF + bge-small) & 3/45 & 27/45 & 18/60 & 49/60 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+No method returned fewer than four families on the three tasks that have no relevant family, so none abstained. The check is consistent with the closest-study misses being partly the retriever and partly the cutoff of four. It does not test whether any retriever would have changed the model's decision; Section~\ref{sec:embed} does for one of them.
+
+
+\vspace{1.5em}
+\noindent\textit{Disclosure.} Drafting assistance from a large language model. The tasks, the answer key, the scoring, and the Study 1 and Study 1b run outputs were fixed before this paper was first written. The embedding rerun (Section~\ref{sec:embed}) was added afterward, in response to the question of whether keyword search had limited the result; it was preregistered and approved before its runs. The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in Section~\ref{sec:transfer}, and the offline check in Appendix~\ref{app:offline}, were computed after the results were known, from the saved run files.
 
 \end{document}
