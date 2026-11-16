@@ -174,7 +174,6 @@ if protocol >= 3 and study2:
     check("stage-2 schema contains the scored fields and the evidence fields",
           all(k in agent.stage2_text() for k in list(agent.scoring.OUTPUT_SCHEMA) + list(agent.EVIDENCE_SCHEMA)))
     n_empty_gold = 0
-    q = {"query": "sample", "research_concepts": ["sample size and statistical power"], "methodological_questions": ["is the outcome measure reliable"]}
     for t in cfg["tasks"]:
         try:
             task = experiment.load_task(t)
@@ -182,21 +181,27 @@ if protocol >= 3 and study2:
             check(f"{t} v3 family memory: documents = graph, every family has every field, exclusions absent",
                   man["equivalent"] and man["every_family_has_all_fields"] and not (set(man["records"]) & set(task.get("excluded_records", []))),
                   f"{man['n_families']} families, {man['n_facts']} facts")
+            q = {"query": task["statement"].split("\n")[1][:300], "research_concepts": ["sample size and statistical power"],
+                 "methodological_questions": ["is the outcome measure reliable enough to detect the effect"]}
             ra = json.loads(tools_v3.Toolbox3("A", None, budget).call("retrieve_history", q))
             tb_b = tools_v3.Toolbox3("B", d, budget)
             sb = tb_b.call("retrieve_history", q)
             rb = json.loads(sb)["results"]
-            want_b = min(tools_v3.RETRIEVE_K, len(tb_b.families))
+            qq = " ".join([q["query"], *q["research_concepts"], *q["methodological_questions"]])
+            positive = int(((tb_b.vec.transform([qq]) @ tb_b.X.T).toarray().ravel() > 0).sum())
+            want_b = min(tools_v3.RETRIEVE_K, positive)
             gold = oracle["gold"][t]
             so = toolbox3("O", task).call("retrieve_history", q)
             ro = json.loads(so)["results"]
-            check(f"{t} retrieval: A empty; B returns {want_b} families uncut; O returns the {len(gold)} frozen gold families in order, uncut, with no annotation",
-                  ra == {"results": [], "n_results": 0} and len(tb_b.families) > 0 and len(rb) == want_b
-                  and "truncated" not in sb and len(sb) <= budget
+            same_card = all(x["document"] == tb_b._render(x["id"], None, {"paths": {}})["document"] for x in ro)
+            cut = " ...[truncated]"
+            check(f"{t} retrieval: A empty; B returns the {want_b} positively matched families uncut; "
+                  f"O returns the {len(gold)} frozen gold families in order, uncut, in B's format, with no annotation",
+                  ra == {"results": [], "n_results": 0} and len(tb_b.families) > 0 and want_b > 0 and len(rb) == want_b
+                  and cut not in sb and len(sb) <= budget
                   and [x["id"] for x in ro] == ["FAM:" + f for f in gold]
-                  and "truncated" not in so and len(so) <= budget
-                  and not any("scope_annotation" in x for x in ro)
-                  and all(x["document"] == tb_b.doc_text[x["id"]] for x in ro),
+                  and cut not in so and len(so) <= budget
+                  and not any("scope_annotation" in x for x in ro) and same_card,
                   f"B {len(sb)} chars, O {len(so)} chars, {len(tb_b.families)} families in memory")
             if not gold:
                 n_empty_gold += 1
