@@ -56,6 +56,43 @@ def _tfidf():
     return TfidfVectorizer(sublinear_tf=True, token_pattern=r"(?u)\b\w[\w\-]+\b")
 
 
+_ST_MODELS = {}
+EMBED_CACHE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "embed_cache")
+QUERY_PREFIX = {"BAAI/bge-small-en-v1.5": "Represent this sentence for searching relevant passages: "}
+
+
+def _st_model(name):
+    if name not in _ST_MODELS:
+        import torch
+        from sentence_transformers import SentenceTransformer
+        torch.manual_seed(0)
+        _ST_MODELS[name] = SentenceTransformer(name, device="cpu")
+    return _ST_MODELS[name]
+
+
+def embed_texts(name, texts, query=False):
+    """Unit-length sentence embeddings. Document embeddings are cached on disk, keyed by model and text, so every run
+    ranks against the same vectors. Queries are never cached."""
+    import hashlib
+    import numpy as np
+    prefix = QUERY_PREFIX.get(name, "") if query else ""
+    if query:
+        return _st_model(name).encode([prefix + t for t in texts], normalize_embeddings=True)
+    key = hashlib.sha256((name + "\x00" + "\x00".join(texts)).encode("utf-8")).hexdigest()
+    path = os.path.join(EMBED_CACHE, key + ".npy")
+    if os.path.exists(path):
+        try:
+            return np.load(path)
+        except Exception:  # noqa: BLE001 - a half-written file from a parallel process: recompute
+            pass
+    arr = _st_model(name).encode(texts, normalize_embeddings=True, batch_size=32)
+    os.makedirs(EMBED_CACHE, exist_ok=True)
+    tmp = f"{path}.{os.getpid()}.tmp.npy"
+    np.save(tmp, arr)
+    os.replace(tmp, path)
+    return arr
+
+
 def family_view(facts, budget=VIEW_CHARS):
     """The facts of one family shown by retrieval: fields in a fixed priority order, long values cut to VALUE_CHARS,
     added until the budget is used. Identical in B and C because it depends only on the facts."""
@@ -72,8 +109,13 @@ def family_view(facts, budget=VIEW_CHARS):
 
 
 class Toolbox3:
-    def __init__(self, condition, snapshot_dir=None, max_chars=6000, gold=None, annotations=None):
+    def __init__(self, condition, snapshot_dir=None, max_chars=6000, gold=None, annotations=None, retrieval=None):
+        """retrieval=None keeps the original TF-IDF search with RETRIEVE_K results. A dict
+        {"model": <sentence-transformers name>, "k": <results per call>} switches the search in conditions B and C to
+        embedding similarity (cosine, no relevance threshold) with k results per call."""
         self.condition, self.max_chars, self.protocol = condition, max_chars, 3
+        self.embed_model = retrieval["model"] if retrieval and condition in ("B", "C") else None
+        self.k = retrieval["k"] if retrieval and condition in ("B", "C") else RETRIEVE_K
         self.allowed = CONDITION_TOOLS[condition]
         self.last_ids, self.last_trace, self.returned = [], {}, []
         self.facts, self.titles = {}, {}
@@ -105,8 +147,11 @@ class Toolbox3:
         elif condition == "B":
             self.doc_text = {f: open(os.path.join(snapshot_dir, "documents", "families", f[4:] + ".md"), encoding="utf-8").read()
                              for f in self.families}
-            self.vec = _tfidf()
-            self.X = self.vec.fit_transform([self.doc_text[f] for f in self.families])
+            if self.embed_model:
+                self.E = embed_texts(self.embed_model, [self.doc_text[f] for f in self.families])
+            else:
+                self.vec = _tfidf()
+                self.X = self.vec.fit_transform([self.doc_text[f] for f in self.families])
         else:
             self._build_graph_index()
 
@@ -118,17 +163,28 @@ class Toolbox3:
             self.adj.setdefault(e["dst"], []).append(("in", e["rel"], e["src"], e["provenance"]))
         self.concepts = sorted(n for n in self.nodes if not n.startswith("FAM:"))
         ctext = [" ".join(str(v) for k, v in self.nodes[c].items() if k not in ("id", "type")).replace("_", " ") for c in self.concepts]
+        ftext = [" ".join(o for p, o, _ in self.facts[f] if p in ("observed_research_question", "observed_hypothesis")) for f in self.families]
+        if self.embed_model:
+            self.CE = embed_texts(self.embed_model, ctext)
+            self.FE = embed_texts(self.embed_model, ftext)
+            return
         self.cvec = _tfidf()
         self.CX = self.cvec.fit_transform(ctext)
-        ftext = [" ".join(o for p, o, _ in self.facts[f] if p in ("observed_research_question", "observed_hypothesis")) for f in self.families]
         self.fvec = _tfidf()
         self.FX = self.fvec.fit_transform(ftext)
 
     def _graph_rank(self, q, exclude=()):
-        cs = (self.cvec.transform([q]) @ self.CX.T).toarray().ravel()
-        fs = (self.fvec.transform([q]) @ self.FX.T).toarray().ravel()
-        cseeds = [(self.concepts[i], float(cs[i])) for i in cs.argsort()[::-1][:CONCEPT_SEEDS] if cs[i] > 0]
-        fseeds = [(self.families[i], float(fs[i])) for i in fs.argsort()[::-1][:FAMILY_SEEDS] if fs[i] > 0]
+        if self.embed_model:
+            qv = embed_texts(self.embed_model, [q], query=True)[0]
+            cs, fs = self.CE @ qv, self.FE @ qv
+            order = lambda a: sorted(range(len(a)), key=lambda i: (-float(a[i]), i))  # noqa: E731
+            cseeds = [(self.concepts[i], float(cs[i])) for i in order(cs)[:CONCEPT_SEEDS]]
+            fseeds = [(self.families[i], float(fs[i])) for i in order(fs)[:FAMILY_SEEDS]]
+        else:
+            cs = (self.cvec.transform([q]) @ self.CX.T).toarray().ravel()
+            fs = (self.fvec.transform([q]) @ self.FX.T).toarray().ravel()
+            cseeds = [(self.concepts[i], float(cs[i])) for i in cs.argsort()[::-1][:CONCEPT_SEEDS] if cs[i] > 0]
+            fseeds = [(self.families[i], float(fs[i])) for i in fs.argsort()[::-1][:FAMILY_SEEDS] if fs[i] > 0]
         score, paths, traversed = {}, {}, 0
         for f, s in fseeds:
             score[f] = score.get(f, 0) + s
@@ -146,12 +202,17 @@ class Toolbox3:
                     traversed += 1
                     score[f] = score.get(f, 0) + 0.5 * s
                     paths.setdefault(f, []).append((0.5 * s, f"{g} {rel} ({prov.get('relation', '')}) {f}"))
-        ranked = sorted((f for f in score if f not in exclude), key=lambda f: (-score[f], f))[:RETRIEVE_K]
+        ranked = sorted((f for f in score if f not in exclude), key=lambda f: (-score[f], f))[:self.k]
         trace = {"concept_seeds": [c for c, _ in cseeds], "family_seeds": [f for f, _ in fseeds], "edges_traversed": traversed,
                  "paths": {f: [p for _, p in sorted(paths[f], reverse=True)[:MAX_PATHS]] for f in ranked}}
         return [(f, round(score[f], 3)) for f in ranked], trace
 
     def _doc_rank(self, q, exclude=()):
+        if self.embed_model:
+            s = self.E @ embed_texts(self.embed_model, [q], query=True)[0]
+            order = sorted(range(len(s)), key=lambda i: (-float(s[i]), i))
+            ranked = [(self.families[i], round(float(s[i]), 3)) for i in order if self.families[i] not in exclude][:self.k]
+            return ranked, {"embedding_model": self.embed_model, "scores": dict(ranked)}
         s = (self.vec.transform([q]) @ self.X.T).toarray().ravel()
         ranked = [(self.families[i], round(float(s[i]), 3)) for i in s.argsort()[::-1] if s[i] > 0 and self.families[i] not in exclude][:RETRIEVE_K]
         terms = set(self.vec.build_analyzer()(q))
@@ -231,7 +292,10 @@ class Toolbox3:
 
     # ------------------------------------------------------------------ dispatch
     def describe(self):
-        return "\n".join("- " + TOOL_DOCS[t] for t in self.allowed)
+        docs = {t: TOOL_DOCS[t] for t in self.allowed}
+        if self.k != RETRIEVE_K and "search_documents" in docs:
+            docs["search_documents"] = docs["search_documents"].replace(f"up to {RETRIEVE_K} families", f"up to {self.k} families")
+        return "\n".join("- " + docs[t] for t in self.allowed)
 
     def call(self, name, args):
         self.last_ids, self.last_trace = [], {}

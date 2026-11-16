@@ -165,6 +165,9 @@ def run_all(cfg, limit=None, log=print):
         task = load_task(r["task_id"])
         protocol = cfg.get("protocol", 1)
         chars = cfg["budgets"].get("max_tool_result_chars", 6000)
+        retrieval = cfg.get("retrieval") if r["condition"] in ("B", "C") else None
+        if retrieval:
+            chars = retrieval.get("max_tool_result_chars", chars)
         if protocol >= 3 and r["condition"] in tools_v3.ORACLE_CONDITIONS:
             snap, man = ensure_snapshot_v3(task)
             if oracle is None:
@@ -172,7 +175,7 @@ def run_all(cfg, limit=None, log=print):
             tb = tools_v3.Toolbox3(r["condition"], snap, chars, gold=oracle["gold"][r["task_id"]], annotations=oracle["annotations"])
         elif protocol >= 3:
             snap, man = ensure_snapshot_v3(task)
-            tb = tools_v3.Toolbox3(r["condition"], snap if r["condition"] != "A" else None, chars)
+            tb = tools_v3.Toolbox3(r["condition"], snap if r["condition"] != "A" else None, chars, retrieval=retrieval)
         else:
             snap, man = ensure_snapshot(task)
             tb = tools.Toolbox(r["condition"], snap if r["condition"] != "A" else None, chars, protocol)

@@ -322,14 +322,14 @@ def power():
 
 
 # ------------------------------------------------------------------ Study 2
-def study2(run_dir="runs/study2_v1"):
+def study2(run_dir="runs/study2_v1", cfg_path="configs/study2.json", out_name="analysis"):
     man = json.load(open(os.path.join(HB, "study2", "task_manifest.json"), encoding="utf-8"))["tasks"]
     T = [m["task_id"] for m in man]
     uncertain = {m["task_id"] for m in man if m["stratum"] == "uncertain"}
     gold = {m["task_id"]: m["gold_families"] for m in man}
     keys = experiment.answer_key()
     sf = {t: int(bool(keys[t]["should_flag_before_running"])) for t in T}
-    experiment.load_config(os.path.join(HB, "configs", "study2.json"))
+    experiment.load_config(os.path.join(HB, cfg_path))
     rows = load_rows([run_dir], keys, keep_raw=True)
     M = [m for m in S2_MODELS if any(r["m"] == m for r in rows)]
     res = {"n_runs": len(rows), "models": M, "ba": {}, "contrasts": {}, "sensitivity": {}}
@@ -361,7 +361,7 @@ def study2(run_dir="runs/study2_v1"):
                            for c in "ABO"} for m in M}
     res["cost_usd"] = {m: round(sum(r["cost"] for r in rows if r["m"] == m), 4) for m in M}
     res["stop_reasons"] = dict(Counter(r["stop"] for r in rows))
-    out = os.path.join(HB, "study2", "analysis")
+    out = os.path.join(HB, "study2", out_name)
     os.makedirs(out, exist_ok=True)
     used = [r for r in rows if r.get("meaningfully_used") or r.get("decision_linked_use")]
     sample = sorted(random.Random(20261112).sample(used, min(30, len(used))), key=lambda r: r["run_id"])
@@ -387,6 +387,51 @@ def study2(run_dir="runs/study2_v1"):
     return 0
 
 
+def study1embed(run_dir="runs/study1_embed_v1"):
+    """Study 1 rerun with embedding retrieval (study1_embed/prereg.md). Be and Ce are the embedding runs of B and C; A, B
+    and C are the original Study 1 runs. Output: study1_embed/analysis/results.json."""
+    keys = experiment.answer_key()
+    T = S1_TASKS
+    sf = {t: int(bool(keys[t]["should_flag_before_running"])) for t in T}
+    experiment.load_config(os.path.join(HB, "configs", "study1_embed.json"))
+    base = load_rows(S1_SOURCES, keys, keep_raw=True)
+    new = load_rows([run_dir], keys, keep_raw=True)
+    for r in new:
+        r["c"] = {"B": "Be", "C": "Ce"}[r["c"]]
+    rows = base + new
+    M = [m for m in ("Gemini", "Haiku", "gpt-oss", "Sonnet", "DeepSeek") if any(r["m"] == m for r in new)]
+    pairs = (("A", "Be"), ("A", "Ce"), ("B", "Be"), ("C", "Ce"))
+    res = {"n_new_runs": len(new), "models": M, "runs_per_model": {m: sum(1 for r in new if r["m"] == m) for m in M},
+           "ba": {}, "contrasts": {}}
+    for rule in RULES:
+        res["ba"][rule] = {m: {c: ba(cells(rows, T, m, c, rule), T, sf) for c in ("A", "B", "C", "Be", "Ce")} for m in M}
+        res["contrasts"][rule] = {}
+        for a, b in pairs:
+            res["contrasts"][rule][f"{b}-{a}"] = with_holm({m: contrast(rows, T, sf, m, a, b, rule) for m in M})
+        res["contrasts"][rule]["pooled"] = with_holm({f"{b}-{a}": contrast(rows, T, sf, None, a, b, rule) for a, b in pairs})
+    res["tally"] = {f"{b} vs {a}": {m: tally(rows, m, a, b) for m in M + [None]} for a, b in (("A", "Be"), ("A", "Ce"), ("B", "Be"), ("C", "Ce"))}
+    audit_rows(rows, keys, ("B", "C", "Be", "Ce"))
+    keysr = ("relevant_surfaced", "retrieval_successful", "meaningfully_used", "decision_linked_use")
+    res["retrieval"] = {c: {m: {k: int(sum(bool(r.get(k)) for r in rows if r["m"] == m and r["c"] == c)) for k in keysr}
+                            | {"question_tier_returned": int(sum(1 for r in rows if r["m"] == m and r["c"] == c and (r.get("question_relevant_returned") or 0) > 0)),
+                               "runs": sum(1 for r in rows if r["m"] == m and r["c"] == c)} for m in M} for c in ("B", "C", "Be", "Ce")}
+    res["validity"] = {m: {c: {"runs": sum(1 for r in rows if r["m"] == m and r["c"] == c),
+                               "invalid": sum(1 for r in rows if r["m"] == m and r["c"] == c and not r["valid"]),
+                               "no_scorable_flag": sum(1 for r in rows if r["m"] == m and r["c"] == c and r["fc"] is None)}
+                           for c in ("A", "B", "C", "Be", "Ce")} for m in M}
+    res["cost_usd_new_runs"] = {m: round(sum(r["cost"] for r in new if r["m"] == m), 4) for m in M}
+    res["stop_reasons_new_runs"] = dict(Counter(r["stop"] for r in new))
+    out = os.path.join(HB, "study1_embed", "analysis")
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "per_run.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=sorted({k for r in rows for k in r if not k.startswith("_")}), extrasaction="ignore")
+        w.writeheader()
+        w.writerows(rows)
+    json.dump(res, open(os.path.join(out, "results.json"), "w", encoding="utf-8"), indent=1, default=lambda x: None if x is None else float(x))
+    print(json.dumps({k: res[k] for k in ("n_new_runs", "models", "runs_per_model", "cost_usd_new_runs", "stop_reasons_new_runs")}, indent=1))
+    return 0
+
+
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "reproduce"
-    sys.exit({"reproduce": reproduce, "power": power, "study2": lambda: study2(*sys.argv[2:3])}[mode]())
+    sys.exit({"reproduce": reproduce, "power": power, "study2": lambda: study2(*sys.argv[2:5]), "study1embed": lambda: study1embed(*sys.argv[2:3])}[mode]())
