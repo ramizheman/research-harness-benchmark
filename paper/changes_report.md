@@ -1,6 +1,6 @@
-# Changes report: paper1_readable.tex
+# Changes report: ssrn_research_memory_basketball.tex
 
-Branch `paper1-readable`, from `paper1-with-1b` (7b3fc6f). Source file `paper/ssrn_research_memory_basketball.tex` is untouched; the rewrite is `paper/paper1_readable.tex`. No model or API call was run. No Study 2, prereg, run or frozen file was touched.
+Branch `paper1-readable`, from `paper1-with-1b` (7b3fc6f). Source file `paper/ssrn_research_memory_basketball.tex` is untouched; the rewrite is `paper/ssrn_research_memory_basketball.tex`. No model or API call was run. No Study 2, prereg, run or frozen file was touched.
 
 ## Added
 - Plain-language "Overview in plain language" box right after the abstract (question, the two studies, what was found; no p-values).

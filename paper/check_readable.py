@@ -3,7 +3,7 @@ import re, subprocess, collections, sys
 
 o = subprocess.run(["git", "show", "paper1-with-1b:paper/ssrn_research_memory_basketball.tex"],
                    capture_output=True).stdout.decode("utf-8")
-n = open("paper/paper1_readable.tex", encoding="utf-8").read()
+n = open("paper/ssrn_research_memory_basketball.tex", encoding="utf-8").read()
 num = re.compile(r"\d+(?:[.,]\d+)*")
 
 

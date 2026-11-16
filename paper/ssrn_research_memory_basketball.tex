@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath, booktabs, graphicx, array}
+\usepackage{amsmath, booktabs, graphicx, array, tabularx}
 \usepackage[hidelinks]{hyperref}
 
 \title{Retrieval and Transfer Failures in Research Memory:\\
@@ -20,23 +20,42 @@ Memory retrieved through search did not produce a clear improvement. Under the p
 The paper describes two points where the process can fail. First, retrieval rarely returned the closest prior work: on the three tasks with a prior study of the same question or a precedent named in the answer key, that family was returned in 2 of 45 runs under each retrieval method. Counting looser analogues as well, a relevant family was returned in 48 percent of document-retrieval runs and 36 percent of graph-retrieval runs on the seven tasks that have one. Second, the same prior record supported correct and incorrect decisions on different tasks: a play-type labeling audit was cited in 18 runs on one task (14 correct) and in 11 runs on another (3 correct), and nothing in the record itself separated the two cases. A follow-up that handed the agent the relevant prior families directly gave higher accuracy for four of five models (by 0.014 to 0.264), but no difference was detectable on ten tasks (Section~\ref{sec:study1b}).
 \end{abstract}
 
+\begin{center}
+\fbox{\begin{minipage}{0.92\linewidth}
+\small
+\textbf{Overview in plain language}
+
+\medskip
+\textbf{The question.} I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then a full start-to-finish review showed that the data I had used to answer the question was biased: I had pulled data that was narrowed by which results were available, and I had not noticed. I used AI to pursue dozens of other questions to rescue the paper, and those failed too. What remained was an archive of 319 study families, many of them ideas that did not work, and some of them studies that held up. That raised the question this paper asks: can a record of past failures help avoid repeating them? If an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running?
+
+\medskip
+\textbf{The studies.} In Study 1, five AI models were each shown ten research ideas and had to say go ahead or stop. They did this with no archive, with a search over the archive's documents, and with a search over a linked graph of the archive. In Study 1b, I removed search as a possible weak point by handing the models the relevant past studies directly. This paper contains only these two studies.
+
+\medskip
+\textbf{What was found.} Letting the models search the archive did not produce a clear improvement: it fixed about as many decisions as it broke. Search often missed the closest earlier study, and the same earlier study led to a right decision on one idea and a wrong one on another. Handing over the relevant studies gave higher accuracy for four of the five models, but no difference was detectable with only ten ideas, so I treat that as a lead and not as a result.
+\end{minipage}}
+\end{center}
+
 \section{Introduction}
 \label{sec:intro}
 
-Sports organizations possess a large stock of analytical capital: game logs, tracking, video, scouting observations, and the record of what was tried, what worked, and what failed. Most of that capital sits in files, in people's heads, or in analyses that are not consulted the next time a similar question comes up. A newer round of investment is aimed at connecting it. The Buffalo Sabres' 2026 partnership with SprintAI, the Cleveland Cavaliers' semantic search over scouting and statistical reports, and the San Antonio Spurs' use of AI for travel planning are different jobs, but they share an ambition (Buffalo Sabres 2026; Sports Business Journal 2025): a system that accumulates knowledge rather than answering one question and forgetting it.
+This paper began as a failure. I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then a full start-to-finish review showed that the data I had used to answer the question was biased: I had pulled data that was narrowed by which results were available, and I had not noticed. I used AI to pursue dozens of other questions, hoping to salvage the paper, and those failed too. What I ended up with was an archive of 319 study families, each a record of what I tried and what happened. A good share of it is a graveyard of ideas that did not work, though not all of it: some studies held up.
 
-The argument for such a system is that model capability is widely available, while an organization's own research history is not. Knowing which lineup study failed because the sample was too small, or which analysis rested on unreliable play-type labels, could keep the next analyst from repeating the mistake. That argument assumes the lessons are retrieved and applied to the right cases. If they are retrieved and applied to the wrong cases, the archive adds error instead.
+That archive suggested a question. If the corpses can be read, can they help someone avoid the next corpse? Put more formally, if an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running? The corpses become the corpus, and the paper asks whether the corpus is any use. Sports organizations are starting to build systems that accumulate knowledge in this way (Buffalo Sabres 2026; Sports Business Journal 2025), which is part of why the question matters, but the question itself came from my own archive.
 
-This paper tests that assumption on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped?
+There are reasons to think memory should help. Knowing which lineup study failed because the sample was too small, or which analysis rested on unreliable play-type labels, could keep the next analyst from repeating the mistake. There are also reasons it might not. That argument assumes the lessons are retrieved and applied to the right cases. If they are retrieved and applied to the wrong cases, the archive adds error instead.
+
+\subsection*{What the agent is asked to do}
+
+The test uses ten tasks. Each task is a research idea that I once proposed. The model reads the idea and must say go ahead or stop. The answer key is what actually happened when I ran the study, as recorded in the archive by a fixed rule, not by an independent expert panel. If the study turned out to be untestable or an artifact of a design flaw, the right answer is stop, and I call a stop answer a \emph{flag}. If the study was runnable and informative, even when it found nothing, the right answer is go ahead. Section~\ref{sec:outcome} gives the exact rule for what counts as a flag.
+
+Two tasks show how the test works. RT-012 asks whether a teammate's drive just before a pick-and-roll makes that pick-and-roll score better. The answer key says stop: when I ran the study, the apparent effect depended on how the plays were labeled and disappeared under a different labeling. RT-147 asks whether the effects of the opponent's next possession after each play type are large and stable enough to justify the AVOID labels (warnings to avoid a play type) that my recommendation system generated. The answer key says go ahead, because that study was recorded as inconclusive, not as untestable or flawed. Both tasks depend on the same derived play-type labels, so one lesson about those labels bears on both, and yet the key says stop on one and go ahead on the other. That is the difficulty the paper is about.
+
+The experiment tests one step in a larger loop. It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer: each run retrieves once from a fixed archive and decides once. What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
+
+This paper tests whether memory helps on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped?
 
 The results are mixed in a way the average hides. On one task, a prior audit of the play-type labels was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory retrieved through search changed decisions in both directions about equally often and did not improve the average. Section~\ref{sec:transfer} describes the cases. Section~\ref{sec:study1b} reports a follow-up that handed the relevant families over directly. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
-
-\section{Scope and context}
-\label{sec:vision}
-
-The experiment tests one step in a larger loop: given a faithful archive of prior basketball research, does an AI agent make a better research-design decision? It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer. Each run retrieves once from a fixed archive and decides once.
-
-What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
 
 \section{Related work}
 \label{sec:related}
@@ -63,7 +82,7 @@ Reflexion (Shinn et al.\ 2023) has an agent write verbal reflections on failed a
 
 \subsection{AI in sports operations}
 
-The public examples sit at different points in the loop. The Boston Celtics' cloud infrastructure is the storage layer that later retrieval depends on (Mission Cloud 2024). The Cavaliers' semantic search is retrieval and synthesis for a person reading the result (Sports Business Journal 2025). The Sabres' partnership is aimed further along, at an operations platform that is supposed to learn (Buffalo Sabres 2026). None of these reports tests whether retrieved history improves the next analytical decision. That is the gap this paper measures, on a basketball research-design task rather than in a live front office.
+The public examples sit at different points in the loop. The Boston Celtics' cloud infrastructure is the storage layer that later retrieval depends on (Mission Cloud 2024). The Cavaliers' semantic search is retrieval and synthesis for a person reading the result (Sports Business Journal 2025). The Sabres' 2026 partnership with SprintAI is aimed further along, at an operations platform that is supposed to learn (Buffalo Sabres 2026). The Spurs' use of AI for travel planning is a different job again (Sports Business Journal 2025). Sports organizations hold a large stock of analytical capital (game logs, tracking, video, scouting observations, and the record of what was tried, what worked, and what failed), and most of it sits in files, in people's heads, or in analyses that are not consulted the next time a similar question comes up. None of these reports tests whether retrieved history improves the next analytical decision. That is the gap this paper measures, on a basketball research-design task rather than in a live front office.
 
 \section{The accumulated basketball research archive}
 \label{sec:archive_overview}
@@ -127,7 +146,35 @@ The outcome statuses are rule-based readings of the records, not independent exp
 
 Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should proceed. Four tasks should be flagged; six should not. The answer key flags a task when its own study family was recorded as untestable or artifact. Rejected, supported, and uncertain families are keyed as proceed, because a test of the question as posed was runnable and informative.
 
-Table~\ref{tab:tasks} gives the research questions, the expected decision, and the recorded result behind it. The models did not see the recorded result.
+Table~\ref{tab:tasks_plain} describes each task in one plain line. Table~\ref{tab:tasks} then gives the research questions as posed, the expected decision, and the recorded result behind it. The models did not see the recorded result.
+
+\begin{table}[ht]
+\centering
+\caption{The ten tasks in plain language. ``Stop'' is a flag in the answer key; ``go ahead'' is proceed.}
+\label{tab:tasks_plain}
+\small
+\begin{tabularx}{\linewidth}{lXl}
+\toprule
+Task & What the idea asks, in plain words & Answer key \\
+\midrule
+RT-012 & Does a teammate's drive just before a pick-and-roll make that pick-and-roll score better? & Stop \\
+RT-014 & Would following the system's recommended mix of play types win more games? & Stop \\
+RT-065 & Can you tell in advance which teammate will take over a missing player's role? & Go ahead \\
+RT-066 & Does the amount a team reshuffles its offense while a player is out predict how its scoring changes? & Go ahead \\
+RT-101 & Do teams differ in how well their lineups cover offensive roles, apart from raw talent? & Go ahead \\
+RT-112 & Does changing the five-man lineup change what kinds of shots a team takes? & Go ahead \\
+RT-146 & After a defense shuts down pick-and-roll, does pull-up shooting reliably work as a counter? & Go ahead \\
+RT-147 & Are the opponent's next-possession effects large and stable enough to justify the system's AVOID labels? & Go ahead \\
+RT-179 & Is a team's ability to hold down opponents' second-half improvement a stable, measurable trait? & Stop \\
+RT-183 & Do role players who mostly cut keep their role better after changing teams than players who mostly drive? & Stop \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Terms used in the next table. PNR is pick-and-roll, a ball handler using a teammate's screen. (PPP, points per possession, is defined in Section~\ref{sec:archive_overview}.) AVOID is a label the recommendation system attaches to a play type it advises against. Calibrated labels and labels from the rule-based inferrer are two ways of assigning play types to possessions; for RT-012 the record attributes the difference between them to temporal contamination in the calibrated labels.
+\end{minipage}
+\end{table}
 
 \begin{table}[ht]
 \centering
@@ -165,6 +212,8 @@ The relevance of the archive differs by task. Appendix~\ref{app:retrieval} defin
 
 \section{Experimental design}
 \label{sec:design}
+
+Study 1 exists to ask the basic question: does letting a model search the archive improve its go-or-stop decision? Its three experiments, described below, are called Study 1 throughout.
 
 \subsection{Pilots and three experiments}
 
@@ -217,9 +266,9 @@ A run counts as a flag if its decision is do not proceed, or its stated probabil
 
 The primary outcome is balanced flag accuracy: the mean of accuracy on the four tasks that should be flagged and accuracy on the six that should not, after averaging seeds within each task. The ten tasks are the unit of analysis. Seeds measure how much a model varies on the same task; they do not add tasks.
 
-The primary scoring rule is the one in the benchmark's scoring specification: invalid outputs are scored where possible. An output that fails schema validation but still yields a flag decision is scored on that decision, and an output from which no flag can be read counts as wrong. Of 32 invalid outputs in the primary runs, 31 yielded a flag decision; one (gpt-oss-20b, condition C) did not. Two sensitivity rules are reported alongside: strict, in which every invalid output counts as wrong, and valid-only, in which invalid outputs are dropped.
+The primary scoring rule follows the benchmark's scoring specification, and invalid outputs are scored where possible. Two sensitivity rules, strict and valid-only, are reported alongside; the mechanics are in Appendix~\ref{app:scoring}.
 
-Intervals are percentile bootstrap intervals from 10,000 resamples of the ten task-level differences. The $p$-values are exact sign-flip tests over all $2^{10}$ sign assignments, and Holm's correction is applied across the ten memory contrasts. With ten tasks the intervals are about 0.6 wide, so an effect smaller than roughly 0.3 cannot be ruled out in either direction. Percentile bootstrap intervals on ten units can also be too narrow; where an interval and the exact test disagree, the exact test is the more conservative guide.
+Intervals are bootstrap intervals over the ten tasks and $p$-values are exact sign-flip tests with Holm's correction (details in Appendix~\ref{app:scoring}). With ten tasks the intervals are about 0.6 wide, so an effect smaller than roughly 0.3 cannot be ruled out in either direction. Percentile bootstrap intervals on ten units can also be too narrow; where an interval and the exact test disagree, the exact test is the more conservative guide.
 
 \subsection{Models and protocol checks}
 
@@ -227,6 +276,8 @@ Gemini 2.5 Flash, Claude Haiku 5.5, and gpt-oss-20b were run at temperature 0.7.
 
 \section{Primary results}
 \label{sec:results}
+
+Letting the models search the archive did about nothing detectable: it helped some models, hurt others, and no difference holds up after correction for multiple comparisons.
 
 Table~\ref{tab:primary} gives the primary result. The sign of the memory effect is not stable across models. DeepSeek moves the most, upward, from a weak baseline. Sonnet, the strongest model without memory, is lower with document retrieval and about unchanged with graph retrieval. The other three models move by less than 0.06 in either direction.
 
@@ -255,59 +306,18 @@ Intervals are percentile bootstrap intervals over the ten tasks (10,000 resample
 
 One interval excludes zero: DeepSeek's graph-retrieval gain of $+0.208$, with an interval of $[+0.069, +0.389]$. The exact sign-flip test for the same contrast gives $p = 0.06$, and the Holm-adjusted value across ten contrasts is 0.62. This paper treats it as a candidate effect for a larger study, not as a finding.
 
-Table~\ref{tab:sensitivity} reports the same contrasts under the two sensitivity rules. The rules matter most for Sonnet, which produced six invalid outputs under document retrieval and none without memory. Under the strict rule, Sonnet's document-retrieval difference is $-0.194$ with an interval that excludes zero ($[-0.389, -0.014]$, $p = 0.12$). Under the valid-only rule it is zero. DeepSeek's graph-retrieval interval excludes zero under the valid-only rule and not under the strict rule. No contrast has $p < 0.05$ under any rule.
+Results depend on how invalid outputs are scored, most for Sonnet; the sensitivity analysis under the two alternative rules is in Appendix~\ref{app:scoring}. No contrast has $p < 0.05$ under any rule.
 
-\begin{table}[ht]
-\centering
-\caption{Memory contrasts under the two sensitivity rules}
-\label{tab:sensitivity}
-\small
-\begin{tabular}{lllll}
-\toprule
- & \multicolumn{2}{c}{Strict (invalid = wrong)} & \multicolumn{2}{c}{Valid outputs only} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-Model & B $-$ A & C $-$ A & B $-$ A & C $-$ A \\
-\midrule
-Gemini & $+0.000$ $[-0.264, +0.264]$ & $-0.083$ $[-0.389, +0.278]$ & $+0.042$ $[-0.264, +0.389]$ & $-0.069$ $[-0.375, +0.292]$ \\
-Haiku & $-0.042$ $[-0.333, +0.319]$ & $-0.014$ $[-0.361, +0.375]$ & $-0.056$ $[-0.347, +0.306]$ & $+0.035$ $[-0.292, +0.403]$ \\
-gpt-oss-20b & $+0.111$ $[-0.111, +0.347]$ & $+0.056$ $[-0.278, +0.417]$ & $+0.042$ $[-0.194, +0.292]$ & $+0.125$ $[-0.111, +0.417]$ \\
-Sonnet & $-0.194$ $[-0.389, -0.014]$ & $-0.069$ $[-0.167, +0.000]$ & $+0.000$ $[-0.222, +0.167]$ & $+0.014$ $[-0.042, +0.083]$ \\
-DeepSeek & $+0.139$ $[-0.125, +0.458]$ & $+0.167$ $[-0.028, +0.361]$ & $+0.167$ $[-0.097, +0.486]$ & $+0.208$ $[+0.069, +0.389]$ \\
-\bottomrule
-\end{tabular}
+Invalid outputs were schema failures, not invented findings; counts by model and condition are in Appendix~\ref{app:scoring}.
 
-\vspace{0.4em}
-\begin{minipage}{0.92\linewidth}\footnotesize
-Smallest sign-flip $p$-values: strict, Sonnet B $-$ A, 0.12; valid only, DeepSeek C $-$ A, 0.06.
-\end{minipage}
-\end{table}
-
-Invalid outputs by condition are given in Table~\ref{tab:invalid}. They were schema failures, not invented findings. gpt-oss-20b had the most (11), followed by Sonnet (9) and Haiku (8); Sonnet's were all in the memory conditions.
-
-\begin{table}[ht]
-\centering
-\caption{Invalid outputs by model and condition (of 30 runs each)}
-\label{tab:invalid}
-\small
-\begin{tabular}{lccc}
-\toprule
-Model & A & B & C \\
-\midrule
-Gemini 2.5 Flash & 0 & 1 & 1 \\
-Claude Haiku 5.5 & 3 & 1 & 4 \\
-gpt-oss-20b & 4 & 1 & 6 \\
-Claude Sonnet 5.5 & 0 & 6 & 3 \\
-DeepSeek V4 Pro & 0 & 1 & 1 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The Gemini series is one check on whether the protocol was the problem. Across Pilot 1, Pilot 2, and Experiment 1, the records, the protocol, and the number of seeds changed. Pilot 1's apparent gains ($+0.167$ for documents, $+0.250$ for the graph) come largely from three no-memory answers that could not be parsed at the time; with those answers recovered, the differences are $+0.042$ and $0.000$. Pilot 2 gives $-0.042$ and $-0.042$, and Experiment 1 gives $+0.042$ and $-0.056$. Delivering the records, which Pilot 2 had failed to do, did not reveal a gain.
+The protocol itself was checked against the Gemini series across Pilot 1, Pilot 2, and Experiment 1; delivering the records did not reveal a gain (Appendix~\ref{app:scoring}).
 
 Model differences are larger than memory effects. Sonnet without memory (0.736) is 0.097 above Gemini without memory and 0.194 above gpt-oss-20b without memory. On these ten decisions, the choice of model moved accuracy more than attaching this archive did.
 
 \section{What the models did with the record}
 \label{sec:secondary}
+
+The models copied the records accurately, but they sometimes claimed that earlier work had settled more than it had, and retrieved failures made them more cautious in both directions.
 
 \subsection{Citation accuracy}
 
@@ -335,12 +345,14 @@ Flag rate, should not flag & 0.22 & 0.39 & 0.33 \\
 \end{tabular}
 \end{table}
 
-Stated testability discriminated better with memory for four of the five models. The area under the curve (AUC) for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
+Stated testability discriminated better with memory for four of the five models, but better-ranked testability did not translate into better flag decisions at the 0.5 threshold. The per-model values of this measure, the area under the curve (AUC), which are descriptive and have no intervals, are in Appendix~\ref{app:scoring}.
 
-Compliance was uneven. gpt-oss-20b needed 18 repair turns across its 60 memory runs, against 3 for Gemini, 2 for DeepSeek, 1 for Haiku, and none for Sonnet.
+Compliance was uneven across models; repair-turn counts are in Appendix~\ref{app:scoring}.
 
 \section{When memory helps, and when it hurts}
 \label{sec:transfer}
+
+Search changed whether the decision was correct in about a third of paired runs, for better and for worse about equally often; the three cases below show how both directions happen.
 
 \subsection{The tally}
 
@@ -359,7 +371,7 @@ Decision unchanged, and wrong & 71 \\
 \end{tabular}
 \end{center}
 
-Memory changed whether the decision was correct in 93 of 300 pairs (31 percent), and it did so in the right and the wrong direction about equally often. The balance varies by model. Fixes and breaks were 10 and 12 for Gemini, 8 and 11 for Haiku, 10 and 13 for gpt-oss-20b, and 5 and 6 for Sonnet. DeepSeek is the exception, with 14 fixes and 4 breaks. Pairs share tasks, so these counts are descriptive and not independent observations. The cases below show how both directions can occur.
+Memory changed whether the decision was correct in 93 of 300 pairs (31 percent), and it did so in the right and the wrong direction about equally often. The balance varies by model. Fixes and breaks were 10 and 12 for Gemini, 8 and 11 for Haiku, 10 and 13 for gpt-oss-20b, and 5 and 6 for Sonnet. DeepSeek is the exception, with 14 fixes and 4 breaks. Pairs share tasks, so these counts are descriptive and not independent observations.
 
 \subsection{Case 1: a precise data-quality record helps two models and not the others (RT-012)}
 \label{sec:rt012}
@@ -404,7 +416,9 @@ RT-065 asks whether pre-absence profiles identify which teammate absorbs a depar
 \section{Extended thinking}
 \label{sec:reasoning}
 
-Sonnet 5.5 and DeepSeek V4 Pro add an internal reasoning pass before the answer. The memory result does not change direction in a consistent way.
+The two models that reason before answering showed no memory effect in a consistent direction either.
+
+Sonnet 5.5 and DeepSeek V4 Pro add an internal reasoning pass before the answer.
 
 Sonnet's no-memory accuracy, 0.736, is the highest in the benchmark. Document retrieval lowers it by 0.083 under the primary rule, by 0.194 under the strict rule, and by nothing under the valid-only rule; most of the difference between rules comes from six invalid document-retrieval outputs. Graph retrieval changes it by $-0.014$. One possible reading is that a stronger model reconstructs many of these failure modes without the archive, leaving less room for memory to help. The data do not test that reading.
 
@@ -415,7 +429,7 @@ Both reasoning models score higher with the graph than with documents (Sonnet 0.
 \section{Study 1b: oracle retrieval}
 \label{sec:study1b}
 
-The three experiments above, called Study 1 below, could not say whether retrieval or applicability limited accuracy. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations, and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
+Study 1 could not tell ``search failed to find the right studies'' from ``the model misjudged the studies it found.'' Study 1b removes the first possibility by handing the models the right studies. Study 1b is a small follow-up on the same ten tasks that removes retrieval as a variable. Its design, gold families, annotations, and analysis were fixed in a preregistration committed before any run. It is descriptive: ten tasks cannot detect effects below about 0.3 in balanced accuracy.
 
 \subsection{Design}
 
@@ -424,6 +438,8 @@ Two conditions were added to the Study 1 conditions A, B, and C, which were not 
 In condition OS, each gold family also carried a short scope annotation stating which data, estimands, and effect sizes its recorded defect does and does not threaten. There are 23 annotations, written only from each family's own record, with identical text wherever a family appears. They were checked mechanically for shared phrases with the answer key and with the task-own records. The annotator knew the answer key and the Study 1 results, and the ``applies to'' sentences are the annotator's inference from the records, so OS is exploratory. OS also carries 729 to 1,784 more characters in the first retrieval than O, so OS$-$O measures annotation plus extra length. OS was run for four models; Sonnet 5.5 was run on O only to limit cost. Each condition used three seeds per task and model (270 runs). Total cost was \$4.19.
 
 \subsection{Results}
+
+Handing the models the right studies gave higher accuracy for four of five models, but ten tasks are too few to confirm it, and the scope annotations had no detectable effect.
 
 \begin{table}[ht]
 \centering
@@ -507,7 +523,7 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as proceed is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
 
-\textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Table~\ref{tab:sensitivity}.
+\textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Appendix~\ref{app:scoring} (Table~\ref{tab:sensitivity}).
 
 \textbf{Exclusion of each task's result.} The runs searched per-task snapshots built before any run, from which the task's own study family and closely linked records had been removed (Appendix~\ref{app:snapshots}). A post-hoc audit of the 450 primary runs confirmed that no retrieval returned a record from the task's own family. Because the runs could only search the restricted snapshots, this audit verifies how the snapshots were built rather than detecting a leak after the fact. Graph retrieval scores families by the relationships traversed from the query; the audit checks returned identifiers, not traversal paths.
 
@@ -515,7 +531,7 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{Post-hoc analyses.} The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in the cases were computed after the results were known, from the saved run files. The Study 1b analyses in Section~\ref{sec:study1b} were also computed from saved runs after the runs finished. The Study 1b gold families, annotations, and predictions were frozen before those runs; the predictions were written after reviewing Study 1's per-task results and revised once before any Study 1b run.
 
-\textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. All ten tasks are basketball research designs from one research program. Nothing here shows the same pattern in another sport or in a live scouting workflow.
+\textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. This is a real design limitation and not only a joke at my own expense: a corpus drawn from a graveyard may push models toward caution, and the result may not transfer to fields whose records are cleaner. All ten tasks are basketball research designs from one research program. Nothing here shows the same pattern in another sport or in a live scouting workflow.
 
 \textbf{No accumulation.} Each run retrieves from a fixed archive. A wrong lesson is not written back and retrieved again, so the paper cannot measure whether an unchecked loop would reinforce its own errors.
 
@@ -775,5 +791,83 @@ Records and Families are the permitted pool each task's runs could search. Exclu
 
 \vspace{1.5em}
 \noindent\textit{Disclosure.} Drafting assistance from a large language model. The tasks, the answer key, the scoring, and the run outputs were fixed before this paper was written, and no experimental runs were added in order to write it. The retrieval analysis in Appendix~\ref{app:retrieval}, including the corrected risk-code parsing, the exclusion audit, the scoring-rule sensitivity analysis, the paired tally, and the citation analyses in Section~\ref{sec:transfer} were computed after the results were known, from the saved run files.
+
+
+\section{Scoring details, sensitivity, and invalid outputs}
+\label{app:scoring}
+
+This appendix collects material moved from the main text without change.
+
+\subsection*{Scoring-rule mechanics}
+
+The primary scoring rule is the one in the benchmark's scoring specification: invalid outputs are scored where possible. An output that fails schema validation but still yields a flag decision is scored on that decision, and an output from which no flag can be read counts as wrong. Of 32 invalid outputs in the primary runs, 31 yielded a flag decision; one (gpt-oss-20b, condition C) did not. Two sensitivity rules are reported alongside: strict, in which every invalid output counts as wrong, and valid-only, in which invalid outputs are dropped.
+
+
+
+Intervals are percentile bootstrap intervals from 10,000 resamples of the ten task-level differences. The $p$-values are exact sign-flip tests over all $2^{10}$ sign assignments, and Holm's correction is applied across the ten memory contrasts.
+
+\subsection*{Sensitivity to the scoring rule}
+
+Table~\ref{tab:sensitivity} reports the same contrasts under the two sensitivity rules. The rules matter most for Sonnet, which produced six invalid outputs under document retrieval and none without memory. Under the strict rule, Sonnet's document-retrieval difference is $-0.194$ with an interval that excludes zero ($[-0.389, -0.014]$, $p = 0.12$). Under the valid-only rule it is zero. DeepSeek's graph-retrieval interval excludes zero under the valid-only rule and not under the strict rule. No contrast has $p < 0.05$ under any rule.
+
+\begin{table}[ht]
+\centering
+\caption{Memory contrasts under the two sensitivity rules}
+\label{tab:sensitivity}
+\small
+\begin{tabular}{lllll}
+\toprule
+ & \multicolumn{2}{c}{Strict (invalid = wrong)} & \multicolumn{2}{c}{Valid outputs only} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Model & B $-$ A & C $-$ A & B $-$ A & C $-$ A \\
+\midrule
+Gemini & $+0.000$ $[-0.264, +0.264]$ & $-0.083$ $[-0.389, +0.278]$ & $+0.042$ $[-0.264, +0.389]$ & $-0.069$ $[-0.375, +0.292]$ \\
+Haiku & $-0.042$ $[-0.333, +0.319]$ & $-0.014$ $[-0.361, +0.375]$ & $-0.056$ $[-0.347, +0.306]$ & $+0.035$ $[-0.292, +0.403]$ \\
+gpt-oss-20b & $+0.111$ $[-0.111, +0.347]$ & $+0.056$ $[-0.278, +0.417]$ & $+0.042$ $[-0.194, +0.292]$ & $+0.125$ $[-0.111, +0.417]$ \\
+Sonnet & $-0.194$ $[-0.389, -0.014]$ & $-0.069$ $[-0.167, +0.000]$ & $+0.000$ $[-0.222, +0.167]$ & $+0.014$ $[-0.042, +0.083]$ \\
+DeepSeek & $+0.139$ $[-0.125, +0.458]$ & $+0.167$ $[-0.028, +0.361]$ & $+0.167$ $[-0.097, +0.486]$ & $+0.208$ $[+0.069, +0.389]$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.92\linewidth}\footnotesize
+Smallest sign-flip $p$-values: strict, Sonnet B $-$ A, 0.12; valid only, DeepSeek C $-$ A, 0.06.
+\end{minipage}
+\end{table}
+
+\subsection*{Invalid outputs}
+
+Invalid outputs by condition are given in Table~\ref{tab:invalid}. They were schema failures, not invented findings. gpt-oss-20b had the most (11), followed by Sonnet (9) and Haiku (8); Sonnet's were all in the memory conditions.
+
+\begin{table}[ht]
+\centering
+\caption{Invalid outputs by model and condition (of 30 runs each)}
+\label{tab:invalid}
+\small
+\begin{tabular}{lccc}
+\toprule
+Model & A & B & C \\
+\midrule
+Gemini 2.5 Flash & 0 & 1 & 1 \\
+Claude Haiku 5.5 & 3 & 1 & 4 \\
+gpt-oss-20b & 4 & 1 & 6 \\
+Claude Sonnet 5.5 & 0 & 6 & 3 \\
+DeepSeek V4 Pro & 0 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Repair turns}
+
+Compliance was uneven. gpt-oss-20b needed 18 repair turns across its 60 memory runs, against 3 for Gemini, 2 for DeepSeek, 1 for Haiku, and none for Sonnet.
+
+
+\subsection*{Gemini series across pilots and Experiment 1}
+
+The Gemini series is one check on whether the protocol was the problem. Across Pilot 1, Pilot 2, and Experiment 1, the records, the protocol, and the number of seeds changed. Pilot 1's apparent gains ($+0.167$ for documents, $+0.250$ for the graph) come largely from three no-memory answers that could not be parsed at the time; with those answers recovered, the differences are $+0.042$ and $0.000$. Pilot 2 gives $-0.042$ and $-0.042$, and Experiment 1 gives $+0.042$ and $-0.056$. Delivering the records, which Pilot 2 had failed to do, did not reveal a gain.
+
+\subsection*{Testability discrimination (AUC)}
+
+Stated testability discriminated better with memory for four of the five models. The AUC for separating testable from untestable tasks, among valid outputs, moved from 0.65 to 0.68 (B) and 0.80 (C) for Gemini, from 0.48 to 0.71 and 0.72 for gpt-oss-20b, from 0.63 to 0.68 and 0.69 for Sonnet, and from 0.57 to 0.67 and 0.63 for DeepSeek. Haiku was the exception: 0.79 without memory, 0.62 with documents, and 0.69 with the graph. Excluding RT-147 gives 0.75, 0.65, and 0.68 for Haiku, so that task accounts for part of Haiku's drop but not most of it. No intervals were computed for these AUC values, and they should be read as descriptive. Better-ranked testability did not translate into better flag decisions at the 0.5 threshold.
 
 \end{document}
