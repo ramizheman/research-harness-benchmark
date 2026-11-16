@@ -71,3 +71,12 @@ None added knowingly. Please look at:
 - Tally: duplicate closing sentence removed.
 - Abstract versus overview: both say retrieval rarely found the closest work and the same record led to opposite verdicts; both say 4 of 5 models higher with handed-over records but nothing detectable on ten tasks. No disagreement found.
 - Number check rerun after these edits: 306 distinct numbers each side, none only in either, all 11 original tables verbatim, bibliography identical. Main words 9,223 (original 8,596). Still uncompiled.
+
+## Revision 3 (second readability pass, edited in place; no new branch or file)
+- Added "the test in one chain" paragraph before the task description. "Answer key" is defined once, as shorthand for what actually happened when I ran the idea. The abstract's one use of "answer key" now reads "the record of what actually happened when I ran the idea".
+- Worked example replaced: RT-112 (go ahead, +3.1 percentage points) and RT-179 (stop, split-half r = -0.001). RT-012 and RT-147 no longer appear in the Introduction. The "Both tasks depend on the same derived play-type labels ... difficulty the paper is about" sentences are deleted.
+- "Play-type labeling audit" / "audit of the play-type labels" changed to "data-quality audit" in the abstract and the Introduction's "results are mixed" paragraph, with a pointer to the section "When memory helps, and when it hurts". Overview box had no such phrase and no "corpses".
+- One sentence before Case 1: the two cases were selected after seeing results, and Case 2's key is the most contestable. Cases unchanged.
+- "Tests one step" now appears once; the scope sentences follow it in the same paragraph.
+- Checks versus the previous readable version: same numeric tokens (only repeat counts of 1, 2, 3.1, 112, 179, 0.001 changed, all from the new example and the Case sentence); tables, bibliography and appendix identical; no undefined references; the pun appears once.
+- Not compiled (no LaTeX compiler on this machine).
