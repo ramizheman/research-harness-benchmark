@@ -61,3 +61,13 @@ None added knowingly. Please look at:
 - `RT-012` glossary: I defined calibrated labels only as far as the record does, not further.
 - The file you called `paper1.tex` is `ssrn_research_memory_basketball.tex` in the repo.
 - Not merged and not pushed.
+
+## Revision 2 (after review)
+- Pun now appears only in the Introduction; the overview says "a record of past failures".
+- "Biased question" replaced in overview and Introduction with your account: a full start-to-finish review showed the data used was narrowed by which results were available. I did not add any explanation beyond your words.
+- "Scope and context" folded into the end of the Introduction (label `sec:vision` removed; no reference pointed to it). The phrase "given a faithful archive of prior basketball research" was dropped in the fold.
+- Limitations now points to Appendix `app:scoring` for the sensitivity table.
+- Extended thinking: the original sentence "The memory result does not change direction in a consistent way" removed as a duplicate of the new opener (the one sentence deleted, same content).
+- Tally: duplicate closing sentence removed.
+- Abstract versus overview: both say retrieval rarely found the closest work and the same record led to opposite verdicts; both say 4 of 5 models higher with handed-over records but nothing detectable on ten tasks. No disagreement found.
+- Number check rerun after these edits: 306 distinct numbers each side, none only in either, all 11 original tables verbatim, bibliography identical. Main words 9,223 (original 8,596). Still uncompiled.

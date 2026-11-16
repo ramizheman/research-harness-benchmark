@@ -26,7 +26,7 @@ The paper describes two points where the process can fail. First, retrieval rare
 \textbf{Overview in plain language}
 
 \medskip
-\textbf{The question.} I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then I realized the original research question was biased. I used AI to pursue dozens of other questions to rescue the paper, and those failed too. What remained was an archive of 319 study families, a graveyard of ideas, with some survivors. That raised the question this paper asks: can the corpses help you avoid other corpses? If an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running?
+\textbf{The question.} I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then a full start-to-finish review showed that the data I had used to answer the question was biased: I had pulled data that was narrowed by which results were available, and I had not noticed. I used AI to pursue dozens of other questions to rescue the paper, and those failed too. What remained was an archive of 319 study families, many of them ideas that did not work, and some of them studies that held up. That raised the question this paper asks: can a record of past failures help avoid repeating them? If an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running?
 
 \medskip
 \textbf{The studies.} In Study 1, five AI models were each shown ten research ideas and had to say go ahead or stop. They did this with no archive, with a search over the archive's documents, and with a search over a linked graph of the archive. In Study 1b, I removed search as a possible weak point by handing the models the relevant past studies directly. This paper contains only these two studies.
@@ -39,7 +39,7 @@ The paper describes two points where the process can fail. First, retrieval rare
 \section{Introduction}
 \label{sec:intro}
 
-This paper began as a failure. I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then I realized that the original research question was biased. I used AI to pursue dozens of other questions, hoping to salvage the paper, and those failed too. What I ended up with was an archive of 319 study families, each a record of what I tried and what happened. A good share of it is a graveyard of ideas that did not work, though not all of it: some studies held up.
+This paper began as a failure. I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then a full start-to-finish review showed that the data I had used to answer the question was biased: I had pulled data that was narrowed by which results were available, and I had not noticed. I used AI to pursue dozens of other questions, hoping to salvage the paper, and those failed too. What I ended up with was an archive of 319 study families, each a record of what I tried and what happened. A good share of it is a graveyard of ideas that did not work, though not all of it: some studies held up.
 
 That archive suggested a question. If the corpses can be read, can they help someone avoid the next corpse? Put more formally, if an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running? The corpses become the corpus, and the paper asks whether the corpus is any use. Sports organizations are starting to build systems that accumulate knowledge in this way (Buffalo Sabres 2026; Sports Business Journal 2025), which is part of why the question matters, but the question itself came from my own archive.
 
@@ -51,16 +51,11 @@ The test uses ten tasks. Each task is a research idea that I once proposed. The 
 
 Two tasks show how the test works. RT-012 asks whether a teammate's drive just before a pick-and-roll makes that pick-and-roll score better. The answer key says stop: when I ran the study, the apparent effect depended on how the plays were labeled and disappeared under a different labeling. RT-147 asks whether the effects of the opponent's next possession after each play type are large and stable enough to justify the AVOID labels (warnings to avoid a play type) that my recommendation system generated. The answer key says go ahead, because that study was recorded as inconclusive, not as untestable or flawed. Both tasks depend on the same derived play-type labels, so one lesson about those labels bears on both, and yet the key says stop on one and go ahead on the other. That is the difficulty the paper is about.
 
+The experiment tests one step in a larger loop. It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer: each run retrieves once from a fixed archive and decides once. What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
+
 This paper tests whether memory helps on one step: given a record of prior basketball studies, does an AI agent make a better decision about whether a proposed study should proceed, be changed, or be stopped?
 
 The results are mixed in a way the average hides. On one task, a prior audit of the play-type labels was cited in most memory runs, and two models that were mostly wrong without memory were correct in every memory run. On another task, the same audit was cited in runs that stopped a design the answer key says should proceed. Across five models and three experiments, memory retrieved through search changed decisions in both directions about equally often and did not improve the average. Section~\ref{sec:transfer} describes the cases. Section~\ref{sec:study1b} reports a follow-up that handed the relevant families over directly. Section~\ref{sec:future} discusses what would have to be tested before any design recommendation follows.
-
-\section{Scope and context}
-\label{sec:vision}
-
-The experiment tests one step in a larger loop: given a faithful archive of prior basketball research, does an AI agent make a better research-design decision? It does not test ingestion, continuous operation, a write-back step, or a typed relationship layer. Each run retrieves once from a fixed archive and decides once.
-
-What a larger system might need is discussed in Section~\ref{sec:future}, as hypotheses for later experiments rather than conclusions of this one.
 
 \section{Related work}
 \label{sec:related}
@@ -376,7 +371,7 @@ Decision unchanged, and wrong & 71 \\
 \end{tabular}
 \end{center}
 
-Memory changed whether the decision was correct in 93 of 300 pairs (31 percent), and it did so in the right and the wrong direction about equally often. The balance varies by model. Fixes and breaks were 10 and 12 for Gemini, 8 and 11 for Haiku, 10 and 13 for gpt-oss-20b, and 5 and 6 for Sonnet. DeepSeek is the exception, with 14 fixes and 4 breaks. Pairs share tasks, so these counts are descriptive and not independent observations. The cases below show how both directions can occur.
+Memory changed whether the decision was correct in 93 of 300 pairs (31 percent), and it did so in the right and the wrong direction about equally often. The balance varies by model. Fixes and breaks were 10 and 12 for Gemini, 8 and 11 for Haiku, 10 and 13 for gpt-oss-20b, and 5 and 6 for Sonnet. DeepSeek is the exception, with 14 fixes and 4 breaks. Pairs share tasks, so these counts are descriptive and not independent observations.
 
 \subsection{Case 1: a precise data-quality record helps two models and not the others (RT-012)}
 \label{sec:rt012}
@@ -423,7 +418,7 @@ RT-065 asks whether pre-absence profiles identify which teammate absorbs a depar
 
 The two models that reason before answering showed no memory effect in a consistent direction either.
 
-Sonnet 5.5 and DeepSeek V4 Pro add an internal reasoning pass before the answer. The memory result does not change direction in a consistent way.
+Sonnet 5.5 and DeepSeek V4 Pro add an internal reasoning pass before the answer.
 
 Sonnet's no-memory accuracy, 0.736, is the highest in the benchmark. Document retrieval lowers it by 0.083 under the primary rule, by 0.194 under the strict rule, and by nothing under the valid-only rule; most of the difference between rules comes from six invalid document-retrieval outputs. Graph retrieval changes it by $-0.014$. One possible reading is that a stronger model reconstructs many of these failure modes without the archive, leaving less room for memory to help. The data do not test that reading.
 
@@ -528,7 +523,7 @@ The following implications are hypotheses consistent with the results, not teste
 
 \textbf{The answer key.} The key is the archive's rule-based status, not an independent expert panel. The convention that uncertain studies are keyed as proceed is contestable, most clearly on RT-147 (Case 2). On RT-065, nearly every run in every condition disagreed with the key.
 
-\textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Table~\ref{tab:sensitivity}.
+\textbf{Scoring rule.} Results depend on the handling of invalid outputs, most for Sonnet. The primary rule follows the scoring specification. The two sensitivity rules are reported in full in Appendix~\ref{app:scoring} (Table~\ref{tab:sensitivity}).
 
 \textbf{Exclusion of each task's result.} The runs searched per-task snapshots built before any run, from which the task's own study family and closely linked records had been removed (Appendix~\ref{app:snapshots}). A post-hoc audit of the 450 primary runs confirmed that no retrieval returned a record from the task's own family. Because the runs could only search the restricted snapshots, this audit verifies how the snapshots were built rather than detecting a leak after the fact. Graph retrieval scores families by the relationships traversed from the query; the audit checks returned identifiers, not traversal paths.
 
