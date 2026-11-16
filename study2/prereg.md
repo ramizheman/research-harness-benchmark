@@ -151,6 +151,7 @@ spread of seed-1 per-task differences in the Study 1 and 1b runs (ten tasks, fou
 - **Stricter leakage rule.** It removed 4 records from 3 tasks' memory (RT-024, RT-063, RT-070) relative to the original frozen tasks.
 - **Task selection.** The tasks are not a random sample. The main set was chosen by a priority rule (confidence, self-contained statement, reliable date) with stratum quotas, and the Study 1 pilot was drawn from it first.
 - **Prior knowledge.** The design and the gold rule were fixed after Study 1 and 1b results were known, but before any Study 2 run. The predictions below are written with that knowledge.
+- A Study 1b test, `test_study_cap_is_80_percent_of_budget`, still expects the original $8 spend stop rather than the approved $25 amendment. That failure is known, and the test is left unchanged.
 
 ## 10. Rami's prediction
 
