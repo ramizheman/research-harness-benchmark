@@ -154,19 +154,19 @@ spread of seed-1 per-task differences in the Study 1 and 1b runs (ten tasks, fou
 
 ## 10. Rami's prediction
 
-Overall prediction: [TO BE WRITTEN BY RAMI BEFORE APPROVAL]
+Overall prediction: Handing the agent the relevant past studies moves every model toward the answer key, both against no archive and against the model searching the archive itself.
 
-Basis: [TO BE WRITTEN BY RAMI BEFORE APPROVAL]
+Basis: Handing over past studies focuses the LLM on the right information. There is no similar but irrelevant content to confuse it.
 
 | Model | O vs A (help / hurt / no clear difference) | O vs B (help / hurt / no clear difference) |
 |---|---|---|
-| Pooled | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| Gemini | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| DeepSeek | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| Haiku | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
-| gpt-oss | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] | [TO BE WRITTEN BY RAMI BEFORE APPROVAL] |
+| Pooled | help | help |
+| Gemini | help | help |
+| DeepSeek | help | help |
+| Haiku | help | help |
+| gpt-oss | help | help |
 
-Predictions written on [TO BE WRITTEN BY RAMI BEFORE APPROVAL], after the Study 1 and 1b results and before any Study 2 run.
+Predictions written on 2026-11-15, after the Study 1 and 1b results and before any Study 2 run. The ten calls were selected by Rami. The overall sentence restates those calls. The basis is Rami's own words.
 
 ## 11. Frozen inputs (sha256)
 
