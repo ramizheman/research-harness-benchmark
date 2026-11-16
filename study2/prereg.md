@@ -138,7 +138,7 @@ spread of seed-1 per-task differences in the Study 1 and 1b runs (ten tasks, fou
 - **Sonnet 5.5 excluded.** This is for cost. It had the highest Study 1 accuracy without memory.
 - **Single seed.** Each task-condition cell is one run, so per-task results are noisy. The no-gold tasks show how large differences between identical conditions can be.
 - **Builder/subject overlap.**
-  - The harness, task generator, adjudication rules and gold rule were written by the Cursor coding agent, Claude Opus (Anthropic).
+  - The harness, task generator, adjudication rules and gold rule were written by the Cursor coding agent, Claude Opus (Anthropic). That identification is inferred from this project's chat history, not recorded in the screen's own file.
   - That agent's answer-key "consistency screen" excluded one family, which is in no task.
   - The Study 2 build was done by Claude Opus as well.
   - None of the four subject models took part. Claude Haiku 5.5, a subject model, is from the same developer as the builder.
