@@ -14,21 +14,21 @@ of Failed Basketball Studies?}
 \maketitle
 
 \begin{abstract}
-Many of my basketball research ideas failed to produce the findings I expected, and I kept the records. This paper tests whether those records help an AI agent decide if a new research idea is worth running. Five language models judged ten of my past ideas, as of the day each was proposed, with no archive, with document search over 319 dated earlier studies, or with graph search. A good call meant stopping ideas that later proved untestable or an artifact of a design flaw, and letting the rest go ahead. Sports organizations are building systems of this kind, so the question matters for how they design their archives.
+Many of my basketball research ideas failed to produce the findings I expected, and I kept the records. This paper tests whether those records help an AI agent decide if a new research idea is worth running. Five language models judged ten of my past ideas, as of the day each was proposed. In Study 1 they had no archive, keyword document search, or keyword graph search over task-specific snapshots of a 319-family archive. An embedding extension added embedding versions of both searches, and Study 1b handed them the relevant studies directly, with and without notes on when each lesson applies. The answer key stops ideas whose recorded outcome status was untestable or artifact and lets the remaining statuses go ahead, so the test is prediction of eventual research-design failure under my archive's classification rules, not general research judgment. Sports organizations are building systems of this kind, so the question matters for how they design their archives.
 
-The archive did not reliably improve decisions: it fixed 47 wrong calls and broke 46 right ones. The models repeated earlier studies accurately but could not tell when a study applied to a new idea; one data-quality record bore on two ideas with opposite correct answers, and nothing in it said which one it invalidated. Better search did not help. Embeddings found the closest earlier study in about 40 to 50 percent of runs, against 2 of 45 for keyword search, and accuracy did not improve. Handing the models the relevant studies directly raised accuracy for four of five models, but ten ideas are too few to say whether that gain is real. A test with 60 to 100 ideas is the next step.
+The archive did not reliably improve decisions: across 300 paired comparisons, memory fixed 47 wrong calls and broke 46 right ones. The models generally reproduced the recorded outcome statuses of studies they cited, but they did not reliably judge when those studies applied to a new idea; one data-quality record bore on two ideas with opposite correct answers, and nothing in it said which one it invalidated. Better search did not help. Embeddings found the closest earlier study in about 40 to 50 percent of runs, against 2 of 45 for keyword search, and accuracy did not improve. Handing the models the relevant studies directly raised accuracy for four of five models, but ten ideas are too few to say whether that gain is real. A test with 60 to 100 ideas is the next step.
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
 
-This paper began as a failure. I spent months on one basketball topic, in-game adaptation, believed I had a strong finding, and wrote a full paper. Then a full start-to-finish review showed that the data I had used to answer the question was biased: I had pulled data that was narrowed by which results were available, and I had not noticed. I used AI to pursue many other questions, hoping to salvage the work. Over time, those questions and my other projects built up into an archive of 319 study families, each a record of what I tried and what happened. It covers many topics, of which adaptation is only one. A good share of it is a graveyard of ideas that did not work, though not all of it: some studies held up.
+This paper began as a failure. I spent months investigating whether NBA defenses suppress offensive play types during games and whether offenses fail to adapt. My initial analysis appeared to find a substantial effect: a 0.408-point-per-possession decline. But I had selected play types because they had already declined from the first half to the second, then measured that same decline as evidence of defensive adaptation. A full review showed that the result was a selection and regression-to-the-mean artifact. The original paper could not stand. I turned to AI to investigate other basketball questions. Those investigations, along with other projects, eventually accumulated into an archive of 319 study families across many topics---a record of what I tried, what worked, and what failed.
 
-That archive suggested a question. If the corpses can be read, can they help someone avoid the next corpse? Put more formally, if an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running? The corpses become the corpus, and the paper asks whether the corpus is any use. Sports organizations are starting to build systems that accumulate knowledge in this way (Buffalo Sabres 2026; Sports Business Journal 2025), which is part of why the question matters, but the question itself came from my own archive.
+That archive suggested a question. If the corpses can be read, can they help someone avoid the next corpse? Put more formally, if an AI agent reads the record of past studies, does it make a better decision about whether a new idea is worth running? The corpses become the corpus, and the paper asks whether the corpus is any use. Sports organizations are starting to build systems that accumulate knowledge in this way (Buffalo Sabres 2026; Schaefer 2025), which is part of why the question matters, but the question itself came from my own archive.
 
-The short answer is that models could retrieve and accurately repeat my past studies, but they did not reliably tell when a past study applied to a new idea. Across five models and ten tasks, the archive fixed 47 wrong decisions and broke 46 right ones. Search that returned the closest earlier study far more often (18 and 22 of 45 runs, against 2) did not improve accuracy, and handing over the relevant studies pointed upward (Section~\ref{sec:study1b}). In the clearest case, one data-quality record bore on two ideas with opposite correct answers, and nothing in it said which one it invalidated. That points to a concrete design change: records need to say when their lessons apply. The setup is one program's full archive, failures included, with each task dated to the day the idea was proposed and graded against what happened when it was run.
+The short answer is that models could retrieve my past studies and generally reproduce their recorded outcome statuses, but they did not reliably tell when a past study applied to a new idea. Across five models and ten tasks, the archive fixed 47 wrong decisions and broke 46 right ones. Search that returned the closest earlier study far more often (18 and 22 of 45 runs, against 2) did not improve accuracy, and handing over the relevant studies pointed upward (Section~\ref{sec:study1b}). In the clearest case, one data-quality record bore on two ideas with opposite correct answers, and nothing in it said which one it invalidated. That points to a concrete design change: records need to say when their lessons apply. The setup is one program's full archive, failures included, with each task dated to the day the idea was proposed and graded against what happened when it was run.
 
-I found no earlier study that tests this on an organization's own archive, failures included.
+Among the related work reviewed here, I found no benchmark that tests whether an AI agent can use a researcher's own accumulated archive of prior studies, including failures, to make temporally controlled decisions about new research designs and then grades those decisions against the studies' eventual outcomes.
 
 \subsection*{What the agent is asked to do}
 
@@ -45,7 +45,7 @@ The paper tests one step: whether reading the record of prior studies improves a
 
 \subsection{Sports organizations}
 
-Sports organizations hold a large stock of analytical capital (game logs, tracking, video, scouting observations, and the record of what was tried, what worked, and what failed), and most of it sits in files, in people's heads, or in analyses left unused the next time a similar question comes up. Erhardt and Martin-Rios (2016) find that football organizations tend toward explicit, codified knowledge and ice hockey organizations toward tacit transfer through people, and codified records are the ones a system can retrieve. A survey of football analytics finds thin dedicated staffing (Science and Medicine in Football 2024). Public examples range from cloud storage (Mission Cloud 2024) to semantic search (Sports Business Journal 2025) to a platform meant to learn (Buffalo Sabres 2026). These reports leave untested whether retrieved history improves the next analytical decision. That is the gap this paper measures, on a basketball research-design task rather than in a live front office.
+Sports organizations hold a large stock of analytical capital (game logs, tracking, video, scouting observations, and the record of what was tried, what worked, and what failed), and most of it sits in files, in people's heads, or in analyses left unused the next time a similar question comes up. Erhardt and Martin-Rios (2016) find that football organizations tend toward explicit, codified knowledge and ice hockey organizations toward tacit transfer through people, and codified records are the ones a system can retrieve. A survey of football analytics finds thin dedicated staffing (Lolli et al.\ 2025). Public examples range from cloud-based analytics infrastructure (Mission Cloud 2024) to semantic search (Schaefer 2025) to a platform meant to learn (Buffalo Sabres 2026). These reports leave untested whether retrieved history improves the next analytical decision. That is the gap this paper measures, on a basketball research-design task rather than in a live front office.
 
 \subsection{Case-based reasoning}
 
@@ -53,11 +53,11 @@ Case-based reasoning solves a new problem by retrieving a similar past case and 
 
 \subsection{Retrieval-augmented generation and irrelevant context}
 
-Lewis et al.\ (2020) augment a language model with retrieved documents so that answers can use material outside the model's parameters. The usual target is factual grounding. Research memory asks whether the quoted study applies. A model can quote a prior study accurately and still apply it to a question outside that study. The benchmark separates the two: citation checks ask whether the record was reproduced, and the decision score asks whether the decision was right.
+Lewis et al.\ (2020) augment a language model with retrieved documents so that answers can use material outside the model's parameters. The usual target is factual grounding. Research memory asks whether the quoted study applies. A model can quote a prior study accurately and still apply it to a question outside that study. The benchmark separates the two: citation checks ask whether cited studies were returned and whether their reported outcome statuses match the archive, and the decision score asks whether the decision was right.
 
 Shi et al.\ (2023) show that adding irrelevant information to a problem statement degrades language-model reasoning, even when the relevant information is unchanged. Retrieved research records are a natural source of such context: a record can be on topic and still have no bearing on the decision. The decision shifts reported here are consistent with that finding, although this benchmark does not isolate distraction from other causes.
 
-SoundnessBench reconstructs 1,099 machine-learning research proposals from ICLR submissions and tests 12 frontier models on judging soundness before execution (Ho et al.\ 2026). The models tend to approve flawed proposals. More aggressive prompting mostly moves the errors from false approvals to false rejections. The benchmark judges each proposal alone, with no retrieved history. ForeSci has 500 tasks in four AI domains, and each task comes with a knowledge base limited to evidence from before a cutoff date (Tian et al.\ 2026). It reports evidence-decision decoupling: an agent can cite relevant evidence and still predict the wrong research object. The caution shift in Section~\ref{sec:secondary} resembles the trade-off SoundnessBench reports. This paper's finding that models cite a record accurately but do not reliably judge whether it applies is consistent with ForeSci's decoupling. This paper differs in using one organization's own archive with recorded outcomes.
+SoundnessBench reconstructs 1,099 machine-learning research proposals from ICLR submissions and tests 12 frontier models on judging soundness before execution (Ho et al.\ 2026). The models tend to approve flawed proposals. More aggressive prompting mostly moves the errors from false approvals to false rejections. The benchmark judges each proposal alone, with no retrieved history. ForeSci has 500 tasks in four AI domains, and each task comes with a knowledge base limited to evidence from before a cutoff date (Tian et al.\ 2026). It reports evidence-decision decoupling: an agent can cite relevant evidence and still predict the wrong research object. The caution shift in Section~\ref{sec:secondary} resembles the trade-off SoundnessBench reports. This paper's finding that models cite a record accurately but do not reliably judge whether it applies is consistent with ForeSci's decoupling. This paper differs in using one analyst's accumulated research archive, including failed and inconclusive studies, with recorded outcomes.
 
 \subsection{Memory of failures in language agents}
 
@@ -68,7 +68,7 @@ Reflexion (Shinn et al.\ 2023) has an agent write verbal reflections on failed a
 
 \subsection{What the archive contains}
 
-The archive is my own past work and papers: 319 studies from a program of basketball analytics covering four NBA seasons (2022--23 through 2025--26), regular season and playoffs. The studies cover ten topics, and Table~\ref{tab:archive_topics} shows how many there are in each and how each one turned out.
+The archive is my own past work and papers: 319 study families from a program of basketball analytics covering four NBA seasons (2022--23 through 2025--26), regular season and playoffs. The studies cover ten topics, and Table~\ref{tab:archive_topics} shows how many there are in each and how each one turned out.
 
 \begin{table}[ht]
 \centering
@@ -106,12 +106,12 @@ It is a mixed body of work. Of the 259 studies with a recorded outcome, 57 held 
 
 Each study family is a structured record. It carries the research question and hypothesis, the dataset and sample size, the method and outcome measures, the primary result, an outcome status, the failure mechanism where one was identified, confounders and limitations, a validation status, related families, and source references.
 
-The same facts are rendered twice, once as a document for search and once as a node in a graph (Appendix~\ref{app:history}). The outcome statuses are rule-based classifications of the records, and the benchmark measures agreement with that classification.
+The same facts are rendered twice, once as a document for search and once as a node in a graph (Appendix~\ref{app:history}). The outcome statuses are rule-based classifications of the records, and the benchmark measures agreement with that classification. In 20 of the 319 families the member records disagreed on status; fixed rules set the family status, and no independent human adjudication was done.
 
 \subsection{The ten tasks}
 \label{sec:tasks}
 
-Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should go ahead or stop. The answer key says stop when the task's own study was recorded as untestable or an artifact; supported, rejected, and uncertain studies are keyed as go ahead, because a test of the question as posed was runnable and informative.
+Each task presents a proposed basketball study. The agent sees the research question, the data available on the task date, and the data sources, and must decide whether the design should go ahead or stop. The answer key says stop when the task's own study was recorded as untestable or an artifact; supported, rejected, and uncertain studies are keyed as go ahead, because the archive did not classify them as untestable or as artifacts. The answer key uses the recorded outcome-status field, not a secondary failure-mechanism label; RT-147, for example, has an uncertain outcome status although an artifact mechanism is recorded.
 
 Four tasks should be stopped and six should go ahead. The ten were selected by a predefined script from 196 eligible study families, and the list was fixed before the primary experiment (Appendix~\ref{app:selection}).
 
@@ -154,11 +154,18 @@ I tested whether giving an AI model access to earlier research would help it dec
 
 In the first, \emph{no memory}, the model received the new research question and a description of the available data. It had no access to the archive of earlier studies.
 
-In the second, \emph{automatic retrieval}, the model could search the archive before making its decision. I tested two ways of organizing that search. Document search finds study records that match the search. Graph search can use links between concepts, hypotheses, and study records to find related studies beyond shared words. Within each, I also tested two ways of matching the query to the archive. Keyword matching looked for shared words. Embedding matching turned the query and each study into a list of numbers and ranked studies by how close those lists were. Keyword search returned up to four records. Embedding search returned up to ten. In both search setups the model first read the new proposal, wrote a query, and called the search tool. It then received the records found and made its recommendation. The prompt separates retrieval from the decision.
+In the second, \emph{automatic retrieval}, the model could search the archive before making its decision. I tested two ways of organizing that search. Document search finds study records that match the search. Graph search can use links between concepts, hypotheses, and study records to find related studies beyond shared words. Within each, I also tested two ways of matching the query to the archive. Keyword matching looked for shared words. Embedding matching turned the query and each study into a list of numbers and ranked studies by how close those lists were. Keyword search returned up to four records per retrieval call, and follow-up calls could add more. Embedding search returned up to ten. In both search setups the model first read the new proposal, wrote a query, and called the search tool. It then received the records found and made its recommendation. The prompt separates retrieval from the decision.
 
 In the third approach, \emph{supplied studies}, the model was given the relevant earlier studies directly instead of having to find them (Section~\ref{sec:study1b}).
 
-In every condition the model had the same job: assess the new research proposal and decide whether the idea should go ahead or stop. The difference was what historical evidence, if any, the model could use before that decision. Five models each judged the ten ideas three times (450 primary runs). The embedding search added 300 runs and did not repeat the no-memory condition. How each search works, the pilots, and the protocol checks are in Appendix~\ref{app:history}.
+In every condition the model had the same job: assess the new research proposal and decide whether the idea should go ahead or stop. The difference was what historical evidence, if any, the model could use before that decision. Each of five models judged each of the ten ideas three times in each of the three primary conditions (five models $\times$ ten tasks $\times$ three seeds $\times$ three conditions = 450 primary runs). The embedding search added 300 runs and did not repeat the no-memory condition. Figure~\ref{fig:design} shows the three conditions. How each search works, the pilots, and the protocol checks are in Appendix~\ref{app:history}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{experiment_design_simple.png}
+\caption{Ten ideas, judged by five models three times each. A run sees no archive, searches the archive, or is handed the relevant studies, then decides whether the idea should go ahead or stop. The decision is checked against what happened when the idea was later run.}
+\label{fig:design}
+\end{figure}
 
 \subsection{Memory snapshots and the exclusion of each task's own result}
 
@@ -190,8 +197,8 @@ Giving the models access to the archive produced no detectable improvement. None
 Condition & Score & What the model could use \\
 \midrule
 No memory & 0.611 & Decides from the new proposal alone, with no past studies. \\
-Automatic document retrieval (keyword) & 0.625 & Finds up to four records by matching words. \\
-Automatic graph retrieval (keyword) & 0.639 & Finds up to four records through links between concepts, hypotheses, and studies. \\
+Automatic document retrieval (keyword) & 0.625 & Finds up to four records per call by matching words. \\
+Automatic graph retrieval (keyword) & 0.639 & Finds up to four records per call through links between concepts, hypotheses, and studies. \\
 Automatic document retrieval (embedding) & 0.558 & Finds up to ten records by how close their numerical representations are. \\
 Automatic graph retrieval (embedding) & 0.578 & The same embedding ranking, through the graph, up to ten records. \\
 Supplied studies & 0.725 & Receives the relevant earlier studies directly. \\
@@ -199,16 +206,23 @@ Supplied studies & 0.725 & Receives the relevant earlier studies directly. \\
 \end{tabularx}
 \end{table}
 
-The score runs from 0 to 1. A 1 would mean the model matched the answer key on the ideas that should stop and on the ideas that should go ahead. A 0.5 is what guessing produces, because a guess is right about half the time on each kind of idea and the score averages those two rates. A 0.6 is only a little better than guessing. The 0.611 with no memory is that kind of result. The highest score is the 0.725, where the relevant studies were handed over, and it is still well short of getting the decisions right. Even when embedding search found more relevant earlier studies, the accuracy score did not rise.
+The score runs from 0 to 1. A 1 would mean the model matched the answer key on the ideas that should stop and on the ideas that should go ahead. A 0.5 is what guessing produces, because a guess is right about half the time on each kind of idea and the score averages those two rates. A 0.6 is only a little better than guessing. The 0.611 with no memory is that kind of result. The highest score is the 0.725, where the relevant studies were handed over, and it is still well short of getting the decisions right. Even when embedding search found more relevant earlier studies, the accuracy score did not rise. Figure~\ref{fig:retrieval} puts those scores next to how often the search returned the closest earlier study.
 
-Memory helped some models and hurt others (per-model values in Appendix~\ref{app:permodel}). There was no consistent improvement across all five models. For keyword search, the change from no memory ranged from a loss of 0.083 to a gain of 0.208. DeepSeek showed the largest improvement with graph search. The uncertainty range includes no difference. This result needs more tasks to confirm. Sonnet, the strongest model without memory, is lower with document search and about unchanged with graph search. None of these differences was statistically conclusive under any of the scoring rules. Results depend on how unreadable outputs are scored, most for Sonnet; those outputs failed the required format (Appendix~\ref{app:scoring}). The two models that reason before answering showed no consistent direction either (Appendix~\ref{app:more}).
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{harness.png}
+\caption{Decision accuracy by condition, and how often search returned the closest earlier study. Keyword search returned it in 2 of 45 runs. Embedding search returned it in 18 of 45 document searches and 22 of 45 graph searches. The accuracy score did not rise. The pooled scores are descriptive and have no uncertainty range.}
+\label{fig:retrieval}
+\end{figure}
+
+Memory helped some models and hurt others (per-model values in Appendix~\ref{app:permodel}). There was no consistent improvement across all five models. For keyword search, the change from no memory ranged from a loss of 0.083 to a gain of 0.208. DeepSeek showed the largest improvement with graph search. Most uncertainty intervals include no difference. DeepSeek's graph-search interval is an exception, but its unadjusted sign-flip $p$-value is 0.06 and its Holm-adjusted value is 0.62. No comparison is statistically significant after adjustment. This result needs more tasks to confirm. Sonnet, the strongest model without memory, is lower with document search and about unchanged with graph search. None of these differences was statistically conclusive under any of the scoring rules. Results depend on how unreadable outputs are scored, most for Sonnet; those outputs failed the required format (Appendix~\ref{app:scoring}).
 
 \subsection{What the models did with the record}
 \label{sec:secondary}
 
-When citing earlier studies, the models generally reproduced their recorded outcome statuses accurately, but they sometimes claimed that earlier work had settled more than it had, and retrieved failures made them more cautious in both directions. No final answer cited an identifier the tool had not returned, and every status checked against the record matched (per-model counts in Appendix~\ref{app:more}). Some runs incorrectly claimed that an earlier study had already answered the question, on a task where no such study was in memory (eight tasks, 24 eligible runs per model and condition). That happened in 25 to 50 percent of eligible runs under document search and 42 to 67 percent under graph search.
+When citing earlier studies, the models generally reproduced their recorded outcome statuses accurately, but they sometimes claimed that earlier work had settled more than it had, and retrieved failures were associated with a general shift toward caution. No final answer cited an identifier the tool had not returned, and every status checked against the record matched (per-model counts in Appendix~\ref{app:more}). Some runs incorrectly claimed that an earlier study had already answered the question, on a task where no such study was in memory (eight tasks, 24 eligible runs per model and condition). That happened in 25 to 50 percent of eligible runs under document search and 42 to 67 percent under graph search.
 
-Retrieved history also made models more cautious in both directions. In Experiment 1, document search raised Gemini's stop rate from 0.50 to 0.75 where stopping was correct, and from 0.22 to 0.39 where it was not (Appendix Table~\ref{tab:caution}). The gains and losses are similar in size, which is consistent with the accuracy score barely moving. The models' own estimates of whether a study could be tested ranked the tasks better with memory for four of the five models, but that ranking did not produce better stop-or-go decisions at the 50\% cutoff.
+Retrieved history was associated with a shift toward caution in both directions. In Experiment 1, document search raised Gemini's stop rate from 0.50 to 0.75 where stopping was correct, and from 0.22 to 0.39 where it was not (Appendix Table~\ref{tab:caution}). The gains and losses are similar in size, which is consistent with the accuracy score barely moving.
 
 \subsection{Whether the search returned the earlier study}
 \label{sec:embed}
@@ -227,7 +241,6 @@ Those embedding conditions are the 0.558 and 0.578 in Table~\ref{tab:pooled}, be
 \centering
 \caption{Whether the search returned an earlier study, for the four search rows in Table~\ref{tab:pooled}. The closest study is a prior study of the same question: 3 ideas, 5 models, 3 repeats, 45 runs. A relevant study shares the question or a recorded risk: 7 ideas, 105 runs. The numerator is runs in which the tool returned that study. Returned and cited is runs, out of 105, in which that study was both returned and cited.}
 \label{tab:embed_retr}
-\label{tab:embed_retr_full}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xrrr@{}}
@@ -333,16 +346,16 @@ RT-179 & 0.20 & 0.73 & 0.53 & 0.80 \\
 \end{tabular}
 \end{table}
 
-Supplying the studies raised the accuracy score for four of the five models (Table~\ref{tab:study1b}). Every uncertainty range includes no difference. That means no effect was detected. Supplied studies are above document search for every model and at or above graph search for every model. The notes on when a lesson applies do not change the result: the differences run from $-0.014$ to $+0.125$. On the three predicted tasks the direction matches the prediction (Table~\ref{tab:study1b_tasks}), which was written after reviewing Study 1's per-task results. The pick-and-roll drive study (RT-012) is the largest gain, with all 15 supplied runs correct, and which of its four studies produced the gain is unknown. Fifteen of 270 runs were unreadable, and the conclusions are unchanged under the other scoring rules.
+Supplying the studies raised the accuracy score for four of the five models (Table~\ref{tab:study1b}). Every uncertainty range includes no difference. That means no effect was detected. Supplied studies are above document search for every model and at or above graph search for every model. The notes on when a lesson applies do not change the result: the differences run from $-0.014$ to $+0.125$. This annotation comparison is exploratory: the annotator knew the answer key and the Study 1 results, so it is not a blinded test of whether scope annotations improve transfer judgments (Appendix~\ref{app:more}). On the three predicted tasks the direction matches the prediction (Table~\ref{tab:study1b_tasks}), which was written after reviewing Study 1's per-task results. The pick-and-roll drive study (RT-012) is the largest gain, with all 15 supplied runs correct, and which of its four studies produced the gain is unknown. Fifteen of the 270 outputs failed schema or format validation, and two had no scorable flag. The conclusions are unchanged under the other scoring rules.
 
 \section{Discussion}
 \label{sec:discussion}
 
 \subsection{What the results show}
 
-The measured findings are in Section~\ref{sec:results} and the cases. In short, a model can retrieve and accurately repeat an organization's research history without reliably knowing when that history applies to a new problem.
+The measured findings are in Section~\ref{sec:results} and the cases. In short, a model can retrieve an analyst's research history and generally reproduce its recorded outcome statuses without reliably knowing when that history applies to a new problem.
 
-Three patterns plausibly contribute, though none was tested as a cause. First, retrieval often did not return the most relevant prior work. Second, a record that applied cleanly to one task was applied to another where the answer key still required a different call (Cases 1 and 2). Third, retrieved failures shifted models toward caution generally, helping on tasks that should be stopped and hurting on tasks that should go ahead (Section~\ref{sec:secondary}).
+Three patterns plausibly contribute, though none was tested as a cause. First, retrieval often did not return the most relevant prior work. Second, a record that applied cleanly to one task was applied to another where the answer key still required a different call (Cases 1 and 2). Third, retrieved failures were associated with a general shift toward caution, helping on tasks that should be stopped and hurting on tasks that should go ahead (Section~\ref{sec:secondary}).
 
 \subsection{Two points of failure, described}
 
@@ -356,7 +369,7 @@ The second is judging whether a study applies. Returning and citing a relevant s
 
 Sports organizations are building systems in which an AI agent reads the department's past analyses before a new project starts (Section~\ref{sec:related}). The implicit promise is that the agent will stop the team from re-running dead ends and flag flawed designs before months of analyst time are spent. This paper tests that promise on one analyst's archive, failures included.
 
-The result is a caution about one design choice, not a measurement of any front office. On these ten decisions the agent repeated the archive accurately but could not reliably tell when a past failure applied, and that has costs in both directions. A false stop kills a promising idea because a similar study failed, and analyst time is the scarce resource. A false go-ahead misses a known data problem and sends weeks into a design that cannot work. Both errors arrive with accurate citations, so a wrong call looks as authoritative as a right one, and staff have little reason to doubt it.
+The result is a caution about one design choice, not a measurement of any front office. On these ten decisions the agent generally reproduced the recorded statuses of the studies it cited but could not reliably tell when a past failure applied, and that has costs in both directions. A false stop kills a promising idea because a similar study failed, and analyst time is the scarce resource. A false go-ahead misses a known data problem and sends weeks into a design that cannot work. Both errors arrive with accurate citations, so a wrong call looks as authoritative as a right one, and staff have little reason to doubt it.
 
 Basketball analytics makes the problem sharper because many studies share one pipeline. A single finding about play-type labels, tracking coverage, or lineup definitions bears on dozens of later questions, and whether it invalidates a given question depends on how that question uses the data. The play-type labeling audit in Cases 1 and 2 is the example: it was a sound warning for one idea and misleading for another. A team's archive will contain many findings of this kind.
 
@@ -388,7 +401,7 @@ These are hypotheses consistent with the results, written for a team building su
 
 \textbf{What the answer key measures.} The key is the archive's own rule, and it records whether a study later turned out untestable or an artifact, which is known only after the task date. It rewards hindsight more than judgment: a sensible analyst could say stop on a study that later returned a solid ``no effect,'' and the key would score that as wrong. The missing-player role study (RT-065), where nearly every run in every condition disagreed with the key, shows the cost, and treating uncertain studies as go ahead is contestable, most clearly on the opponent next-possession study (RT-147, Case 2). Because both the answer key and the historical records use the archive's own outcome labels, a model might improve simply by recognizing and repeating those labels. The experiment leaves this possibility open. The task's own study is removed, but earlier studies of the same question stay in memory. The pick-and-roll drive study (RT-012) and the opponent next-possession study (RT-147), where the same record led to opposite decisions, argue against simply copying a label.
 
-\textbf{The stop score.} As Appendix~\ref{app:scoring} explains, a run can be scored as a stop even when the model writes ``proceed with changes,'' so any shift toward caution moves the accuracy score even when the written recommendation does not change (Section~\ref{sec:secondary}). The models' estimates of whether a study could be tested ranked the tasks better with memory for four of five models (Section~\ref{sec:secondary}). An alternative would be to evaluate the models using their probability estimates rather than converting those estimates into a stop-or-go decision at a fixed 50\% cutoff. That might produce a different result, but the original scoring rule was established before the experiment and was retained. Results also depend on how unreadable outputs are scored, most for Sonnet (Appendix~\ref{app:scoring}).
+\textbf{The stop score.} As Appendix~\ref{app:scoring} explains, a run can be scored as a stop even when the model writes ``proceed with changes,'' so any shift toward caution moves the accuracy score even when the written recommendation does not change (Section~\ref{sec:secondary}). An alternative would be to evaluate the models using their probability estimates rather than converting those estimates into a stop-or-go decision at a fixed 50\% cutoff. That might produce a different result, but the original scoring rule was established before the experiment and was retained. Results also depend on how unreadable outputs are scored, most for Sonnet (Appendix~\ref{app:scoring}).
 
 \textbf{No human baseline.} No analyst blind to the outcomes judged these ten ideas, with or without the archive, so where the models sit relative to a reasonable analyst is unknown. Adding one such person would be a later comparison, and a useful one.
 
@@ -400,6 +413,10 @@ These are hypotheses consistent with the results, written for a team building su
 
 \textbf{Archive and domain.} The archive is heavy with failed and inconclusive work, which may strengthen the caution shift. A corpus drawn from a graveyard may push models toward caution, and transfer to fields whose records are cleaner is untested. All ten tasks are basketball research designs from one research program, so another sport or a live scouting workflow is untested.
 
+\textbf{Temporal control.} The date restriction applies to the retrieved archive, not to the models' pretrained knowledge. The models were run retrospectively, using versions available after some task dates, so this is not a fully prospective or temporally frozen evaluation.
+
+\textbf{Record dates.} Of the 384 records behind the 319 families, 177 are dated from a date in the document or a chat-transcript timestamp, and 205 only from a file modification time. A modification time bounds the work from above, because a file can be edited after the work it records. A record entered a snapshot only if it was certainly before the task date, so a modification-time date can wrongly remove a record but not wrongly add one, except where the task's own record was dated by modification time and the idea was proposed earlier than that date.
+
 \textbf{No accumulation.} Each run retrieves from a fixed archive. An unchecked loop that writes a wrong lesson back and retrieves it again is outside what this paper measures.
 
 \section{Future directions}
@@ -410,7 +427,7 @@ The following was left for later work. A relationship layer stored alongside the
 \section{Conclusion}
 \label{sec:conclusion}
 
-The central finding is that an AI model can retrieve and accurately repeat an organization's research history without reliably knowing when that history applies to a new problem. Across five models and 450 primary runs on ten basketball research ideas, memory changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often, and did not improve the average. The same labeling audit was cited in runs that stopped one design and in runs that stopped another. The audit is a data-quality warning, and it does not say why one question should stop and the other should go ahead. Searching with embeddings returned relevant studies far more often and still did not help (Section~\ref{sec:embed}). Handing over the relevant studies pointed upward for four of five models, but ten tasks cannot confirm a difference of that size (Section~\ref{sec:study1b}). Whether a larger task set, a better retriever, or records that state when a lesson applies would change this is open, and a test with 60 to 100 tasks is the next step.
+The central finding is that an AI model can retrieve an analyst's research history and generally reproduce its recorded outcome statuses without reliably knowing when that history applies to a new problem. Across five models and 450 primary runs on ten basketball research ideas, memory changed whether the decision was correct in about a third of paired runs, fixing and breaking decisions about equally often, and did not improve the average. The same labeling audit was cited in runs that stopped one design and in runs that stopped another. The audit is a data-quality warning, and it does not say why one question should stop and the other should go ahead. Searching with embeddings returned relevant studies far more often and still did not help (Section~\ref{sec:embed}). Handing over the relevant studies pointed upward for four of five models, but ten tasks cannot confirm a difference of that size (Section~\ref{sec:study1b}). Whether a larger task set, a better retriever, or records that state when a lesson applies would change this is open, and a test with 60 to 100 tasks is the next step.
 
 \section*{Availability}
 \label{sec:availability}
@@ -440,13 +457,14 @@ Case-based reasoning: Foundational issues, methodological variations, and system
 
 \bibitem{erhardt2016}
 Erhardt, N., and Martin-Rios, C. (2016).
-Knowledge management systems in sports: The role of organisational culture and structure.
+Knowledge management systems in sports: The role of organisational structure, tacit and explicit knowledge.
 \textit{Journal of Information \& Knowledge Management}, 15(2), 1650023.
 \url{https://doi.org/10.1142/S0219649216500234}
 
-\bibitem{football2024}
-Science and Medicine in Football (2024).
-Analytical capacity in professional and international football: a survey of 29 national federations and 32 clubs.
+\bibitem{lolli2025}
+Lolli, L., Bauer, P., Irving, C., Bonanno, D., H\"oner, O., Gregson, W., and Di Salvo, V. (2025).
+Data analytics in the football industry: A survey investigating operational frameworks and practices in professional clubs and national federations from around the world.
+\textit{Science and Medicine in Football}, 9(2), 189--198.
 \url{https://doi.org/10.1080/24733938.2024.2341837}
 
 \bibitem{lewis2020}
@@ -455,13 +473,13 @@ Retrieval-augmented generation for knowledge-intensive NLP tasks.
 \textit{Advances in Neural Information Processing Systems}, 33, 9459--9474.
 
 \bibitem{mission2024}
-Mission Cloud (2024).
-Boston Celtics: cloud infrastructure case study.
-\url{https://www.missioncloud.com/case-studies/boston-celtics}
+Mission Cloud (6 August 2024).
+How Mission Cloud delivers Advanced Analytics via AWS to Power the Celtics' Game-Winning Strategy.
+\url{https://www.missioncloud.com/press/how-mission-cloud-delivers-advanced-analytics-to-power-the-celtics-game-winning-strategy}
 
 \bibitem{sabres2026}
 Buffalo Sabres (9 September 2026).
-Buffalo Sabres and SprintAI announce an AI-powered hockey operations partnership.
+Sabres and SprintAI announce multi-year partnership to build AI-native hockey operations.
 \url{https://www.nhl.com/sabres/news/buffalo-sabres-sprint-ai-partnership}
 
 \bibitem{shi2023}
@@ -472,10 +490,11 @@ Large language models can be easily distracted by irrelevant context.
 \bibitem{ho2026}
 Ho, S.-T., Liu, M., Nghiem, H., Tran, H., Agrawal, A., Lee, Y., Kang, M., Schoen, A. A., and Huang, F. (2026).
 SoundnessBench: Can your AI scientist really tell good research ideas from bad ones?
+arXiv preprint.
 \url{https://arxiv.org/abs/2605.30329}
 
 \bibitem{tian2026}
-Tian, Q., Yin, H., Xia, Y., Kong, Y., Liu, Z., Su, H., Chao, J., and Gu, X. (2026).
+Tian, Q., Yin, H., Xia, Y., Kong, Y., and Liu, Z. (2026).
 ForeSci: Evaluating LLM agents for forward-looking AI research judgment.
 \url{https://arxiv.org/abs/2606.00644}
 
@@ -485,9 +504,10 @@ Reflexion: Language agents with verbal reinforcement learning.
 \textit{Advances in Neural Information Processing Systems}, 36, 8634--8652.
 
 \bibitem{sbj2025}
-Sports Business Journal (18 August 2025).
-Cleveland Cavaliers semantic search over scouting and statistical reports; San Antonio Spurs travel planning.
-\url{https://www.sportsbusinessjournal.com}
+Schaefer, R. (18 August 2025).
+Teams, leagues discovering AI uses that streamline internal processes.
+\textit{Sports Business Journal}.
+\url{https://www.sportsbusinessjournal.com/Articles/2025/08/18/teams-leagues-discovering-ai-uses-that-streamline-internal-processes/}
 
 \end{thebibliography}
 
@@ -511,10 +531,14 @@ The development record is at \url{https://github.com/ramizheman/research-harness
 
 Condition B ranks the full text of each family record by TF-IDF keyword matching against a query the model writes, and returns families that share at least one term with the query; shared terms are its only relevance test. Agents could make follow-up retrieval calls within a tool budget, so some runs saw more than four families. In Experiment 1, the first retrieval in B and C shared 1.4 of four families on average for the same task and seed; this overlap was logged only for Experiment 1.
 
+Condition C (graph search) matches the query to the graph's concept nodes (questions, methods, datasets, measures, limitations, risks) and to each family's question and hypothesis. Families linked to the best-matching concepts, and families linked to the best-matching families, are scored and returned along with the links that reached them. Search goes one step from each match. The model could also list one node's links or read a family in full.
+
 
 \subsubsection{Models and protocol checks}
 
 Gemini 2.5 Flash, Claude Haiku 5.5, and gpt-oss-20b were run at temperature 0.7. Claude Sonnet 5.5 and DeepSeek V4 Pro were run with extended thinking, which requires temperature 1.0. Sonnet and DeepSeek also differ from the other three models in provider, so a comparison across models mixes provider, temperature, and extended thinking. Each model's own temperature is fixed across conditions, so the within-model comparisons hold temperature fixed. Extended thinking was confirmed by the presence of reasoning traces passed between turns; the traces themselves were not analyzed.
+
+The exact model identifiers were \texttt{gemini-2.5-flash} (Google API), and, through OpenRouter, \texttt{anthropic/claude-haiku-5.5}, \texttt{openai/gpt-oss-20b}, \texttt{anthropic/claude-sonnet-5.5}, and \texttt{deepseek/deepseek-v4-pro}.
 
 The task text, answer key, scoring, and memory snapshots were shared. Before the live runs, unit tests checked that the document and the graph carried the same facts, that retrieval preceded any assessment, and that a citation had to match a record the tool had returned. One correction turn was allowed when a cited status did not match the record, and the pre-correction answer was kept.
 
@@ -645,7 +669,7 @@ The per-model values are in Table~\ref{tab:study1b}, and the three predicted tas
 
 \subsubsection{What the embedding conditions were}
 
-Embedding search ranks each study by the cosine similarity of bge-small-en-v1.5 embeddings, with no relevance cutoff. Each search returns ten studies. The tool-result limit is 14,000 characters so that ten studies fit. In graph search the same embeddings are used for concept nodes and for each study's question and hypothesis. Keyword search returns up to four studies, and its tool-result limit is 6,000 characters. There were 300 embedding runs.
+Embedding search ranks each study by the cosine similarity of bge-small-en-v1.5 embeddings, with no relevance cutoff. Each search returns ten studies. The tool-result limit is 14,000 characters so that ten studies fit. In graph search the same embeddings are used for concept nodes and for each study's question and hypothesis. Keyword search returns up to four studies per call, and its tool-result limit is 6,000 characters. There were 300 embedding runs.
 
 \subsubsection{Results}
 
